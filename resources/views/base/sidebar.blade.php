@@ -16,26 +16,34 @@
       <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
 
       <!-- link -->
-      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{ route('public')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-chart-pie text-xs mr-2"></i>                
         Analytics dashboard
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="/shop" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{ route('shop')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-shopping-cart text-xs mr-2"></i>
-        ecommerce dashboard
+        ecommerce dashboard       
+      </a>
+      <!-- end link -->
+      
+      <!-- link -->
+      <a href="{{ route('warga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fad fa-user text-xs mr-2"></i>
+        Data Warga
       </a>
       <!-- end link -->
 
       <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>
 
       <!-- link -->
-      <a href="/email" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{ route('email') }}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-envelope-open-text text-xs mr-2"></i>
         email
       </a>
+    
       <!-- end link -->
 
       <!-- link -->
@@ -77,7 +85,7 @@
       <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">UI Elements</p>
 
       <!-- link -->
-      <a href="/typography" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{route('typography')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-text text-xs mr-2"></i>
         typography
       </a>

@@ -6,19 +6,35 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('public');
 
 Route::get('/shop', function () {
     return view('index-1');
-});
+})->name('shop');
+
+Route::get('/warga', function () {
+    return view('warga');
+})->name('warga');
+
+Route::get('/warga/create', function () {
+    return view('warga.create');
+})->name('create');
+
+Route::get('/warga/show', function () {
+    return view('warga.show');
+})->name('show');
+
+Route::get('/warga/edit', function () {
+    return view('warga.edit');
+})->name('edit');
 
 Route::get('/email', function () {
     return view('email');
-});
+})->name('email');
 
 Route::get('/typography', function () {
     return view('typography');
-});
+})->name('typography');
 
 Route::get('/alert', function () {
     return view('alert');
