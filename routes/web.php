@@ -12,22 +12,6 @@ Route::get('/shop', function () {
     return view('index-1');
 })->name('shop');
 
-Route::get('/warga', function () {
-    return view('warga');
-})->name('warga');
-
-Route::get('/warga/create', function () {
-    return view('warga.create');
-})->name('create');
-
-Route::get('/warga/show', function () {
-    return view('warga.show');
-})->name('show');
-
-Route::get('/warga/edit', function () {
-    return view('warga.edit');
-})->name('edit');
-
 Route::get('/email', function () {
     return view('email');
 })->name('email');
@@ -45,13 +29,13 @@ Route::get('/buttons', function () {
 });
 
 Route::group(['prefix' => 'penduduk'], function () {
-    Route::get('/', [PendudukController::class, 'index']);          // menampilkan halaman awal level
+    Route::get('/', [PendudukController::class, 'index'])->name('penduduk');          // menampilkan halaman awal level
     Route::post('/list', [PendudukController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
-    Route::get('/create', [PendudukController::class, 'create']);   // menampilkan halaman form tambah level
-    Route::post('/', [PendudukController::class, 'store']);         // menyimpan data level baru
-    Route::get('/{id}', [PendudukController::class, 'show']);       // menampilkan detail level
-    Route::get('/{id}/edit', [PendudukController::class, 'edit']);  // menampilkan halaman form edit level
-    Route::post('/{id}', [PendudukController::class, 'update']);     // menyimpan perubahan data level
+    Route::get('/create', [PendudukController::class, 'create'])->name('create');   // menampilkan halaman form tambah level
+    Route::post('/', [PendudukController::class, 'store'])->name('penduduk.store');         // menyimpan data level baru
+    Route::get('/{id}/show', [PendudukController::class, 'show'])->name('penduduk.show');       // menampilkan detail level
+    Route::get('/{id}/edit', [PendudukController::class, 'edit'])->name('penduduk.edit');  // menampilkan halaman form edit level
+    Route::post('/{id}', [PendudukController::class, 'update'])->name('penduduk.update');     // menyimpan perubahan data level
     Route::delete('/{id}', [PendudukController::class, 'destroy']); // menghapus data level
 });
 Route::group(['prefix' => 'keluarga'], function () {

@@ -13,79 +13,76 @@
       </div>
       <!-- end sidebar toggle -->
 
-      <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
+      <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">FITUR SI RW</p>
 
-      <!-- link -->
-      <a href="{{ route('public')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+
+      <a href="/admin" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fad fa-chart-pie text-xs mr-2"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/akun" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-user text-xs mr-2"></i>
+        Akun
+      </a>
+      
+      <a href="/admin/bansos" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-people-carry text-xs mr-2"></i>
+        Bansos
+      </a>
+
+      <a href="{{route('penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-users text-xs mr-2"></i>
+        Data Penduduk
+      </a>
+
+      <a href="/admin/pengumuman" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-bullhorn text-xs mr-2"></i>
+        Pengumuman
+      </a>
+
+      <a href="/admin/promosi" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-ad text-xs mr-2"></i>
+        Promosi
+      </a>
+
+      <a href="/admin/surat" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-envelope text-xs mr-2"></i>
+        Surat
+      </a>
+
+      <a href="/admin/jadwal" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="far fa-calendar-alt text-xs mr-2"></i>
+        Jadwal
+      </a>
+
+      <a href="/admin/keuangan" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-coins text-xs mr-2"></i>
+        Keuangan
+      </a>
+
+      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fas fa-sign-in-alt text-xs mr-2"></i>
+        Login
+      </a>
+      
+      <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Template Example</p>
+
+      <a href="/" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-chart-pie text-xs mr-2"></i>                
         Analytics dashboard
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="{{ route('shop')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/shop" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-shopping-cart text-xs mr-2"></i>
-        ecommerce dashboard       
-      </a>
-      <!-- end link -->
-      
-      <!-- link -->
-      <a href="{{ route('warga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-user text-xs mr-2"></i>
-        Data Warga
-      </a>
-      <!-- end link -->
-
-      <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>
-
-      <!-- link -->
-      <a href="{{ route('email') }}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-envelope-open-text text-xs mr-2"></i>
-        email
-      </a>
-    
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-comments text-xs mr-2"></i>
-        chat
+        ecommerce dashboard
       </a>
       <!-- end link -->
 
       <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-shield-check text-xs mr-2"></i>
-        todo
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-calendar-edit text-xs mr-2"></i>
-        calendar
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-file-invoice-dollar text-xs mr-2"></i>
-        invoice
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-folder-open text-xs mr-2"></i>
-        file manager
-      </a>
-      <!-- end link -->   
-      
-      
-      <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">UI Elements</p>
-
-      <!-- link -->
-      <a href="{{route('typography')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="/typography" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fad fa-text text-xs mr-2"></i>
         typography
       </a>
@@ -105,50 +102,6 @@
         buttons
       </a>
       <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-box-open text-xs mr-2"></i>
-        Content
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-swatchbook text-xs mr-2"></i>
-        colors
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-atom-alt text-xs mr-2"></i>
-        icons
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-club text-xs mr-2"></i>
-        card
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-cheese-swiss text-xs mr-2"></i>
-        Widgets
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="#" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-computer-classic text-xs mr-2"></i>
-        Components
-      </a>
-      <!-- end link -->
-      
-      
 
     </div>
     <!-- end sidebar content -->
