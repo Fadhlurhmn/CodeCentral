@@ -31,7 +31,7 @@
         Bansos
       </a>
 
-      <a href="{{route('penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{url('penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-users text-xs mr-2"></i>
         Data Penduduk
       </a>

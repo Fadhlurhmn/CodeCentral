@@ -25,26 +25,8 @@ class PendudukController extends Controller
 
         $keluarga = KeluargaModel::all();
 
-        return view('penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
-    // public function list(Request $request)
-    // {
-    //     $penduduk = PendudukModel::select('nama', 'nik', 'alamat', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'id_keluarga', 'status_data', 'rt', 'rw', 'status_penduduk')
-    //         ->with('keluarga');
-    //     if ($request->keluarga_id) {
-    //         $penduduk->where('keluarga_id', $request->kategori_id);
-    //     }
-
-    //     return DataTables::of($penduduk)
-    //         ->addIndexColumn()
-    //         ->addColumn('aksi', function ($penduduk) {
-    //             $btn = '<a href="' . url('/penduduk/' . $penduduk->penduduk_id . '/show') . '" class="btn btn-indigo ml-1 flex-col "><i class="fas fa-eye"></i></a> ';
-    //             $btn .= '<a href="' . url('/penduduk/' . $penduduk->penduduk_id . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-    //             return $btn;
-    //         })
-    //         ->rawColumns(['aksi'])
-    //         ->make(true);
-    // }
     public function list(Request $request)
     {
         $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'id_keluarga', 'status_data', 'rt', 'rw', 'status_penduduk')
