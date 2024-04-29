@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\KeluargaModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -12,68 +11,66 @@ class KeluargaController extends Controller
     public function index()
     {
         $breadcrumb = (object)[
-            'title' => 'Daftar Keluarga',
-            'list' => ['Home', 'Keluarga']
+            'title' => 'Daftar Keluarga Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Keluarga Penduduk']
         ];
 
         $page = (object)[
-            'title' => 'Daftar keluarga yang terdaftar dalam sistem'
+            'title' => 'Daftar Keluarga Keluarga Penduduk yang terdaftar'
         ];
 
-        $activeMenu = 'keluarga'; // set menu yang sedang aktif
+        $activeMenu = 'keluarga';
 
         return view('keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
-    // ambil data user dalam bentuk json untuk datatables
     public function list(Request $request)
     {
-        $kategoris = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah');
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah');
 
-        return DataTables::of($kategoris)
+        return DataTables::of($keluarga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-indigo ml-1 flex-col "><i class="fas fa-eye"></i></a> ';
-                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info btn-sm ml-2">Edit</a> ';
-                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->id_keluarga) . '">'
-                //     . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
-    // menampilkan halaman form tambah user
+
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Tambah data KK',
-            'list' => ['Home', 'Keluarga', 'Tambah']
+            'title' => 'Tambah Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Penduduk', 'Tambah']
         ];
 
         $page = (object)[
-            'title' => 'Tambah data KK baru'
+            'title' => 'Tambah keluarga baru'
         ];
 
+        $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string|min:10|unique:keluarga_penduduk,nomor_keluarga',
-            'jumlah_kendaraan'     => 'required|integer',
-            'jumlah_tanggungan'     => 'required|integer',
-            'jumlah_orang_kerja'     => 'required|integer',
-            'luas_tanah'     => 'required|numeric'
+            'nomor_keluarga' => 'required|string',
+            'jumlah_kendaraan' => 'required|integer',
+            'jumlah_tanggungan' => 'required|integer',
+            'jumlah_orang_kerja' => 'required|integer',
+            'luas_tanah' => 'required|integer'
         ]);
 
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
-            'jumlah_kendaraan'     => $request->jumlah_kendaraan,
+            'jumlah_kendaraan' => $request->jumlah_kendaraan,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
-            'jumlah_orang_kerja'     => $request->jumlah_orang_kerja,
-            'luas_tanah'     => $request->luas_tanah
-
+            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+            'luas_tanah' => $request->luas_tanah
         ]);
 
         return redirect('/keluarga')->with('success', 'Data keluarga berhasil disimpan');
@@ -83,21 +80,18 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         $breadcrumb = (object)[
-            'title' => 'Detail Keluarga',
-            'list' => ['Home', 'Keluarga', 'Detail']
+            'title' => 'Detail Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Penduduk', 'Detail']
         ];
 
-        $page = (object) [
-            'title' => 'Detail Keluarga'
+        $page = (object)[
+            'title' => 'Detail data keluarga '
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
         return view('admin.keluarga.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
-
-    // menampilkan halaman form edit user
-    // menampilkan halaman form edit keluarga
     public function edit(string $id)
     {
         $keluarga = KeluargaModel::find($id);
@@ -107,54 +101,37 @@ class KeluargaController extends Controller
         }
 
         $breadcrumb = (object) [
-            'title' => 'Edit Keluarga',
-            'list' => ['Home', 'Keluarga', 'Edit']
+            'title' => 'Edit Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Penduduk', 'Edit']
         ];
 
         $page = (object) [
-            'title' => 'Edit Keluarga'
+            'title' => 'Ubah data keluarga'
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page,  'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
-
-
-    // menyimpan perubahan data user
+    // menyimpan perubahan data barang
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string|min:10|unique:keluarga_penduduk,nomor_keluarga',
-            'jumlah_kendaraan'     => 'required|integer',
-            'jumlah_tanggungan'     => 'required|integer',
-            'jumlah_orang_kerja'     => 'required|integer',
-            'luas_tanah'     => 'required|numeric'
+            'nomor_keluarga' => 'required|string',
+            'jumlah_kendaraan' => 'required|integer',
+            'jumlah_tanggungan' => 'required|integer',
+            'jumlah_orang_kerja' => 'required|integer',
+            'luas_tanah' => 'required|integer'
         ]);
 
         KeluargaModel::find($id)->update([
             'nomor_keluarga' => $request->nomor_keluarga,
-            'jumlah_kendaraan'     => $request->jumlah_kendaraan,
+            'jumlah_kendaraan' => $request->jumlah_kendaraan,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
-            'jumlah_orang_kerja'     => $request->jumlah_orang_kerja,
-            'luas_tanah'     => $request->luas_tanah
+            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+            'luas_tanah' => $request->luas_tanah
         ]);
 
-        return redirect('/keluarga')->with('success', 'Data keluarga berhasil diubah');
-    }
-    public function destroy(string $id)
-    {
-        $check = KeluargaModel::find($id);
-        if (!$check) { // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
-            return redirect('/keluarga')->with('error', 'Data keluarga tidak ditemukan');
-        }
-        try {
-            KeluargaModel::destroy($id); // hapus data keluarga
-
-            return redirect('/keluarga')->with('success', 'Data keluarga berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/keluarga')->with('error', 'Data keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
+        return redirect('/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
     }
 }
