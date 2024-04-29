@@ -6,10 +6,7 @@
     @include('base.sidebar')
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
-            <?php
-            // @dd($page);
-            ?>
-            <h1 class="py-5 ml-5 text-3xl">{{$breadcrumb->title}}</h1>
+            <h1 class="py-5 ml-5 text-3xl font-bold">{{$breadcrumb->title}}</h1>
         </div>
         <div class="w-full min-w-max p-5 shadow">
             @if(!$keluarga)

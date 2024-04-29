@@ -6,7 +6,7 @@
     @include('base.sidebar')
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl">{{ $breadcrumb->title }}</h1>
+            <h1 class="py-5 ml-5 text-3xl font-bold">{{ $breadcrumb->title }}</h1>
         </div>
         <div class="w-full min-w-max p-5 shadow">
 
@@ -45,8 +45,9 @@
                     <label for="luas_tanah" class="font-semibold">Luas Tanah</label>
                     <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="block py-2.5 px-2.5 w-full text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-teal-100 focus:bg-teal-100" placeholder="Luas tanah..." value="{{ $keluarga->luas_tanah}}" required />
                 </div>
+                <br>
                 <!-- Other form inputs here -->
-                <div class="flex justify-between">
+                <div class="flex justify-between grid-cols-1">
                     <a href="{{ url('keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                     <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                 </div>

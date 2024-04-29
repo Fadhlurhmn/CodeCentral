@@ -1,5 +1,5 @@
 <div class="container h-full bg-slate-100">
-    <h1 class="py-5 ml-5 text-3xl text-gray-900">{{$breadcrumb->title}}</h1>
+    <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1>
     
     <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white outline-none outline-4 outline-teal-500 rounded-t-3xl">
         <p class="my-5 text-xl font-normal text-gray-600 "> {{$page->title}}</p>

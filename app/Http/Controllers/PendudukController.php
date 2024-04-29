@@ -43,7 +43,7 @@ class PendudukController extends Controller
         return DataTables::of($penduduk)
             ->addIndexColumn()
             ->addColumn('aksi', function ($penduduk) {
-                $btn = '<a href="' . url('/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-indigo ml-1 flex-col "><i class="fas fa-eye"></i></a> ';
+                $btn = '<a href="' . url('/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
                 $btn .= '<a href="' . url('/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
             })
