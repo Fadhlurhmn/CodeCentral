@@ -43,7 +43,7 @@ Route::group(['prefix' => 'keluarga'], function () {
     Route::post('/list', [KeluargaController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [KeluargaController::class, 'create']);   // menampilkan halaman form tambah level
     Route::post('/', [KeluargaController::class, 'store']);         // menyimpan data level baru
-    Route::get('/{id}', [KeluargaController::class, 'show']);       // menampilkan detail level
+    Route::get('/{id}/show', [KeluargaController::class, 'show']);       // menampilkan detail level
     Route::get('/{id}/edit', [KeluargaController::class, 'edit']);  // menampilkan halaman form edit level
     Route::post('/{id}', [KeluargaController::class, 'update']);     // menyimpan perubahan data level
     Route::delete('/{id}', [KeluargaController::class, 'destroy']); // menghapus data level

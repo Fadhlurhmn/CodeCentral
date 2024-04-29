@@ -22,20 +22,20 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('keluarga.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     // ambil data user dalam bentuk json untuk datatables
     public function list(Request $request)
     {
-        $kategoris = KeluargaModel::select('keluarga_id', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah');
+        $kategoris = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah');
 
         return DataTables::of($kategoris)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
-                $btn = '<a href="' . url('/keluarga/' . $keluarga->keluarga_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/keluarga/' . $keluarga->keluarga_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->keluarga_id) . '">'
-                    . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-indigo ml-1 flex-col "><i class="fas fa-eye"></i></a> ';
+                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info btn-sm ml-2">Edit</a> ';
+                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('/keluarga/' . $keluarga->id_keluarga) . '">'
+                //     . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -45,17 +45,17 @@ class KeluargaController extends Controller
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Tambah Keluarga',
+            'title' => 'Tambah data KK',
             'list' => ['Home', 'Keluarga', 'Tambah']
         ];
 
         $page = (object)[
-            'title' => 'Tambah keluarga baru'
+            'title' => 'Tambah data KK baru'
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     public function store(Request $request)
     {
@@ -64,7 +64,7 @@ class KeluargaController extends Controller
             'jumlah_kendaraan'     => 'required|integer',
             'jumlah_tanggungan'     => 'required|integer',
             'jumlah_orang_kerja'     => 'required|integer',
-            'luas_tanah'     => 'required|double'
+            'luas_tanah'     => 'required|numeric'
         ]);
 
         KeluargaModel::create([
@@ -93,7 +93,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('keluarga.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
     // menampilkan halaman form edit user
@@ -117,7 +117,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page,  'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page,  'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
 
@@ -129,7 +129,7 @@ class KeluargaController extends Controller
             'jumlah_kendaraan'     => 'required|integer',
             'jumlah_tanggungan'     => 'required|integer',
             'jumlah_orang_kerja'     => 'required|integer',
-            'luas_tanah'     => 'required|double'
+            'luas_tanah'     => 'required|numeric'
         ]);
 
         KeluargaModel::find($id)->update([
