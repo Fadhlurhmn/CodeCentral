@@ -14,12 +14,12 @@
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
                 <p>Data yang Anda cari tidak ditemukan</p>
-                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ route('penduduk') }}';">
+                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ url('penduduk') }}';">
                     close <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             @else
-            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-2 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ route('penduduk.update', $penduduk->id_penduduk) }}" method="POST">
+            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-2 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('penduduk/' . $penduduk->id_penduduk) }}" method="POST">
                 <h1 class="p-5 mb-5 font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 col-span-2 rounded-lg">
                     {{ $page->title }}
                 </h1>
@@ -94,7 +94,7 @@
                 </div>
                 <!-- Other form inputs here -->
                 <div class="flex justify-between">
-                    <a href="{{ route('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                    <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                     <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                 </div>
             </form>

@@ -25,7 +25,7 @@ class PendudukController extends Controller
 
         $keluarga = KeluargaModel::all();
 
-        return view('admin.penduduk.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {
@@ -178,6 +178,6 @@ class PendudukController extends Controller
             'id_keluarga' => $request->id_keluarga,
         ]);
 
-        return redirect('/penduduk')->with('success', 'Data penduduk berhasil diubah');
+        return redirect('/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
     }
 }
