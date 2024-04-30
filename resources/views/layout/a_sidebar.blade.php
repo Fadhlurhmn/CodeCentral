@@ -36,7 +36,7 @@
         Data Penduduk
       </a>
 
-      <a href="/admin/pengumuman" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{ url('pengumuman') }}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-bullhorn text-xs mr-2"></i>
         Pengumuman
       </a>

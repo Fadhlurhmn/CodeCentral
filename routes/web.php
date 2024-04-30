@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PengumumanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,4 +42,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/keuangan', function () {return view('admin.keuangan.index');});
 });
 
+Route::group(['prefix' => 'pengumuman'], function () {
+    Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
+    Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
+    Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
+    Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
+    Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
+    Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
+    Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
+    Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+});
 

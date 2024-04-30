@@ -1,0 +1,22 @@
+@include('layout.start')
+
+
+@include('layout.a_navbar')
+
+
+<!-- strat wrapper -->
+<div class="h-screen min-w-full flex flex-row flex-wrap">
+    @include('layout.a_sidebar')
+  
+    {{-- file ini cuma bikin layout buat index aja --}}
+
+    <!-- strat content -->
+    <div class="flex-col flex-grow"> 
+      @include('admin.pengumuman.index')
+    </div>
+  <!-- end content -->
+
+</div>
+<!-- end wrapper -->
+
+@include('layout.end')
