@@ -29,7 +29,7 @@
     <div class="container bg-white text-lg grid grid-cols-6 gap-5 p-5 mx-auto overflow-y-auto" style="max-height: 80vh;">
         {{-- Bagian Promosi Usaha Warga --}}
           {{-- Usaha Warga 1 --}}
-          <a href="#" class="group relative block overflow-hidden rounded-md">
+          <a href="{{url('admin/promosi/show')}}" class="group relative block overflow-hidden rounded-md">
             <img
               src="https://images.unsplash.com/photo-1611520189922-f7b1ba7d801e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt=""
@@ -42,8 +42,8 @@
               <p class="mt-0.5 text-xs text-gray-700">Lokasi :</p>
               <p class="mt-0.5 text-xs text-gray-700">Sebelah gang rt.4</p>
               <p class="mt-0.5 bg-yellow-600/60 text-white px-2 rounded-full inline-block">pending</p>
-              <form class="mt-2">
-                <button class="block w-full rounded bg-teal-400 p-2 text-sm font-normal transition hover:scale-105">
+              <form action="{{ url('admin/promosi/show') }}" class="mt-2">
+                <button type="submit" class="block w-full rounded bg-teal-400 p-2 text-sm font-normal transition hover:scale-105">
                   Lihat Detail
                 </button>
               </form>

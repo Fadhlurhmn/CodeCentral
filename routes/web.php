@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/pengumuman', function () {return view('admin.pengumuman.index');});
     Route::get('/promosi', function () {return view('admin.promosi.index');});
     Route::get('/promosi/daftar', function () {return view('admin.promosi.daftar');}); //untuk halaman daftar dari promosi
+    Route::get('/promosi/show', function () {return view('admin.promosi.show');}); //untuk halaman daftar dari promosi
     Route::get('/surat', function () {return view('admin.surat.index');});
     Route::get('/jadwal', function () {return view('admin.jadwal.index');});
     Route::get('/keuangan', function () {return view('admin.keuangan.index');});
