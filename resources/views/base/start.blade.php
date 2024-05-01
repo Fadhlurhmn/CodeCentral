@@ -14,5 +14,6 @@
   <!-- Styles -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
   <title>Welcome To Cleopatra</title>
+  @stack('styles')
 </head>
 <body class="bg-gray-100">

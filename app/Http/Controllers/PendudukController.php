@@ -65,7 +65,7 @@ class PendudukController extends Controller
         $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluar$keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -109,6 +109,7 @@ class PendudukController extends Controller
     public function show(string $id)
     {
         $penduduk = PendudukModel::with('keluarga')->find($id);
+        $nomor_kk = $penduduk->keluarga->nomor_keluarga;
 
         $breadcrumb = (object)[
             'title' => 'Detail Penduduk',
@@ -121,7 +122,7 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu, 'nomor_kk' => $nomor_kk]);
     }
     public function edit(string $id)
     {

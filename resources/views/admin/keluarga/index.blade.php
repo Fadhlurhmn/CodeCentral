@@ -26,6 +26,7 @@
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jumlah Tanggungan</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jumlah Kendaraan</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Luas Tanah</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -59,18 +60,24 @@
                     data: "jumlah_orang_kerja",
                     className: "text-sm",
                     orderable: true,
-                    searchable: true
+                    searchable: false
                 },
                 {
                     data: "jumlah_tanggungan",
                     className: "text-sm",
-                    orderable: false,
+                    orderable: true,
                 },
                 {
                     data: "jumlah_kendaraan",
                     className: "text-sm",
                     orderable: true,
-                    searchable: true
+                    searchable: false
+                },
+                {
+                    data: "luas_tanah",
+                    className: "text-sm",
+                    orderable: true,
+                    searchable: false
                 },
                 {
                     data: "aksi",

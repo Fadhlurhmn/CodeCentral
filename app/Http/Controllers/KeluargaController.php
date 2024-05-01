@@ -58,7 +58,7 @@ class KeluargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string',
+            'nomor_keluarga' => 'required|string|min:10|max:10',
             'jumlah_kendaraan' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
@@ -117,7 +117,7 @@ class KeluargaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string',
+            'nomor_keluarga' => 'required|string|min:10|max:10',
             'jumlah_kendaraan' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',

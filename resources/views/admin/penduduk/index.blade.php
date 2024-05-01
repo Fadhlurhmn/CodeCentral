@@ -4,8 +4,9 @@
     <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white outline-none outline-4 outline-teal-500 rounded-t-3xl">
         <p class="my-5 text-xl font-normal text-gray-600 "> {{$page->title}}</p>
         <div class="mb-5 font-medium text-lg ">
+            {{-- Ini Filter RT masih manual value RT nya --}}
             <select name="rt" id="rt" class="pl-2 py-1 block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-t-lg">
-                <option value="all" selected>Pilih Rt</option>
+                <option value="all" selected>Semua RT</option>
                 <option value="1">Rt. 1</option>
                 <option value="2">Rt. 2</option>
                 <option value="3">Rt. 3</option>

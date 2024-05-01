@@ -11,29 +11,35 @@
         <div class="w-full min-w-max p-5 shadow">
 
             <form class="px-10 py-10 min-w-full bg-white gap-x-20 gap-y-2 grid grid-cols-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST">
-                <h1 class="p-5 mb-5 font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 col-span-2 rounded-lg">
+                <h1 class="px-5 pt-12 pb-5 mb-5 font-semibold text-center rtl:text-right text-gray-900 bg-teal-400 col-span-full rounded-lg">
                     {{ $page->title }}
                 </h1>
                 @csrf
-                <div class="relative z-0 w-full mb-5 group my-2 font-bold col-span-2">
-                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required />
-                    <label for="nomor_keluarga" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Nomor Keluarga</label>
+                                {{-- Nomor Keluarga --}}
+                <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-2">
+                    <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900">Nomor Keluarga</label>
+                    <input type="number" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
+                    <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 10 digit.</small>
                 </div>
-                <div class="relative z-0 w-full mb-5 group my-2 font-bold col-span-2">
-                    <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required />
-                    <label for="jumlah_orang_kerja" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Jumlah Orang Kerja</label>
+                                {{-- Jumlah Orang Kerja --}}
+                <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-2">
+                    <label for="jumlah_orang_kerja" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Orang Kerja</label>
+                    <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="Masukkan Jumlah Orang Kerja" required />
                 </div>
-                <div class="relative z-0 w-full mb-5 group my-2 font-bold col-span-2">
-                    <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required />
-                    <label for="jumlah_tanggungan" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jumlah Tanggungan</label>
+                {{-- Jumlah Tanggungan --}}
+                <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-2">
+                    <label for="jumlah_tanggungan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Tanggungan</label>
+                    <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="Masukkan Jumlah Tanggungan" required />
                 </div>
-                <div class="relative z-0 w-full mb-5 group my-2 font-bold col-span-2">
-                    <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required/>
-                    <label for="jumlah_kendaraan" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Jumlah Kendaraan</label>
+                {{-- Jumlah Kendaraan --}}
+                <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-2">
+                    <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan</label>
+                    <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="Masukkan Jumlah Kendaraan" required />
                 </div>
-                <div class="relative z-0 w-full mb-5 group my-2 font-bold col-span-2">
-                    <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required/>
-                    <label for="luas_tanah" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Luas Tanah</label>
+                {{-- Luas Tanah --}}
+                <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-2">
+                    <label for="luas_tanah" class="block mb-2 text-sm font-bold text-gray-900">Luas Tanah</label>
+                    <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="Masukkan Luas Tanah" required />
                 </div>
                 <br>
                 <!-- Other form inputs here -->
@@ -47,3 +53,16 @@
 </div>
 
 @include('base.end')
+<script>
+    document.getElementById("nomor_keluarga").addEventListener("input", function() {
+        var input = this.value.trim();
+        var isValid = /^\d{10}$/.test(input);
+        var errorMessage = document.getElementById("nomor_keluarga_help");
+
+        if (isValid) {
+            errorMessage.classList.add("hidden");
+        } else {
+            errorMessage.classList.remove("hidden");
+        }
+    });
+</script>

@@ -28,6 +28,7 @@
                 <div class="relative z-0 w-full mb-5 group col-span-2">
                     <label for="nomor_keluarga" class="font-semibold">Nomor Kartu Keluarga</label>
                     <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="block py-2.5 px-2.5 w-full text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-teal-100 focus:bg-teal-100" placeholder="-" value="{{ $keluarga->nomor_keluarga }}" required />
+                    <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 10 digit.</small>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
                     <label for="jumlah_orang_kerja" class="font-semibold">Jumlah Orang Bekerja</label>
@@ -59,3 +60,16 @@
 </div>
 
 @include('base.end')
+<script>
+    document.getElementById("nomor_keluarga").addEventListener("input", function() {
+        var input = this.value.trim();
+        var isValid = /^\d{10}$/.test(input);
+        var errorMessage = document.getElementById("nomor_keluarga_help");
+
+        if (isValid) {
+            errorMessage.classList.add("hidden");
+        } else {
+            errorMessage.classList.remove("hidden");
+        }
+    });
+</script>

@@ -28,13 +28,13 @@
                     </caption>
                 <tbody class="bg-white">
             
+                    <tr class="bg-gray-100/50">
+                        <th class="pl-3 py-2 border-r">NIK</th>
+                        <td class="pl-3">{{ $nomor_kk }}</td>
+                    </tr>
                     <tr class="whitespace-nowrap">
                         <th class="pl-3 py-2 border-r w-40">Nama</th>
                         <td class="pl-3">{{ $penduduk->nama }}</td>
-                    </tr>
-                    <tr class="bg-gray-100/50">
-                        <th class="pl-3 py-2 border-r">NIK</th>
-                        <td class="pl-3">{{ $penduduk->nik }}</td>
                     </tr>
                     <tr class="whitespace-nowrap">
                         <th class="pl-3 py-2 border-r">Alamat</th>
