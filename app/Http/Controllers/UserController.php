@@ -22,7 +22,7 @@ class UserController extends Controller
         $activeMenu = 'user';
         $level = LevelModel::all();
 
-        return view('admin.akun.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+        return view('akun', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
@@ -38,7 +38,7 @@ class UserController extends Controller
             ->addColumn('aksi', function ($user) {
                 $btn = '<a href="'.url('/akun/' . $user->id_user).'" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="'.url('/akun/' . $user->id_user . '/edit').'"class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="'.url('/user/'.$user->id_user).'">'
+                $btn .= '<form class="d-inline-block" method="POST" action="'.url('/akun/'.$user->id_user).'">'
                 . csrf_field() . method_field('DELETE') .'<button type="submit" class="btn btn-danger btn-sm"
                 onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
@@ -137,7 +137,7 @@ class UserController extends Controller
             'id_level' => $request->id_level,
         ]);
 
-        return redirect('/akun')->with('success', 'Data user berhasil disimpan ');
+        return redirect('/akun/' . $id . '/show')->with('success', 'Data user berhasil disimpan ');
     }
 
     public function destroy(string $id)
