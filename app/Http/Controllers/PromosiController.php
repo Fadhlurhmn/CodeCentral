@@ -19,12 +19,32 @@ class PromosiController extends Controller
         $page = (object)[
             'title' => 'Daftar promosi yang terdaftar'
         ];
-
+        $promosi = PromosiModel::all();
+        $promosi = PromosiModel::where('status_pengajuan', '!=', 'pending')->get();
         $activeMenu = 'promosi';
 
         $keluarga = KeluargaModel::all();
 
-        return view('promosi', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+    }
+    public function daftar()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Daftar Permintaan Promosi',
+            'list' => ['Home', 'Promosi']
+        ];
+
+        $page = (object)[
+            'title' => 'Daftar permintaan promosi usaha warga'
+        ];
+
+        $promosi = PromosiModel::all();
+        $promosi = PromosiModel::where('status_pengajuan', 'pending')->get();
+        $activeMenu = 'promosi';
+
+        $keluarga = KeluargaModel::all();
+
+        return view('admin.promosi.daftar', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {
@@ -107,7 +127,7 @@ class PromosiController extends Controller
 
         $activeMenu = 'promosi'; // set menu yang sedang aktif
 
-        return view('admin.promosi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'nomor_kk' => $nomor_kk, 'promosi' => $promosi, 'activeMenu' => $activeMenu]);
     }
     public function edit(string $id)
     {
