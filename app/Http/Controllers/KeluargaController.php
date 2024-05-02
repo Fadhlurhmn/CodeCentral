@@ -21,7 +21,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {
