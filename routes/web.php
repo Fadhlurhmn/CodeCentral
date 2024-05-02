@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Template 
+// Template
 Route::group(['prefix' => 'template'], function () {
     Route::get('/', function () {return view('template.index');});
     Route::get('/shop', function () {return view('template.index-1');});
@@ -16,7 +16,7 @@ Route::group(['prefix' => 'template'], function () {
     Route::get('/buttons', function () {return view('template.buttons');});
 });
 
-// Admin, RT & RW Login 
+// Admin, RT & RW Login
 Route::get('/login', function () {
     return view('login');
 });
@@ -40,5 +40,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/jadwal', function () {return view('admin.jadwal.index');});
     Route::get('/keuangan', function () {return view('admin.keuangan.index');});
 });
+
+use App\Http\Controllers\UserController;
+Route::group(['prefix' => 'user'], function() {
+    Route::get('/', [UserController::class, 'index']);              // menampilkan halaman awal user
+    Route::post('/list', [UserController::class, 'list']);          // menampilkan data user dalam bentuk json untuk datatables
+    Route::get('/create', [UserController::class, 'create']);       // menampilkan halaman form tambah user
+    Route::post('/', [UserController::class, 'store']);             // menyimpan data user baru
+    Route::get('/{id}', [UserController::class, 'show']);           // menampilkan detail user
+    Route::get('/{id}/edit', [UserController::class, 'edit']);      // menampilkan halaman form edit user
+    Route::put('/{id}', [UserController::class, 'update']);         // menyimpan perubahan data user
+    Route::delete('/{id}', [UserController::class, 'destroy']);     // menghapus data user
+});
+
 
 
