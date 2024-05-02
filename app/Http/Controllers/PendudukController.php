@@ -25,7 +25,7 @@ class PendudukController extends Controller
 
         $keluarga = KeluargaModel::all();
 
-        return view('penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {

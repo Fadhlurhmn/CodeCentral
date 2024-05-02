@@ -8,6 +8,8 @@ Route::get('/', function () {
     return view('index');
 })->name('public');
 
+
+
 Route::get('/shop', function () {
     return view('index-1');
 })->name('shop');

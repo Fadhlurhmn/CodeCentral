@@ -1,9 +1,9 @@
-@include('base.start')
+@include('layouts.start')
 
-@include('base.navbar')
+@include('layouts.a_navbar')
     
 <div class="h-screen flex flex-row flex-wrap">
-    @include('base.sidebar')
+    @include('layouts.a_sidebar')
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
             <h1 class="py-5 ml-5 text-3xl font-bold">{{$breadcrumb->title}}</h1>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@include('base.end')
+@include('layouts.end')
 <script>
     document.getElementById("nomor_keluarga").addEventListener("input", function() {
         var input = this.value.trim();

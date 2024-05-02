@@ -1,12 +1,12 @@
-@include('base.start')
+@include('layouts.start')
 
 
-@include('base.navbar')
+@include('layouts.a_navbar')
 
 
 <!-- strat wrapper -->
 <div class="h-screen min-w-full flex flex-row flex-wrap">
-    @include('base.sidebar')
+    @include('layouts.a_sidebar')
   
     
     <!-- strat content -->
@@ -18,4 +18,4 @@
 </div>
 <!-- end wrapper -->
 
-@include('base.end')
+@include('layouts.end')
