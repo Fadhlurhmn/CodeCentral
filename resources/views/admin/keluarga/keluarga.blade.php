@@ -10,7 +10,7 @@
   
     
     <!-- strat content -->
-    <div class="flex-col" style="width: 1147px"> 
+    <div class="flex-col flex-grow"> 
       @include('admin.keluarga.index')
     </div>
   <!-- end content -->
