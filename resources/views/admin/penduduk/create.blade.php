@@ -75,7 +75,7 @@
                 {{-- id_keluarga --}}
                 <div class="relative py-10 px-5 w-full bg-slate-200 mb-5 group font-bold rounded-xl col-span-4 ">
                     <label for="id_keluarga" class="block mb-2 text-sm font-bold text-gray-900">ID Keluarga</label>
-                    <input type="text" name="id_keluarga" id="id_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="ID Warga" required />
+                    <input type="number" name="id_keluarga" id="id_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 " placeholder="ID Warga" required />
                 </div>
                         {{-- Fungsi ini gabisa bang (utamakan fungsi ini bisa work!)  --}}
                 {{-- <div class="relative z-0 w-full mb-5 group font-bold col-span-4">

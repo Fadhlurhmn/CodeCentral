@@ -17,7 +17,7 @@
             </svg>
         </div>
         <a class="p-2 font-normal text-center text-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
-        <div class="relatives mt-5 h-80 overflow-x-auto p-5 shadow">
+        <div class="relatives mt-5 h-full p-5 shadow">
             <table id="table_penduduk" class="table-auto text-center border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>
