@@ -1,11 +1,11 @@
 <div class="container h-full bg-slate-100">
-    <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1>
+    {{-- <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1> --}}
+    <h1 class="py-5 ml-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
     
-    <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white outline-none outline-4 outline-teal-500 rounded-t-3xl">
-        <p class="my-5 text-xl font-normal text-gray-600 "> {{$page->title}}</p>
+    <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         <div class="mb-5 font-medium text-lg ">
             {{-- Ini Filter RT masih manual value RT nya --}}
-            <select name="rt" id="rt" class="pl-2 py-1 block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-t-lg">
+            <select name="rt" id="rt" class="pl-2 py-1 block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                 <option value="all" selected>Semua RT</option>
                 <option value="1">Rt. 1</option>
                 <option value="2">Rt. 2</option>
@@ -16,8 +16,8 @@
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
         </div>
-        <a class="p-2 font-normal text-center text-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
-        <div class="relatives mt-5 h-full p-5 shadow">
+        <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
+        <div class="relatives mt-5 h-full p-5 shadow-md">
             <table id="table_penduduk" class="table-auto text-center border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>

@@ -18,7 +18,7 @@ class PendudukController extends Controller
         ];
 
         $page = (object)[
-            'title' => 'Daftar penduduk yang terdaftar'
+            'title' => 'Daftar penduduk '
         ];
 
         $activeMenu = 'penduduk';
@@ -59,7 +59,7 @@ class PendudukController extends Controller
         ];
 
         $page = (object)[
-            'title' => 'Tambah penduduk baru'
+            'title' => 'Form Tambah penduduk baru'
         ];
 
         $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
