@@ -53,7 +53,7 @@
                 { data: "DT_RowIndex", className: "text-center text-sm", orderable: false, searchable: false },
                 { data: "nik", className: "text-sm", orderable: true, searchable: true },
                 { data: "nama", className: "text-sm", orderable: true, searchable: true },
-                { data: "alamat", className: "text-sm", orderable: false },
+                { data: "alamat_domisili", className: "text-sm", orderable: false },
                 { data: "rt", className: "text-sm", orderable: true, searchable: true },
                 { 
                     data: "status_data",

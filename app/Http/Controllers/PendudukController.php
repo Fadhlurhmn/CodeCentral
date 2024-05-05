@@ -29,8 +29,7 @@ class PendudukController extends Controller
     }
     public function list(Request $request)
     {
-        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'id_keluarga', 'status_data', 'rt', 'rw', 'status_penduduk')
-            ->with('keluarga');
+        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk');
 
         if ($request->keluarga_id) {
             $penduduk->where('id_keluarga', $request->keluarga_id);
