@@ -63,7 +63,7 @@
                 {{-- No telpon --}}
                 <label for="no_telp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor telepon <span class="text-red-500">*</span></label>
                 <div class="flex col-span-4">
-                    <span class="text-gray-500 mr-2">+62</span>
+                    <span class="text-gray-800 mr-2 pt-2">+62</span>
                     <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomor telepon"/>
                 </div>
                 {{-- Pekerjaan --}}
