@@ -172,4 +172,11 @@ class PromosiController extends Controller
 
         return redirect('/promosi/' . $id . '/show')->with('success', 'Data promosi berhasil diubah');
     }
+    // acc promosi
+    public function acc_promosi(string $id)
+    {
+        PromosiModel::find($id)->update([
+            'status_pengajuan' => 'acc'
+        ]);
+    }
 }
