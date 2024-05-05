@@ -60,16 +60,16 @@
                         <option value="">penduduk->nama1</option>
                         <option value="">penduduk->nama2</option>
                         </select>
+
                 {{-- Anggota Keluarga --}}
-                        <label for="anggota_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga</label>
-                        <select name="anggota_keluarga" id="anggota_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Kepala Keluarga" required >
-                        {{-- @foreach ($penduduk as $daftarPenduduk)
-                        <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>    
-                        @endforeach --}}
-                        </select>
-                        
-                        <button id="tambah-anggota" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Tambah Anggota Keluarga</button>
-                        
+                    <div id="anggota-keluarga" class="col-span-4">
+                        <!-- Isian untuk anggota keluarga pertama -->
+                        <div class="anggota-keluarga col-span-4">
+                            <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
+                            <input type="text" name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Anggota Keluarga 1" required>
+                        </div>
+                    </div>
+                
                 {{-- Jumlah Orang Kerja --}}
                         <label for="jumlah_orang_kerja" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jumlah Orang Kerja</label>
                         <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Jumlah Orang Kerja" required />
@@ -101,4 +101,37 @@
             errorMessage.classList.remove("hidden");
         }
     });
+
+
+    // Fungsi untuk menambah isian anggota keluarga baru
+    let anggotaKeluargaCount = 1; // Counter untuk jumlah anggota keluarga yang sudah ada
+
+    // Fungsi untuk menambah isian anggota keluarga baru
+    function tambahAnggotaKeluarga() {
+        anggotaKeluargaCount++; // Menambah counter
+
+        // Membuat elemen untuk isian anggota keluarga baru
+        let newAnggotaKeluarga = document.createElement('div');
+        newAnggotaKeluarga.classList.add('anggota-keluarga');
+        newAnggotaKeluarga.innerHTML = `
+            <label for="anggota_keluarga_${anggotaKeluargaCount}" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ${anggotaKeluargaCount}</label>
+            <input type="text" name="anggota_keluarga[]" id="anggota_keluarga_${anggotaKeluargaCount}" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Anggota Keluarga ${anggotaKeluargaCount}" required>
+        `;
+        document.getElementById('anggota-keluarga').appendChild(newAnggotaKeluarga); // Menambah isian anggota keluarga baru ke dalam div anggota-keluarga
+    }
+
+    // Event listener untuk mendengarkan peristiwa input pada isian terakhir
+    document.getElementById('anggota-keluarga').addEventListener('input', function(event) {
+        let anggotaInputs = document.querySelectorAll('.anggota-keluarga-input');
+        let lastInput = anggotaInputs[anggotaInputs.length - 1];
+
+        // Jika pengguna sedang mengetik di isian terakhir
+        if (event.target === lastInput) {
+            // Jika isian terakhir kosong, tambahkan isian anggota keluarga baru
+            if (lastInput.value.trim() !== '') {
+                tambahAnggotaKeluarga();
+            }
+        }
+    });
+
 </script>
