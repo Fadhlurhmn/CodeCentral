@@ -10,19 +10,24 @@
         </div>
         <div class="w-full h-screen min-w-max p-5 shadow overflow-auto">
 
-            <form class="px-10 py-10 min-w-full bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST">
+            <form class="px-10 py-10 bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST">
                 <h1 class="px-5 py-7 mb-5 font-semibold text-center text-3xl rtl:text-right text-gray-900 bg-slate-100 border-2 border-teal-500 col-span-4 rounded-lg">
                     {{ $page->title }}
                 </h1>
                 @csrf
                 {{-- Nomor Keluarga --}}
-                        <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga</label>
-                        <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
-                        <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
-                    
+                    <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga</label>
+                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
+                    <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
+                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-4 rounded-lg transition duration-300 ease-in-out">
+                        <input type="file" name="kk_foto" id="kk_foto" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                        <label for="kk_foto" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
+                            Submit Foto KK (Max ukuran 2MB)
+                        </label>
+                    </div>
                 {{-- Jumlah Kendaraan --}}
-                        <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan</label>
-                        <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Jumlah Kendaraan" required />
+                    <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan</label>
+                    <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Jumlah Kendaraan" required />
                 
                 {{-- Alamat --}}
                     <label for="alamat" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat</label>
@@ -53,12 +58,9 @@
                 {{-- Kepala Keluarga --}}
                         <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kepala Keluarga</label>
                         <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Kepala Keluarga" required >
-                        {{-- @foreach ($penduduk as $daftarPenduduk)
-                        <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>    
-                        @endforeach --}}
-                        <option value="">penduduk->nama1</option>
-                        <option value="">penduduk->nama1</option>
-                        <option value="">penduduk->nama2</option>
+                            @foreach ($penduduk as $daftarPenduduk)
+                            <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>    
+                            @endforeach
                         </select>
 
                 {{-- Anggota Keluarga --}}
@@ -66,9 +68,15 @@
                         <!-- Isian untuk anggota keluarga pertama -->
                         <div class="anggota-keluarga col-span-4">
                             <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
-                            <input type="text" name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Anggota Keluarga 1" required>
+                            <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>
+                                <option value="">Pilih Anggota Keluarga 1</option>
+                                @foreach ($penduduk as $daftarPenduduk)
+                                    <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                    <button id="tambah-anggota-button" class="bg-teal-500 text-sm text-left font-medium text-white py-2 px-4 rounded-lg mt-4 col-span-4">Tambah Anggota Keluarga</button>
                 
                 {{-- Jumlah Orang Kerja --}}
                         <label for="jumlah_orang_kerja" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jumlah Orang Kerja</label>
@@ -104,34 +112,24 @@
 
 
     // Fungsi untuk menambah isian anggota keluarga baru
-    let anggotaKeluargaCount = 1; // Counter untuk jumlah anggota keluarga yang sudah ada
+    $(document).ready(function() {
+        var anggotaCount = 1;
 
-    // Fungsi untuk menambah isian anggota keluarga baru
-    function tambahAnggotaKeluarga() {
-        anggotaKeluargaCount++; // Menambah counter
+        $("#tambah-anggota-button").click(function() {
+            anggotaCount++;
 
-        // Membuat elemen untuk isian anggota keluarga baru
-        let newAnggotaKeluarga = document.createElement('div');
-        newAnggotaKeluarga.classList.add('anggota-keluarga');
-        newAnggotaKeluarga.innerHTML = `
-            <label for="anggota_keluarga_${anggotaKeluargaCount}" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ${anggotaKeluargaCount}</label>
-            <input type="text" name="anggota_keluarga[]" id="anggota_keluarga_${anggotaKeluargaCount}" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Anggota Keluarga ${anggotaKeluargaCount}" required>
-        `;
-        document.getElementById('anggota-keluarga').appendChild(newAnggotaKeluarga); // Menambah isian anggota keluarga baru ke dalam div anggota-keluarga
-    }
+            var newAnggotaDiv = '<div class="anggota-keluarga col-span-4">' +
+                                    '<label for="anggota_keluarga_' + anggotaCount + '" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ' + anggotaCount + '</label>' +
+                                    '<select name="anggota_keluarga[]" id="anggota_keluarga_' + anggotaCount + '" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>' +
+                                        '<option value="">Pilih Anggota Keluarga ' + anggotaCount + '</option>' +
+                                        '@foreach ($penduduk as $daftarPenduduk)' +
+                                            '<option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>' +
+                                        '@endforeach' +
+                                    '</select>' +
+                                '</div>';
 
-    // Event listener untuk mendengarkan peristiwa input pada isian terakhir
-    document.getElementById('anggota-keluarga').addEventListener('input', function(event) {
-        let anggotaInputs = document.querySelectorAll('.anggota-keluarga-input');
-        let lastInput = anggotaInputs[anggotaInputs.length - 1];
-
-        // Jika pengguna sedang mengetik di isian terakhir
-        if (event.target === lastInput) {
-            // Jika isian terakhir kosong, tambahkan isian anggota keluarga baru
-            if (lastInput.value.trim() !== '') {
-                tambahAnggotaKeluarga();
-            }
-        }
+            $("#anggota-keluarga").append(newAnggotaDiv);
+        });
     });
 
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KeluargaModel;
+use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -50,9 +51,10 @@ class KeluargaController extends Controller
         ];
 
         $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
+        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk ,'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
