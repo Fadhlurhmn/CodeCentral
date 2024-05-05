@@ -62,15 +62,38 @@ class KeluargaController extends Controller
             'jumlah_kendaraan' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
-            'luas_tanah' => 'required|integer'
+            'luas_tanah' => 'required|integer',
+            'alamat' => 'required|string',
+            'rt' => 'required|integer',
+            'rw' => 'required|integer',
+            'kelurahan' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kota' => 'required|string',
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        // menyimpan data foto kk yang diupload ke variabel foto_kk
+        $foto_kk = $request->file('foto_kk');
+
+        $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
+
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'data_kk';
+        $foto_kk->move($tujuan_upload, $nama_file);
 
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-            'luas_tanah' => $request->luas_tanah
+            'luas_tanah' => $request->luas_tanah,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'kota' => $request->kota,
+            'foto_kk' => $nama_file // simpan nama file gambar ke dalam database
         ]);
 
         return redirect('/keluarga')->with('success', 'Data keluarga berhasil disimpan');
@@ -121,16 +144,68 @@ class KeluargaController extends Controller
             'jumlah_kendaraan' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
-            'luas_tanah' => 'required|integer'
+            'luas_tanah' => 'required|integer',
+            'alamat' => 'required|string',
+            'rt' => 'required|integer',
+            'rw' => 'required|integer',
+            'kelurahan' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kota' => 'required|string',
+            'foto_kk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        KeluargaModel::find($id)->update([
-            'nomor_keluarga' => $request->nomor_keluarga,
-            'jumlah_kendaraan' => $request->jumlah_kendaraan,
-            'jumlah_tanggungan' => $request->jumlah_tanggungan,
-            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-            'luas_tanah' => $request->luas_tanah
-        ]);
+        $keluarga = KeluargaModel::find($id);
+
+        // Cek apakah ada file gambar yang diunggah
+        if ($request->hasFile('foto_kk')) {
+            // menyimpan data foto kk yang diupload ke variabel foto_kk
+            $foto_kk = $request->file('foto_kk');
+
+            $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
+
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'data_kk';
+            $foto_kk->move($tujuan_upload, $nama_file);
+
+            // Hapus foto kk lama jika ada
+            if ($keluarga->foto_kk) {
+                $path_foto_ktp_lama = public_path('data_kk/' . $keluarga->foto_kk);
+                if (file_exists($path_foto_ktp_lama)) {
+                    unlink($path_foto_ktp_lama);
+                }
+            }
+
+            // Update data keluarga beserta foto kk baru
+            $keluarga->update([
+                'nomor_keluarga' => $request->nomor_keluarga,
+                'jumlah_kendaraan' => $request->jumlah_kendaraan,
+                'jumlah_tanggungan' => $request->jumlah_tanggungan,
+                'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+                'luas_tanah' => $request->luas_tanah,
+                'alamat' => $request->alamat,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'kota' => $request->kota,
+                'foto_kk' => $nama_file // simpan nama file gambar ke dalam database
+            ]);
+        } else {
+            // Update data keluarga tanpa mengubah foto kk
+            $keluarga->update([
+                'nomor_keluarga' => $request->nomor_keluarga,
+                'jumlah_kendaraan' => $request->jumlah_kendaraan,
+                'jumlah_tanggungan' => $request->jumlah_tanggungan,
+                'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+                'luas_tanah' => $request->luas_tanah,
+                'alamat' => $request->alamat,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'kota' => $request->kota,
+            ]);
+        }
 
         return redirect('/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
     }
