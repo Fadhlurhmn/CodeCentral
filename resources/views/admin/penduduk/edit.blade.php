@@ -47,6 +47,7 @@
                 {{-- RT --}}
                     <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Rt</label>
                     <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{$penduduk->rt}}" required />
+                    {{-- RW hidden --}}
                     <input type="hidden" name="rw" value="{{$penduduk->rw}}" required/>
                 {{-- tempat_lahir --}}
                     <label for="tempat_lahir" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Tempat Lahir</label>
@@ -85,10 +86,10 @@
                         <option value="Tidak aktif">Tidak aktif</option>
                     </select>                    
                 {{-- Submit --}}
-                <div class="flex justify-between group col-span-2">
-                    <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
-                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
-                </div>
+                    <div class="flex justify-between group col-span-2">
+                        <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
+                    </div>
             </form>
             @endif
 
