@@ -12,4 +12,9 @@ class KeluargaModel extends Model
     protected $table = 'keluarga_penduduk';
     protected $primaryKey = 'id_keluarga';
     protected $fillable = ['nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'alamat', 'rt', 'rw', 'kelurahan', 'kecamatan', 'kota', 'foto_kk'];
+
+    public function detail_keluarga(): HasMany
+    {
+        return $this->hasMany(detail_keluarga_model::class);
+    }
 }
