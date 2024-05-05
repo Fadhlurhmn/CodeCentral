@@ -28,21 +28,6 @@
                     <!-- Contoh: ikon atau pesan teks -->
                     <span class="text-green-500">Gambar Terunggah</span>
                 </div>
-                {{-- No KK --}}
-                <label for="no_kk" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">No KK <span class="text-red-500">*</span></label>
-                <input type="text" name="no_kk" id="no_kk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor KK" required />
-                <div id="kk_Error" class="hidden col-span-2 text-red-500 text-sm">No KK harus diisi dengan 16 karakter</div>
-                <div class="relative bg-teal-500 hover:bg-teal-600 col-span-4 rounded-lg transition duration-300 ease-in-out">
-                    {{-- Tempat Submit Foto untuk No KK (max ukuran 2MB) --}}
-                    <input type="file" name="kk_photo" id="kk_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
-                    <label for="kk_photo" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
-                        Submit Foto KK (Max ukuran 2MB)
-                    </label>
-                </div>
-                <div id="uploadIndicator_kk" class="hidden col-span-2">
-                    <!-- Contoh: ikon atau pesan teks -->
-                    <span class="text-green-500">Gambar Terunggah</span>
-                </div>
                 {{-- Nama --}}
                 <label for="nama" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nama <span class="text-red-500">*</span></label>
                 <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" required />
@@ -52,18 +37,15 @@
                 {{-- Tanggal Lahir --}}
                 <label for="tanggal_lahir" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Tanggal Lahir <span class="text-red-500">*</span></label>
                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tanggal Lahir" required />
-                {{-- Peran dalam Keluarga --}}
-                <label for="peran_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Peran dalam Keluarga <span class="text-red-500">*</span></label>
-                <select name="peran_keluarga" id="peran_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="Kepala Keluarga">Kepala Keluarga</option>
-                    <option value="Anggota Keluarga">Anggota Keluarga</option>
+                {{-- Jenis Kelamin --}}
+                <label for="jenis_kelamin" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
+                <select name="jenis_kelamin" id="jenis_kelamin" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
+                    <option value="laki_laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
                 </select>
                 {{-- Alamat KTP --}}
                 <label for="alamat_ktp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat KTP <span class="text-red-500">*</span></label>
                 <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat KTP" required></input>
-                {{-- Alamat Kota --}}
-                <label for="kota" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat Kota / Kab (KTP) <span class="text-red-500">*</span></label>
-                <input type="text" name="kota" id="kota" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Kota/Kab" required></input>
                 {{-- Alamat Domisili --}}
                 <label for="alamat_domisili" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat Domisili <span class="text-red-500">*</span></label>
                 <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat Domisili" required></input>
@@ -71,21 +53,26 @@
                 <input type="hidden" name="rw" value="6" />
                 <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">RT Domisili <span class="text-red-500">*</span></label>
                 <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" required />
-                {{-- Golongan Darah --}}
-                <label for="gol_darah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Golongan Darah <span class="text-red-500">*</span></label>
-                <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Golongan Darah Warga" required />
-                {{-- Pekerjaan --}}
-                <label for="pekerjaan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pekerjaan <span class="text-red-500">*</span></label>
-                <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" required />
                 {{-- Agama --}}
                 <label for="agama" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Agama <span class="text-red-500">*</span></label>
                 <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" required />
+                {{-- Golongan Darah --}}
+                {{-- Tidak required incase warganya lupa/tdk pernah cek --}}
+                <label for="gol_darah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Golongan Darah <span class="text-red-500">*</span></label>
+                <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Golongan Darah Warga"/>
+                {{-- No telpon --}}
+                <label for="no_telp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor telepon <span class="text-red-500">*</span></label>
+                <div class="flex">
+                    <span class="text-gray-500 mr-2">+62</span>
+                    <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomor telepon"/>
+                </div>
+                {{-- Pekerjaan --}}
+                {{-- Tidak required untuk yg belum berkja --}}
+                <label for="pekerjaan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pekerjaan <span class="text-red-500">*</span></label>
+                <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" required/>
+                <div id="pekerjaError" class="hidden col-span-2 text-red-500 text-sm">Isi dengan "Tidak bekerja" jika belum bekerja</div>
                 {{-- Status Data --}}
-                <label for="status_data" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Status Data <span class="text-red-500">*</span></label>
-                <select name="status_data" id="status_data" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tidak Aktif">Tidak Aktif</option>
-                </select>
+                <input type="hidden" name="status_data" value="Aktif" />
                 {{-- Status Penduduk --}}
                 <label for="status_penduduk" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Status Penduduk <span class="text-red-500">*</span></label>
                 <select name="status_penduduk" id="status_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
@@ -94,7 +81,7 @@
                 </select>
                 <!-- Other form inputs here -->
                 <div class="flex justify-between col-span-2">
-                    <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                    <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Kembali</a>
                     <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
                 </div>
             </form>            
@@ -105,6 +92,7 @@
 
 @include('layout.end')
 <script>
+    // Script tulisan merah dibawah inputan
     document.getElementById('nik').addEventListener('input', function() {
         var nikInput = this.value;
         var nikError = document.getElementById('nikError');
@@ -115,44 +103,37 @@
             nikError.classList.add('hidden');
         }
     });
-    document.getElementById('no_kk').addEventListener('input', function() {
-        var nikInput = this.value;
-        var nikError = document.getElementById('kk_Error');
+    
+    document.getElementById('pekerjaan').addEventListener('input', function() {
+        var pekerjaanInput = this.value;
+        var pekerjaError = document.getElementById('pekerjaError');
         
-        if (nikInput.length !== 16) {
-            nikError.classList.remove('hidden');
+        if (pekerjaanInput.length !== 16) {
+            pekerjaError.classList.remove('hidden');
         } else {
-            nikError.classList.add('hidden');
+            pekerjaError.classList.add('hidden');
         }
     });
-
-
-     // Dapatkan elemen input file
-     const nik_photo = document.getElementById('nik_photo');
-     const kk_photo = document.getElementById('kk_photo');
-    // Dapatkan elemen untuk menampilkan visualisasi unggah gambar
+    // Script upload indicator
+    const nik_photo = document.getElementById('nik_photo');
+    
     const uploadIndicator_nik = document.getElementById('uploadIndicator_nik');
-    const uploadIndicator_kk = document.getElementById('uploadIndicator_kk');
-
-    // Tambahkan event listener untuk perubahan pada input file
     nik_photo.addEventListener('change', function() {
-        // Periksa apakah pengguna telah memilih gambar
-        if (nik_photo.files.length > 0) {
-            // Tampilkan elemen visualisasi unggah gambar
+        if (nik_photo.files.length > 0) {mbar
             uploadIndicator_nik.classList.remove('hidden');
         } else {
-            // Sembunyikan elemen visualisasi unggah gambar jika tidak ada gambar yang dipilih
             uploadIndicator_nik.classList.add('hidden');
         }
     });
-    kk_photo.addEventListener('change', function() {
-        // Periksa apakah pengguna telah memilih gambar
-        if (kk_photo.files.length > 0) {
-            // Tampilkan elemen visualisasi unggah gambar
-            uploadIndicator_kk.classList.remove('hidden');
-        } else {
-            // Sembunyikan elemen visualisasi unggah gambar jika tidak ada gambar yang dipilih
-            uploadIndicator_kk.classList.add('hidden');
+
+    // Script untuk menambahkan awalan +62 pada nomor telepon 
+    document.getElementById('no_telp').addEventListener('change', function() {
+        var no_telp_input = document.getElementById('no_telp');
+        var no_telp_value = no_telp_input.value;
+
+        // Memastikan bahwa nomor telepon dimulai dengan +62
+        if (!no_telp_value.startsWith('+62')) {
+            no_telp_input.value = '+62' + no_telp_value;
         }
     });
 </script>

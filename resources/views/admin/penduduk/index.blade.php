@@ -16,15 +16,15 @@
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
         </div>
-        <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
+        <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
         <div class="relatives mt-5 h-full p-5 shadow-md">
-            <table id="table_penduduk" class="table-auto text-center border w-full min-w-max cursor-default">
+            <table id="table_penduduk" class="text-center border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">No</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">NIK</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Nama</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Alamat</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Alamat Domisili</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Rt</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Status data</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Status penduduk</th>
