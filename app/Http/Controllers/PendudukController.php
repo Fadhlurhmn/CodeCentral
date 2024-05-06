@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -23,17 +22,11 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk';
 
-        $keluarga = KeluargaModel::all();
-
-        return view('admin.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {
         $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk');
-
-        if ($request->keluarga_id) {
-            $penduduk->where('id_keluarga', $request->keluarga_id);
-        }
 
         // Filter berdasarkan RT 
         if ($request->has('rt')) {
@@ -60,11 +53,9 @@ class PendudukController extends Controller
         $page = (object)[
             'title' => 'Form Tambah penduduk baru'
         ];
-
-        $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -137,7 +128,6 @@ class PendudukController extends Controller
     public function edit(string $id)
     {
         $penduduk = PendudukModel::find($id);
-        $keluarga = KeluargaModel::all();
 
         $breadcrumb = (object) [
             'title' => 'Edit Penduduk',
@@ -150,7 +140,7 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
     // menyimpan perubahan data barang
     public function update(Request $request, string $id)
@@ -177,22 +167,13 @@ class PendudukController extends Controller
 
         // Cek apakah ada file gambar yang diunggah
         if ($request->hasFile('foto_ktp')) {
-            // menyimpan data foto ktp yang diupload ke variabel foto_ktp
+            // Dapatkan nama file baru
             $foto_ktp = $request->file('foto_ktp');
+            $nama_file_baru = time() . "_" . $foto_ktp->getClientOriginalName();
 
-            $nama_file = time() . "_" . $foto_ktp->getClientOriginalName();
-
-            // isi dengan nama folder tempat kemana file diupload
+            // Simpan file baru
             $tujuan_upload = 'data_ktp';
-            $foto_ktp->move($tujuan_upload, $nama_file);
-
-            // Hapus foto ktp lama jika ada
-            if ($penduduk->foto_ktp) {
-                $path_foto_ktp_lama = public_path('data_ktp/' . $penduduk->foto_ktp);
-                if (file_exists($path_foto_ktp_lama)) {
-                    unlink($path_foto_ktp_lama);
-                }
-            }
+            $foto_ktp->move($tujuan_upload, $nama_file_baru);
 
             // Update data penduduk beserta foto ktp baru
             $penduduk->update([
@@ -210,7 +191,7 @@ class PendudukController extends Controller
                 'status_penduduk' => $request->status_penduduk,
                 'rt' => $request->rt,
                 'rw' => $request->rw,
-                'foto_ktp' => $nama_file // simpan nama file gambar ke dalam database
+                'foto_ktp' => $nama_file_baru // Gunakan nama file baru
             ]);
         } else {
             // Update data penduduk tanpa mengubah foto ktp
