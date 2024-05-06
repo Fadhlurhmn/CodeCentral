@@ -29,7 +29,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_PRIVATE }}
           port: ${{ secrets.SSH_PORT }}
           envs: DOCROOT,REPO_URL,APP_NAME,APP_ENV,APP_KEY,APP_DEBUG,APP_URL,DB_CONNECTION,DB_HOST,DB_PORT,DB_DATABASE,DB_USERNAME,DB_PASSWORD
           script: |
