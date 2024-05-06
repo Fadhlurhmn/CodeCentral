@@ -8,10 +8,10 @@
         <div class="flex flex-col">
             <h1 class="py-5 ml-5 text-3xl font-bold">{{$breadcrumb->title}}</h1>
         </div>
-        <div class="w-full h-screen min-w-max p-5 shadow overflow-auto">
+        <div class="w-full h-screen min-w-max p-5 shadow ">
 
             <form id="form" class="px-10 py-10 bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST">
-                <h1 class="px-5 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4 ">
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4 ">
                     {{ $page->title }}
                 </h1>
                 @csrf

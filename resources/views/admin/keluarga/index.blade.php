@@ -1,15 +1,15 @@
 <div class="container h-full bg-slate-100">
-    <h1 class="py-5 ml-5 text-3xl font-bold text-gray-900 ">{{$breadcrumb->title}}</h1>
+    {{-- <h1 class="py-5 ml-5 text-3xl font-bold text-gray-900 ">{{$breadcrumb->title}}</h1> --}}
     
-    <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <p class="my-5 text-xl font-normal text-gray-600 "> {{$page->title}}</p>
+    <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
+        <h1 class="pb-5 my-5 text-3xl font-extrabold text-gray-600 "> {{$page->title}}</h1>
         <div class="mb-5 font-medium text-lg ">
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
         </div>
         <a class="p-2 font-normal text-center text-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('keluarga/create')}}">Tambah Data Keluarga</a>
-        <div class="relatives mt-5 p-5 shadow">
+        <div class="relatives mt-5 h-screen p-5 shadow-md">
             <table id="table_keluarga" class="table-auto text-center border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>

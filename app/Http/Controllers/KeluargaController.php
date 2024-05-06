@@ -48,7 +48,7 @@ class KeluargaController extends Controller
         ];
 
         $page = (object)[
-            'title' => 'Tambah keluarga baru'
+            'title' => 'Tambah Data Keluarga'
         ];
 
         $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
