@@ -16,7 +16,7 @@
                 </h1>
                 @csrf
                 {{-- Nomor Keluarga --}}
-                    <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga</label>
+                    <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga<span class="text-red-500">*</span></label>
                     <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
                     <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
                     <div class="relative bg-teal-500 hover:bg-teal-600 col-span-4 rounded-lg transition duration-300 ease-in-out">
@@ -29,37 +29,37 @@
                         <span class="text-green-500">Gambar Terunggah</span>
                     </div>
                 {{-- Jumlah Kendaraan --}}
-                    <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan</label>
+                    <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan<span class="text-red-500">*</span></label>
                     <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Jumlah Kendaraan" required />
                 
                 {{-- Alamat --}}
-                    <label for="alamat" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat</label>
+                    <label for="alamat" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat KK<span class="text-red-500">*</span></label>
                     <input type="text" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat" value="" required />
                 
                 {{-- Kelurahan --}}
-                    <label for="kelurahan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kelurahan</label>
+                    <label for="kelurahan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kelurahan<span class="text-red-500">*</span></label>
                     <input type="text" name="kelurahan" id="kelurahan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat" value="" required />
                 
                 {{-- Kecamatan --}}
-                    <label for="kecamatan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kecamatan</label>
+                    <label for="kecamatan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kecamatan<span class="text-red-500">*</span></label>
                     <input type="text" name="kecamatan" id="kecamatan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat" value="" required />
                 
                 {{-- Kota --}}
-                    <label for="kota" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kota</label>
+                    <label for="kota" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kota<span class="text-red-500">*</span></label>
                     <input type="text" name="kota" id="kota" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat" value="" required />
                 
-                {{-- RT --}}
-                    <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Rt</label>
+                {{-- RT ????????--}}
+                    <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Rt<span class="text-red-500">*</span></label>
                     <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="" required />
                     {{-- RW hidden --}}
                     <input type="hidden" name="rw" value="6" required/>
                 
                 {{-- Luas Tanah --}}
-                        <label for="luas_tanah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Luas Tanah</label>
-                        <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Luas Tanah" required />
+                    <label for="luas_tanah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Luas Tanah<span class="text-red-500">*</span></label>
+                    <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Luas Tanah" required />
                 
                 {{-- Kepala Keluarga --}}
-                        <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kepala Keluarga</label>
+                        <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kepala Keluarga<span class="text-red-500">*</span></label>
                         <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Kepala Keluarga" required >
                             @foreach ($penduduk as $daftarPenduduk)
                             <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>    
@@ -67,18 +67,14 @@
                         </select>
 
                 {{-- Anggota Keluarga --}}
-                    <div id="anggota-keluarga" class="col-span-4">
-                        <!-- Isian untuk anggota keluarga pertama -->
-                        <div class="anggota-keluarga col-span-4">
-                            <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
+                            <label id="anggota-keluarga" for="anggota_keluarga_1" class="anggota-keluarga block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
                             <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>
                                 <option value="">Pilih Anggota Keluarga 1</option>
-                                @foreach ($penduduk as $daftarPenduduk)
-                                    <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>
-                                @endforeach
+                                    @foreach ($penduduk as $daftarPenduduk)
+                                        <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>
+                                    @endforeach
                             </select>
-                        </div>
-                    </div>
+
                     <button id="tambah-anggota-button" class="bg-teal-500 text-sm text-left font-medium text-white py-2 px-4 rounded-lg mt-4 col-span-4">Tambah Anggota Keluarga</button>
                 
                     {{-- Jumlah anggota keluarga, warga bekerja dan belum bekerja --}}
@@ -115,7 +111,7 @@
     
     const uploadIndicator_kk = document.getElementById('uploadIndicator_kk');
     foto_kk.addEventListener('change', function() {
-        if (foto_kk.files.length > 0) {mbar
+        if (foto_kk.files.length > 0) {
             uploadIndicator_kk.classList.remove('hidden');
         } else {
             uploadIndicator_kk.classList.add('hidden');
@@ -129,15 +125,14 @@
         $("#tambah-anggota-button").click(function() {
             anggotaCount++;
 
-            var newAnggotaDiv = '<div class="anggota-keluarga col-span-4">' +
-                                    '<label for="anggota_keluarga_' + anggotaCount + '" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ' + anggotaCount + '</label>' +
+            var newAnggotaDiv =     '<label for="anggota_keluarga_' + anggotaCount + '" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ' + anggotaCount + '</label>' +
                                     '<select name="anggota_keluarga[]" id="anggota_keluarga_' + anggotaCount + '" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>' +
                                         '<option value="">Pilih Anggota Keluarga ' + anggotaCount + '</option>' +
                                         '@foreach ($penduduk as $daftarPenduduk)' +
                                             '<option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>' +
                                         '@endforeach' +
                                     '</select>' +
-                                '</div>';
+                                
 
             $("#anggota-keluarga").append(newAnggotaDiv);
         });

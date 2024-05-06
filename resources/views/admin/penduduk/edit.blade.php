@@ -40,10 +40,10 @@
                     <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" value="{{ $penduduk->nama }}" required />            
                 {{-- alamat_ktp --}}
                     <label for="alamat_ktp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat KTP</label>
-                    <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat KTP" value="" required />
+                    <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat KTP" value="{{$penduduk->alamat_ktp}}" required />
                 {{-- alamat_domisili --}}
                     <label for="alamat_domisili" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat Domisili</label>
-                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="" required />
+                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="{{$penduduk->alamat_domisili}}" required />
                 {{-- RT --}}
                     <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Rt</label>
                     <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{$penduduk->rt}}" required />
@@ -65,7 +65,7 @@
                     <label for="no_telp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor telepon</label>
                     <div class="flex col-span-4">
                         <span class="text-gray-800 mr-2 pt-2">+62</span>
-                        <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomor telepon"/>
+                        <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{$penduduk->no_telp}}"/>
                     </div>
                 {{-- pekerjaan --}}
                     <label for="pekerjaan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pekerjaan</label>

@@ -73,7 +73,7 @@ class PendudukController extends Controller
             'nik' => 'required|string',
             'nama' => 'required|string',
             'alamat_ktp' => 'required|string',
-            'no_telp' => 'required|integer',
+            'no_telp' => 'required|string',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|string',
             'agama' => 'required|string',
@@ -119,7 +119,7 @@ class PendudukController extends Controller
 
     public function show(string $id)
     {
-        $penduduk = PendudukModel::with('keluarga')->find($id);
+        $penduduk = PendudukModel::all()->find($id);
 
         $breadcrumb = (object)[
             'title' => 'Detail Penduduk',
@@ -160,7 +160,7 @@ class PendudukController extends Controller
             'nama' => 'required|string',
             'alamat_ktp' => 'required|string',
             'alamat_domisili' => 'required|string',
-            'no_telp' => 'required|integer',
+            'no_telp' => 'required|string',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|string',
             'agama' => 'required|string',

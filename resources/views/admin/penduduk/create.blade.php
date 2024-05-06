@@ -19,12 +19,12 @@
                 <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" required />
                 <div id="nikError" class="hidden col-span-2 text-red-500 text-sm">NIK harus diisi dengan 16 karakter</div>
                 <div class="relative bg-teal-500 hover:bg-teal-600 col-span-4 rounded-lg transition duration-300 ease-in-out">
-                    <input type="file" name="nik_photo" id="nik_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
-                    <label for="nik_photo" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
+                    <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                    <label for="foto_ktp" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
                         Submit Foto KTP (Max ukuran 2MB)
                     </label>
                 </div>
-                <div id="uploadIndicator_nik" class="hidden col-span-2">
+                <div id="uploadIndicator_foto" class="hidden col-span-2">
                     <!-- Contoh: ikon atau pesan teks -->
                     <span class="text-green-500">Gambar Terunggah</span>
                 </div>
@@ -38,11 +38,11 @@
                 <label for="tanggal_lahir" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Tanggal Lahir <span class="text-red-500">*</span></label>
                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tanggal Lahir" required />
                 {{-- Jenis Kelamin --}}
-                <label for="jenis_kelamin" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
+                {{-- <label for="jenis_kelamin" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
                 <select name="jenis_kelamin" id="jenis_kelamin" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
                     <option value="laki_laki">Laki-laki</option>
                     <option value="perempuan">Perempuan</option>
-                </select>
+                </select> --}}
                 {{-- Alamat KTP --}}
                 <label for="alamat_ktp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat KTP <span class="text-red-500">*</span></label>
                 <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat KTP" required></input>
@@ -50,7 +50,7 @@
                 <label for="alamat_domisili" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat Domisili <span class="text-red-500">*</span></label>
                 <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat Domisili" required></input>
                 {{-- Rt & RW--}}
-                <input type="hidden" name="rw" value="6" />
+                <input type="hidden" name="rw" value="1" />
                 <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">RT Domisili <span class="text-red-500">*</span></label>
                 <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" required />
                 {{-- Agama --}}
@@ -115,25 +115,26 @@
         }
     });
     // Script upload indicator
-    const nik_photo = document.getElementById('nik_photo');
+    const foto_ktp = document.getElementById('foto_ktp');
     
-    const uploadIndicator_nik = document.getElementById('uploadIndicator_nik');
-    nik_photo.addEventListener('change', function() {
-        if (nik_photo.files.length > 0) {mbar
-            uploadIndicator_nik.classList.remove('hidden');
+    const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
+    foto_ktp.addEventListener('change', function() {
+        if (foto_ktp.files.length > 0) {
+            uploadIndicator_foto.classList.remove('hidden');
         } else {
-            uploadIndicator_nik.classList.add('hidden');
+            uploadIndicator_foto.classList.add('hidden');
         }
     });
 
-    // Script untuk menambahkan awalan +62 pada nomor telepon 
+    // Script nomor telepon 
+    // Penambahan +62
     document.getElementById('no_telp').addEventListener('change', function() {
         var no_telp_input = document.getElementById('no_telp');
         var no_telp_value = no_telp_input.value;
 
         // Memastikan bahwa nomor telepon dimulai dengan +62
-        if (!no_telp_value.startsWith('+62')) {
-            no_telp_input.value = '+62' + no_telp_value;
+        if (!no_telp_value.startsWith('62')) {
+            no_telp_input.value = '62' + no_telp_value;
         }
     });
 </script>
