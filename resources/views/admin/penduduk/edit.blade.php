@@ -20,24 +20,24 @@
             </div>
             @else
             <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('penduduk/' . $penduduk->id_penduduk) }}" method="POST">
-                <h1 class="px-5 py-7 mb-5 font-semibold text-center text-3xl rtl:text-right text-gray-900 bg-slate-100 border-2 border-teal-500 col-span-4 rounded-lg">
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 border-teal-500 col-span-4 ">
                     {{ $page->title }}
                 </h1>
                 @csrf
                 @method('POST')
-                <input type="hidden" name="foto_ktp_lama" value="{{ $penduduk->foto_ktp }}">
+                {{-- <input type="hidden" name="foto_ktp_lama" value="{{ $penduduk->foto_ktp }}"> --}}
 
                 {{-- nik --}}
-                    <label for="nik" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">NIK</label>
-                    <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan NIK warga" value="{{ $penduduk->nik }}" required />
+                    <label for="nik" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
+                    <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" required />
                     <div id="nikError" class="hidden col-span-2 text-red-500 text-sm">NIK harus diisi dengan 16 karakter</div>
-                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-4 rounded-lg transition duration-300 ease-in-out">
+                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg transition duration-300 ease-in-out">
                         <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
                         <label for="foto_ktp" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
                             Submit Foto KTP (Max ukuran 2MB)
                         </label>
                     </div>
-                    <div id="uploadIndicator_foto" class="hidden col-span-2">
+                    <div id="uploadIndicator_foto" class="hidden col-span-2 py-2 px-0">
                         <!-- Contoh: ikon atau pesan teks -->
                         <span class="text-green-500">Gambar Terunggah</span>
                     </div>
