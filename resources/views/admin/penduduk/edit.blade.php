@@ -25,6 +25,8 @@
                 </h1>
                 @csrf
                 @method('POST')
+                <input type="hidden" name="foto_ktp_lama" value="{{ $penduduk->foto_ktp }}">
+
                 {{-- nik --}}
                     <label for="nik" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">NIK</label>
                     <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan NIK warga" value="{{ $penduduk->nik }}" required />
