@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('detail_kas', function (Blueprint $table) {
-            //
+            $table->id('id_kas');
+            $table->dateTime('tanggal_transaksi');
+            $table->string('tipe_transaksi', 255);
+            $table->string('jenis_transaksi', 255);
+            $table->string('keterangan', 255);
+            $table->integer('nominal');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('detail_kas', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('detail_kas');
     }
 };

@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('detail_bansos', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('id_bansos')->index();
+            $table->unsignedBigInteger('id_keluarga')->index();
+            $table->timestamps();
+
+            $table->foreign('id_bansos')->references('id_bansos')->on('bansos');
+            $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga_penduduk');
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('detail_bansos', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('detail_bansos');
     }
 };
