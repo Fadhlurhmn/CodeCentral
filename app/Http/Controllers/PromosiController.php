@@ -179,4 +179,11 @@ class PromosiController extends Controller
             'status_pengajuan' => 'acc'
         ]);
     }
+    // tolak promosi
+    public function tolak_promosi(string $id)
+    {
+        PromosiModel::find($id)->update([
+            'status_pengajuan' => 'tolak'
+        ]);
+    }
 }
