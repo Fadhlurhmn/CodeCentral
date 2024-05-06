@@ -15,7 +15,7 @@
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
-            <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
+            <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
         </div>
         <div class="relatives mt-5 h-full p-5 shadow-md">
             <table id="table_penduduk" class="border w-full min-w-max cursor-default">

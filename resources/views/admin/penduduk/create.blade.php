@@ -10,8 +10,8 @@
         </div>
         <div class="w-full h-screen min-w-max p-5 shadow overflow-y-scroll">
             <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('penduduk') }}" method="POST" enctype="multipart/form-data">
-                <h1 class="px-5 py-7 mb-5 font-semibold text-center text-3xl rtl:text-right text-gray-900 bg-slate-100 border-2 border-teal-500 col-span-4 rounded-lg">
-                    Isi Data Penduduk
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 border-teal-500 col-span-4">
+                    Isi data penduduk
                 </h1>
                 @csrf
                 {{-- NIK --}}
