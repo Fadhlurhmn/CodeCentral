@@ -166,8 +166,8 @@ class PendudukController extends Controller
             'agama' => 'required|string',
             'pekerjaan' => 'required|string',
             'gol_darah' => 'required|string',
-            'status_data' => 'nullable|string',
-            'status_penduduk' => 'nullable|string',
+            'status_data' => 'required|string',
+            'status_penduduk' => 'required|string',
             'rt' => 'required|integer',
             'rw' => 'required|integer',
             'foto_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
