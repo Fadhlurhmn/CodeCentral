@@ -7,7 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('index');
+    $activeMenu = 'Home';
+    return view('index', ['activeMenu' => $activeMenu]);
 })->name('public');
 
 Route::get('/shop', function () {

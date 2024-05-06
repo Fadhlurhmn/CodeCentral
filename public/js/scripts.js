@@ -229,7 +229,11 @@ var btn     = document.getElementById('sliderBtn'),
             sideBar.classList.replace('md:-ml-64' , 'md:ml-0');
             sideBar.classList.remove('md:slideOutLeft');
             sideBar.classList.add('md:slideInLeft');
-        };
+        } else if (sideBar.classList.contains('hidden')) {
+            sideBar.classList.replace('hidden', 'flex');
+            sideBar.classList.remove('md:slideOutLeft');
+            sideBar.classList.add('md:slideInLeft');
+        }
     });
 
     // hide sideBar    
@@ -253,6 +257,26 @@ var btn     = document.getElementById('sliderBtn'),
                     
             _class(); 
             animate();
+        }
+        else if (sideBar.classList.contains('flex' , 'slideInLeft')) {      
+          var _class = function(){
+              sideBar.classList.remove('md:slideInLeft');
+              sideBar.classList.add('md:slideOutLeft');
+      
+              console.log('hide');              
+          };
+          var animate = async function(){
+              await _class();
+
+              setTimeout(function(){
+                  sideBar.classList.replace('flex' , 'hidden');
+                  console.log('animated');
+              } , 300);                                                
+              
+          };            
+                  
+          _class(); 
+          animate();
         };
     });
 // end with sidebar

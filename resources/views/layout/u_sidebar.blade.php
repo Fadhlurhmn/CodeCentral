@@ -1,112 +1,67 @@
   <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+  <div id="sideBar" class="relative hidden flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
     
 
     <!-- sidebar content -->
-    <div class="flex flex-col">
+    <div class="flex flex-col flex-grow">
 
       <!-- sidebar toggle -->
-      <div class="text-right hidden md:block mb-4">
+      <div class="text-right block mb-4">
         <button id="sideBarHideBtn">
-          <i class="fad fa-times-circle"></i>
+          <i class="far fa-times-circle"></i>
         </button>
       </div>
       <!-- end sidebar toggle -->
 
-      <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">FITUR SI RW</p>
+      <p class="uppercase text-xs text-gray-600 mb-4 text-center tracking-wider">LAYANAN SI RW</p>
 
 
-      <a href="/admin" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-chart-pie text-xs mr-2"></i>
-        Dashboard
-      </a>
-
-      <a href="/admin/akun" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-user text-xs mr-2"></i>
-        Akun
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Home') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-home text-base mr-2"></i>
+        Home
       </a>
       
-      <a href="/admin/bansos" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-people-carry text-xs mr-2"></i>
-        Bansos
-      </a>
-
-      <a href="/admin/penduduk" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-users text-xs mr-2"></i>
-        Data Penduduk
-      </a>
-
-      <a href="/admin/pengumuman" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-bullhorn text-xs mr-2"></i>
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Pengumuman') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-bullhorn text-base mr-2"></i>
         Pengumuman
       </a>
-
-      <a href="/admin/promosi" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-ad text-xs mr-2"></i>
+      
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Pengaduan') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-exclamation-triangle text-base mr-2"></i>
+        Pengaduan
+      </a>
+      
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Promosi') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-ad text-base mr-2"></i>
         Promosi
       </a>
-
-      <a href="/admin/surat" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-envelope text-xs mr-2"></i>
-        Surat
+      
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Bansos') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-people-carry text-base mr-2"></i>
+        Bantuan Sosial
       </a>
 
-      <a href="/admin/jadwal" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="far fa-calendar-alt text-xs mr-2"></i>
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Surat') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-envelope text-base mr-2"></i>
+        Permintaan Surat
+      </a>
+
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Jadwal') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="far fa-calendar-alt text-base mr-2"></i>
         Jadwal
       </a>
 
-      <a href="/admin/keuangan" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-coins text-xs mr-2"></i>
+      <a href="#" class="w-full  p-2 capitalize block rounded font-medium text-base @if($activeMenu == 'Keuangan') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-coins text-base mr-2"></i>
         Keuangan
       </a>
+      
+      <div class="flex-grow"></div>
 
-      <a href="/login" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-sign-in-alt text-xs mr-2"></i>
+      <a href="/login" class="w-full p-2 flex items-end capitalize text-center rounded font-medium text-base bg-yellow-400 hover:bg-yellow-200 transition ease-in-out duration-500">
+        <i class="fas fa-sign-in-alt text-base mr-2"></i>
         Login
       </a>
-      
-      <a href="/logout" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fas fa-sign-out-alt text-xs mr-2"></i>
-        Logout
-      </a>
-      
-      <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Template Example</p>
-
-      <a href="/template" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-chart-pie text-xs mr-2"></i>                
-        Analytics dashboard
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/shop" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-shopping-cart text-xs mr-2"></i>
-        ecommerce dashboard
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/typography" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-text text-xs mr-2"></i>
-        typography
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/alert" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-whistle text-xs mr-2"></i>
-        alerts
-      </a>
-      <!-- end link -->
-      
-
-      <!-- link -->
-      <a href="/template/buttons" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-cricket text-xs mr-2"></i>
-        buttons
-      </a>
-      <!-- end link -->
 
     </div>
     <!-- end sidebar content -->
