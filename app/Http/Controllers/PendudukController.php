@@ -170,67 +170,46 @@ class PendudukController extends Controller
             'status_penduduk' => 'nullable|string',
             'rt' => 'required|integer',
             'rw' => 'required|integer',
-            'foto_ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'foto_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $penduduk = PendudukModel::find($id);
 
-        // Cek apakah ada file gambar yang diunggah
-        if ($request->hasFile('foto_ktp')) {
-            // menyimpan data foto ktp yang diupload ke variabel foto_ktp
-            $foto_ktp = $request->file('foto_ktp');
+        // menyimpan data foto ktp yang diupload ke variabel foto_ktp
+        $foto_ktp = $request->file('foto_ktp');
 
-            $nama_file = time() . "_" . $foto_ktp->getClientOriginalName();
+        $nama_file = time() . "_" . $foto_ktp->getClientOriginalName();
 
-            // isi dengan nama folder tempat kemana file diupload
-            $tujuan_upload = 'data_ktp';
-            $foto_ktp->move($tujuan_upload, $nama_file);
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'data_ktp';
+        $foto_ktp->move($tujuan_upload, $nama_file);
 
-            // Hapus foto ktp lama jika ada
-            if ($penduduk->foto_ktp) {
-                $path_foto_ktp_lama = public_path('data_ktp/' . $penduduk->foto_ktp);
-                if (file_exists($path_foto_ktp_lama)) {
-                    unlink($path_foto_ktp_lama);
-                }
+        // Hapus foto ktp lama jika ada
+        if ($penduduk->foto_ktp) {
+            $path_foto_ktp_lama = public_path('data_ktp/' . $penduduk->foto_ktp);
+            if (file_exists($path_foto_ktp_lama)) {
+                unlink($path_foto_ktp_lama);
             }
-
-            // Update data penduduk beserta foto ktp baru
-            $penduduk->update([
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'alamat_ktp' => $request->alamat_ktp,
-                'alamat_domisili' => $request->alamat_domisili,
-                'no_telp' => $request->no_telp,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'agama' => $request->agama,
-                'pekerjaan' => $request->pekerjaan,
-                'gol_darah' => $request->gol_darah,
-                'status_data' => $request->status_data,
-                'status_penduduk' => $request->status_penduduk,
-                'rt' => $request->rt,
-                'rw' => $request->rw,
-                'foto_ktp' => $nama_file // simpan nama file gambar ke dalam database
-            ]);
-        } else {
-            // Update data penduduk tanpa mengubah foto ktp
-            $penduduk->update([
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'alamat_ktp' => $request->alamat_ktp,
-                'alamat_domisili' => $request->alamat_domisili,
-                'no_telp' => $request->no_telp,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'agama' => $request->agama,
-                'pekerjaan' => $request->pekerjaan,
-                'gol_darah' => $request->gol_darah,
-                'status_data' => $request->status_data,
-                'status_penduduk' => $request->status_penduduk,
-                'rt' => $request->rt,
-                'rw' => $request->rw
-            ]);
         }
+
+        // Update data penduduk beserta foto ktp baru
+        $penduduk->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat_ktp' => $request->alamat_ktp,
+            'alamat_domisili' => $request->alamat_domisili,
+            'no_telp' => $request->no_telp,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'pekerjaan' => $request->pekerjaan,
+            'gol_darah' => $request->gol_darah,
+            'status_data' => $request->status_data,
+            'status_penduduk' => $request->status_penduduk,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'foto_ktp' => $nama_file // simpan nama file gambar ke dalam database
+        ]);
 
         return redirect('/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
     }
