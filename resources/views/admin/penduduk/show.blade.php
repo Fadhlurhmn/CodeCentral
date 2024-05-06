@@ -29,7 +29,7 @@
                     <tbody class="bg-white">
                         <tr class="whitespace-nowrap">
                             <th class="pl-3 py-2 border-r">Foto KTP</th>
-                            <td><img src="{{ asset($penduduk->foto_ktp) }}" class="img-thumbnail" /></td>
+                            <td><img src="{{ asset('data_ktp/'. $penduduk->foto_ktp) }}" class="img-thumbnail" /></td>
                         </tr>
                         <tr class="bg-gray-200/50">
                             <th class="pl-3 py-2 border-r">NIK</th>

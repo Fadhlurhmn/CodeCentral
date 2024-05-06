@@ -3,7 +3,7 @@
     <h1 class="py-5 ml-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
     
     <div class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <div class="mb-5 font-medium text-lg ">
+        <div class="mb-5 font-medium text-sm flex justify-between">
             {{-- Ini Filter RT masih manual value RT nya --}}
             <select name="rt" id="rt" class="pl-2 py-1 block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                 <option value="all" selected>Semua RT</option>
@@ -15,8 +15,8 @@
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
+            <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
         </div>
-        <a class="p-2 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
         <div class="relatives mt-5 h-full p-5 shadow-md">
             <table id="table_penduduk" class="border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400 text-center">

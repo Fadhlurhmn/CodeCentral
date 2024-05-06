@@ -11,7 +11,7 @@
         <div class="w-full h-screen min-w-max p-5 shadow overflow-auto">
 
             <form id="form" class="px-10 py-10 bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST">
-                <h1 class="px-5 py-7 mb-5 font-semibold text-center text-3xl rtl:text-right text-gray-900 bg-slate-100 border-2 border-teal-500 col-span-4 rounded-lg">
+                <h1 class="px-5 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4 ">
                     {{ $page->title }}
                 </h1>
                 @csrf
@@ -59,22 +59,27 @@
                     <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Luas Tanah" required />
                 
                 {{-- Kepala Keluarga --}}
+                    <div class="col-span-4">
                         <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kepala Keluarga<span class="text-red-500">*</span></label>
                         <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Kepala Keluarga" required >
+                            <option value="">Pilih Kepala Keluarga</option>
                             @foreach ($penduduk as $daftarPenduduk)
                             <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>    
                             @endforeach
                         </select>
-
+                    </div>
                 {{-- Anggota Keluarga --}}
-                            <label id="anggota-keluarga" for="anggota_keluarga_1" class="anggota-keluarga block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
+                    <div id="anggota-keluarga" class="col-span-4">
+                        <div class="anggota-keluarga">
+                            <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga 1</label>
                             <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>
                                 <option value="">Pilih Anggota Keluarga 1</option>
-                                    @foreach ($penduduk as $daftarPenduduk)
-                                        <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>
-                                    @endforeach
+                                @foreach ($penduduk as $daftarPenduduk)
+                                <option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>
+                                @endforeach
                             </select>
-
+                        </div>
+                    </div>
                     <button id="tambah-anggota-button" class="bg-teal-500 text-sm text-left font-medium text-white py-2 px-4 rounded-lg mt-4 col-span-4">Tambah Anggota Keluarga</button>
                 
                     {{-- Jumlah anggota keluarga, warga bekerja dan belum bekerja --}}
@@ -125,14 +130,15 @@
         $("#tambah-anggota-button").click(function() {
             anggotaCount++;
 
-            var newAnggotaDiv =     '<label for="anggota_keluarga_' + anggotaCount + '" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ' + anggotaCount + '</label>' +
+            var newAnggotaDiv = '<div class="anggota-keluarga col-span-4">' +
+                                    '<label for="anggota_keluarga_' + anggotaCount + '" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Anggota Keluarga ' + anggotaCount + '</label>' +
                                     '<select name="anggota_keluarga[]" id="anggota_keluarga_' + anggotaCount + '" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>' +
                                         '<option value="">Pilih Anggota Keluarga ' + anggotaCount + '</option>' +
                                         '@foreach ($penduduk as $daftarPenduduk)' +
                                             '<option value="{{$daftarPenduduk->nik}}">{{$daftarPenduduk->nama}}</option>' +
                                         '@endforeach' +
                                     '</select>' +
-                                
+                                '</div>';
 
             $("#anggota-keluarga").append(newAnggotaDiv);
         });
