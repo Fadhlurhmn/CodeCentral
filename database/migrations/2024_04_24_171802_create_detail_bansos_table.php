@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('detail_bansos', function (Blueprint $table) {
+        Schema::create('detail_bansos', function (Blueprint $table) {
             $table->unsignedBigInteger('id_bansos')->index();
             $table->unsignedBigInteger('id_keluarga')->index();
             $table->timestamps();
