@@ -30,7 +30,7 @@ Route::post('proses_register', [AuthController::class, 'proses_register'])->name
 
 // middleware, redirect to login when the /admin or /admin/** is typed
 Route::group(['middleware' => ['cek_login:1']], function(){
-    Route::resource('admin', AdminController::class);
+    Route::get('admin', [AdminController::class, 'index']);
 
     // Route for admin (for template only, you can make your own controller with index inside and remove this)
     Route::group(['prefix' => 'admin'], function () {
