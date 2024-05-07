@@ -26,23 +26,23 @@
                 <tbody class="bg-white">
             
                     <tr class="whitespace-nowrap">
-                        <th class="pl-3 py-2 border-r w-40">Nomer Kartu Keluarga</th>
+                        <th class="px-3 py-2 border-r w-40">Nomer Kartu Keluarga</th>
                         <td class="pl-3">{{ $keluarga->nomor_keluarga }}</td>
                     </tr>
                     <tr class="bg-gray-100/50">
-                        <th class="pl-3 py-2 border-r">Jumlah Orang Kerja</th>
+                        <th class="px-3 py-2 border-r">Jumlah Orang Kerja</th>
                         <td class="pl-3">{{ $keluarga->jumlah_orang_kerja }}</td>
                     </tr>
                     <tr class="whitespace-nowrap">
-                        <th class="pl-3 py-2 border-r">Jumlah Tanggungan</th>
+                        <th class="px-3 py-2 border-r">Jumlah Tanggungan</th>
                         <td class="pl-3">{{ $keluarga->jumlah_tanggungan}}</td>
                     </tr>
                     <tr class="bg-gray-100/50">
-                        <th class="pl-3 py-2 border-r">Jumlah Kendaraan</th>
+                        <th class="px-3 py-2 border-r">Jumlah Kendaraan</th>
                         <td class="pl-3">{{ $keluarga->jumlah_kendaraan }}</td>
                     </tr>
                     <tr class="whitespace-nowrap">
-                        <th class="pl-3 py-2 border-r">Luas Tanah</th>
+                        <th class="px-3 py-2 border-r">Luas Tanah</th>
                         <td class="pl-3">{{ $keluarga->luas_tanah }}</td>
                 </tbody>
             </table>      
