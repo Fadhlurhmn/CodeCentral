@@ -30,14 +30,14 @@
                     {{-- nik --}}
                     <label for="nik" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
                     <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
-                    <div id="nikError" class="hidden col-span-2 text-red-500 text-sm">NIK harus diisi dengan 16 karakter</div>
+                    <div id="nikError" class="hidden col-span-4 text-red-500 text-sm">NIK harus diisi dengan 16 karakter</div>
                     <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg transition duration-300 ease-in-out">
                         <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
                         <label for="foto_ktp" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
                             Submit Foto KTP (Max ukuran 2MB)
                         </label>
                     </div>
-                    <div id="uploadIndicator_foto" class="hidden col-span-2 py-2 px-0">
+                    <div id="uploadIndicator_foto" class="hidden col-span-4 py-2 px-0">
                         <span class="text-green-500">Gambar Terunggah</span>
                     </div>
                     {{-- nama --}}
@@ -136,6 +136,17 @@
             nikError.classList.remove('hidden');
         } else {
             nikError.classList.add('hidden');
+        }
+    });
+
+    const foto_ktp = document.getElementById('foto_ktp');
+    
+    const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
+    foto_ktp.addEventListener('change', function() {
+        if (foto_ktp.files.length > 0) {
+            uploadIndicator_foto.classList.remove('hidden');
+        } else {
+            uploadIndicator_foto.classList.add('hidden');
         }
     });
 

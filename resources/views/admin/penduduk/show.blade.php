@@ -11,7 +11,7 @@
             ?>
             <h1 class="py-5 ml-5 text-3xl font-bold">{{$page->title}}</h1>
         </div>
-        <div class="w-full h-screen min-w-max p-5 shadow">
+        <div class="w-full min-w-max p-5 shadow">
             @if(!$penduduk)
                 <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
