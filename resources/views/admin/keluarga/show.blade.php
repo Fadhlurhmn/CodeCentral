@@ -24,8 +24,11 @@
                         <p class="mt-1 text-lg font-normal text-slate-100"> {{ $page->title }} dalam sistem</p>
                     </caption>
                 <tbody class="bg-white">
-            
-                    <tr class="whitespace-nowrap">
+                    <tr class="whitespace-nowrap ">
+                        <th class="px-3 py-2 border-r w-40">Foto KK</th>
+                        <td class="pl-3 py-2"><img src="{{ asset('data_nik/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" /></td>
+                    </tr>
+                    <tr class="whitespace-nowrap border-t">
                         <th class="px-3 py-2 border-r w-40">Nomer Kartu Keluarga</th>
                         <td class="pl-3">{{ $keluarga->nomor_keluarga }}</td>
                     </tr>

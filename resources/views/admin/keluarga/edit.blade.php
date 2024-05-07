@@ -19,21 +19,59 @@
                 </button>
             </div>
             @else
-            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-2 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga/' . $keluarga->id_keluarga) }}" method="POST">
-                <h1 class="p-5 mb-5 font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 col-span-2 rounded-lg">
+            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga/' . $keluarga->id_keluarga) }}" method="POST">
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4 ">
                     {{ $page->title }}
                 </h1>
                 @csrf
                 @method('POST')
-                <div class="relative z-0 w-full mb-5 group col-span-2">
-                    <label for="nomor_keluarga" class="font-semibold">Nomor Kartu Keluarga</label>
-                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="block py-2.5 px-2.5 w-full text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-teal-100 focus:bg-teal-100" placeholder="-" value="{{ $keluarga->nomor_keluarga }}" required />
-                    <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 10 digit.</small>
+                <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga<span class="text-red-500">*</span></label>
+                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
+                    <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
+                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg w-64 text-center transition duration-300 ease-in-out">
+                        <input type="file" name="kk_photo" id="kk_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                        <label for="kk_photo" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
+                            Submit Foto KK (Max ukuran 2MB)
+                        </label>
+                    </div>
+                    <div id="uploadIndicator_kk" class="hidden col-span-4">
+                        <span class="text-green-500">Gambar Terunggah</span>
+                    </div>
+                
+                    {{-- Kepala Keluarga --}}
+                <div class="col-span-full border-b pb-5 mb-5">
+                    <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pilih Kepala Keluarga<span class="text-red-500">*</span></label>
+                    <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required >
+                        <option value="">Pilih Kepala Keluarga</option>
+                        @foreach ($penduduk as $daftarPenduduk)
+                        <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
+                        @endforeach
+                    </select>
                 </div>
-                <div class="relative z-0 w-full mb-5 group">
-                    <label for="jumlah_orang_kerja" class="font-semibold">Jumlah Orang Bekerja</label>
-                    <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="block py-2.5 px-2.5 w-full text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-teal-100 focus:bg-teal-100" placeholder="-" value="{{ $keluarga->jumlah_orang_kerja }}" required />
+                {{-- Istri --}}
+                <div class="col-span-full border-b pb-5 mb-5">
+                    <label for="istri" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Istri</label>
+                    <select name="istri" id="istri" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 ">
+                        <option value="">Istri</option>
+                        @foreach ($penduduk as $daftarPenduduk)
+                        <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
+                        @endforeach
+                    </select>
                 </div>
+                
+                {{-- Anggota Keluarga --}}
+                <div class="col-span-2" id="anggota-keluarga-container">
+                    <div class="anggota-keluarga mb-5">
+                        <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900">Anggota Keluarga 1</label>
+                        <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
+                            <option value="">Pilih Anggota Keluarga 1</option>
+                            @foreach ($penduduk as $daftarPenduduk)
+                            <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="relative z-0 w-full mb-5 group">
                     <label for="jumlah_tanggungan" class="font-semibold">Jumlah Tanggungan</label>
                     <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="block py-2.5 px-2.5 w-full text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-teal-100 focus:bg-teal-100" placeholder="A-" value="{{ $keluarga->jumlah_tanggungan }}" required />

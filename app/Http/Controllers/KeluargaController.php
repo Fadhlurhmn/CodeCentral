@@ -160,8 +160,8 @@ class KeluargaController extends Controller
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
-
-        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        $penduduk = PendudukModel::all();
+        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
     // menyimpan perubahan data barang
     public function update(Request $request, string $id)

@@ -19,7 +19,7 @@
                     <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga<span class="text-red-500">*</span></label>
                     <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
                     <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
-                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg transition duration-300 ease-in-out">
+                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg w-64 text-center transition duration-300 ease-in-out">
                         <input type="file" name="kk_photo" id="kk_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
                         <label for="kk_photo" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
                             Submit Foto KK (Max ukuran 2MB)
