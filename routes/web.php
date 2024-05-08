@@ -7,27 +7,18 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('index');
+    // return view('index');
+    return redirect('/admin');
 })->name('public');
 
-Route::get('/shop', function () {
-    return view('index-1');
-})->name('shop');
-
-Route::get('/email', function () {
-    return view('email');
-})->name('email');
-
-Route::get('/typography', function () {
-    return view('typography');
-})->name('typography');
-
-Route::get('/alert', function () {
-    return view('alert');
-});
-
-Route::get('/buttons', function () {
-    return view('buttons');
+// Template 
+Route::group(['prefix' => 'template'], function () {
+    Route::get('/', function () {return view('template.index');});
+    Route::get('/shop', function () {return view('template.index-1');});
+    Route::get('/email', function () {return view('template.email');});
+    Route::get('/typography', function () {return view('template.typography');});
+    Route::get('/alert', function () {return view('template.alert');});
+    Route::get('/buttons', function () {return view('template.buttons');});
 });
 
 // login auth route
@@ -38,8 +29,10 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
 
 // middleware, redirect to login when the /admin or /admin/** is typed
-Route::group(['middleware' => ['cek_login:1']], function () {
-    Route::resource('admin', AdminController::class);
+
+Route::group(['middleware' => ['cek_login:1']], function(){
+    Route::get('admin', [AdminController::class, 'index']);
+
 
     // Route for admin (for template only, you can make your own controller with index inside and remove this)
     Route::group(['prefix' => 'admin'], function () {
@@ -74,14 +67,14 @@ Route::group(['middleware' => ['cek_login:1']], function () {
 
 
 Route::group(['prefix' => 'penduduk'], function () {
-    Route::get('/', [PendudukController::class, 'index']);          // menampilkan halaman awal level
-    Route::post('/list', [PendudukController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
-    Route::get('/create', [PendudukController::class, 'create']);   // menampilkan halaman form tambah level
-    Route::post('/', [PendudukController::class, 'store']);         // menyimpan data level baru
-    Route::get('/{id}/show', [PendudukController::class, 'show']);       // menampilkan detail level
-    Route::get('/{id}/edit', [PendudukController::class, 'edit']);  // menampilkan halaman form edit level
-    Route::post('/{id}', [PendudukController::class, 'update']);     // menyimpan perubahan data level
-    Route::delete('/{id}', [PendudukController::class, 'destroy']); // menghapus data level
+    Route::get('/', [PendudukController::class, 'index']);          
+    Route::post('/list', [PendudukController::class, 'list']);      
+    Route::get('/create', [PendudukController::class, 'create']);   
+    Route::post('/', [PendudukController::class, 'store']);         
+    Route::get('/{id}/show', [PendudukController::class, 'show']);  
+    Route::get('/{id}/edit', [PendudukController::class, 'edit']);  
+    Route::post('/{id}', [PendudukController::class, 'update']);    
+    Route::delete('/{id}', [PendudukController::class, 'destroy']); 
 });
 Route::group(['prefix' => 'keluarga'], function () {
     Route::get('/', [KeluargaController::class, 'index']);          // menampilkan halaman awal level
@@ -95,4 +88,5 @@ Route::group(['prefix' => 'keluarga'], function () {
 
     Route::get('/create_anggota', [KeluargaController::class, 'createAnggota']);
     Route::post('/store_anggota', [KeluargaController::class, 'storeAnggota']);
+
 });
