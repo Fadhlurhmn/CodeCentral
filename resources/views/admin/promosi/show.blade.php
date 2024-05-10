@@ -66,9 +66,11 @@
           </div>
       </dl>
   </div>
-  
-
+      @if($promosi->status_pengajuan === 'pending')
       <a href="{{ url('admin/promosi/daftar') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>      
+      @else
+      <a href="{{ url('admin/promosi/') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>      
+      @endif
     @endif
 
     <!-- end content -->
