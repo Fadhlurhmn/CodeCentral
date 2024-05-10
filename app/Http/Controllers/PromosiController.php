@@ -9,7 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PromosiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object)[
             'title' => 'Daftar Promosi',
@@ -21,13 +21,21 @@ class PromosiController extends Controller
         ];
         $promosi = PromosiModel::all();
         $promosi = PromosiModel::where('status_pengajuan', '!=', 'pending')->get();
+        // Fitur search 
+        $promosiQuery = PromosiModel::query();
+        if ($request->has('query')) {
+            $promosiQuery->where('nama_usaha', 'like', '%' . $request->query('query') . '%');
+        }
+        $promosiQuery->where('status_pengajuan', '!=', 'pending');
+        // Ambil data promosi setelah filter
+        $promosi = $promosiQuery->get();
         $activeMenu = 'promosi';
 
         $keluarga = KeluargaModel::all();
 
         return view('admin.promosi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
-    public function daftar()
+    public function daftar(Request $request)
     {
         $breadcrumb = (object)[
             'title' => 'Daftar Permintaan Promosi',
@@ -41,6 +49,14 @@ class PromosiController extends Controller
         $promosi = PromosiModel::all();
         $promosi = PromosiModel::where('status_pengajuan', 'pending')->get();
         $activeMenu = 'promosi';
+        // Fitur search
+        $promosiQuery = PromosiModel::query();
+        if ($request->has('query')) {
+            $promosiQuery->where('nama_usaha', 'like', '%' . $request->query('query') . '%');
+        }
+        $promosiQuery->where('status_pengajuan', '=', 'pending');
+        // Ambil data promosi setelah filter
+        $promosi = $promosiQuery->get();
 
         $keluarga = KeluargaModel::all();
 
