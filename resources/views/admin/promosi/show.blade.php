@@ -53,11 +53,11 @@
               <span class="text-xs text-white px-2 py-1 rounded bg-{{ $promosi->status_pengajuan === 'tidak aktif' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center">{{$promosi->status_pengajuan}}</span>  
                 @if($promosi->status_pengajuan === 'pending')
                     <div class="flex justify-start mt-2">
-                        <form action="{{ url('/promosi/' . $promosi->id_umkm . '/acc') }}" method="POST">
+                        <form action="{{ url('/promosi/' . $promosi->id_umkm . '/acc_promosi') }}" method="POST">
                             @csrf
                             <button type="submit" class="bg-teal-500 text-teal-800 text-center hover:bg-teal-600 hover:text-white transition duration-300 ease-in-out text-sm font-medium px-3 py-1 rounded mr-2">Terima</button>
                         </form>
-                        <form action="{{ url('/promosi/' . $promosi->id_umkm . '/tolak') }}" method="POST">
+                        <form action="{{ url('/promosi/' . $promosi->id_umkm . '/tolak_promosi') }}" method="POST">
                             @csrf
                             <button type="submit" class="bg-red-500 text-red-800 text-center hover:bg-red-600 hover:text-white transition duration-300 ease-in-out text-sm font-medium px-3 py-1 rounded">Tolak</button>
                         </form>
