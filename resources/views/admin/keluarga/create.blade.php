@@ -6,13 +6,12 @@
     @include('layout.a_sidebar')
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{$breadcrumb->title}}</h1>
+            <h1 class="py-5 ml-5 text-3xl font-bold">{{$page->title}}</h1>
         </div>
-        <div class="w-full min-w-max p-5 shadow ">
-
-            <form id="form" class="px-10 py-10 bg-white rounded-xl" action="{{ url('keluarga') }}" method="POST" enctype="multipart/form-data">
+        <div class="w-full h-screen min-w-max p-5 shadow overflow-y-scroll">
+            <form id="form" class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga') }}" method="POST" enctype="multipart/form-data">
                 <h1 class="pb-5 mb-10 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2">
-                    {{ $page->title }}
+                    Isi data keluarga
                 </h1>
                 @csrf
 

@@ -13,13 +13,13 @@
             <table id="table_keluarga" class="table-auto text-center border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">No</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">No KK</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jumlah Orang Kerja</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jumlah Tanggungan</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jumlah Kendaraan</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Luas Tanah</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Aksi</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">No</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">No KK</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">Jumlah Orang Kerja</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">Jumlah Tanggungan</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">Jumlah Kendaraan</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">Luas Tanah</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-normal border-r">Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -33,7 +33,7 @@
         var table = $('#table_keluarga').DataTable({
             serverSide: true,
             ajax: {
-                "url": "{{ url('keluarga/list') }}",
+                "url": "{{ url('admin/keluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
             },
@@ -46,7 +46,7 @@
                 {
                     data: "nomor_keluarga",
                     className: "text-sm",
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
@@ -74,7 +74,7 @@
                 },
                 {
                     data: "aksi",
-                    className: "flex text-sm",
+                    className: "flex justify-evenly text-xs",
                     orderable: false,
                     searchable: false
                 },
