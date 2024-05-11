@@ -19,73 +19,57 @@
                 </button>
             </div>
             @else
-            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga/' . $keluarga->id_keluarga) }}" method="POST">
-                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4 ">
+            <form class="px-10 py-10 min-w-full bg-white max-w-3xl grid grid-cols-4 gap-x-20 gap-y-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga/' . $keluarga->id_keluarga) }}" method="POST">
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-full">
                     {{ $page->title }}
                 </h1>
                 @csrf
                 @method('POST')
-                <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor Keluarga<span class="text-red-500">*</span></label>
-                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nomor Keluarga" required />
-                    <small id="nomor_keluarga_help" class="text-red-500 hidden col-span-4">Nomor keluarga harus terdiri dari 16 digit.</small>
-                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg w-64 text-center transition duration-300 ease-in-out">
-                        <input type="file" name="kk_photo" id="kk_photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
-                        <label for="kk_photo" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
-                            Submit Foto KK (Max ukuran 2MB)
-                        </label>
-                    </div>
-                    <div id="uploadIndicator_kk" class="hidden col-span-4">
-                        <span class="text-green-500">Gambar Terunggah</span>
-                    </div>
-                
-                    {{-- Kepala Keluarga --}}
-                <div class="col-span-full border-b pb-5 mb-5">
-                    <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pilih Kepala Keluarga<span class="text-red-500">*</span></label>
-                    <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required >
-                        <option value="">Pilih Kepala Keluarga</option>
-                        @foreach ($penduduk as $daftarPenduduk)
-                        <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
-                        @endforeach
-                    </select>
+            
+                {{-- Nomor Keluarga --}}
+                <div class="col-span-4">
+                    <label for="nomor_keluarga" class="block mb-2 text-sm font-bold text-gray-900">Nomor Keluarga<span class="text-red-500">*</span></label>
+                    <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Nomor Keluarga" value="{{ $keluarga->nomor_keluarga }}" required />
+                    <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 16 digit.</small>
                 </div>
-                {{-- Istri --}}
-                <div class="col-span-full border-b pb-5 mb-5">
-                    <label for="istri" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Istri</label>
-                    <select name="istri" id="istri" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 ">
-                        <option value="">Istri</option>
-                        @foreach ($penduduk as $daftarPenduduk)
-                        <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
-                        @endforeach
-                    </select>
+            
+                {{-- Upload Foto KK --}}
+                <div class="col-span-4">
+                    <label for="kk_photo" class="block mb-2 text-sm font-bold text-gray-900">Foto KK<span class="text-red-500">*</span></label>
+                    <input type="file" name="foto_kk" id="kk_photo" accept="image/*" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required />
+                </div>
+            
+                {{-- Jumlah Tanggungan --}}
+                <div class="col-span-4 sm:col-span-2">
+                    <label for="jumlah_tanggungan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Tanggungan<span class="text-red-500">*</span></label>
+                    <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Tanggungan" value="{{ $keluarga->jumlah_tanggungan }}" required />
+                </div>
+            
+                {{-- Jumlah Kendaraan --}}
+                <div class="col-span-4 sm:col-span-2">
+                    <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900">Jumlah Kendaraan<span class="text-red-500">*</span></label>
+                    <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Kendaraan" value="{{ $keluarga->jumlah_kendaraan }}" required />
+                </div>
+            
+                {{-- Luas Tanah --}}
+                <div class="col-span-4 sm:col-span-2">
+                    <label for="luas_tanah" class="block mb-2 text-sm font-bold text-gray-900">Luas Tanah<span class="text-red-500">*</span></label>
+                    <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Luas Tanah" value="{{ $keluarga->luas_tanah }}" required />
                 </div>
                 
-                {{-- Anggota Keluarga --}}
-                <div class="col-span-2" id="anggota-keluarga-container">
-                    <div class="anggota-keluarga mb-5">
-                        <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900">Anggota Keluarga 1</label>
-                        <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
-                            <option value="">Pilih Anggota Keluarga 1</option>
-                            @foreach ($penduduk as $daftarPenduduk)
-                            <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                {{-- Alamat --}}
+                <div class="col-span-4 sm:col-span-2">
+                    <label for="alamat" class="block mb-2 text-sm font-bold text-gray-900">Alamat<span class="text-red-500">*</span></label>
+                    <input type="number" step="any" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" value="{{ $keluarga->alamat }}" required />
                 </div>
-
-                <label for="jumlah_tanggungan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jumlah Tanggungan</label>
-                <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="" value="{{ $keluarga->jumlah_tanggungan }}" required />
-                
-                <label for="jumlah_kendaraan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jumlah Kendaraan</label>
-                <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="-" value="{{ $keluarga->jumlah_kendaraan}}" required />
-                
-                <label for="luas_tanah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Luas Tanah</label>
-                <input type="number" step="any" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Luas tanah..." value="{{ $keluarga->luas_tanah}}" required />
-                <!-- Other form inputs here -->
+            
+                {{-- Button --}}
                 <div class="flex justify-between grid-cols-2">
                     <a href="{{ url('keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                     <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                 </div>
             </form>
+            
             @endif
 
         </div>

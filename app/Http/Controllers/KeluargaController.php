@@ -213,8 +213,7 @@ class KeluargaController extends Controller
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
-        $penduduk = PendudukModel::all();
-        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
     // menyimpan perubahan data barang
     public function update(Request $request, string $id)
@@ -275,16 +274,6 @@ class KeluargaController extends Controller
                 'kelurahan' => $request->kelurahan,
                 'kecamatan' => $request->kecamatan,
                 'kota' => $request->kota,
-            ]);
-        }
-
-        // Perbarui detail keluarga
-        detail_keluarga_model::where('id_keluarga', $id)->delete(); // hapus detail keluarga yang ada
-        foreach ($request->id_penduduk as $key => $pendudukid) {
-            detail_keluarga_model::create([
-                'id_keluarga' => $id,
-                'id_penduduk' => $pendudukid,
-                'peran_keluarga' => $request->peran_keluarga[$key]
             ]);
         }
 
