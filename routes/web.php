@@ -13,12 +13,24 @@ Route::get('/', function () {
 
 // Template 
 Route::group(['prefix' => 'template'], function () {
-    Route::get('/', function () {return view('template.index');});
-    Route::get('/shop', function () {return view('template.index-1');});
-    Route::get('/email', function () {return view('template.email');});
-    Route::get('/typography', function () {return view('template.typography');});
-    Route::get('/alert', function () {return view('template.alert');});
-    Route::get('/buttons', function () {return view('template.buttons');});
+    Route::get('/', function () {
+        return view('template.index');
+    });
+    Route::get('/shop', function () {
+        return view('template.index-1');
+    });
+    Route::get('/email', function () {
+        return view('template.email');
+    });
+    Route::get('/typography', function () {
+        return view('template.typography');
+    });
+    Route::get('/alert', function () {
+        return view('template.alert');
+    });
+    Route::get('/buttons', function () {
+        return view('template.buttons');
+    });
 });
 
 // login auth route
@@ -30,7 +42,7 @@ Route::post('proses_register', [AuthController::class, 'proses_register'])->name
 
 // middleware, redirect to login when the /admin or /admin/** is typed
 
-Route::group(['middleware' => ['cek_login:1']], function(){
+Route::group(['middleware' => ['cek_login:1']], function () {
     Route::get('admin', [AdminController::class, 'index']);
 
 
@@ -67,14 +79,14 @@ Route::group(['middleware' => ['cek_login:1']], function(){
 
 
 Route::group(['prefix' => 'penduduk'], function () {
-    Route::get('/', [PendudukController::class, 'index']);          
-    Route::post('/list', [PendudukController::class, 'list']);      
-    Route::get('/create', [PendudukController::class, 'create']);   
-    Route::post('/', [PendudukController::class, 'store']);         
-    Route::get('/{id}/show', [PendudukController::class, 'show']);  
-    Route::get('/{id}/edit', [PendudukController::class, 'edit']);  
-    Route::post('/{id}', [PendudukController::class, 'update']);    
-    Route::delete('/{id}', [PendudukController::class, 'destroy']); 
+    Route::get('/', [PendudukController::class, 'index']);
+    Route::post('/list', [PendudukController::class, 'list']);
+    Route::get('/create', [PendudukController::class, 'create']);
+    Route::post('/', [PendudukController::class, 'store']);
+    Route::get('/{id}/show', [PendudukController::class, 'show']);
+    Route::get('/{id}/edit', [PendudukController::class, 'edit']);
+    Route::post('/{id}', [PendudukController::class, 'update']);
+    Route::delete('/{id}', [PendudukController::class, 'destroy']);
 });
 Route::group(['prefix' => 'keluarga'], function () {
     Route::get('/', [KeluargaController::class, 'index']);          // menampilkan halaman awal level
@@ -86,7 +98,6 @@ Route::group(['prefix' => 'keluarga'], function () {
     Route::post('/{id}', [KeluargaController::class, 'update']);     // menyimpan perubahan data level
     Route::delete('/{id}', [KeluargaController::class, 'destroy']); // menghapus data level
 
-    Route::get('/create_anggota', [KeluargaController::class, 'createAnggota']);
-    Route::post('/store_anggota', [KeluargaController::class, 'storeAnggota']);
-
+    Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
+    Route::post('/{id}', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
 });

@@ -43,6 +43,7 @@ class KeluargaController extends Controller
             ->make(true);
     }
 
+    // form untuk tabel keluarga
     public function create()
     {
         $breadcrumb = (object)[
@@ -60,6 +61,7 @@ class KeluargaController extends Controller
         return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
 
+    // store untuk tabel keluarga
     public function store(Request $request)
     {
         $request->validate([
@@ -87,7 +89,7 @@ class KeluargaController extends Controller
         $foto_kk->move($tujuan_upload, $nama_file);
 
         // Simpan data keluarga
-        $keluarga = KeluargaModel::create([
+        KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
             'alamat' => $request->alamat,
@@ -104,6 +106,51 @@ class KeluargaController extends Controller
         // Redirect ke halaman daftar keluarga dengan pesan sukses
         return redirect('/keluarga')->with('success', 'Data keluarga berhasil disimpan');
     }
+
+    // form untuk tabel detail keluarga
+    public function createAnggota($id)
+    {
+        $keluarga = $id; // ambil id keluarga
+        $breadcrumb = (object)[
+            'title' => 'Tambah Anggota Keluarga',
+            'list' => ['Home', 'Anggota Keluarga', 'Tambah']
+        ];
+
+        $page = (object)[
+            'title' => 'Tambah Anggota Keluarga'
+        ];
+
+        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
+        $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
+
+        return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+    }
+
+    // method untuk simpan data detail anggota di keluarga
+    public function storeAnggota(Request $request)
+    {
+        $request->validate([
+            'id_keluarga' => 'required|integer',
+            'id_penduduk' => 'required|array',
+            'id_penduduk.*' => 'required|exists:penduduk,id_penduduk',
+            'peran_keluarga' => 'required|array',
+            'peran_keluarga.*' => 'required|string',
+        ]);
+
+        // Loop through each submitted data to store the family members
+        foreach ($request->id_penduduk as $key => $pendudukId) {
+            // Store the family member
+            detail_keluarga_model::create([
+                'id_penduduk' => $pendudukId,
+                'peran_keluarga' => $request->peran_keluarga[$key],
+                'id_keluarga' => $request->id_keluarga
+            ]);
+        }
+
+        return redirect('/keluarga/' . $request->id_keluarga . '/show')->with('success', 'Data detail anggota berhasil disimpan');
+    }
+
+
     public function show(string $id)
     {
         $keluarga = KeluargaModel::find($id);
@@ -243,37 +290,5 @@ class KeluargaController extends Controller
         }
 
         return redirect('/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
-    }
-    // Bagian Controller Anggota
-    public function createAnggota()
-    {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Anggota Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Tambah']
-        ];
-
-        $page = (object)[
-            'title' => 'Tambah Data Anggota Keluarga'
-        ];
-
-        $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
-        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
-        $activeMenu = 'keluarga'; // set menu yang sedang aktif
-
-        return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
-    }
-
-    public function storeAnggota(Request $request)
-    {
-        $request->validate([
-            // Atur validasi sesuai dengan kebutuhan Anda
-        ]);
-
-        // Simpan data anggota keluarga ke dalam database
-        detail_keluarga_model::create([
-            // Sesuaikan atribut-atribut yang disimpan dengan atribut yang ada pada model Anda
-        ]);
-
-        return redirect('/keluarga')->with('success', 'Anggota keluarga berhasil ditambahkan');
     }
 }
