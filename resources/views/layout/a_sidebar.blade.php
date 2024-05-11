@@ -31,11 +31,11 @@
         Bansos
     </a>
 
-      <a href="{{url('penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{url('/admin/penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-users text-xs mr-2"></i>
         Data Penduduk
       </a>
-      <a href="{{url('keluarga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{url('/admin/keluarga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-user-friends text-xs mr-2"></i>
         Data Keluarga
       </a>

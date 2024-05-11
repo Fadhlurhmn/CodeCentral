@@ -33,7 +33,7 @@
         var table = $('#table_keluarga').DataTable({
             serverSide: true,
             ajax: {
-                "url": "{{ url('keluarga/list') }}",
+                "url": "{{ url('admin/keluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
             },

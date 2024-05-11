@@ -45,7 +45,7 @@
         var table = $('#table_penduduk').DataTable({
             serverSide: true,
             ajax: {
-                "url": "{{ url('penduduk/list') }}",
+                "url": "{{ url('admin/penduduk/list') }}",
                 "dataType": "json",
                 "type": "POST",
             },
