@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-span-4 sm:col-span-2">
                         <label for="rw" class="block mb-2 text-sm font-bold text-gray-900">RW<span class="text-red-500">*</span></label>
-                        <input type="number" name="rw" id="rw" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RT" required />
+                        <input type="number" name="rw" id="rw" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RW" required />
                     </div>
                 </div>
                 {{-- Submit Button --}}
