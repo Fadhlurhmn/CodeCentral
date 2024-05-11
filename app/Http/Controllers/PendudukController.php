@@ -35,8 +35,8 @@ class PendudukController extends Controller
         return DataTables::of($penduduk)
             ->addIndexColumn()
             ->addColumn('aksi', function ($penduduk) {
-                $btn = '<a href="' . url('/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-                $btn .= '<a href="' . url('/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                $btn = '<a href="' . url('admin/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
+                $btn .= '<a href="' . url('admin/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -105,7 +105,7 @@ class PendudukController extends Controller
             'foto_ktp' => $nama_file // simpan nama file gambar ke dalam database
         ]);
 
-        return redirect('/penduduk')->with('success', 'Data penduduk berhasil disimpan');
+        return redirect('admin/penduduk')->with('success', 'Data penduduk berhasil disimpan');
     }
 
     public function show(string $id)
@@ -213,6 +213,6 @@ class PendudukController extends Controller
             ]);
         }
 
-        return redirect('/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
+        return redirect('admin/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
     }
 }

@@ -33,16 +33,16 @@ class KeluargaController extends Controller
         return DataTables::of($keluarga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
-                $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn = '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
 
                 // Periksa apakah detail keluarga ada untuk keluarga saat ini
                 $detailKeluarga = detail_keluarga_model::where('id_keluarga', $keluarga->id_keluarga)->first();
 
                 // Jika detail keluarga ditemukan
                 if ($detailKeluarga) {
-                    $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                    $btn .= '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 } else {
-                    $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+                    $btn .= '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
                 }
 
                 return $btn;
@@ -112,7 +112,7 @@ class KeluargaController extends Controller
             'foto_kk' => $nama_file
         ]);
         // Redirect ke halaman daftar keluarga dengan pesan sukses
-        return redirect('/keluarga')->with('success', 'Data keluarga berhasil disimpan');
+        return redirect('admin/keluarga')->with('success', 'Data keluarga berhasil disimpan');
     }
 
     // form untuk tabel detail keluarga
@@ -155,7 +155,7 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('/keluarga/' . $request->id_keluarga . '/show')->with('success', 'Data detail anggota berhasil disimpan');
+        return redirect('admin/keluarga/' . $request->id_keluarga . '/show')->with('success', 'Data detail anggota berhasil disimpan');
     }
 
 
@@ -164,7 +164,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         if (!$keluarga) {
-            return redirect('/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
@@ -200,7 +200,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         if (!$keluarga) {
-            return redirect('/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         $breadcrumb = (object) [
@@ -277,6 +277,6 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
+        return redirect('admin/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
     }
 }
