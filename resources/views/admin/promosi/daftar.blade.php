@@ -44,7 +44,7 @@
                   <h2 class="text-lg font-semibold text-gray-900">{{ $umkm->nama_usaha }}</h2>
                   <div class="mb-2">
                       <p class="text-xs text-gray-600">Lokasi: {{ $umkm->alamat }}</p>
-                      <span class="text-xs text-white px-2 py-1 rounded bg-{{ $umkm->status_pengajuan === 'tidak aktif' ? 'red' : ($umkm->status_pengajuan === 'pending' ? 'yellow' : ($umkm->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2">{{ $umkm->status_pengajuan }}</span>
+                      <span class="text-xs text-white px-2 py-1 rounded bg-{{ $umkm->status_pengajuan === 'tolak' ? 'red' : ($umkm->status_pengajuan === 'pending' ? 'yellow' : ($umkm->status_pengajuan === 'acc' ? 'teal' : 'gray')) }}-600/60 mr-2">{{ $umkm->status_pengajuan }}</span>
                   </div>
               </div>
           </div>
