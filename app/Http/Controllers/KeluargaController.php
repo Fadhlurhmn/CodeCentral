@@ -120,8 +120,10 @@ class KeluargaController extends Controller
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
-        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->get();
-
+        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anggota Keluarga'])->get();
+        $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
+        $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
+        $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
         $breadcrumb = (object) [
             'title' => 'Detail Keluarga Penduduk',
             'list' => ['Home', 'Keluarga Penduduk', 'Detail']
@@ -138,6 +140,9 @@ class KeluargaController extends Controller
             'page' => $page,
             'keluarga' => $keluarga,
             'detail_keluarga' => $detail_keluarga,
+            'kepala_keluarga' => $kepala_keluarga,
+            'istri' => $istri,
+            'anggota' => $anggota,
             'activeMenu' => $activeMenu
         ]);
     }

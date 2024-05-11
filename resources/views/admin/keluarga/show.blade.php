@@ -18,6 +18,7 @@
                     </button>
                 </div>
                 @else
+                {{-- Tabel data keluarga 1 --}}
                 <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
                     <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
                         {{ $page->title }}
@@ -28,9 +29,74 @@
                         <th class="px-3 py-2 border-r w-40">Foto KK</th>
                         <td class="pl-3 py-2"><img src="{{ asset('data_nik/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" /></td>
                     </tr>
-                    <tr class="whitespace-nowrap border-t">
+                    <tr class="bg-gray-100/50 border-t">
                         <th class="px-3 py-2 border-r w-40">Nomer Kartu Keluarga</th>
                         <td class="pl-3">{{ $keluarga->nomor_keluarga }}</td>
+                    </tr>
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r">Alamat KK</th>
+                        <td class="pl-3">{{ $keluarga->alamat }}</td>
+                    </tr>
+                    <tr class="bg-gray-100/50">
+                        <th class="px-3 py-2 border-r">Rt</th>
+                        <td class="pl-3">{{ $keluarga->rt }}</td>
+                    </tr>
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r">Kelurahan</th>
+                        <td class="pl-3">{{ $keluarga->kelurahan }}</td>
+                    </tr>
+                    <tr class="bg-gray-100/50">
+                        <th class="px-3 py-2 border-r">Kecamatan</th>
+                        <td class="pl-3">{{ $keluarga->kecamatan }}</td>
+                    </tr>
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r">Kota</th>
+                        <td class="pl-3">{{ $keluarga->kota }}</td>
+                    </tr>
+                    <tr class="bg-gray-100/50">
+                        <th class="px-3 py-2 border-r">Jumlah Kendaraan</th>
+                        <td class="pl-3">{{ $keluarga->jumlah_kendaraan }}</td>
+                    </tr>
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r">Luas Tanah</th>
+                        <td class="pl-3">{{ $keluarga->luas_tanah }}</td>
+                    </tr>
+                </tbody>
+                </table>
+            {{-- End Tabel Data Keluarga 1  --}}
+            {{-- Start Data Anggota Keluarga --}}
+            <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
+                <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
+                    Detail anggota keluarga "{{$keluarga->nomor_keluarga}}"
+                </caption>
+                <tbody class="bg-white">
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r w-40">Kepala Keluarga</th>
+                        <td class="pl-3">
+                            @if($kepala_keluarga->isNotEmpty())
+                                {{ $kepala_keluarga->first()->penduduk->nama }}
+                                @else
+                                Data Tidak Ditemukan
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-100/50">
+                        <th class="px-3 py-2 border-r">Istri</th>
+                        <td class="pl-3">
+                            @if($istri->isNotEmpty())
+                                {{ $istri->first()->penduduk->nama }}
+                                @else
+                                Data Tidak Ditemukan
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="whitespace-nowrap">
+                        <th class="px-3 py-2 border-r">Anggota</th>
+                        <td class="pl-3">
+                            @foreach ($anggota as $member)
+                                {{ $member->penduduk->nama }} <br>
+                            @endforeach
+                        </td>
                     </tr>
                     <tr class="bg-gray-100/50">
                         <th class="px-3 py-2 border-r">Jumlah Orang Kerja</th>
@@ -40,15 +106,9 @@
                         <th class="px-3 py-2 border-r">Jumlah Tanggungan</th>
                         <td class="pl-3">{{ $keluarga->jumlah_tanggungan}}</td>
                     </tr>
-                    <tr class="bg-gray-100/50">
-                        <th class="px-3 py-2 border-r">Jumlah Kendaraan</th>
-                        <td class="pl-3">{{ $keluarga->jumlah_kendaraan }}</td>
-                    </tr>
-                    <tr class="whitespace-nowrap">
-                        <th class="px-3 py-2 border-r">Luas Tanah</th>
-                        <td class="pl-3">{{ $keluarga->luas_tanah }}</td>
                 </tbody>
-            </table>      
+            </table>
+            {{-- End Data Anggota Keluarga --}}
             <a href="{{ url('keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>      
             @endif
         </div>
