@@ -107,23 +107,33 @@ class PromosiController extends Controller
     {
         $request->validate([
             'nama_usaha' => 'required|string',
-            'gambar' => 'required|string',
             'deskripsi' => 'required|string',
             'status_pengajuan' => 'required|string',
             'alamat' => 'required|string',
             'countdown' => 'required|string',
             'id_keluarga' => 'required|integer',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        // menyimpan data foto ktp yang diupload ke variabel foto_usaha
+        $foto_usaha = $request->file('foto_usaha');
+
+        $nama_file = time() . "_" . $foto_usaha->getClientOriginalName();
+
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'data_usaha';
+        $foto_usaha->move($tujuan_upload, $nama_file);
 
         PromosiModel::create([
             'nama_usaha' => $request->nama_usaha,
-            'gambar' => $request->gambar,
             'deskripsi' => $request->deskripsi,
             'status_pengajuan' => $request->status_pengajuan,
             'alamat' => $request->alamat,
             'countdown' => $request->countdown,
             'id_keluarga' => $request->id_keluarga,
+            'gambar' => $nama_file // simpan nama file gambar ke dalam database
         ]);
+
 
         return redirect('/promosi')->with('success', 'Data promosi berhasil disimpan');
     }
@@ -168,38 +178,86 @@ class PromosiController extends Controller
     {
         $request->validate([
             'nama_usaha' => 'required|string',
-            'gambar' => 'required|string',
             'deskripsi' => 'required|string',
             'status_pengajuan' => 'required|string',
             'alamat' => 'required|string',
             'countdown' => 'required|string',
             'id_keluarga' => 'required|integer',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        PromosiModel::find($id)->update([
-            'nama_usaha' => $request->nama_usaha,
-            'gambar' => $request->gambar,
-            'deskripsi' => $request->deskripsi,
-            'status_pengajuan' => $request->status_pengajuan,
-            'alamat' => $request->alamat,
-            'countdown' => $request->countdown,
-            'id_keluarga' => $request->id_keluarga,
-        ]);
+        $promosi = PromosiModel::find($id);
+
+        // Cek apakah ada file gambar yang diunggah
+        if ($request->hasFile('foto_usaha')) {
+            // Dapatkan nama file baru
+            $foto_usaha = $request->file('foto_usaha');
+            $nama_file_baru = time() . "_" . $foto_usaha->getClientOriginalName();
+
+            // Simpan file baru
+            $tujuan_upload = 'data_usaha';
+            $foto_usaha->move($tujuan_upload, $nama_file_baru);
+
+            // Update data promosi beserta foto ktp baru
+            $promosi->update([
+                'nama_usaha' => $request->nama_usaha,
+                'gambar' => $request->gambar,
+                'deskripsi' => $request->deskripsi,
+                'status_pengajuan' => $request->status_pengajuan,
+                'alamat' => $request->alamat,
+                'countdown' => $request->countdown,
+                'id_keluarga' => $request->id_keluarga,
+                'gambar' => $nama_file_baru // Gunakan nama file baru
+            ]);
+        } else {
+            // Update data promosi tanpa mengubah foto ktp
+            $promosi->update([
+                'nama_usaha' => $request->nama_usaha,
+                'deskripsi' => $request->deskripsi,
+                'status_pengajuan' => $request->status_pengajuan,
+                'alamat' => $request->alamat,
+                'countdown' => $request->countdown,
+                'id_keluarga' => $request->id_keluarga,
+            ]);
+        }
 
         return redirect('/promosi/' . $id . '/show')->with('success', 'Data promosi berhasil diubah');
     }
     // acc promosi
-    public function acc_promosi(string $id)
+    // public function acc_promosi(Request $request,string $id)
+    // {
+    //     $request->validate([
+    //         'status_pengajuan' => 'required|string|in'
+    //     ])
+    //     PromosiModel::find($id)->update([
+    //         'status_pengajuan' => 'acc'
+    //     ]);
+
+    //     return redirect('/promosi/' . $id . '/show')->with('success', 'Promosi berhasil di acc');
+    // }
+    // // tolak promosi
+    // public function tolak_promosi(Request $request, string $id)
+    // {
+    //     PromosiModel::find($id)->update([
+    //         'status_pengajuan' => 'tolak'
+    //     ]);
+    //     return redirect('/promosi/' . $id . '/show')->with('success', 'Promosi berhasil di tolak');
+    // }
+
+    public function updateStatus(Request $request, string $id)
     {
-        PromosiModel::find($id)->update([
-            'status_pengajuan' => 'acc'
+        $request->validate([
+            'status_pengajuan' => 'required|string|in:acc,tolak' // Validasi status_pengajuan
         ]);
-    }
-    // tolak promosi
-    public function tolak_promosi(string $id)
-    {
-        PromosiModel::find($id)->update([
-            'status_pengajuan' => 'tolak'
+
+        $promosi = PromosiModel::find($id);
+
+        $promosi->update([
+            'status_pengajuan' => $request->status_pengajuan
         ]);
+
+        $message = $request->status_pengajuan === 'acc' ? 'Promosi berhasil di acc' : 'Promosi berhasil ditolak';
+
+        return redirect('admin/promosi/' . $id . '/show')->with('success', $message);
     }
 }

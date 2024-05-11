@@ -87,5 +87,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [PromosiController::class, 'edit']);  // menampilkan halaman form edit level
         Route::post('/{id}', [PromosiController::class, 'update']);     // menyimpan perubahan data level
         Route::delete('/{id}', [PromosiController::class, 'destroy']); // menghapus data level
+        Route::post('/{id}/show/update-status', [PromosiController::class, 'updateStatus']);
     });
 });
