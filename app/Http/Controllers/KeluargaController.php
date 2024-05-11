@@ -35,6 +35,8 @@ class KeluargaController extends Controller
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
                 $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -52,28 +54,27 @@ class KeluargaController extends Controller
             'title' => 'Tambah Data Keluarga'
         ];
 
-        $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
         $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string|min:10|max:10',
+            'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
-            'jumlah_tanggungan' => 'required|integer',
-            'jumlah_orang_kerja' => 'required|integer',
-            'luas_tanah' => 'required|integer',
             'alamat' => 'required|string',
-            'rt' => 'required|integer',
-            'rw' => 'required|integer',
             'kelurahan' => 'required|string',
             'kecamatan' => 'required|string',
             'kota' => 'required|string',
-            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'rt' => 'required|integer',
+            'rw' => 'required|integer',
+            'luas_tanah' => 'required|integer',
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:204',
+            'jumlah_tanggungan' => 'required|integer',
+            'jumlah_orang_kerja' => 'required|integer',
         ]);
 
         // menyimpan data foto kk yang diupload ke variabel foto_kk
@@ -85,30 +86,22 @@ class KeluargaController extends Controller
         $tujuan_upload = 'data_kk';
         $foto_kk->move($tujuan_upload, $nama_file);
 
+        // Simpan data keluarga
         $keluarga = KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
-            'jumlah_tanggungan' => $request->jumlah_tanggungan,
-            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-            'luas_tanah' => $request->luas_tanah,
             'alamat' => $request->alamat,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
             'kota' => $request->kota,
-            'foto_kk' => $nama_file // simpan nama file gambar ke dalam database
+            'luas_tanah' => $request->luas_tanah,
+            'jumlah_tanggungan' => $request->jumlah_tanggungan,
+            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'foto_kk' => $nama_file
         ]);
-
-        // Simpan detail keluarga
-        foreach ($request->id_penduduk as $key => $pendudukid) {
-            detail_keluarga_model::create([
-                'id_keluarga' => $keluarga->id, // gunakan id keluarga yang baru disimpan
-                'id_penduduk' => $pendudukid, // gunakan id penduduk yang dipilih
-                'peran_keluarga' => $request->peran_keluarga[$key] // gunakan peran keluarga yang sesuai
-            ]);
-        }
-
+        // Redirect ke halaman daftar keluarga dengan pesan sukses
         return redirect('/keluarga')->with('success', 'Data keluarga berhasil disimpan');
     }
     public function show(string $id)
