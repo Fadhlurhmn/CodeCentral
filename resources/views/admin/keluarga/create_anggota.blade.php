@@ -15,14 +15,10 @@
                     {{ $page->title }}
                 </h1>
                 @csrf
-                {{-- Tampilkan total anggota keluarga --}}
-                <div class="col-span-full mb-5">
-                    <p class="text-sm text-gray-700">Total Anggota Keluarga: <span id="total_anggota">1</span></p>
-                </div>
                 {{-- Kepala Keluarga --}}
-                <div class="col-span-full border-b pb-5 mb-5">
-                    <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pilih Kepala Keluarga<span class="text-red-500">*</span></label>
-                    <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required >
+                <div class="col-span-2 pb-5 mb-5">
+                    <label for="kepala_keluarga" class="block mb-2 text-sm font-bold text-gray-900 ">Pilih Kepala Keluarga<span class="text-red-500">*</span></label>
+                    <select name="kepala_keluarga" id="kepala_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block  p-2.5 " required >
                         <option value="">Pilih Kepala Keluarga</option>
                         @foreach ($penduduk as $daftarPenduduk)
                         <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
@@ -30,20 +26,22 @@
                     </select>
                 </div>
                 {{-- Istri --}}
-                <div class="col-span-full border-b pb-5 mb-5">
-                    <label for="istri" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Istri</label>
-                    <select name="istri" id="istri" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 ">
+                <div class="col-span-2 pb-5 mb-5">
+                    <label for="istri" class="block mb-2 text-sm font-bold text-gray-900 ">Istri</label>
+                    <select name="istri" id="istri" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block  p-2.5 ">
                         <option value="">Istri</option>
+                        <option value="">--Kosong--</option>    
                         @foreach ($penduduk as $daftarPenduduk)
                         <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>    
                         @endforeach
                     </select>
                 </div>
+                <hr class="col-span-4">
                 
                 {{-- Anggota Keluarga --}}
                 <div class="col-span-2" id="anggota-keluarga-container">
                     <div class="anggota-keluarga mb-5">
-                        <label for="anggota_keluarga_1" class="block mb-2 text-sm font-bold text-gray-900">Anggota Keluarga 1</label>
+                        <label for="anggota_keluarga_1" class="mb-2 text-sm font-bold text-gray-900">Anggota Keluarga 1</label>
                         <select name="anggota_keluarga[]" id="anggota_keluarga_1" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                             <option value="">Pilih Anggota Keluarga 1</option>
                             @foreach ($penduduk as $daftarPenduduk)
@@ -86,6 +84,7 @@
         // Create HTML elements for the new family member input fields
         newAnggotaKeluargaDiv.className = 'anggota-keluarga mb-5';
         newAnggotaKeluargaDiv.innerHTML = `
+        <div class="col-span-2">
             <label for="anggota_keluarga_${totalAnggota}" class="block mb-2 text-sm font-bold text-gray-900">Anggota Keluarga ${totalAnggota}</label>
             <select name="anggota_keluarga[]" id="anggota_keluarga_${totalAnggota}" class="anggota-keluarga-input shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                 <option value="">Pilih Anggota Keluarga ${totalAnggota}</option>
@@ -93,6 +92,7 @@
                 <option value="{{$daftarPenduduk->nama}}">{{$daftarPenduduk->nama}}</option>
                 @endforeach
             </select>
+        </div>
         `;
 
         // Append the new family member input fields to the container
@@ -113,8 +113,6 @@
         var kepalaKeluargaSelect = document.getElementById('kepala_keluarga');
         var anggotaKeluargaSelects = document.querySelectorAll('[name="anggota_keluarga[]"]');
         var totalAnggotaInput = document.getElementById('total_anggota_keluarga');
-
-        // Calculate total family members
         var totalAnggota = anggotaKeluargaSelects.length + (kepalaKeluargaSelect.value ? 1 : 0);
         totalAnggotaInput.value = totalAnggota;
     }
