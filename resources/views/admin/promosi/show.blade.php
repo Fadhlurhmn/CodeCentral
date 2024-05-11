@@ -8,7 +8,7 @@
   @include('layout.a_sidebar')
 
   <!-- start content -->
-  <div class="bg-gray-100 flex-1 p-6 md:mt-16"> 
+  <div class="bg-gray-100 flex-1 p-6 md:mt-16 cursor-default"> 
     <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{ $breadcrumb->title }}</h1>
     {{-- Alert ketika data tidak ditemukan --}}
     @if(!$promosi)
@@ -50,7 +50,7 @@
           
           <div class="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
               <dt class="font-medium text-base text-gray-900">Status Pengajuan</dt>
-              <span class="text-xs text-white px-2 py-1 rounded bg-{{ $promosi->status_pengajuan === 'tidak aktif' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center">{{$promosi->status_pengajuan}}</span>  
+              <span class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tidak aktif' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</span> 
                 @if($promosi->status_pengajuan === 'pending')
                     <div class="flex justify-start mt-2">
                         <form action="{{ url('/promosi/' . $promosi->id_umkm . '/acc_promosi') }}" method="POST">
