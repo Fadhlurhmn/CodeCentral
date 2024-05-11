@@ -10,7 +10,7 @@
         </div>
         <div class="w-full min-w-max p-5 shadow ">
 
-            <form id="form" class="px-10 py-10 bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('keluarga/'.$keluarga) }}" method="POST">
+            <form id="form" class="px-10 py-10 bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/keluarga/'.$keluarga) }}" method="POST">
                 <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-full ">
                     {{$page->title}}
                 </h1>
@@ -48,7 +48,7 @@
                 <div class="flex justify-between group col-span-full mt-5">
                     <button type="button" onclick="addFamilyMember()" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-40 sm:w-auto px-5 py-2.5 text-center mr-2">Tambah Anggota</button>
                     <button type="button" onclick="removeFamilyMember()" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-40 sm:w-auto px-5 py-2.5 text-center mr-2">Kurangi Anggota</button>
-                    <a href="{{ url('keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-40 sm:w-auto px-5 py-2.5 text-center mr-2">Kembali</a>
+                    <a href="{{ url('admin/keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-40 sm:w-auto px-5 py-2.5 text-center mr-2">Kembali</a>
                     <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-40 sm:w-auto px-5 py-2.5 text-center">Submit</button>
                 </div>
             </form>

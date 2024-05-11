@@ -5,7 +5,7 @@
         <h1 class="pb-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
         <div class="mb-5 text-sm flex justify-between">
             {{-- Ini Filter RT masih manual value RT nya --}}
-            <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('penduduk/create')}}">Tambah Data Warga</a>
+            <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/penduduk/create')}}">Tambah Data Warga</a>
             <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                 <option value="all" selected>Semua RT</option>
                 <option value="1">Rt. 1</option>

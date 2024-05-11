@@ -14,12 +14,12 @@
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
                 <p>Data yang Anda cari tidak ditemukan</p>
-                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ url('penduduk') }}';">
+                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ url('admin/penduduk') }}';">
                     close <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             @else
-            <form id="form_penduduk" action="{{ url('penduduk/' . $penduduk->id_penduduk) }}" method="POST" enctype="multipart/form-data">
+            <form id="form_penduduk" action="{{ url('admin/penduduk/' . $penduduk->id_penduduk) }}" method="POST" enctype="multipart/form-data">
                 <div class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl">
                     <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 border-teal-500 col-span-4 ">
                         {{ $page->title }}
@@ -92,7 +92,7 @@
                     </select>
                     {{-- Submit --}}
                     <div class="flex justify-between group col-span-2">
-                        <a href="{{ url('penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <a href="{{ url('admin/penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     // Redirect atau tampilkan pesan sukses sesuai kebutuhan
-                    window.location.href = '{{ url('penduduk/' . $penduduk->id_penduduk . '/show') }}';
+                    window.location.href = '{{ url('admin/penduduk/' . $penduduk->id_penduduk . '/show') }}';
                 } else {
                     // Tampilkan pesan error jika ada
                     console.error('Terjadi kesalahan:', xhr.responseText);
