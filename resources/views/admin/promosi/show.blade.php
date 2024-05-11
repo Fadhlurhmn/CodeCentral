@@ -50,7 +50,7 @@
           
           <div class="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
               <dt class="font-medium text-base text-gray-900">Status Pengajuan</dt>
-              <span class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tidak aktif' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</span> 
+              <dd class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tidak aktif' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'aktif' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</dd> 
                 @if($promosi->status_pengajuan === 'pending')
                     <div class="flex justify-start mt-2">
                         <form action="{{ url('admin/promosi/' . $promosi->id_umkm . '/show/update-status') }}" method="POST">
