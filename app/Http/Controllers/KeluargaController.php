@@ -34,14 +34,25 @@ class KeluargaController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
-                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-                $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+
+                // Periksa apakah detail keluarga ada untuk keluarga saat ini
+                $detailKeluarga = detail_keluarga_model::where('id_keluarga', $keluarga->id_keluarga)->first();
+
+                // Jika detail keluarga ditemukan
+                if ($detailKeluarga) {
+                    $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                } else {
+                    $btn .= '<a href="' . url('/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+                }
 
                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
+
+
+
 
     // form untuk tabel keluarga
     public function create()
