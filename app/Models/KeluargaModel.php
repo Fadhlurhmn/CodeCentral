@@ -11,13 +11,12 @@ class KeluargaModel extends Model
     use HasFactory;
     protected $table = 'keluarga_penduduk';
     protected $primaryKey = 'id_keluarga';
-    protected $fillable = ['nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah'];
-    public function keluarga(): HasMany
+
+    protected $fillable = ['nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'alamat', 'rt', 'rw', 'kelurahan', 'kecamatan', 'kota', 'foto_kk'];
+
+    public function detail_keluarga(): HasMany
     {
-        return $this->hasMany(PendudukModel::class, 'id_keluarga', 'id_keluarga');
-    }
-    public function umkm(): HasMany
-    {
-        return $this->hasMany(PromosiModel::class, 'id_keluarga');
+        return $this->hasMany(detail_keluarga_model::class);
+
     }
 }
