@@ -69,7 +69,7 @@
               }
               @endphp
               {{-- End filter status_pengajuan --}}
-                <dd class="w-14 px-2 text-center {{ $bgColor }} sm:col-span-2 rounded-full inline-block">{{$promosi->status_pengajuan}}</dd>
+                <dd class="w-20 px-2 text-center {{ $bgColor }} sm:col-span-2 rounded-full inline-block">{{$promosi->status_pengajuan}}</dd>
               {{-- <dd class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tolak' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'acc' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</dd>  --}}
                 @if($promosi->status_pengajuan === 'pending')
                     <div class="flex justify-start mt-2">
