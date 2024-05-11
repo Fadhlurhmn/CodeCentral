@@ -50,7 +50,27 @@
           
           <div class="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
               <dt class="font-medium text-base text-gray-900">Status Pengajuan</dt>
-              <dd class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tolak' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'acc' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</dd> 
+              {{-- Filter status_pengajuan --}}
+              @php
+              $bgColor = '';
+              switch($promosi->status_pengajuan) {
+                  case 'tolak':
+                      $bgColor = 'bg-red-600/60 text-red-800';
+                      break;
+                  case 'pending':
+                      $bgColor = 'bg-yellow-600/60 text-yellow-800';
+                      break;
+                  case 'acc':
+                      $bgColor = 'bg-teal-600/60 text-teal-800';
+                      break;
+                  default:
+                      $bgColor = 'bg-gray-600/60'; // Warna default jika tidak cocok dengan kondisi di atas
+                      break;
+              }
+              @endphp
+              {{-- End filter status_pengajuan --}}
+                <dd class="w-14 px-2 text-center {{ $bgColor }} sm:col-span-2 rounded-full inline-block">{{$promosi->status_pengajuan}}</dd>
+              {{-- <dd class="text-xs text-white px-1 py-2 rounded bg-{{ $promosi->status_pengajuan === 'tolak' ? 'red' : ($promosi->status_pengajuan === 'pending' ? 'yellow' : ($promosi->status_pengajuan === 'acc' ? 'teal' : 'gray')) }}-600/60 mr-2 w-14 text-center cursor-default">{{$promosi->status_pengajuan}}</dd>  --}}
                 @if($promosi->status_pengajuan === 'pending')
                     <div class="flex justify-start mt-2">
                         <form action="{{ url('admin/promosi/' . $promosi->id_umkm . '/show/update-status') }}" method="POST">
