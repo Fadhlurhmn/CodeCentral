@@ -17,7 +17,7 @@
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
         </div>
-        <div class="relatives mt-5 h-full p-5 shadow-md">
+        <div class="relatives mt-5 h-screen p-5 shadow-md">
             <table id="table_penduduk" class="border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400 text-center">
                     <tr>
@@ -50,11 +50,25 @@
                 "type": "POST",
             },
             columns: [
-                { data: "DT_RowIndex", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: false, searchable: false },
-                { data: "nik", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: false, searchable: true },
-                { data: "nama", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: false, searchable: true },
-                { data: "alamat_domisili", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: false },
-                { data: "rt", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: true, searchable: false },
+                { data: "DT_RowIndex",
+                 className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: false, 
+                  searchable: false },
+                { data: "nik",
+                 className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: false,
+                 searchable: true },
+                { data: "nama",
+                 className: "text-sm border-b border-r border-l border-gray-500/40", 
+                 orderable: false, 
+                 searchable: true },
+                { data: "alamat_domisili",
+                 className: "text-sm border-b border-r border-l border-gray-500/40", 
+                 orderable: false },
+                { data: "rt",
+                 className: "text-sm border-b border-r border-l border-gray-500/40", 
+                 orderable: true, 
+                 searchable: false },
                 { 
                     data: "status_data",
                     className: "text-sm border-b border-r border-l border-gray-500/40",
@@ -68,8 +82,14 @@
                         }
                     }
                 },
-                { data: "status_penduduk", className: "text-sm border-b border-r border-l border-gray-500/40", orderable: false, searchable: true },
-                { data: "aksi", className: "flex text-sm border-b border-r border-l border-gray-500/40", orderable: false, searchable: false },
+                { data: "status_penduduk",
+                 className: "text-sm border-b border-r border-l border-gray-500/40", 
+                 orderable: false, 
+                 searchable: true },
+                { data: "aksi",
+                 className: "flex text-sm border-b border-r border-l border-gray-500/40", 
+                 orderable: false, 
+                 searchable: false },
             ]
         });
 
