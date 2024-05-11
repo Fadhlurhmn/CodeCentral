@@ -51,9 +51,6 @@ class KeluargaController extends Controller
             ->make(true);
     }
 
-
-
-
     // form untuk tabel keluarga
     public function create()
     {
@@ -241,22 +238,13 @@ class KeluargaController extends Controller
 
         // Cek apakah ada file gambar yang diunggah
         if ($request->hasFile('foto_kk')) {
-            // menyimpan data foto kk yang diupload ke variabel foto_kk
+            // Dapatkan nama file baru
             $foto_kk = $request->file('foto_kk');
+            $nama_file_baru = time() . "_" . $foto_kk->getClientOriginalName();
 
-            $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
-
-            // isi dengan nama folder tempat kemana file diupload
-            $tujuan_upload = 'data_kk';
-            $foto_kk->move($tujuan_upload, $nama_file);
-
-            // Hapus foto kk lama jika ada
-            if ($keluarga->foto_kk) {
-                $path_foto_ktp_lama = public_path('data_kk/' . $keluarga->foto_kk);
-                if (file_exists($path_foto_ktp_lama)) {
-                    unlink($path_foto_ktp_lama);
-                }
-            }
+            // Simpan file baru
+            $tujuan_upload = 'data_ktp';
+            $foto_kk->move($tujuan_upload, $nama_file_baru);
 
             // Update data keluarga beserta foto kk baru
             $keluarga->update([
@@ -271,7 +259,7 @@ class KeluargaController extends Controller
                 'kelurahan' => $request->kelurahan,
                 'kecamatan' => $request->kecamatan,
                 'kota' => $request->kota,
-                'foto_kk' => $nama_file // simpan nama file gambar ke dalam database
+                'foto_kk' => $nama_file_baru // simpan nama file gambar ke dalam database
             ]);
         } else {
             // Update data keluarga tanpa mengubah foto kk
