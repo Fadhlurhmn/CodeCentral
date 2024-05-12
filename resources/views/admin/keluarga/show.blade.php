@@ -27,7 +27,7 @@
                 <tbody class="bg-white grid grid-cols-3">
                     <tr class="whitespace-nowrap border-t border-gray-400 col-span-3">
                         <th class="px-3 py-2 border-l border-r border-gray-400 w-40">Foto KK</th>
-                        <td class="pl-3 text-sm py-2"><img src="{{ asset('data_nik/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" /></td>
+                        <td class="pl-3 text-sm py-2"><img src="{{ asset('data_kk/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" /></td>
                     </tr>
                     <tr class="bg-gray-100/50 border-t border-gray-400 col-span-3">
                         <th class="px-3 py-2 border-l border-r border-gray-400 w-40">Nomer Kartu Keluarga</th>
