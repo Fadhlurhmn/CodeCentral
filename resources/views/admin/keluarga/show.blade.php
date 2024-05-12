@@ -4,9 +4,9 @@
     
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
-    <div class="flex-grow bg-slate-100">
+    <div class="flex-grow bg-white">
         <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{$breadcrumb->title}}</h1>
+            <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1>
         </div>
         <div class="w-full min-w-max p-5 shadow-md">
             @if(!$keluarga)
@@ -20,7 +20,7 @@
                 @else
                 {{-- Tabel data keluarga 1 --}}
                 <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
-                    <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
+                    <caption class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
                         {{ $page->title }}
                         <p class="mt-1 text-lg font-normal text-slate-100"> {{ $page->title }} dalam sistem</p>
                     </caption>
@@ -63,7 +63,7 @@
             {{-- End Tabel Data Keluarga 1  --}}
             {{-- Start Data Anggota Keluarga --}}
             <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
-                <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
+                <caption class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400">
                     Detail anggota keluarga "{{$keluarga->nomor_keluarga}}"
                 </caption>
                 <tbody class="bg-white grid grid-cols-3">
@@ -112,7 +112,7 @@
                 </tbody>
             </table>
             {{-- End Data Anggota Keluarga --}}
-            <a href="{{ url('admin/keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>      
+            <a href="{{ url('admin/keluarga') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i> Kembali</a>      
             @endif
         </div>
     </div>

@@ -4,11 +4,11 @@
 
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
-    <div class="flex-grow bg-slate-100">
+    <div class="flex-grow bg-white">
         <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{ $breadcrumb->title }}</h1>
+            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
         </div>
-        <div class="w-full h-screen min-w-max p-5 shadow overflow-y-scroll">
+        <div class="w-full h-fit min-w-max p-5">
 
             @if(!$penduduk)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
@@ -21,19 +21,19 @@
             @else
             <form id="form_penduduk" action="{{ url('admin/penduduk/' . $penduduk->id_penduduk) }}" method="POST" enctype="multipart/form-data">
                 <div class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl">
-                    <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 border-teal-500 col-span-4 ">
+                    <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-4 ">
                         {{ $page->title }}
                     </h1>
                     @csrf
                     {{-- <input type="hidden" name="foto_ktp_lama" value="{{ $penduduk->foto_ktp }}"> --}}
 
                     {{-- nik --}}
-                    <label for="nik" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
-                    <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
-                    <div id="nikError" class="hidden col-span-4 text-red-500 text-sm">NIK harus diisi dengan 16 karakter</div>
+                    <label for="nik" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
+                    <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
+                    <div id="nikError" class="hidden col-span-4 text-red-500 text-xs">NIK harus diisi dengan 16 karakter</div>
                     <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg transition duration-300 ease-in-out">
                         <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
-                        <label for="foto_ktp" class="block text-sm font-medium cursor-pointer text-white py-2 px-4">
+                        <label for="foto_ktp" class="block text-xs font-medium cursor-pointer text-white text-center py-2 px-4">
                             Submit Foto KTP (Max ukuran 2MB)
                         </label>
                     </div>
@@ -41,59 +41,59 @@
                         <span class="text-green-500">Gambar Terunggah</span>
                     </div>
                     {{-- nama --}}
-                    <label for="nama" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nama</label>
-                    <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" value="{{ $penduduk->nama }}" required />
+                    <label for="nama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nama</label>
+                    <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" value="{{ $penduduk->nama }}" required />
                     {{-- alamat_ktp --}}
-                    <label for="alamat_ktp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat KTP</label>
-                    <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat KTP" value="{{ $penduduk->alamat_ktp }}" required />
+                    <label for="alamat_ktp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Alamat KTP</label>
+                    <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat KTP" value="{{ $penduduk->alamat_ktp }}" required />
                     {{-- alamat_domisili --}}
-                    <label for="alamat_domisili" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Alamat Domisili</label>
-                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="{{ $penduduk->alamat_domisili }}" required />
+                    <label for="alamat_domisili" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Alamat Domisili</label>
+                    <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="{{ $penduduk->alamat_domisili }}" required />
                     {{-- RT --}}
-                    <label for="rt" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Rt</label>
-                    <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{ $penduduk->rt }}" required />
+                    <label for="rt" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Rt</label>
+                    <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{ $penduduk->rt }}" required />
                     {{-- RW hidden --}}
                     <input type="hidden" name="rw" value="{{ $penduduk->rw }}" required/>
                     {{-- tempat_lahir --}}
-                    <label for="tempat_lahir" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Tempat Lahir</label>
-                    <input type="text" name="tempat_lahir" id="tempat_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tempat_lahir }}" required />
+                    <label for="tempat_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" id="tempat_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tempat_lahir }}" required />
                     {{-- tanggal_lahir --}}
-                    <label for="tanggal_lahir" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
-                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
+                    <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
+                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
                     {{-- gol_darah --}}
-                    <label for="gol_darah" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Gologan Darah</label>
-                    <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->gol_darah }}" />
+                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Gologan Darah</label>
+                    <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->gol_darah }}" />
                     {{-- agama --}}
-                    <label for="agama" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Agama</label>
-                    <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{ $penduduk->agama }}" required />
+                    <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama</label>
+                    <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{ $penduduk->agama }}" required />
                     {{-- No telpon --}}
-                    <label for="no_telp" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nomor telepon</label>
+                    <label for="no_telp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nomor telepon</label>
                     <div class="flex col-span-4">
                         <span class="text-gray-800 mr-2 pt-2">+62</span>
-                        <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
+                        <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
                     </div>
                     {{-- pekerjaan --}}
-                    <label for="pekerjaan" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Pekerjaan</label>
-                    <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" value="{{ $penduduk->pekerjaan }}" required />
-                    <div id="pekerjaError" class="hidden col-span-2 text-red-500 text-sm">Isi dengan "Tidak bekerja" jika belum bekerja</div>
+                    <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan</label>
+                    <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" value="{{ $penduduk->pekerjaan }}" required />
+                    <div id="pekerjaError" class="hidden col-span-2 text-red-500 text-xs">Isi dengan "Tidak bekerja" jika belum bekerja</div>
                     {{-- status penduduk --}}
-                    <label for="status_penduduk" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Status Penduduk</label>
-                    <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
+                    <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
+                    <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
                         <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option>
                         <option value="Tetap">Tetap</option>
                         <option value="Sementara">Sementara</option>
                     </select>
                     {{-- status data --}}
-                    <label for="status_data" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">status_data</label>
-                    <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-sm text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
+                    <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">status_data</label>
+                    <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
                         <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                            
                         <option value="Aktif">Aktif</option>
                         <option value="Tidak aktif">Tidak aktif</option>
                     </select>
                     {{-- Submit --}}
-                    <div class="flex justify-between group col-span-2">
-                        <a href="{{ url('admin/penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
-                        <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
+                    <div class="flex justify-between col-span-2">
+                        <a href="{{ url('admin/penduduk') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                     </div>
                 </div>
             </form>
