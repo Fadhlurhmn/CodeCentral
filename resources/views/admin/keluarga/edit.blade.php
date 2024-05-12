@@ -60,7 +60,7 @@
                 {{-- Alamat --}}
                 <div class="col-span-4 sm:col-span-2">
                     <label for="alamat" class="block mb-2 text-xs font-bold text-gray-900">Alamat<span class="text-red-500">*</span></label>
-                    <input type="number" step="any" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" value="{{ $keluarga->alamat }}" required />
+                    <input type="text" step="any" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" value="{{ $keluarga->alamat }}" required />
                 </div>
             
                 {{-- Button --}}

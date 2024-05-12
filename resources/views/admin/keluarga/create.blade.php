@@ -91,9 +91,9 @@
                         <label for="rt" class="block mb-2 text-xs font-bold text-gray-900">RT<span class="text-red-500">*</span></label>
                         <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RT" required />
                     </div>
-                    <div class="col-span-4 sm:col-span-2">
+                    <div class="col-span-4 sm:col-span-2 hidden">
                         <label for="rw" class="block mb-2 text-xs font-bold text-gray-900">RW<span class="text-red-500">*</span></label>
-                        <input type="number" name="rw" id="rw" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RW" required />
+                        <input type="hidden" value="1" name="rw" id="rw" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RW" required />
                     </div>
                 </div>
                 {{-- Submit Button --}}
