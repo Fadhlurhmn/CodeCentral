@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
@@ -76,6 +77,7 @@ Route::group(['middleware' => ['cek_login:1']], function () {
     });
 });
 
+// Route for admin (for template only, you can make your own controller with index inside and remove this)
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
         return view('admin.index');
@@ -92,6 +94,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/pengumuman', function () {
         return view('admin.pengumuman.index');
     });
+    // Route::get('/promosi', function () {
+    //     return view('admin.promosi.index');
+    // });
+    // Route::get('/promosi/daftar', function () {
+    //     return view('admin.promosi.daftar');
+    // }); //untuk halaman daftar dari promosi
+    // Route::get('/promosi/show', function () {
+    //     return view('admin.promosi.show');
+    // }); //untuk halaman daftar dari promosi
     Route::get('/surat', function () {
         return view('admin.surat.index');
     });
@@ -100,6 +111,19 @@ Route::group(['prefix' => 'admin'], function () {
     });
     Route::get('/keuangan', function () {
         return view('admin.keuangan.index');
+    });
+
+    Route::group(['prefix' => 'promosi'], function () {
+        Route::get('/', [PromosiController::class, 'index']);          // menampilkan halaman awal level
+        Route::get('/daftar', [PromosiController::class, 'daftar']);          // menampilkan halaman awal level
+        Route::post('/list', [PromosiController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
+        Route::get('/create', [PromosiController::class, 'create']);   // menampilkan halaman form tambah level
+        Route::post('/', [PromosiController::class, 'store']);         // menyimpan data level baru
+        Route::get('/{id}/show', [PromosiController::class, 'show']);       // menampilkan detail level
+        Route::get('/{id}/edit', [PromosiController::class, 'edit']);  // menampilkan halaman form edit level
+        Route::post('/{id}', [PromosiController::class, 'update']);     // menyimpan perubahan data level
+        Route::delete('/{id}', [PromosiController::class, 'destroy']); // menghapus data level
+        Route::post('/{id}/show/update-status', [PromosiController::class, 'updateStatus']); // ini untuk update status acc apa tolak
     });
 
     Route::group(['prefix' => 'penduduk'], function () {
