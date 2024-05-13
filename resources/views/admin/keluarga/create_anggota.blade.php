@@ -25,7 +25,7 @@
                     </div>
                     {{-- Input for orang --}}
                     @for($i=1; $i <= $totalOrang; $i++)
-                    <div class="col-span-2">
+                    <div class="col-span-2 mb-3">
                         <select name="id_penduduk[]" id="id_penduduk" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
                             <option disabled selected>Pilih Warga</option>
                             @foreach ($penduduk as $orang)
@@ -36,7 +36,7 @@
                     
                 
                     {{-- Input for peran keluarga --}}
-                    <div class="col-span-2">
+                    <div class="col-span-2 mb-3">
                         <select name="peran_keluarga[]" id="peran_keluarga" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
                             <option disabled selected>Pilih Peran</option>
                             <option value="Kepala Keluarga">Kepala Keluarga</option>
