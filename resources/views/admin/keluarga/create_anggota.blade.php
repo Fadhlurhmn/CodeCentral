@@ -9,8 +9,8 @@
             <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1>
         </div>
         <div class="w-full h-fit min-w-max p-5 ">
-
-            <form id="form" class="" action="{{ url('admin/keluarga/'.$keluarga) }}" method="POST">
+            
+            <form id="form" action="{{ url('admin/keluarga/'.$keluarga) }}" method="POST">
                 {{-- <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full ">
                     {{$page->title}}
                 </h1> --}}
@@ -19,10 +19,13 @@
 
                     {{-- Hidden input for keluarga ID --}}
                     <input type="hidden" name="id_keluarga" value="{{ $keluarga }}">
-                
+                    <div class="flex justify-around col-span-full">
+                        <label for="id_penduduk" class="block text-sm font-bold text-gray-700">Anggota Keluarga</label>
+                        <label for="peran_keluarga" class="block text-sm font-bold text-gray-700">Peran Keluarga</label>
+                    </div>
                     {{-- Input for orang --}}
-                    <div class="col-span-full">
-                        <label for="id_penduduk" class="block text-xs font-medium text-gray-700">Penduduk 1</label>
+                    @for($i=1; $i <= $totalOrang; $i++)
+                    <div class="col-span-2">
                         <select name="id_penduduk[]" id="id_penduduk" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
                             <option disabled selected>Pilih Warga</option>
                             @foreach ($penduduk as $orang)
@@ -33,8 +36,7 @@
                     
                 
                     {{-- Input for peran keluarga --}}
-                    <div class="col-span-full">
-                        <label for="peran_keluarga" class="block text-xs font-medium text-gray-700">Peran Keluarga 1</label>
+                    <div class="col-span-2">
                         <select name="peran_keluarga[]" id="peran_keluarga" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
                             <option disabled selected>Pilih Peran</option>
                             <option value="Kepala Keluarga">Kepala Keluarga</option>
@@ -42,20 +44,19 @@
                             <option value="Anggota Keluarga">Anak</option>
                         </select>
                     </div>
+                    @endfor
+
+                    {{-- <div id="family_members" class="col-span-full"></div>
     
-                    <!-- Additional inputs for more family members -->
-                    <div id="family_members" class="col-span-full"></div>
-    
-                    <!-- Buttons for adding and removing family members -->
                     <div class="flex justify-start group col-span-full mt-3">
                         <button type="button" onclick="addFamilyMember()" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-36 sm:w-auto px-5 py-2.5 text-center mr-2">Tambah Anggota</button>
                         <button type="button" onclick="removeFamilyMember()" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-36 sm:w-auto px-5 py-2.5 text-center mr-2">Kurangi Anggota</button>
+                    </div> --}}
+                    {{-- Button submit --}}
+                    <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
+                        <a href="{{ url('admin/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                     </div>
-                </div>
-                {{-- Button submit --}}
-                <div class="flex py-2 px-3 mt-5 justify-start group">
-                    <a href="{{ url('admin/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
-                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                 </div>
             </form>
             

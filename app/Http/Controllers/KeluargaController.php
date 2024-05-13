@@ -82,7 +82,7 @@ class KeluargaController extends Controller
             'rt' => 'required|integer',
             'rw' => 'required|integer',
             'luas_tanah' => 'required|integer',
-            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:204',
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
         ]);
@@ -128,10 +128,17 @@ class KeluargaController extends Controller
             'title' => 'Tambah Anggota Keluarga'
         ];
 
+        // Ambil data jumlah orang bekerja dan tanggungan dari database
+        $jumlahOrangBekerja = KeluargaModel::where('id_keluarga', $id)->sum('jumlah_orang_kerja');
+        $jumlahTanggungan = KeluargaModel::where('id_keluarga', $id)->sum('jumlah_tanggungan');
+
+        // Hitung total jumlah orang dari kedua kategori tersebut
+        $totalOrang = $jumlahOrangBekerja + $jumlahTanggungan;
+
         $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
-
-        return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        
+        return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
     }
 
     // method untuk simpan data detail anggota di keluarga
