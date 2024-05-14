@@ -41,6 +41,8 @@
                         <div id="uploadIndicator_kk" class="hidden mt-2">
                             <span class="text-green-500">Gambar Terunggah</span>
                         </div>
+                        {{-- <div>
+                            <img src="{{ asset('data_kk/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" />                        </div> --}}
                     </div>
                 </div>
                 

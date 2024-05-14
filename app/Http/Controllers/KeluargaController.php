@@ -243,7 +243,7 @@ class KeluargaController extends Controller
             'kelurahan' => 'required|string',
             'kecamatan' => 'required|string',
             'kota' => 'required|string',
-            'foto_kk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $keluarga = KeluargaModel::find($id);
