@@ -14,9 +14,9 @@
                     Edit data akun
                 </h1>
                 @csrf
-                <label for="id_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Level Akun<span class="text-red-500">*</span></label>
+                <label for="id_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jabatan<span class="text-red-500">*</span></label>
                 <select name="id_level" id="id_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="">Pilih Level</option>
+                    <option value="">Pilih Jabatan</option>
                     @foreach($level as $item)
                     <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
                     @endforeach
