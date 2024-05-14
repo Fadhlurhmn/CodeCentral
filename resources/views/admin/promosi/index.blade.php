@@ -10,21 +10,21 @@
   @include('layout.a_sidebar')
 
   <!-- start content -->
-  <div class="bg-slate-100 flex-1 p-6 md:mt-16 cursor-default"> 
-    <div class="container p-5 mb-5 bg-white border-t-4 border-teal-500 text-lg flex flex-col items-start">
-      <h1 class="py-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1>
-      <p class="mb-3 text-xl">{{$page->title}}</p>
+  <div class="bg-white flex-1 md:mt-16 cursor-default"> 
+    <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col items-start">
+      <h1 class="pb-5 my-2 text-2xl text-gray-600 font-extrabold">{{$breadcrumb->title}}</h1>
+      {{-- <p class="mb-3 text-lg">{{$page->title}}</p> --}}
       <div class="flex justify-between w-full">
-        <a href="{{ url('admin/promosi/daftar') }}" class="px-3 py-1 mb-5 bg-teal-400 text-teal-900 text-center text-sm font-medium rounded-lg transition duration-300 ease-in-out hover:bg-teal-500">cek daftar permintaan</a>
+        <a href="{{ url('admin/promosi/daftar') }}" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-xs text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg">cek daftar permintaan</a>
         {{-- Search form --}}
         <form action="{{ url()->current() }}" method="GET" class="text-sm font-medium">
-          <input type="text" name="query" value="{{ request('query') }}" placeholder="Cari nama usaha..." class="px-4 py-2 border border-gray-300 rounded-md">
-          <button type="submit" class="px-4 py-2 bg-teal-400 text-teal-900 rounded-md ml-2">Cari</button>
+          <input type="text" name="query" value="{{ request('query') }}" placeholder="Cari nama usaha..." class="px-4 py-2 border border-gray-300 rounded-md text-xs">
+          <button type="submit" class="px-4 py-2 bg-teal-400 text-xs text-teal-900 rounded-md ml-2">Cari</button>
         </form>
       </div>
   </div>
       {{-- Bagian Promosi Usaha Warga --}}
-      <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default shadow-lg">
+      <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-2 border-teal-400 cursor-default">
         @foreach ($promosi as $umkm)
             <div class="rounded-lg shadow-md flex flex-col">
                 <div class="relative">

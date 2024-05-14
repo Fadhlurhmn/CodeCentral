@@ -43,7 +43,7 @@ Route::post('proses_register', [AuthController::class, 'proses_register'])->name
 
 // middleware, redirect to login when the /admin or /admin/** is typed
 
-Route::group(['middleware' => ['cek_login:1']], function(){
+Route::group(['middleware' => ['cek_login:1']], function () {
     Route::get('admin', [AdminController::class, 'index']);
 
 
@@ -76,7 +76,6 @@ Route::group(['middleware' => ['cek_login:1']], function(){
         });
     });
 });
-
 
 // Route for admin (for template only, you can make your own controller with index inside and remove this)
 Route::group(['prefix' => 'admin'], function () {
@@ -127,4 +126,27 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/{id}/show/update-status', [PromosiController::class, 'updateStatus']); // ini untuk update status acc apa tolak
     });
 
+    Route::group(['prefix' => 'penduduk'], function () {
+        Route::get('/', [PendudukController::class, 'index']);
+        Route::post('/list', [PendudukController::class, 'list']);
+        Route::get('/create', [PendudukController::class, 'create']);
+        Route::post('/', [PendudukController::class, 'store']);
+        Route::get('/{id}/show', [PendudukController::class, 'show']);
+        Route::get('/{id}/edit', [PendudukController::class, 'edit']);
+        Route::post('/{id}', [PendudukController::class, 'update']);
+        Route::delete('/{id}', [PendudukController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'keluarga'], function () {
+        Route::get('/', [KeluargaController::class, 'index']);          // menampilkan halaman awal level
+        Route::post('/list', [KeluargaController::class, 'list']);      // menampilkan data level dalam bentuk json untuk datatables
+        Route::get('/create', [KeluargaController::class, 'create']);   // menampilkan halaman form tambah level
+        Route::post('/', [KeluargaController::class, 'store']);         // menyimpan data level baru
+        Route::get('/{id}/show', [KeluargaController::class, 'show']);  // menampilkan detail level
+        Route::get('/{id}/edit', [KeluargaController::class, 'edit']);  // menampilkan halaman form edit level
+        Route::post('/{id}', [KeluargaController::class, 'update']);    // menyimpan perubahan data level
+        Route::delete('/{id}', [KeluargaController::class, 'destroy']); // menghapus data level
+
+        Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
+        Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
+    });
 });

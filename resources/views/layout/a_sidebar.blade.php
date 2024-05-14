@@ -1,5 +1,5 @@
   <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-52 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated duration-500 ease-in-out">
 
 
     <!-- sidebar content -->
@@ -31,11 +31,11 @@
         Bansos
     </a>
 
-      <a href="{{url('penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{url('/admin/penduduk')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-users text-xs mr-2"></i>
         Data Penduduk
       </a>
-      <a href="{{url('keluarga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <a href="{{url('/admin/keluarga')}}" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
         <i class="fas fa-user-friends text-xs mr-2"></i>
         Data Keluarga
       </a>
