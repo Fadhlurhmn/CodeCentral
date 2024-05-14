@@ -80,9 +80,9 @@
                     <option value="Sementara">Sementara</option>
                 </select>
                 <!-- Other form inputs here -->
-                <div class="flex justify-between col-span-2">
-                    <a href="{{ url('admin/penduduk') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
-                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+                <div class="flex col-span-2">
+                    <a href="{{ url('admin/penduduk') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center ">Submit</button>
                 </div>
             </form>            
             
