@@ -244,6 +244,7 @@ class KeluargaController extends Controller
             'luas_tanah' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
+            // 'foto_kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $keluarga = KeluargaModel::find($id);
@@ -251,6 +252,14 @@ class KeluargaController extends Controller
         if (!$keluarga) {
             return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
+
+        // Menyimpan data foto KK yang diupload ke variabel foto_kk
+        // $foto_kk = $request->file('foto_kk');
+        // $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
+
+        // // Isi dengan nama folder tempat kemana file diupload
+        // $tujuan_upload = 'data_kk';
+        // $foto_kk->move($tujuan_upload, $nama_file);
 
         $data = [
             'nomor_keluarga' => $request->nomor_keluarga,
@@ -264,6 +273,7 @@ class KeluargaController extends Controller
             'luas_tanah' => $request->luas_tanah,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+            // 'foto_kk' => $nama_file
         ];
 
         // Cek apakah ada file gambar yang diunggah

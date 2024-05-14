@@ -19,7 +19,7 @@
                 </button>
             </div>
             @else
-            <form class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/keluarga/' . $keluarga->id_keluarga) }}" method="POST">
+            <form class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/keluarga/' . $keluarga->id_keluarga) }}" method="POST" enctype="multipart/form-data">
                 <h1 class="pb-5 mb-10 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2">
                     {{$page->title}}
                 </h1>
@@ -33,7 +33,7 @@
                         <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 16 digit.</small>
                     </div>
                     <div class="relative col-span-2">
-                        <input type="file" name="foto_kk" id="foto_kk" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                        <input type="file" name="foto_kk" id="foto_kk" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
                         {{-- <input type="file" name="foto_kk" id="foto_kk" accept="image/*" class="shadow bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required /> --}}
                         <label for="foto_kk" class="text-xs font-medium cursor-pointer text-white py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                             Submit Foto KK (Max ukuran 2MB)
