@@ -232,18 +232,18 @@ class KeluargaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nomor_keluarga' => 'required|string|min:10|max:10',
+            'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
-            'jumlah_tanggungan' => 'required|integer',
-            'jumlah_orang_kerja' => 'required|integer',
-            'luas_tanah' => 'required|integer',
             'alamat' => 'required|string',
-            'rt' => 'required|integer',
-            'rw' => 'required|integer',
             'kelurahan' => 'required|string',
             'kecamatan' => 'required|string',
             'kota' => 'required|string',
-            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'rt' => 'required|integer',
+            'rw' => 'required|integer',
+            'luas_tanah' => 'required|integer',
+            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'jumlah_tanggungan' => 'required|integer',
+            'jumlah_orang_kerja' => 'required|integer',
         ]);
 
         $keluarga = KeluargaModel::find($id);
@@ -255,7 +255,7 @@ class KeluargaController extends Controller
             $nama_file_baru = time() . "_" . $foto_kk->getClientOriginalName();
 
             // Simpan file baru
-            $tujuan_upload = 'data_ktp';
+            $tujuan_upload = 'data_kk';
             $foto_kk->move($tujuan_upload, $nama_file_baru);
 
             // Update data keluarga beserta foto kk baru
