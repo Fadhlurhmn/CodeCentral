@@ -33,17 +33,23 @@
                             @endforeach
                         </select>
                     </div>
-                    
-                
+                    @if($i==1)
+                    {{-- Input for peran keluarga --}}
+                    <div class="col-span-2 mb-3">
+                        <select name="peran_keluarga[]" id="peran_keluarga" class="mt-1 block w-full py-2 font-semibold px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
+                            <option value="Kepala Keluarga" selected>Kepala Keluarga</option>
+                        </select>
+                    </div>
+                    @else
                     {{-- Input for peran keluarga --}}
                     <div class="col-span-2 mb-3">
                         <select name="peran_keluarga[]" id="peran_keluarga" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs">
                             <option disabled selected>Pilih Peran</option>
-                            <option value="Kepala Keluarga">Kepala Keluarga</option>
                             <option value="Istri">Istri</option>
                             <option value="Anggota Keluarga">Anak</option>
                         </select>
                     </div>
+                    @endif
                     @endfor
 
                     {{-- <div id="family_members" class="col-span-full"></div>

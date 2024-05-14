@@ -80,11 +80,11 @@
                     <tr class="bg-gray-100/50 col-span-3 border-t border-gray-400">
                         <th class="px-3 py-2 border-l border-r border-gray-400 w-36">Istri</th>
                         <td class="pl-3 text-sm">
-                            @if($istri->isNotEmpty())
-                                {{ $istri->first()->penduduk->nama }}
-                                @else
-                                Data Tidak Ditemukan
-                            @endif
+                            @php $nomer = 1; @endphp
+                            @foreach ($istri as $member)
+                                {{$nomer}}. {{ $member->penduduk->nama }} <br>
+                                @php $nomer++; @endphp    
+                            @endforeach
                         </td>
                     </tr>
                     <tr class="whitespace-nowrap col-span-3 border-t border-gray-400">
