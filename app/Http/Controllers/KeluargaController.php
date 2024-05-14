@@ -155,6 +155,9 @@ class KeluargaController extends Controller
             'peran_keluarga.*' => 'required|string',
         ]);
 
+        // Menghapus data lama berdasarkan id_keluarga
+        detail_keluarga_model::where('id_keluarga', $request->id_keluarga)->delete();
+
         // Loop through each submitted data to store the family members
         foreach ($request->id_penduduk as $key => $pendudukId) {
             // Store the family member
@@ -287,6 +290,6 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('admin/keluarga/' . $id . '/show')->with('success', 'Data keluarga berhasil diubah');
+        return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }
 }
