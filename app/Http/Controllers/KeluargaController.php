@@ -86,14 +86,15 @@ class KeluargaController extends Controller
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
         ]);
+        $foto_kk = $request->file('foto_kk')->store('data_kk', 'public');
 
-        // Menyimpan data foto KK yang diupload ke variabel foto_kk
-        $foto_kk = $request->file('foto_kk');
-        $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
+        // // Menyimpan data foto KK yang diupload ke variabel foto_kk
+        // $foto_kk = $request->file('foto_kk');
+        // $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
 
-        // Isi dengan nama folder tempat kemana file diupload
-        $tujuan_upload = 'data_kk';
-        $foto_kk->move($tujuan_upload, $nama_file);
+        // // Isi dengan nama folder tempat kemana file diupload
+        // $tujuan_upload = 'data_kk';
+        // $foto_kk->move($tujuan_upload, $nama_file);
 
         // Simpan data keluarga dan ambil objek yang baru saja disimpan
         KeluargaModel::create([
@@ -108,7 +109,7 @@ class KeluargaController extends Controller
             'luas_tanah' => $request->luas_tanah,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-            'foto_kk' => $nama_file,
+            'foto_kk' => $foto_kk,
         ]);
 
         $keluarga = KeluargaModel::where('nomor_keluarga', $request->nomor_keluarga)->first();
@@ -282,17 +283,20 @@ class KeluargaController extends Controller
                 'foto_kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $foto_kk = $request->file('foto_kk');
-            $nama_file_baru = time() . "_" . $foto_kk->getClientOriginalName();
-            $tujuan_upload = 'data_kk';
-            $foto_kk->move($tujuan_upload, $nama_file_baru);
+            // $foto_kk = $request->file('foto_kk');
+            // $nama_file_baru = time() . "_" . $foto_kk->getClientOriginalName();
+            // $tujuan_upload = 'data_kk';
+            // $foto_kk->move($tujuan_upload, $nama_file_baru);
 
-            // Hapus foto KK lama jika ada
-            if ($keluarga->foto_kk) {
-                unlink(public_path('data_kk/' . $keluarga->foto_kk));
-            }
+            $foto_kk = $request->file('foto_kk')->store('data_kk', 'public');
 
-            $data['foto_kk'] = $nama_file_baru;
+
+            // // Hapus foto KK lama jika ada
+            // if ($keluarga->foto_kk) {
+            //     unlink(public_path('data_kk/' . $keluarga->foto_kk));
+            // }
+
+            $data['foto_kk'] = $foto_kk;
         }
 
         $keluarga->update($data);
