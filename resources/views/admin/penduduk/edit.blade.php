@@ -31,14 +31,15 @@
                     <label for="nik" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
                     <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
                     <div id="nikError" class="hidden col-span-4 text-red-500 text-xs">NIK harus diisi dengan 16 karakter</div>
-                    <div class="relative bg-teal-500 hover:bg-teal-600 col-span-2 rounded-lg transition duration-300 ease-in-out">
-                        <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
-                        <label for="foto_ktp" class="block text-xs font-medium cursor-pointer text-white text-center py-2 px-4">
+                    <div class="relative col-span-2 rounded-lg w-full h-full transition duration-300 ease-in-out">
+                        <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                        <label for="foto_ktp" class="text-xs font-medium cursor-pointer text-white text-center py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                             Submit Foto KTP (Max ukuran 2MB)
                         </label>
                     </div>
-                    <div id="uploadIndicator_foto" class="hidden col-span-4 py-2 px-0">
-                        <span class="text-green-500">Gambar Terunggah</span>
+                    <div id="uploadIndicator_foto" class="hidden col-span-4">
+                        <!-- Contoh: ikon atau pesan teks -->
+                        <span class="text-green-500 text-sm">Gambar Terunggah</span>
                     </div>
                     {{-- nama --}}
                     <label for="nama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nama</label>
