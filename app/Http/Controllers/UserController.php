@@ -87,8 +87,8 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = UserModel::with('level')->find($id);
-        $penduduk = PendudukModel::all()->find($id);
         $level = LevelModel::all()->find($id);
+        $penduduk = PendudukModel::all()->find($id);
 
         $breadcrumb = (object) [
             'title' => 'Detail Akun',
@@ -101,44 +101,45 @@ class UserController extends Controller
 
         $activeMenu = 'user';
 
-        return view('admin.akun.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user,'penduduk' => $penduduk, 'level' => $level, 'activeMenu' => $activeMenu]);
+        return view('admin.akun.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user,'level' => $level,'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
 
-    // public function edit(string $id)
-    // {
-    //     $user = UserModel::find($id);
-    //     $level = LevelModel::all();
+    public function edit(string $id)
+    {
+        $user = UserModel::find($id);
+        $level = LevelModel::all();
+        $penduduk = PendudukModel::all();
 
-    //     $breadcrumb = (object) [
-    //         'title' => 'Edit User',
-    //         'list' => ['Home', 'User', 'Edit']
-    //     ];
+        $breadcrumb = (object) [
+            'title' => 'Edit User',
+            'list' => ['Home', 'User', 'Edit']
+        ];
 
-    //     $page = (object) [
-    //         'title' => 'Edit user'
-    //     ];
+        $page = (object) [
+            'title' => 'Edit user'
+        ];
 
-    //     $activeMenu = 'user';
+        $activeMenu = 'user';
 
-    //     return view('admin.akun.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'user' => $user, 'activeMenu' => $activeMenu]);
-    // }
+        return view('admin.akun.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user,'level' => $level,'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+    }
 
-    // public function update(Request $request, string $id)
-    // {
-    //     $request->validate([
-    //         'username' => 'required|string|min:3|unique:user,username',
-    //         'nama' => 'required|string|max:100',
-    //         'password' => 'nullable|min:5',
-    //         'id_level' => 'required|integer'
-    //     ]);
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'username' => 'required|string|min:3|unique:user,username',
+            'nama' => 'required|string|max:100',
+            'password' => 'nullable|min:5',
+            'id_level' => 'required|integer'
+        ]);
 
-    //     UserModel::find($id)->update([
-    //         'username' => $request->username,
-    //         'nama' => $request->nama,
-    //         'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
-    //         'id_level' => $request->id_level,
-    //     ]);
+        UserModel::find($id)->update([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
+            'id_level' => $request->id_level,
+        ]);
 
-    //     return redirect('/akun/' . $id . '/show')->with('success', 'Data user berhasil disimpan ');
-    // }
+        return redirect('/akun/' . $id . '/show')->with('success', 'Data user berhasil disimpan ');
+    }
 }
