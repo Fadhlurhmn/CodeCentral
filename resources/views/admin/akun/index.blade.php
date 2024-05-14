@@ -5,6 +5,7 @@
         <div class="mb-5 text-sm flex justify-between">
             <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/akun/create')}}">Tambah Data Akun</a>
             {{-- Filter Level Akun --}}
+            <p class="py-1 mr-2">Filter Rt : </p>
             <select name="id_level" id="id_level" class="pl-2 py-1 font-normal block appearance-none w-60 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                 <option value="">Semua</option>
                 @foreach ($level as $item)
@@ -22,8 +23,8 @@
                         <th class="p-3 text-lg font-normal tracking-wide border-r">No</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Username</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Nama</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Level Akun</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Status Akun</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jabatan</th>
+                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Status</th>
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Aksi</th>
                     </tr>
                 </thead>
