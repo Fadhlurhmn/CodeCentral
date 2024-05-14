@@ -33,7 +33,7 @@
                         <th class="p-3 text-sm font-normal">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="text-center justify-between ">
+                <tbody class=" justify-between ">
                     <!-- Data akan dimasukkan di sini -->
                 </tbody>
             </table>
@@ -73,7 +73,7 @@
                  searchable: false },
                 { 
                     data: "status_data",
-                    className: "text-xs border-b border-gray-500/40",
+                    className: "text-xs border-b border-gray-500/40 text-center",
                     orderable: true,
                     searchable: true,
                     render: function(data, type, row) {
@@ -85,7 +85,7 @@
                     }
                 },
                 { data: "status_penduduk",
-                 className: "text-xs border-b border-gray-500/40", 
+                 className: "text-xs border-b border-gray-500/40 text-center", 
                  orderable: true, 
                  searchable: true },
                 { data: "aksi",
