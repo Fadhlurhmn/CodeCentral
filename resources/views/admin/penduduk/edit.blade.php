@@ -43,7 +43,7 @@
                     </div>
                     <div class="mt-3 col-span-4">
                         <p class="text-sm">Foto Sebelumnya : </p>
-                        <img src="{{ asset('data_ktp/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" />                        
+                        <img src="{{ asset('storage/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" />                        
                     </div>
                     {{-- nama --}}
                     <label for="nama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nama</label>

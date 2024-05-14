@@ -29,7 +29,7 @@
                     <tbody class="bg-white grid grid-cols-2">
                         <tr class="whitespace-nowrap col-span-2 ">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Foto KTP</th>
-                            <td class="pl-3 py-2"><img src="{{ asset('data_ktp/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" /></td>
+                            <td class="pl-3 py-2"><img src="{{ asset('storage/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" /></td>
                         </tr>
                         <tr class="bg-gray-200/50 grid-cols-1 border-t border-gray-400">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">NIK</th>

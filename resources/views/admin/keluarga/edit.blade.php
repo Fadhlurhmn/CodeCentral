@@ -43,7 +43,7 @@
                         </div>
                         <div class="mt-3">
                             <p class="text-sm">Foto Sebelumnya : </p>
-                            <img src="{{ asset('data_kk/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" />                        
+                            <img src="{{ asset('storage/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" />                        
                         </div>
                     </div>
                 </div>
