@@ -138,15 +138,15 @@ Route::group(['prefix' => 'admin'], function () {
     });
     Route::group(['prefix' => 'keluarga'], function () {
         Route::get('/', [KeluargaController::class, 'index']);          // menampilkan halaman awal level
-        Route::post('/list', [KeluargaController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
+        Route::post('/list', [KeluargaController::class, 'list']);      // menampilkan data level dalam bentuk json untuk datatables
         Route::get('/create', [KeluargaController::class, 'create']);   // menampilkan halaman form tambah level
         Route::post('/', [KeluargaController::class, 'store']);         // menyimpan data level baru
-        Route::get('/{id}/show', [KeluargaController::class, 'show']);       // menampilkan detail level
+        Route::get('/{id}/show', [KeluargaController::class, 'show']);  // menampilkan detail level
         Route::get('/{id}/edit', [KeluargaController::class, 'edit']);  // menampilkan halaman form edit level
-        Route::post('/{id}', [KeluargaController::class, 'update']);     // menyimpan perubahan data level
+        Route::post('/{id}', [KeluargaController::class, 'update']);    // menyimpan perubahan data level
         Route::delete('/{id}', [KeluargaController::class, 'destroy']); // menghapus data level
 
         Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
-        Route::post('/{id}', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
+        Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
     });
 });

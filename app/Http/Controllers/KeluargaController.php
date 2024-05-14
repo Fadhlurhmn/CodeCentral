@@ -87,16 +87,15 @@ class KeluargaController extends Controller
             'jumlah_orang_kerja' => 'required|integer',
         ]);
 
-        // menyimpan data foto kk yang diupload ke variabel foto_kk
+        // Menyimpan data foto KK yang diupload ke variabel foto_kk
         $foto_kk = $request->file('foto_kk');
-
         $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
 
-        // isi dengan nama folder tempat kemana file diupload
+        // Isi dengan nama folder tempat kemana file diupload
         $tujuan_upload = 'data_kk';
         $foto_kk->move($tujuan_upload, $nama_file);
 
-        // Simpan data keluarga
+        // Simpan data keluarga dan ambil objek yang baru saja disimpan
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
@@ -104,16 +103,20 @@ class KeluargaController extends Controller
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
             'kota' => $request->kota,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
             'luas_tanah' => $request->luas_tanah,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'foto_kk' => $nama_file
+            'foto_kk' => $nama_file,
         ]);
-        // Redirect ke halaman daftar keluarga dengan pesan sukses
-        return redirect('admin/keluarga')->with('success', 'Data keluarga berhasil disimpan');
+
+        $keluarga = KeluargaModel::where('nomor_keluarga', $request->nomor_keluarga)->first();
+
+        // Redirect ke halaman create_anggota dengan pesan sukses
+        return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }
+
 
     // form untuk tabel detail keluarga
     public function createAnggota($id)
@@ -137,7 +140,7 @@ class KeluargaController extends Controller
 
         $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
-        
+
         return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
     }
 
