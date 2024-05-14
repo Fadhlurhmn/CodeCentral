@@ -36,12 +36,13 @@
                         <input type="file" name="foto_kk" id="foto_kk" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
                         {{-- <input type="file" name="foto_kk" id="foto_kk" accept="image/*" class="shadow bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required /> --}}
                         <label for="foto_kk" class="text-xs font-medium cursor-pointer text-white py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
-                            Submit Foto KK (Max ukuran 2MB)
+                            Submit Ubahan Foto KK (Max ukuran 2MB)
                         </label>
                         <div id="uploadIndicator_kk" class="hidden mt-2">
                             <span class="text-green-500 text-sm">Gambar Terunggah</span>
                         </div>
-                        <div>
+                        <div class="mt-3">
+                            <p class="text-sm">Foto Sebelumnya : </p>
                             <img src="{{ asset('data_kk/'. $keluarga->foto_kk) }}" class="img-thumbnail w-96" />                        
                         </div>
                     </div>

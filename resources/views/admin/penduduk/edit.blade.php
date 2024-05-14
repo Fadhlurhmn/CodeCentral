@@ -41,6 +41,10 @@
                         <!-- Contoh: ikon atau pesan teks -->
                         <span class="text-green-500 text-sm">Gambar Terunggah</span>
                     </div>
+                    <div class="mt-3 col-span-4">
+                        <p class="text-sm">Foto Sebelumnya : </p>
+                        <img src="{{ asset('data_ktp/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" />                        
+                    </div>
                     {{-- nama --}}
                     <label for="nama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nama</label>
                     <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" value="{{ $penduduk->nama }}" required />
