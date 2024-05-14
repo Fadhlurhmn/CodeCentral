@@ -123,12 +123,12 @@ class KeluargaController extends Controller
     {
         $keluarga = $id; // ambil id keluarga
         $breadcrumb = (object)[
-            'title' => 'Tambah Anggota Keluarga',
+            'title' => 'Anggota Keluarga',
             'list' => ['Home', 'Anggota Keluarga', 'Tambah']
         ];
 
         $page = (object)[
-            'title' => 'Tambah Anggota Keluarga'
+            'title' => 'Anggota Keluarga'
         ];
 
         // Ambil data jumlah orang bekerja dan tanggungan dari database
@@ -228,7 +228,8 @@ class KeluargaController extends Controller
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
         return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
-    // menyimpan perubahan data barang
+
+    // menyimpan perubahan data keluarga
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -241,54 +242,50 @@ class KeluargaController extends Controller
             'rt' => 'required|integer',
             'rw' => 'required|integer',
             'luas_tanah' => 'required|integer',
-            'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
         ]);
 
         $keluarga = KeluargaModel::find($id);
 
+        if (!$keluarga) {
+            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+        }
+
+        $data = [
+            'nomor_keluarga' => $request->nomor_keluarga,
+            'jumlah_kendaraan' => $request->jumlah_kendaraan,
+            'alamat' => $request->alamat,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'kota' => $request->kota,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'luas_tanah' => $request->luas_tanah,
+            'jumlah_tanggungan' => $request->jumlah_tanggungan,
+            'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
+        ];
+
         // Cek apakah ada file gambar yang diunggah
         if ($request->hasFile('foto_kk')) {
-            // Dapatkan nama file baru
+            $request->validate([
+                'foto_kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
             $foto_kk = $request->file('foto_kk');
             $nama_file_baru = time() . "_" . $foto_kk->getClientOriginalName();
-
-            // Simpan file baru
             $tujuan_upload = 'data_kk';
             $foto_kk->move($tujuan_upload, $nama_file_baru);
 
-            // Update data keluarga beserta foto kk baru
-            $keluarga->update([
-                'nomor_keluarga' => $request->nomor_keluarga,
-                'jumlah_kendaraan' => $request->jumlah_kendaraan,
-                'jumlah_tanggungan' => $request->jumlah_tanggungan,
-                'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-                'luas_tanah' => $request->luas_tanah,
-                'alamat' => $request->alamat,
-                'rt' => $request->rt,
-                'rw' => $request->rw,
-                'kelurahan' => $request->kelurahan,
-                'kecamatan' => $request->kecamatan,
-                'kota' => $request->kota,
-                'foto_kk' => $nama_file_baru // simpan nama file gambar ke dalam database
-            ]);
-        } else {
-            // Update data keluarga tanpa mengubah foto kk
-            $keluarga->update([
-                'nomor_keluarga' => $request->nomor_keluarga,
-                'jumlah_kendaraan' => $request->jumlah_kendaraan,
-                'jumlah_tanggungan' => $request->jumlah_tanggungan,
-                'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
-                'luas_tanah' => $request->luas_tanah,
-                'alamat' => $request->alamat,
-                'rt' => $request->rt,
-                'rw' => $request->rw,
-                'kelurahan' => $request->kelurahan,
-                'kecamatan' => $request->kecamatan,
-                'kota' => $request->kota,
-            ]);
+            // Hapus foto KK lama jika ada
+            if ($keluarga->foto_kk) {
+                unlink(public_path('data_kk/' . $keluarga->foto_kk));
+            }
+
+            $data['foto_kk'] = $nama_file_baru;
         }
+
+        $keluarga->update($data);
 
         return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }
