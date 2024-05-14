@@ -10,7 +10,7 @@
   @include('layout.a_sidebar')
 
   <!-- start content -->
-  <div class="bg-slate-100 flex-1 p-6 md:mt-16 cursor-default"> 
+  <div class="bg-white flex-1 md:mt-16 cursor-default"> 
     <div class="container p-5 mb-5 bg-white border-t-4 border-teal-500 text-lg flex flex-col items-start">
       <h1 class="py-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1>
       <p class="mb-3 text-xl">{{$page->title}}</p>
@@ -22,9 +22,9 @@
           <button type="submit" class="px-4 py-2 bg-teal-400 text-teal-900 rounded-md ml-2">Cari</button>
         </form>
       </div>
-  </div>
+    </div>
       {{-- Bagian Promosi Usaha Warga --}}
-      <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default shadow-lg">
+      <div class="h-fit grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
         @foreach ($promosi as $umkm)
             <div class="rounded-lg shadow-md flex flex-col">
                 <div class="relative">
