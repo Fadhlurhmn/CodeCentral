@@ -10,7 +10,7 @@
         </div>
         <div class="w-full h-fit min-w-max p-5 ">
             
-            <form id="form" action="{{ url('admin/keluarga/'.$keluarga) }}" method="POST">
+            <form id="form" action="{{ url('admin/keluarga/'.$keluarga.'/anggota') }}" method="POST">
                 {{-- <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full ">
                     {{$page->title}}
                 </h1> --}}
