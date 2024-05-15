@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('jumlah_tanggungan');
             $table->integer('jumlah_orang_kerja');
             $table->double('luas_tanah');
+            $table->string('foto_kk', 255);
             $table->timestamps();
         });
     }
