@@ -25,17 +25,34 @@
                         {{ $page->title }}
                     </h1>
                     @csrf
+                    {{-- @method('PUT') --}}
+
+                    <!-- Display errors -->
+                    @if ($errors->any())
+                    <div class="col-span-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Ada yang salah!</strong>
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
+                    
                     {{-- <input type="hidden" name="foto_ktp_lama" value="{{ $penduduk->foto_ktp }}"> --}}
 
                     {{-- nik --}}
                     <label for="nik" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
-                    <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
+                    <input type="number" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ $penduduk->nik }}" required />
                     <div id="nikError" class="hidden col-span-4 text-red-500 text-xs">NIK harus diisi dengan 16 karakter</div>
                     <div class="relative col-span-2 rounded-lg w-full h-full transition duration-300 ease-in-out mt-2">
-                        <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                        <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"/>
                         <label for="foto_ktp" class="text-xs font-medium cursor-pointer text-white text-center py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                             Submit Foto KTP (Max ukuran 2MB)
                         </label>
+                        <span id="file-name" class="text-xs text-gray-700 mt-2 block"></span>
                     </div>
                     <div id="uploadIndicator_foto" class="hidden col-span-4">
                         <!-- Contoh: ikon atau pesan teks -->
@@ -75,7 +92,7 @@
                     <label for="no_telp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nomor telepon</label>
                     <div class="flex col-span-4">
                         <span class="text-gray-800 mr-2 pt-2">+62</span>
-                        <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
+                        <input type="number" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
                     </div>
                     {{-- pekerjaan --}}
                     <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan</label>
@@ -176,5 +193,12 @@
         if (!no_telp_value.startsWith('+62')) {
             no_telp_input.value = '62' + no_telp_value;
         }
+    });
+
+    // Script nama gambar
+    document.getElementById('foto_ktp').addEventListener('change', function(event) {
+        const input = event.target;
+        const fileName = input.files[0] ? input.files[0].name : '';
+        document.getElementById('file-name').textContent = fileName;
     });
 </script>

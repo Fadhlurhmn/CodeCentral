@@ -14,12 +14,23 @@
                     Isi data keluarga
                 </h1>
                 @csrf
-
+                @if ($errors->any())
+                    <div class="col-span-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Ada yang salah!</strong>
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
                 {{-- Nomor Keluarga --}}
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4">
                         <label for="nomor_keluarga" class="block mb-2 text-xs font-bold text-gray-900">Nomor Keluarga<span class="text-red-500">*</span></label>
-                        <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Nomor Keluarga" required />
+                        <input type="number" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Nomor Keluarga" value="{{old('nomor_keluarga')}}" required />
                         <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 16 digit.</small>
                     </div>
                     <div class="relative col-span-2 mt-2">
@@ -28,6 +39,7 @@
                         <label for="foto_kk" class="text-xs font-medium cursor-pointer text-white py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                             Submit Foto KK (Max ukuran 2MB)
                         </label>
+                        <span id="file-name" class="text-xs text-gray-700 mt-2 block"></span>
                         <div id="uploadIndicator_kk" class="hidden mt-2">
                             <span class="text-green-500 text-sm">Gambar Terunggah</span>
                         </div>
@@ -38,7 +50,7 @@
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4">
                         <label for="jumlah_kendaraan" class="block mb-2 text-xs font-bold text-gray-900">Jumlah Kendaraan<span class="text-red-500">*</span></label>
-                        <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Kendaraan" required />
+                        <input type="number" name="jumlah_kendaraan" id="jumlah_kendaraan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Kendaraan" value="{{old('jumlah_kendaraan')}}" required />
                     </div>
                 </div>
 
@@ -46,7 +58,7 @@
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
                         <label for="jumlah_tanggungan" class="block mb-2 text-xs font-bold text-gray-900">Jumlah Tanggungan<span class="text-red-500">*</span></label>
-                        <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Tanggungan" required />
+                        <input type="number" name="jumlah_tanggungan" id="jumlah_tanggungan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Tanggungan" value="{{old('jumlah_tanggungan')}}" required />
                     </div>
                 </div>
 
@@ -54,14 +66,14 @@
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
                         <label for="jumlah_orang_kerja" class="block mb-2 text-xs font-bold text-gray-900">Jumlah Orang Kerja<span class="text-red-500">*</span></label>
-                        <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Orang Kerja" required />
+                        <input type="number" name="jumlah_orang_kerja" id="jumlah_orang_kerja" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Jumlah Orang Kerja" value="{{old('jumlah_orang_kerja')}}" required />
                     </div>
                 </div>
                 {{-- Luas Tanah --}}
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
-                        <label for="jumlah_orang_kerja" class="block mb-2 text-xs font-bold text-gray-900">Luas Tanah<span class="text-red-500">*</span></label>
-                        <input type="number" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Luas Tanah" required />
+                        <label for="luas_tanah" class="block mb-2 text-xs font-bold text-gray-900">Luas Tanah<span class="text-red-500">*</span></label>
+                        <input type="number" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Luas Tanah" value="{{old('luas_tanah')}}" required />
                     </div>
                 </div>
 
@@ -69,7 +81,7 @@
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4">
                         <label for="alamat" class="block mb-2 text-xs font-bold text-gray-900">Alamat KK<span class="text-red-500">*</span></label>
-                        <input type="text" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" required />
+                        <input type="text" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" value="{{old('alamat')}}" required />
                     </div>
                 </div>
 
@@ -77,19 +89,19 @@
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
                         <label for="kelurahan" class="block mb-2 text-xs font-bold text-gray-900">Kelurahan<span class="text-red-500">*</span></label>
-                        <input type="text" name="kelurahan" id="kelurahan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kelurahan" required />
+                        <input type="text" name="kelurahan" id="kelurahan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kelurahan" value="{{old('kelurahan')}}" required />
                     </div>
                     <div class="col-span-4 sm:col-span-2">
                         <label for="kecamatan" class="block mb-2 text-xs font-bold text-gray-900">Kecamatan<span class="text-red-500">*</span></label>
-                        <input type="text" name="kecamatan" id="kecamatan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kecamatan" required />
+                        <input type="text" name="kecamatan" id="kecamatan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kecamatan" value="{{old('kecamatan')}}" required />
                     </div>
                     <div class="col-span-4 sm:col-span-2">
                         <label for="kota" class="block mb-2 text-xs font-bold text-gray-900">Kota<span class="text-red-500">*</span></label>
-                        <input type="text" name="kota" id="kota" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kota" required />
+                        <input type="text" name="kota" id="kota" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kota" value="{{old('kota')}}" required />
                     </div>
                     <div class="col-span-4 sm:col-span-2">
                         <label for="rt" class="block mb-2 text-xs font-bold text-gray-900">RT<span class="text-red-500">*</span></label>
-                        <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RT" required />
+                        <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RT" value="{{old('rt')}}" required />
                     </div>
                     <div class="col-span-4 sm:col-span-2 hidden">
                         <label for="rw" class="block mb-2 text-xs font-bold text-gray-900">RW<span class="text-red-500">*</span></label>
@@ -134,5 +146,11 @@
             }
         });
 
+        // Script nama gambar
+        document.getElementById('foto_kk').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileName = input.files[0] ? input.files[0].name : '';
+            document.getElementById('file-name').textContent = fileName;
+        });
     });
 </script>
