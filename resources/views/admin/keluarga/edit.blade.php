@@ -25,11 +25,23 @@
                 </h1>
                 @csrf
                 @method('POST')
+                @if ($errors->any())
+                    <div class="col-span-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Ada yang salah!</strong>
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
                 {{-- Nomor Keluarga --}}
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4">
                         <label for="nomor_keluarga" class="block mb-2 text-xs font-bold text-gray-900">Nomor Keluarga<span class="text-red-500">*</span></label>
-                        <input type="text" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Nomor Keluarga" value="{{ $keluarga->nomor_keluarga }}" required />
+                        <input type="number" name="nomor_keluarga" id="nomor_keluarga" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Nomor Keluarga" value="{{ $keluarga->nomor_keluarga }}" required />
                         <small id="nomor_keluarga_help" class="text-red-500 hidden">Nomor keluarga harus terdiri dari 16 digit.</small>
                     </div>
                     <div class="relative col-span-2 mt-2">
@@ -38,6 +50,7 @@
                         <label for="foto_kk" class="text-xs font-medium cursor-pointer text-white py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                             Submit Ubahan Foto KK (Max ukuran 2MB)
                         </label>
+                        <span id="file-name" class="text-xs text-gray-700 mt-2 block"></span>
                         <div id="uploadIndicator_kk" class="hidden mt-2">
                             <span class="text-green-500 text-sm">Gambar Terunggah</span>
                         </div>
@@ -163,5 +176,11 @@
             }
         });
 
+        // Script nama gambar
+        document.getElementById('foto_kk').addEventListener('change', function(event) {
+            const input = event.target;
+            const fileName = input.files[0] ? input.files[0].name : '';
+            document.getElementById('file-name').textContent = fileName;
+        });
     });
 </script>
