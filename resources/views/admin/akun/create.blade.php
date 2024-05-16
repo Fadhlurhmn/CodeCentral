@@ -15,47 +15,65 @@
                 </h1>
                 @csrf
                 <label for="id_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jabatan<span class="text-red-500">*</span></label>
-                <select name="id_level" id="id_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="">Pilih Jabatan</option>
+                <input list="jabatan-list" name="id_level" id="id_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Jabatan" required>
+                <datalist id="jabatan-list">
                     @foreach($level as $item)
                     <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
                     @endforeach
-                </select>
-                {{-- @error('id_level')
-                <small class="form-text text-danger">{{ $message }}</small>
-                @enderror --}}
-                {{-- Nama --}}
+                </datalist>
+                @error('id_level')
+                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                @enderror
+
                 <label for="id_penduduk" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nama<span class="text-red-500">*</span></label>
-                <select name="id_penduduk" id="id_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="">Pilih Nama</option>
+                <input list="nama-list" name="id_penduduk" id="id_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Nama" required>
+                <datalist id="nama-list">
                     @foreach($penduduk as $item)
                     <option value="{{ $item->id_penduduk }}">{{ $item->nama }}</option>
                     @endforeach
-                </select>
-                {{-- @error('id_penduduk')
-                <small class="form-text text-danger">{{ $message }}</small>
-                @enderror --}}
-                {{-- Username --}}
+                </datalist>
+                @error('id_penduduk')
+                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                @enderror
+
                 <label for="username" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Username<span class="text-red-500">*</span></label>
-                <input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Username" required />
-                {{-- @error('username')
-                <small class="form-text text-danger">{{ $message }}</small>
-                @enderror --}}
-                {{-- Password --}}
+                <input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Username" required />
+                @error('username')
+                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                @enderror
+
                 <label for="password" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Password<span class="text-red-500">*</span></label>
-                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Password" required />
-                {{-- @error('password')
-                <small class="form-text text-danger">{{ $message }}</small>
-                @enderror --}}
-                {{-- Status Akun --}}
-                <input type="hidden" name="status_akun" value="Aktif" />
-                <!-- Button -->
-                <div class="flex justify-between col-span-2">
-                    <a href="{{ url('admin/akun') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
-                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
+                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Password" required />
+                @error('password')
+                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                @enderror
+
+                <div class="flex col-span-2">
+                    <a href="{{ url('admin/akun') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                    <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 @include('layout.end')
+
+<script>
+document.getElementById('id_level').addEventListener('input', function(e) {
+    var options = document.getElementById('jabatan-list').options;
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].value === e.target.value) {
+            e.target.setAttribute('data-id', options[i].getAttribute('data-id'));
+        }
+    }
+});
+
+document.getElementById('id_penduduk').addEventListener('input', function(e) {
+    var options = document.getElementById('nama-list').options;
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].value === e.target.value) {
+            e.target.setAttribute('data-id', options[i].getAttribute('data-id'));
+        }
+    }
+});
+</script>

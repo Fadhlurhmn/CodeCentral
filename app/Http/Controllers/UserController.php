@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $request->validate([
             'username' => 'required|string|min:3|unique:user,username',
-            'id_penduduk' => 'required|integer|unique:penduduk,id_penduduk',
+            'id_penduduk' => 'required|integer|unique:use,id_penduduk',
             'password' => 'required|min:5',
             'id_level' => 'required|integer',
             'status_akun' => 'nullable|string',
@@ -128,16 +128,18 @@ class UserController extends Controller
     {
         $request->validate([
             'username' => 'required|string|min:3|unique:user,username',
-            'nama' => 'required|string|max:100',
+            'id_penduduk' => 'required|integer|unique:user,id_penduduk',
             'password' => 'nullable|min:5',
-            'id_level' => 'required|integer'
+            'id_level' => 'required|integer',
+            'status_akun' => 'nullable|string',
         ]);
 
         UserModel::find($id)->update([
             'username' => $request->username,
-            'nama' => $request->nama,
+            'id_penduduk' => $request->id_penduduk,
             'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
             'id_level' => $request->id_level,
+            'status_akun' => $request->status_akun,
         ]);
 
         return redirect('/akun/' . $id . '/show')->with('success', 'Data user berhasil disimpan ');

@@ -4,19 +4,23 @@
         <h1 class="pb-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
         <div class="mb-5 text-sm flex justify-between">
             <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/akun/create')}}">Tambah Data Akun</a>
-            {{-- Filter Level Akun --}}
-            <div class="flex">
-                <span class="py-1 mr-2">Filter Akun : </span>
+            {{-- Filter Level Akun dan Pencarian --}}
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center">
+                    <p class="py-1 mr-2">Filter Jabatan: </p>
+                    <select name="id_level" id="id_level" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
+                        <option value="">Semua</option>
+                        @foreach ($level as $item)
+                            <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="relative">
+                    <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
+                        <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
+                    </svg>
+                </div>
             </div>
-            <select name="id_level" id="id_level" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
-                <option value="">Semua</option>
-                @foreach ($level as $item)
-                    <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
-                @endforeach
-            </select>
-            <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
-                <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
-            </svg>
         </div>
         <div class="relatives mt-5 h-screen p-5 shadow-md">
             <table id="table_akun" class="border w-full min-w-max cursor-default">
@@ -30,7 +34,7 @@
                         <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="text-center justify-between ">
+                <tbody class="text-center justify-between">
                     <!-- Data akan dimasukkan di sini -->
                 </tbody>
             </table>
@@ -74,7 +78,7 @@
                  orderable: false,
                  searchable: false,
                  render: function(data, type, row) {
-                    if (data === 'aktif') {
+                    if (data === 'Aktif') {
                         return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
                     } else {
                         return '<div class="rounded-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
