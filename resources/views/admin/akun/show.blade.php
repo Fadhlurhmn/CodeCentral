@@ -18,6 +18,14 @@
                     </button>
                 </div>
             @else
+            @if (session('success'))
+            <div class="col-span-4">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Sukses!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            </div>
+            @endif
             <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
                 <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 border-b-2 border-black">
                     {{ $page->title }}

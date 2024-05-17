@@ -6,46 +6,46 @@
     @include('layout.a_sidebar')
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl">{{$page->title}}</h1>
+            <h1 class="py-5 ml-5 text-3xl">{{ $page->title }}</h1>
         </div>
         <div class="w-full h-screen min-w-max p-5 shadow overflow-y-scroll">
             <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/akun') }}" method="POST" enctype="multipart/form-data">
                 <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4">
-                    Edit data akun
+                    Edit Data Akun
                 </h1>
                 @csrf
                 <label for="id_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Jabatan<span class="text-red-500">*</span></label>
-                <input list="jabatan-list" name="id_level" id="id_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Jabatan" required>
+                <input list="jabatan-list" name="id_level" id="id_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Jabatan" value="{{ $user->id_level }}" required>
                 <datalist id="jabatan-list">
                     @foreach($level as $item)
-                    <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                        <option value="{{ $item->id_level }}" @if($item->id_level == $user->id_level) selected @endif>{{ $item->nama_level }}</option>
                     @endforeach
                 </datalist>
                 @error('id_level')
-                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                    <small class="form-text text-danger col-span-4">{{ $message }}</small>
                 @enderror
 
                 <label for="id_penduduk" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nama<span class="text-red-500">*</span></label>
-                <input list="nama-list" name="id_penduduk" id="id_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Nama" required>
+                <input list="nama-list" name="id_penduduk" id="id_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Pilih Nama" value="{{ $user->id_penduduk }}" required>
                 <datalist id="nama-list">
                     @foreach($penduduk as $item)
-                    <option value="{{ $item->id_penduduk }}">{{ $item->nama }}</option>
+                        <option value="{{ $item->id_penduduk }}" @if($item->id_penduduk == $user->id_penduduk) selected @endif>{{ $item->nama }}</option>
                     @endforeach
                 </datalist>
                 @error('id_penduduk')
-                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                    <small class="form-text text-danger col-span-4">{{ $message }}</small>
                 @enderror
 
                 <label for="username" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Username<span class="text-red-500">*</span></label>
-                <input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Username" required />
+                <input type="text" name="username" id="username" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Username" value="{{ $user->username }}" required />
                 @error('username')
-                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                    <small class="form-text text-danger col-span-4">{{ $message }}</small>
                 @enderror
 
                 <label for="password" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Password</label>
-                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Password" required />
+                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Password"/>
                 @error('password')
-                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                    <small class="form-text text-danger col-span-4">{{ $message }}</small>
                 @enderror
 
                 <label for="status_akun" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Status Akun<span class="text-red-500">*</span></label>
@@ -55,7 +55,7 @@
                     <option value="Nonaktif">Nonaktif</option>
                 </select>
                 @error('status_akun')
-                <small class="form-text text-danger col-span-4">{{ $message }}</small>
+                    <small class="form-text text-danger col-span-4">{{ $message }}</small>
                 @enderror
 
                 <div class="flex col-span-2">
