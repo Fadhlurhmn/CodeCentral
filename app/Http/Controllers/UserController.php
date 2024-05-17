@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $request->validate([
             'username' => 'required|string|min:3|unique:user,username',
-            'id_penduduk' => 'required|integer|unique:use,id_penduduk',
+            'id_penduduk' => 'required|integer|unique:user,id_penduduk',
             'password' => 'required|min:5',
             'id_level' => 'required|integer',
             'status_akun' => 'nullable|string',
