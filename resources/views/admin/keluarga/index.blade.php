@@ -6,6 +6,14 @@
         <div class="mb-5 text-xs">
             <a class="p-2 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
         </div>
+        @if (session('success'))
+        <div class="col-span-4">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Sukses!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        </div>
+        @endif
         <div class="h-auto p-2">
             <table id="table_keluarga" class="table-auto text-center  w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
