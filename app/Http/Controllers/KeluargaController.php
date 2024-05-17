@@ -169,7 +169,7 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('admin/keluarga/' . $request->id_keluarga . '/show')->with('success', 'Data detail anggota berhasil disimpan');
+        return redirect('admin/keluarga/')->with('success', 'Data detail anggota berhasil disimpan');
     }
 
 
