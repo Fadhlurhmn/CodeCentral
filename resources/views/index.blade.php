@@ -54,51 +54,6 @@
     </div>
     <!-- end carousel --> 
 
-    <!-- menu layanan SI RW -->
-    <div class="pb-5" id="layanan">
-        <!-- title -->
-        <div class="font-bold py-4 bg-white w-full text-2xl">
-            LAYANAN SI RW
-            <div class="w-20 h-1 bg-yellow-300"></div>
-        </div>
-        <div class="grid grid-cols-5 gap-2 text-center">
-            <button class="p-4 border border-gray-200 rounded-lg shadow hover:bg-gray-100" onclick="scrollToSection('bansos')">
-                <div class="grid grid-cols-1">
-                    <i class="far fa-hands-heart text-4xl"></i>
-                    <span class="font-bold">Bansos</span>
-                </div>
-            </button>
-
-            <button class="p-4 border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                <div class="grid grid-cols-1">
-                    <i class="far fa-bullhorn text-4xl"></i>
-                    <span class="font-bold">Pengaduan</span>
-                </div>
-            </button>
-
-            <button class="p-4 border border-gray-200 rounded-lg shadow hover:bg-gray-100" onclick="scrollToSection('surat')">
-                <div class="grid grid-cols-1">
-                    <i class="far fa-envelope-open-text text-4xl"></i>
-                    <span class="font-bold">Persuratan</span>
-                </div>
-            </button>
-
-            <button class="p-4 border border-gray-200 rounded-lg shadow hover:bg-gray-100" onclick="scrollToSection('umkm')">
-                <div class="grid grid-cols-1">
-                    <i class="far fa-store text-4xl"></i>
-                    <span class="font-bold">UMKM</span>
-                </div>
-            </button>
-
-            <button class="p-4 border border-gray-200 rounded-lg shadow hover:bg-gray-100" onclick="scrollToSection('jadwal')">
-                <div class="grid grid-cols-1">
-                    <i class="far fa-user-shield text-4xl"></i>
-                    <span class="font-bold">Jadwal Petugas</span>
-                </div>
-            </button>
-        </div>
-    </div>
-
     <!-- berita dan kegiatan -->
     <div class="pb-10" id="berita">
         <!-- title -->
@@ -186,47 +141,38 @@
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
 
-        <div class="h-52 overflow-x-auto flex flex-nowrap gap-4">
-            <div class="h-52 flex-row">
-                <div class="flex aspect-square"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-store mr-2 md:text-xs"></i>Jl. Kemangi No 12</p>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-usd-circle mr-3 md:text-xs"></i></i>Mulai dari Rp 5.000</p>
-                </div>
-            </div>
-            
-            {{-- <div class="h-52 flex items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                <div class="flex-grow">
-                    <div class="flex aspect-square"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
+        {{-- jan dihapus --}}
+        {{-- <div class="relative overflow-x-auto flex flex-nowrap scroll-container md:w-96">
+            @for ($i = 0; $i < 8; $i++)
+                <div class="flex-none mr-4 border border-gray-200 shadow rounded-lg">
+                    <div class="flex aspect-square w-52 md:w-44"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
                     <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900">Siomay Pak Dudung</h5>
-                        <p class="text-left mb-2 text-gray-700"><i class="far fa-store mr-2"></i>Jl. Kemangi No 12</p>
-                        <p class="text-left mb-2 text-gray-700"><i class="far fa-usd-circle mr-3"></i></i>Mulai dari Rp 5.000</p>
+                        <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
+                        <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
+                        <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
                     </div>
                 </div>
-            </div> --}}
-            {{-- <div class="h-52 flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                <div class="flex-grow">
-                    <div class="aspect-square"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/user1.jpg') }}" alt=""></div>
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900">Siomay Pak Dudung</h5>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-store mr-2"></i>Jl. Kemangi No 12</p>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-usd-circle mr-3"></i></i>Mulai dari Rp 5.000</p>
+            @endfor
+        </div> --}}
+
+        {{-- @rakha tolong bang:'( --}}
+        {{-- kalo ukuran mobile pas mobile ukuran e pas, tapi pas dekstop jadi e kepotong soale w-96  --}}
+        {{-- tapi lek nggawe w-full malah di print kabeh, overflow e sak web:( --}}
+        <div class="overflow-x-auto w-96 flex flex-nowrap gap-4 scroll-container">
+            @for ($i = 0; $i < 7; $i++)
+                <div class="flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex-grow">
+                        <div class="flex aspect-square w-52 md:w-44"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
+                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
+                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="h-52 flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                <div class="flex-grow">
-                    <div class="aspect-square"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900">Siomay Pak Dudung</h5>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-store mr-2"></i>Jl. Kemangi No 12</p>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-usd-circle mr-3"></i></i>Mulai dari Rp 5.000</p>
-                    </div>
-                </div>
-            </div> --}}
+            @endfor
         </div>
+        {{-- sampe sini kha --}}
     </div>
     
     <!-- Bansos -->

@@ -32,8 +32,8 @@
       </a>
       
       <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Promosi') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
-        <i class="fas fa-ad text-base mr-2"></i>
-        Promosi
+        <i class="fas fa-store text-base mr-2"></i>
+        UMKM
       </a>
       
       <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Bansos') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
@@ -44,16 +44,6 @@
       <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Surat') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
         <i class="fas fa-envelope text-base mr-2"></i>
         Permintaan Surat
-      </a>
-
-      <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Jadwal') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
-        <i class="far fa-calendar-alt text-base mr-2"></i>
-        Jadwal
-      </a>
-
-      <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Keuangan') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
-        <i class="fas fa-coins text-base mr-2"></i>
-        Keuangan
       </a>
       
       <div class="flex-grow"></div>
