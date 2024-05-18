@@ -114,7 +114,7 @@
 
         <div class="grid grid-cols-3 text-center py-2 gap-2 md:grid-cols-1">
 
-            <div class="block w-full border col-span-2 border-gray-200 rounded-lg shadow md:hidden">
+            <div class="block border col-span-2 border-gray-200 rounded-lg shadow md:hidden">
                 <a href="#">
                     <img class="object-cover w-full h-52 rounded-t-lg" src="{{ asset('img/user1.jpg') }}" alt="" />
                 </a>
@@ -124,8 +124,9 @@
                     </a>
                     <p class="text-left mb-2 text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
                     <p class="mb-3 font-normal text-left text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <!-- <a href="#" class="flex justify-start bg-yellow-300 rounded-lg shadow-lg p-2 text-md font-semibold hover:bg-yellow-400">
-                        Read more</a> -->
+                    <div class="flex justify-start">
+                        <a href="#" class="bg-yellow-300 rounded-full p-2 text-sm font-semibold hover:bg-yellow-400">Read more</a>
+                    </div>
                 </div>
             </div>
 
@@ -347,46 +348,49 @@
     </div>
 
     <!-- Struktur Pengurus -->
-    <div class=" pb-4" id="strukutr-pengurus">
+    <div class="pb-10" id="struktur-pengurus">
         <!-- title -->
         <div class="flex font-bold pt-4 bg-white w-full text-2xl md:text-base">
             <div class="grow">PENGURUS RW 3</div>
         </div>
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
-        <div class="grid grid-cols-3 gap-2">
-            <div class="bg-white relative my-4 py-4 border-gray-200 shadow rounded-lg">
-                <div class="flex text-base text-center px-8">
-                    <div class="flex-row h-full w-full border border-red-500">
-                        <img src="{{ asset('img/user2.jpg') }}" alt="" class="rounded-full">
+        <div class="flex flex-col">
+            <div class="flex mb-4 justify-center">
+                <div class="relative py-4 px-4 border-gray-200 shadow rounded-lg mb-2 md:py-2 md:px-2">
+                    <div class="text-base w-full text-center">
+                        <div class="aspect-square mx-auto w-32 mb-2 border-b border-gray-200 md:w-16">
+                            <img src="{{ asset('img/user3.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                        </div>
                         
-                        <div class="text-2xl font-semibold truncate mb-2">
+                        <div class="text-xl font-semibold truncate md:text-sm">
                             Ketua RW
                         </div>
+
+                        <div class="text-lg truncate md:text-xs">
+                            Bu Supriadi
+                        </div>
                     </div>
-                </div>
+                </div> 
             </div>
-            <div class="bg-white relative my-4 py-4 border-gray-200 shadow rounded-lg">
-                <div class=" text-base w-full text-center">
-                    <div class="w-24 mx-auto">
-                        <img src="{{ asset('img/user2.jpg') }}" alt="" class="rounded-full">
-                    </div>
-                    
-                    <div class="text-2xl font-semibold truncate mb-2">
-                        Ketua RW
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white relative my-4 py-4 border-gray-200 shadow rounded-lg">
-                <div class=" text-base w-full text-center">
-                    <div class="w-24 mx-auto">
-                        <img src="{{ asset('img/user2.jpg') }}" alt="" class="rounded-full">
-                    </div>
-                    
-                    <div class="text-2xl font-semibold truncate mb-2">
-                        Ketua RW
-                    </div>
-                </div>
+            <div class="flex flex-wrap flex-row justify-center">
+                @for ($i = 1; $i < 5; $i++)
+                    <div class="relative py-4 px-4 border-gray-200 shadow rounded-lg mr-2 mb-2 md:py-2 md:px-2">
+                        <div class="text-base w-full text-center">
+                            <div class="aspect-square mx-auto w-32 mb-2 border-b border-gray-200 md:w-16">
+                                <img src="{{ asset('img/user2.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                            </div>
+                            
+                            <div class="text-xl font-semibold truncate md:text-sm">
+                                Ketua RT {{ $i }}
+                            </div>
+
+                            <div class="text-lg truncate md:text-xs">
+                                Pak Ahmed
+                            </div>
+                        </div>
+                    </div> 
+                @endfor
             </div>
         </div>
     </div>
@@ -397,19 +401,21 @@
 <footer class="w-full bg-yellow-300 p-8">
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <div class="text-4xl font-bold mb-4">
+            <div class="text-4xl font-bold w-full md:text-base">
                 SI-RW
             </div>
-            <div>
+            <div class="w-14 h-1 mb-4 bg-yellow-400"></div>
+            <div class="text-base md:text-sm">
                 Akses informasi terkini tentang RW dan RT mu tanpa aplikasi.
             </div>
         </div>
         
         <div>
-            <div class="text-xl font-semibold mt-3 mb-4">
+            <div class="text-xl font-semibold w-full md:text-sm">
                 Menu
             </div>
-            <div class="grid grid-cols-1">
+            <div class="w-12 h-1 mb-4 bg-yellow-400"></div>
+            <div class="grid grid-cols-1 text-base md:text-sm">
                 <a href="/public/landing.html" class="font-bold">Beranda</a>
                 <a href="#">Pengaduan</a>
                 <a href="#">Bansos</a>
@@ -422,7 +428,7 @@
 </footer>
 
 <!-- go up button -->
-<div id="go-up-button" class="fixed bottom-0 right-0 m-4 z-50 bg-yellow-300 border rounded-full opacity-0 transition-opacity duration-300 pointer-events-none">
+<div id="go-up-button" class="fixed bottom-0 right-0 m-4 z-50 bg-yellow-500 border rounded-full opacity-0 transition-opacity duration-300 pointer-events-none">
     <button type="button" class="flex items-center justify-center text-gray-800 hover:text-white p-5" onclick="scrollToSection('navbar')">
         <i class="fas fa-arrow-up"></i>
     </button>

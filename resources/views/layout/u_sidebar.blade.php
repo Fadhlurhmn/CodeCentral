@@ -1,5 +1,5 @@
   <!-- start sidebar -->
-  <div id="sideBar" class="relative hidden flex-col flex-wrap bg-white border-r border-gray-300 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+  <div id="sideBar" class="relative hidden flex-col flex-wrap bg-white border-r border-gray-300 flex-none w-64 md:flex md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
     
 
     <!-- sidebar content -->

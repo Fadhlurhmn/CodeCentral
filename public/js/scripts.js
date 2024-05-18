@@ -225,40 +225,13 @@ var btn     = document.getElementById('sliderBtn'),
 
     // show sidebar 
     btn.addEventListener('click' , function(){    
-        if (sideBar.classList.contains('md:-ml-64')) {
             sideBar.classList.replace('md:-ml-64' , 'md:ml-0');
             sideBar.classList.remove('md:slideOutLeft');
             sideBar.classList.add('md:slideInLeft');
-        } else if (sideBar.classList.contains('hidden')) {
-            sideBar.classList.replace('hidden', 'flex');
-            sideBar.classList.remove('md:slideOutLeft');
-            sideBar.classList.add('md:slideInLeft');
-        }
     });
 
     // hide sideBar    
-    sideBarHideBtn.addEventListener('click' , function(){            
-        if (sideBar.classList.contains('md:ml-0' , 'slideInLeft')) {      
-            var _class = function(){
-                sideBar.classList.remove('md:slideInLeft');
-                sideBar.classList.add('md:slideOutLeft');
-        
-                console.log('hide');              
-            };
-            var animate = async function(){
-                await _class();
-
-                setTimeout(function(){
-                    sideBar.classList.replace('md:ml-0' , 'md:-ml-64');
-                    console.log('animated');
-                } , 300);                                                
-                
-            };            
-                    
-            _class(); 
-            animate();
-        }
-        else if (sideBar.classList.contains('flex' , 'slideInLeft')) {      
+    sideBarHideBtn.addEventListener('click' , function(){             
           var _class = function(){
               sideBar.classList.remove('md:slideInLeft');
               sideBar.classList.add('md:slideOutLeft');
@@ -269,7 +242,7 @@ var btn     = document.getElementById('sliderBtn'),
               await _class();
 
               setTimeout(function(){
-                  sideBar.classList.replace('flex' , 'hidden');
+                  sideBar.classList.replace('md:ml-0' , 'md:-ml-64');
                   console.log('animated');
               } , 300);                                                
               
@@ -277,7 +250,6 @@ var btn     = document.getElementById('sliderBtn'),
                   
           _class(); 
           animate();
-        };
     });
 // end with sidebar
 
