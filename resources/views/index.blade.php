@@ -9,7 +9,7 @@
   @include('layout.u_sidebar')
 
   <!-- start content -->
-  <div class="bg-white flex-1 px-12 mt-20 md:px-4 md:mt-16"> 
+  <div class="bg-white w-screen flex-1 px-12 mt-20 md:px-4 md:mt-16"> 
     <!-- carousel -->
     <div id="default-carousel" class="relative w-full z-10" data-carousel="slide">
         <!-- Carousel wrapper -->
@@ -158,20 +158,22 @@
         {{-- @rakha tolong bang:'( --}}
         {{-- kalo ukuran mobile pas mobile ukuran e pas, tapi pas dekstop jadi e kepotong soale w-96  --}}
         {{-- tapi lek nggawe w-full malah di print kabeh, overflow e sak web:( --}}
-        <div class="overflow-x-auto w-96 flex flex-nowrap gap-4 scroll-container">
-            @for ($i = 0; $i < 7; $i++)
-                <div class="flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="flex-grow">
-                        <div class="flex aspect-square w-52 md:w-44"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
-                        <div class="flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
-                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
-                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
+        {{-- <div class="w-full p-10 bg-gray-600"> --}}
+            <div class="overflow-x-auto w-auto flex flex-nowrap gap-6 scroll-container">
+                @for ($i = 0; $i < 7; $i++)
+                    <div class="flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                        <div class="flex-grow">
+                            <div class="flex aspect-square "><img class="w-56 md:w-44 object-cover h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
+                            <div class="flex flex-col justify-between p-4 leading-normal">
+                                <h5 class="mb-2 text-left text-lg font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
+                                <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
+                                <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endfor
-        </div>
+                @endfor
+            </div>
+        {{-- </div> --}}
         {{-- sampe sini kha --}}
     </div>
     
