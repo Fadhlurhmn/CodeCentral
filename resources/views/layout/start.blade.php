@@ -17,7 +17,11 @@
   <link rel="shortcut icon" href="{{ asset('img/fav.png') }}" type="image/x-icon">  
   {{-- Font Awesome --}}
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  {{-- Flowbite --}}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
   @vite('resources/css/app.sass')
+
+  @stack('top-js')
 
   {{-- replace Admin for $title to change the title each page --}}
   <title>SIRW | Admin</title>
