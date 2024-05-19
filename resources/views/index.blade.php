@@ -71,14 +71,14 @@
 
             <div class="block border col-span-2 border-gray-200 rounded-lg shadow md:hidden">
                 <a href="#">
-                    <img class="object-cover w-full h-52 rounded-t-lg" src="{{ asset('img/user1.jpg') }}" alt="" />
+                    <img class="object-cover w-full h-52 rounded-t-lg" src="{{ asset('img/'.$firstPengumuman->gambar) }}" alt="" />
                 </a>
                 <div class="p-5">
                     <a href="#">
-                        <h5 class="mb-2 text-xl text-left font-bold tracking-tight text-gray-900">Noteworthy technology acquisitions 2021</h5>
+                        <h5 class="mb-2 text-xl text-left font-bold tracking-tight text-gray-900">{{ $firstPengumuman->judul_pengumuman }}</h5>
                     </a>
-                    <p class="text-left mb-2 text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
-                    <p class="mb-3 font-normal text-left text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                    <p class="text-left mb-2 text-gray-700"><i class="far fa-clock mr-2"></i>{{ $firstPengumuman->created_at }}</p>
+                    <div class="mb-3 font-normal text-left text-gray-700">{!! $firstPengumuman->deskripsi !!}</div>
                     <div class="flex justify-start">
                         <a href="#" class="bg-yellow-300 rounded-full p-2 text-sm font-semibold hover:bg-yellow-400">Read more</a>
                     </div>
@@ -89,41 +89,34 @@
                 {{-- berita utama dalam mode mobile --}}
                 <a href="#" class="hidden flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 md:flex">
                     <div class="grid grid-cols-3 flex-grow">
-                        <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/user1.jpg') }}" alt=""></div>
+                        <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/'.$firstPengumuman->gambar) }}" alt=""></div>
                         <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">Noteworthy technology acquisitions 2021</h5>
-                            <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
+                            <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">{{ $firstPengumuman->judul_pengumuman }}</h5>
+                            <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>{{ $firstPengumuman->created_at }}</p>
                         </div>
                     </div>
                 </a>
+                
+                @php
+                    $pengumumanArray = (array) $pengumuman;
+                    array_shift($pengumumanArray);
+                    // $pengumumanArray = array_map(function($value) {
+                    //     return (object) $value;
+                    // }, $pengumumanArray);
+                @endphp
 
-                <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="grid grid-cols-3 flex-grow">
-                        <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/user2.jpg') }}" alt=""></div>
-                        <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">Noteworthy technology acquisitions 2021 Lorem ipsum dolor sit amet.</h5>
-                            <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
+                @foreach ($pengumumanArray as $index => $pengumumans)
+                    <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                        <div class="grid grid-cols-3 flex-grow">
+                            <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/'.$pengumumans[$index + 1]->gambar) }}" alt=""></div>
+                            <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
+                                <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">{{ $pengumumans[$index + 1]->judul_pengumuman }}</h5>
+                                <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>{{ $pengumumans[$index + 1]->created_at }}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="grid grid-cols-3 flex-grow">
-                        <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/user1.jpg') }}" alt=""></div>
-                        <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">Noteworthy technology acquisitions 2021</h5>
-                            <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="grid grid-cols-3 flex-grow">
-                        <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/user3.jpg') }}" alt=""></div>
-                        <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">Noteworthy technology acquisitions 2021</h5>
-                            <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>Rabu, 12 Mei 2024</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
+                
             </div>
         </div>
     </div>
@@ -141,40 +134,20 @@
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
 
-        {{-- jan dihapus --}}
-        {{-- <div class="relative overflow-x-auto flex flex-nowrap scroll-container md:w-96">
-            @for ($i = 0; $i < 8; $i++)
-                <div class="flex-none mr-4 border border-gray-200 shadow rounded-lg">
-                    <div class="flex aspect-square w-52 md:w-44"><img class="object-cover w-full h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-left text-xl font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
-                        <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
-                        <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
-                    </div>
-                </div>
-            @endfor
-        </div> --}}
-
-        {{-- @rakha tolong bang:'( --}}
-        {{-- kalo ukuran mobile pas mobile ukuran e pas, tapi pas dekstop jadi e kepotong soale w-96  --}}
-        {{-- tapi lek nggawe w-full malah di print kabeh, overflow e sak web:( --}}
-        {{-- <div class="w-full p-10 bg-gray-600"> --}}
-            <div class="overflow-x-auto w-auto flex flex-nowrap gap-6 scroll-container">
-                @for ($i = 0; $i < 7; $i++)
-                    <div class="flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                        <div class="flex-grow">
-                            <div class="flex aspect-square "><img class="w-56 md:w-44 object-cover h-full rounded-t-lg" src="{{ asset('img/kopi.jpg') }}" alt=""></div>
-                            <div class="flex flex-col justify-between p-4 leading-normal">
-                                <h5 class="mb-2 text-left text-lg font-bold tracking-tight text-gray-900 md:text-sm">Siomay Pak Dudung</h5>
-                                <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>Jl. Kemangi No 12</p>
-                                <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>Mulai dari Rp 5.000</p>
-                            </div>
+        <div class="overflow-x-auto w-auto flex flex-nowrap gap-6 scroll-container">
+            @foreach ($umkm as $umkms)
+                <div class="flex-none items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex-grow">
+                        <div class="flex aspect-square "><img class="w-56 md:w-44 object-cover h-full rounded-t-lg" src="{{ asset('img/'.$umkms->gambar) }}" alt=""></div>
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-left text-lg font-bold tracking-tight text-gray-900 md:text-sm">{{ $umkms->nama_usaha }}</h5>
+                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-store mr-2 "></i>{{ $umkms->alamat }}</p>
+                            <p class="text-left mb-2 text-gray-700 md:text-xs"><i class="far fa-usd-circle mr-3 "></i></i>{{ $umkms->created_at }}</p>
                         </div>
                     </div>
-                @endfor
-            </div>
-        {{-- </div> --}}
-        {{-- sampe sini kha --}}
+                </div>
+                @endforeach
+        </div>
     </div>
     
     <!-- Bansos -->

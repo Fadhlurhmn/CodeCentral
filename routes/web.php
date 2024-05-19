@@ -5,11 +5,9 @@ use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LandingController;
 
-Route::get('/', function () {
-    $activeMenu = 'Home';
-    return view('index', ['activeMenu' => $activeMenu]);
-})->name('public');
+Route::get('/', [LandingController::class, 'index'])->name('public');
 
 Route::get('/shop', function () {
     return view('index-1');
