@@ -11,6 +11,7 @@
 
   <!-- start content -->
     <div class="bg-white flex-1 md:mt-16 cursor-default"> 
+        {{-- Start Kotak Judul --}}
         <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col items-start">
         <h1 class="pb-5 my-2 text-2xl text-gray-600 font-extrabold">{{$breadcrumb->title}}</h1>
         {{-- <p class="mb-3 text-lg">{{$page->title}}</p> --}}
@@ -22,7 +23,10 @@
             <button type="submit" class="px-4 py-2 bg-teal-400 text-xs text-teal-900 rounded-md ml-2">Cari</button>
             </form>
         </div>
+        {{-- End kotak judul --}}
     </div>
+
+
       {{-- Bagian Promosi Usaha Warga --}}
       <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-2 border-teal-400 cursor-default">
         @foreach ($promosi as $umkm)
