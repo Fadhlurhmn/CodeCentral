@@ -133,10 +133,12 @@
         <!-- title -->
         <div class="flex font-bold pt-4 bg-white w-full text-2xl md:text-base">
             <div class="grow">UMKM WARGA</div> 
-            <button class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
-                UMKM Lainnya
-                <i class="far fa-long-arrow-right"></i>
-            </button>
+            <a href="umkm">
+                <button class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
+                    UMKM Lainnya
+                    <i class="far fa-long-arrow-right"></i>
+                </button>
+            </a>
         </div>
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>

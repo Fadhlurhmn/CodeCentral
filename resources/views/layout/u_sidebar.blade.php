@@ -16,7 +16,7 @@
       <p class="uppercase text-xs text-gray-600 mb-4 text-center tracking-wider">LAYANAN SI RW</p>
 
 
-      <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Home') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+      <a href="/" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Home') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
         <i class="fas fa-home text-base mr-2"></i>
         Home
       </a>
@@ -31,7 +31,7 @@
         Pengaduan
       </a>
       
-      <a href="#" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Promosi') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
+      <a href="umkm" class="w-full  p-2 capitalize block px-6 font-medium text-base @if($activeMenu == 'Promosi') bg-yellow-400 @endif hover:bg-yellow-200 transition ease-in-out duration-500">
         <i class="fas fa-store text-base mr-2"></i>
         UMKM
       </a>

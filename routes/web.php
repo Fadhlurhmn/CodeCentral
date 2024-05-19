@@ -11,6 +11,11 @@ Route::get('/', function () {
     return view('index', ['activeMenu' => $activeMenu]);
 })->name('public');
 
+Route::get('/umkm', function () {
+    $activeMenu = 'Promosi';
+    return view('umkm', ['activeMenu' => $activeMenu]);
+})->name('public');
+
 Route::get('/shop', function () {
     return view('index-1');
 })->name('shop');
