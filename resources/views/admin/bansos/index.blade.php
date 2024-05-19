@@ -23,6 +23,7 @@
 
 {{-- Pembatas luar halaman dan background --}}
 <div class="container h-full bg-white cursor-default">
+
     {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         <h1 class=" my-2 text-2xl font-extrabold text-gray-600 ">Daftar Bantuan Sosial</h1>
@@ -60,8 +61,10 @@
         </div>
         {{-- End Card Jumlah bansos & penerima--}}
 
+
         {{-- Search --}}
-        <div class="flex mb-3">
+        <div class="flex mb-3 text-xs">
+            <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('#')}}">Rekomendasi Warga</a>
             <form action="{{ url()->current() }}" method="GET" class="text-sm font-medium ml-auto">
                 <input type="text" name="query" value="{{ request('query') }}" placeholder="Cari nama bansos..." class="px-4 py-2 border border-gray-500 rounded-md text-xs">
             </form>
@@ -69,7 +72,8 @@
         {{-- End Search --}}
     
     </div>
-    {{-- End Kotak konten atas Judul,Card & Search --}}
+    {{-- End Kotak konten atas (Judul,Card & Search) --}}
+
 
     {{-- Start Macam bantuan sosial --}}
     <div class=" p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">    
@@ -88,6 +92,7 @@
             @endforeach
     </div>
     {{-- End Macam Bantuan Sosial --}}
+
 </div>
 {{-- End Pembatas Luar dan Background --}}
 

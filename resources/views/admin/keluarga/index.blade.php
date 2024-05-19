@@ -4,7 +4,7 @@
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600 "> {{$page->title}}</h1>
         <div class="mb-5 text-xs">
-            <a class="p-2 font-normal text-center bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
+            <a class="p-2 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
         </div>
         <div class="h-auto p-2">
             <table id="table_keluarga" class="table-auto text-center  w-full min-w-max cursor-default">
