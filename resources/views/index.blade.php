@@ -59,35 +59,36 @@
         <!-- title -->
         <div class="flex font-bold pt-4 bg-white w-full text-2xl md:text-base">
             <div class="grow">BERITA & PENGUMUMAN</div> 
-            <button class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
+            <a href="/pengumuman" class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
                 Berita Lainnya
                 <i class="far fa-long-arrow-right"></i>
-            </button>
+            </a>
         </div>
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
 
         <div class="grid grid-cols-3 text-center py-2 gap-2 md:grid-cols-1">
 
+            {{-- berita utama dalam desktop, di hide saat mode mobile --}}
             <div class="block border col-span-2 border-gray-200 rounded-lg shadow md:hidden">
-                <a href="#">
+                <a href="{{ url('pengumuman/'.$firstPengumuman->id_pengumuman) }}">
                     <img class="object-cover w-full h-52 rounded-t-lg" src="{{ asset('img/'.$firstPengumuman->gambar) }}" alt="" />
                 </a>
                 <div class="p-5">
-                    <a href="#">
+                    <a href="{{ url('pengumuman/'.$firstPengumuman->id_pengumuman) }}">
                         <h5 class="mb-2 text-xl text-left font-bold tracking-tight text-gray-900">{{ $firstPengumuman->judul_pengumuman }}</h5>
                     </a>
                     <p class="text-left mb-2 text-gray-700"><i class="far fa-clock mr-2"></i>{{ $firstPengumuman->created_at }}</p>
                     <div class="mb-3 font-normal text-left text-gray-700">{!! $firstPengumuman->deskripsi !!}</div>
                     <div class="flex justify-start">
-                        <a href="#" class="bg-yellow-300 rounded-full p-2 text-sm font-semibold hover:bg-yellow-400">Read more</a>
+                        <a href="{{ url('pengumuman/'.$firstPengumuman->id_pengumuman) }}" class="bg-yellow-300 rounded-full p-2 text-sm font-semibold hover:bg-yellow-400">Read more</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-span-1 grid grid-rows-3 gap-2 md:grid-cols-1">
                 {{-- berita utama dalam mode mobile --}}
-                <a href="#" class="hidden flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 md:flex">
+                <a href="{{ url('pengumuman/'.$firstPengumuman->id_pengumuman) }}" class="hidden flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 md:flex">
                     <div class="grid grid-cols-3 flex-grow">
                         <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/'.$firstPengumuman->gambar) }}" alt=""></div>
                         <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
@@ -97,21 +98,22 @@
                     </div>
                 </a>
                 
-                @php
+                {{-- @php
                     $pengumumanArray = (array) $pengumuman;
                     array_shift($pengumumanArray);
-                    // $pengumumanArray = array_map(function($value) {
-                    //     return (object) $value;
-                    // }, $pengumumanArray);
-                @endphp
+                    $pengumumanArray = array_map(function($value) {
+                        return (object) $value;
+                    }, $pengumumanArray);
+                @endphp --}}
 
-                @foreach ($pengumumanArray as $index => $pengumumans)
-                    <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                {{-- seluruh pengumuman (diambil 3) --}}
+                @foreach ($pengumuman as $pengumumans)
+                    <a href="{{ url('pengumuman/'.$pengumumans->id_pengumuman) }}" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
                         <div class="grid grid-cols-3 flex-grow">
-                            <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/'.$pengumumans[$index + 1]->gambar) }}" alt=""></div>
+                            <div class="col-span-1 aspect-square"><img class="object-cover w-full h-full" src="{{ asset('img/'.$pengumumans->gambar) }}" alt=""></div>
                             <div class="col-span-2 flex flex-col justify-between p-4 leading-normal">
-                                <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">{{ $pengumumans[$index + 1]->judul_pengumuman }}</h5>
-                                <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>{{ $pengumumans[$index + 1]->created_at }}</p>
+                                <h5 class="mb-2 text-left text-sm font-bold tracking-tight text-gray-900">{{ $pengumumans->judul_pengumuman }}</h5>
+                                <p class="text-left text-gray-700"><i class="far fa-clock mr-2"></i>{{ $pengumumans->created_at }}</p>
                             </div>
                         </div>
                     </a>
@@ -126,10 +128,10 @@
         <!-- title -->
         <div class="flex font-bold pt-4 bg-white w-full text-2xl md:text-base">
             <div class="grow">UMKM WARGA</div> 
-            <button class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
+            <a href="/umkm" class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
                 UMKM Lainnya
                 <i class="far fa-long-arrow-right"></i>
-            </button>
+            </a>
         </div>
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
@@ -155,16 +157,16 @@
         <!-- title -->
         <div class="flex font-bold pt-4 bg-white w-full text-2xl md:text-base">
             <div class="grow">BANTUAN SOSIAL</div> 
-            <button class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
+            <a href="/bansos" class="bg-yellow-300 rounded-full py-2 px-4 text-sm font-semibold hover:bg-yellow-400 md:py-1 md:px-2 md:text-xs">
                 Bansos Lainnya
                 <i class="far fa-long-arrow-right"></i>
-            </button>
+            </a>
         </div>
         <!-- line -->
         <div class="w-20 h-1 mb-4 bg-yellow-300"></div>
 
         <div class="grid grid-cols-1 text-center">
-            <a href="#" class="bg-white relative p-4 border-gray-200 shadow text-left rounded-lg hover:bg-gray-100">
+            <a href="/bansos/1" class="bg-white relative p-4 border-gray-200 shadow text-left rounded-lg hover:bg-gray-100">
                 <div class="text-left w-full mx-2">
                     <div class="text-2xl font-semibold truncate mb-2 md:text-sm">
                         Bansos 1
@@ -178,7 +180,7 @@
                     <i class="far fa-long-arrow-right text-2xl md:text-sm"></i>
                 </span>
             </a>
-            <a href="#" class="bg-white relative my-4 p-4 border-gray-200 shadow text-left rounded-lg hover:bg-gray-100">
+            <a href="/bansos/2" class="bg-white relative my-4 p-4 border-gray-200 shadow text-left rounded-lg hover:bg-gray-100">
                 <div class="text-left w-full mx-2 ">
                     <div class="text-2xl font-semibold truncate mb-2 md:text-sm">
                         Bansos 2
@@ -337,11 +339,12 @@
             </div>
             <div class="w-12 h-1 mb-4 bg-yellow-400"></div>
             <div class="grid grid-cols-1 text-base md:text-sm">
-                <a href="/public/landing.html" class="font-bold">Beranda</a>
-                <a href="#">Pengaduan</a>
-                <a href="#">Bansos</a>
-                <a href="#">Persuratan</a>
-                <a href="#">UMKM</a>
+                <a href="/public/landing.html" class="font-bold hover:font-bold">Beranda</a>
+                <a href="/pengaduan" class="hover:font-bold">Pengaduan</a>
+                <a href="/bansos" class="hover:font-bold">Bansos</a>
+                <a href="/surat" class="hover:font-bold">Persuratan</a>
+                <a href="/umkm" class="hover:font-bold">UMKM</a>
+                <a href="/login" class="hover:font-bold">Login</a>
             </div>
         </div>
     </div>
