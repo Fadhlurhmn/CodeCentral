@@ -15,7 +15,7 @@
       <h1 class="py-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1>
       <p class="mb-3 text-xl">{{$page->title}}</p>
       <div class="flex justify-between w-full">
-        <a class="p-2 text-sm font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/pengumumman/create')}}">Tambah Pengumuman</a>
+        <a class="p-2 text-sm font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/pengumuman/create')}}">Tambah Pengumuman</a>
         {{-- Search form --}}
         <form action="{{ url()->current() }}" method="GET" class="text-sm font-medium">
           <input type="text" name="query" value="{{ request('query') }}" placeholder="Cari pengumuman" class="px-4 py-2 border border-gray-300 rounded-md">
@@ -51,10 +51,8 @@
      </div>
      {{-- End Bagian pengumuman Usaha Warga --}}
   
-  
-  
   <!-- end content -->
-</div>
+  </div>
 </div>
 <!-- end wrapper -->
 @include('layout.end')

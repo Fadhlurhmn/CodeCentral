@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
 class PengumumanController extends Controller
@@ -20,7 +22,22 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        return view('pengumuman', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $pengumuman = (object) [
+            (object)[
+                'id_pengumuman' => '1',
+                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
+                'id_user' => '2',
+                'created_at' => '30/04/2024'
+            ],
+            (object)[
+                'id_pengumuman' => '2',
+                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
+                'id_user' => '3',
+                'created_at' => '31/04/2024'
+            ],
+        ];
+
+        return view('admin.pengumuman.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
     }
     public function list()
     {
@@ -39,15 +56,15 @@ class PengumumanController extends Controller
         ];
 
         // buat testing tabel, pakai yang bawah aja
-        return DataTables::of($pengumuman)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($pengumuman) {
-                $btn = '<a href="' . url('/pengumuman/1/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-                $btn .= '<a href="' . url('/pengumuman/1/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        // return DataTables::of($pengumuman)
+        //     ->addIndexColumn()
+        //     ->addColumn('aksi', function ($pengumuman) {
+        //         $btn = '<a href="' . url('/pengumuman/1/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
+        //         $btn .= '<a href="' . url('/pengumuman/1/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+        //         return $btn;
+        //     })
+        //     ->rawColumns(['aksi'])
+        //     ->make(true);
 
 
             // logic yang fix dipake, karena kalo pake data dummy ada error baca id_pengumuman
@@ -85,17 +102,19 @@ class PengumumanController extends Controller
     {
         // tgs wahyudi, store itu habis create disimpen ke database
     }
+
     public function show(string $id)
     {
         // data dummy, buat percobaan, variabel $pengumuman boleh dipake buat ngisi dari database
         $pengumuman = (object)[
+            'id_pengumuman' => 1,
             'judul_pengumuman' => 'Lorem ipsum dolor sit amet consectetur',
+            'id_user' => 1,
             'deskripsi' => '<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed impedit fugit molestiae ratione corrupti, vitae ad magnam sint. Ullam, corrupti.</p>
             <br><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate aut alias aliquam corporis ducimus fugiat excepturi exercitationem sit esse unde. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus sapiente saepe consequuntur nihil minus! Qui corporis animi perspiciatis dolores cupiditate distinctio odio rem sequi hic explicabo odit totam inventore ipsam, repudiandae aliquam ab velit sapiente reprehenderit dicta quod quis deserunt!</p>', 
             'created_at' => '31-04-2024',
             'lampiran' => asset('img/user2.jpg')
         ];
-        
 
         // belum ada pemanggilan model pengumuman, silahkan ditambahkan
 
@@ -117,10 +136,12 @@ class PengumumanController extends Controller
     {
         // data dummy, buat percobaan, variabel $pengumuman boleh dipake buat ngisi dari database
         $pengumuman = (object)[
+            'id_pengumuman' => 1,
             'judul_pengumuman' => 'Lorem ipsum dolor sit amet consectetur',
+            'id_user' => 1,
             'deskripsi' => '<p>Nama Saya Manusia</p><p>&nbsp;</p><p>Saya manusia, saya suka makan, tidur, dan lain hal.</p><p><strong>Terkadang</strong></p><p>&nbsp;</p><p><i>Apabila</i></p>',
             'created_at' => '31-04-2024',
-            'lampiran' => asset('img/user2.jpg')
+            'lampiran' => 'user2.jpg'
         ];
 
         // belum ada pemanggilan model pengumuman, silahkan ditambahkan
