@@ -8,7 +8,7 @@
         {{-- start breadcrumb --}}
         <div class="flex flex-col">
             <h1 class="py-5 ml-5 text-3xl">{{$breadcrumb->title}}</h1>
-        </div>
+        </div> 
         {{-- end breadcrumb --}}
 
         {{-- start box preview --}}
@@ -19,19 +19,29 @@
             </div>
 
             {{-- tampilan tanggal publish --}}
-            <div class="text-base text-slate-400 font-light mb-4">
-                Dipublikasikan pada {{ $pengumuman->created_at }}
+            <div class="flex justify-between">
+                <div class="text-base text-slate-400 font-light mb-4">
+                    Ditulis oleh {{ $pengumuman->id_user }}
+                </div>
+                <div class="text-base text-slate-400 font-light mb-4">
+                    {{ $pengumuman->created_at }}
+                </div>
             </div>
             
             {{-- tampilan image/ lampiran (kalo mau dibatesin cuma image boleh) --}}
-            <div class="max-w-prose mb-4">
-                <img src="{{ $pengumuman->lampiran }}" alt="no image">
+            <div class="mb-8">
+                <img src="{{ $pengumuman->lampiran }}" class="object-cover w-full h-96" alt="no image">
             </div>
 
             {{-- tampilan content pengumuman --}}
-            <div class="indent-8 text-lg text-wrap max-w-prose">
-                {!! $pengumuman->deskripsi !!}
-            </div>
+            <div class="flex justify-center just">
+                <div class="mb-4 text-lg text-wrap max-w-prose">
+                    {!! $pengumuman->deskripsi !!}
+                </div>
+            </div> 
+            
+
+            <a href="{{ url('admin/pengumuman') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Kembali</a>
         </div>
         {{-- end box preview --}}
     </div>
