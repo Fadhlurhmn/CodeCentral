@@ -43,14 +43,25 @@
           </div>
       </div>
       {{-- End card jumlah penerima bansos --}}
-      
+      {{-- Card Jumlah bansos --}}
+      <div class="mt-6 col-span-1 rounded-lg">
+          <div class="card-body flex">
+              <div class="px-3 py-2 rounded bg-teal-500 text-white mr-3">
+                <i class="fad fa-envelope-open-text"></i>
+              </div>
+              <div class="py-2 flex flex-col">
+                  <h1 class="font-semibold">-- Total surat</h1>
+              </div>
+          </div>
+      </div>
+      {{-- End card jumlah penerima bansos --}}
   </div>
   {{-- End Card Jumlah bansos & penerima--}}
 
   {{-- Search --}}
   <div class="flex mb-3 text-xs">
-      {{-- <button class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('#')}}">Tambah Surat</button> --}}
-      <button data-modal-target="crud-surat" data-modal-toggle="crud-surat" class="p-2 mr-5 bg-green-300 font-normal text-center shadow-sm hover:bg-teal-400 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" type="button">
+      {{-- <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('#')}}">Tambah Surat</a> --}}
+      <button id="addSuratBtn" class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg">
         Tambah Surat
       </button>
       <form action="javascript:void(0);" method="GET" class="text-sm font-medium ml-auto" id="searchForm">
@@ -62,45 +73,41 @@
 </div>
 {{-- End Kotak konten atas (Judul,Card & Search) --}}
 
-{{-- Modal --}}
-<!-- Main modal -->
-<div id="crud-surat" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Tambah Surat
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-surat">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Surat</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5" placeholder="Masukkan Nama surat..." required="">
-                    </div>
-                    <div class="col-span-2">
-                        <label for="file_surat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File Surat</label>
-                        <input type="file" id="file_surat" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500" placeholder="Upload File Surat Disini"></input>                    
-                    </div>
-                </div>
-                <button type="submit" class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                    Tambah surat
-                </button>
-            </form>
-        </div>
-    </div>
-</div> 
 
+{{-- Modal --}}
+<div id="modal" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-0 pointer-events-none animated duration-200 ease-in-out">
+  <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+  
+  <div class="modal-container bg-white w-2/5 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+    <div class="modal-content py-4 text-left px-6">
+      <div class="flex mb-3 justify-between items-center border-b-2 border-teal-500 pb-3">
+        <p class="text-xl text-gray-900 font-bold">Tambah Surat</p>
+        <div class="modal-close cursor-pointer z-50">
+          <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <path d="M14.53 3.47a.75.75 0 00-1.06 0L9 7.94 4.53 3.47a.75.75 0 10-1.06 1.06L7.94 9 3.47 13.47a.75.75 0 101.06 1.06L9 10.06l4.47 4.47a.75.75 0 101.06-1.06L10.06 9l4.47-4.47a.75.75 0 000-1.06z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <form id="formSurat">
+        <div class="mb-4 text-sm">
+          <label class="block text-gray-700 text-sm mb-2" for="namaSurat">Nama Surat</label>
+          <input type="text" id="namaSurat" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nama Surat...">
+        </div>
+
+        <div class="mb-4 text-sm">
+          <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
+          <input type="file" id="fileSurat" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file...">
+        </div>
+        
+        <div class="flex justify-start pt-2">
+          {{-- <button class="modal-close bg-red-600 hover:bg-red-700 rounded-full text-white py-2 px-4 mr-2">Batal</button> --}}
+          <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto text-center py-2 px-4 transition duration-200 ease-in-out"><i class="far fa-plus"></i>  Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {{-- End Modal --}}
 
 
@@ -156,6 +163,41 @@
               noResults.classList.remove('hidden');
           }
       });
+  });
+</script>
+
+<script>
+  // Script modal
+  const openModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+    modal.classList.remove('pointer-events-none');
+    document.body.classList.add('modal-active');
+  }
+
+  const closeModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+    modal.classList.add('pointer-events-none');
+    document.body.classList.remove('modal-active');
+  }
+
+  document.getElementById('addSuratBtn').addEventListener('click', openModal);
+  
+  document.querySelectorAll('.modal-close').forEach(el => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target == e.currentTarget) closeModal();
+  });
+
+  document.getElementById('formSurat').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Surat berhasil disimpan!');
+    closeModal();
   });
 </script>
 @endpush
