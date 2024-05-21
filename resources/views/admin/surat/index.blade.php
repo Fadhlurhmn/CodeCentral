@@ -108,25 +108,12 @@
 
 {{-- Start Macam bantuan sosial --}}
 <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
-  @foreach (range(1, 3) as $i)
-  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md" data-title="Surat {{ $i }}" id="suratList{{$i}}">
-      <div class="flex-col">
-          <h1>Surat {{ $i }}</h1>
-          <p class="text-xs">Surat {{ $i }} digunakan untuk kegiatan {{$i}}</p>
-      </div>
-      {{-- Button detail bansos --}}
-      <a href="bansos/detail">
-          <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
-      </a>
-      {{-- End button detail bansos --}}
-  </div>
-  @endforeach
 
   @foreach($surat as $surat)
   <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md">
     <div class="flex-col">
         <h1>Surat {{ $surat->nama_surat }}</h1>
-        <p class="text-xs"></p>
+        <p class="text-xs">{{$surat->deskripsi}}</p>
     </div>
     {{-- Button detail bansos --}}
     <a href="surat/detail">
@@ -134,7 +121,7 @@
         <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
     </a>
     {{-- End button detail bansos --}}
-</div>
+  </div>
   @endforeach
 
 
@@ -158,14 +145,14 @@
       searchInput.addEventListener('input', function() {
           const query = searchInput.value.toLowerCase();
           let hasResults = false;
-          @foreach (range(1, 15) as $i)
-              const suratList{{$i}} = document.getElementById('suratList{{$i}}');
-              const title{{$i}} = suratList{{$i}}.getAttribute('data-title').toLowerCase();
-              if (title{{$i}}.includes(query)) {
-                  suratList{{$i}}.style.display = 'flex';
+          @foreach ($surat as $surat)
+              const suratList{{$surat->nama_surat}} = document.getElementById('suratList{{$surat->nama_surat}}');
+              const title{{$surat->nama_surat}} = suratList{{$surat->nama_surat}}.getAttribute('data-title').toLowerCase();
+              if (title{{$surat->nama_surat}}.includes(query)) {
+                  suratList{{$surat->nama_surat}}.style.display = 'flex';
                   hasResults = true;
               } else {
-                  suratList{{$i}}.style.display = 'none';
+                  suratList{{$surat->nama_surat}}.style.display = 'none';
               }
           @endforeach
 
