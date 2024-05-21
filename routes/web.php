@@ -58,7 +58,6 @@ Route::group(['middleware' => ['cek_login:1']], function () {
         Route::get('/bansos', function () {
             return view('admin.bansos.index');
         });
-        //         Route::get('/penduduk', function () {return view('admin.penduduk.index');});
         Route::get('/pengumuman', function () {
             return view('admin.pengumuman.index');
         });
