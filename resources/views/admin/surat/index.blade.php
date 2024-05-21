@@ -95,10 +95,10 @@
             <input type="text" id="deskripsi" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Deskripsi Surat..." required>
           </div>
 
-          <div class="mb-4 text-sm">
+          {{-- <div class="mb-4 text-sm">
             <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
-            <input type="file" id="berkas" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
-          </div>
+            <input type="file" id="berkas" accept=".doc, .docx" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
+          </div> --}}
           
           <div class="flex justify-start pt-2">
             {{-- <button class="modal-close bg-red-600 hover:bg-red-700 rounded-full text-white py-2 px-4 mr-2">Batal</button> --}}
@@ -121,11 +121,9 @@
           <p class="text-xs">{{$item->deskripsi}}</p>
       </div>
       <div class="flex space-x-2">
-          <a href="surat/detail/{{$item->id}}">
-              <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
-          </a>
-          <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
-      </div>
+        <button onclick="openEditModal('{{$item->id_surat}}')" class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
+        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
+    </div>
   </div>
   @endforeach
 
@@ -181,6 +179,22 @@
     document.body.classList.add('modal-active');
   }
 
+  const openEditModal = (id) => {
+        const modal = document.getElementById('modal');
+        const form = document.getElementById('formSurat');
+        const surat = document.getElementById('surat_' + id);
+
+        document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
+        document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
+        // set action form untuk edit
+        form.action = "{{url('admin/surat')}}" + '/' + id;
+        
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        modal.classList.remove('pointer-events-none');
+        document.body.classList.add('modal-active');
+    }
+
   const closeModal = () => {
     const modal = document.getElementById('modal');
     modal.classList.remove('opacity-100');
@@ -205,4 +219,5 @@
     closeModal();
   });
 </script>
+
 @endpush
