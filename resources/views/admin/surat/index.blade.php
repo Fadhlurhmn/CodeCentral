@@ -84,15 +84,20 @@
           </div>
         </div>
 
-        <form id="formSurat">
+        <form id="formSurat" action="{{url('admin/surat')}}" method="POST" enctype="multipart/form-data">
           <div class="mb-4 text-sm">
             <label class="block text-gray-700 text-sm mb-2" for="namaSurat">Nama Surat</label>
-            <input type="text" id="namaSurat" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nama Surat..." required>
+            <input type="text" id="nama_surat" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nama Surat..." required>
+          </div>
+          
+          <div class="mb-4 text-sm">
+            <label class="block text-gray-700 text-sm mb-2" for="namaSurat">Deskripsi Surat</label>
+            <input type="text" id="deskripsi" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Deskripsi Surat..." required>
           </div>
 
           <div class="mb-4 text-sm">
             <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
-            <input type="file" id="fileSurat" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
+            <input type="file" id="berkas" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
           </div>
           
           <div class="flex justify-start pt-2">
@@ -109,18 +114,18 @@
 {{-- Start Macam bantuan sosial --}}
 <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
 
-  @foreach($surat as $surat)
-  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md">
-    <div class="flex-col">
-        <h1>Surat {{ $surat->nama_surat }}</h1>
-        <p class="text-xs">{{$surat->deskripsi}}</p>
-    </div>
-    {{-- Button detail bansos --}}
-    <a href="surat/detail">
-        <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
-        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
-    </a>
-    {{-- End button detail bansos --}}
+  @foreach($surat as $item)
+  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md" data-title="Surat {{$item->nama_surat}}" id="suratList{{$item->id}}">
+      <div class="flex-col">
+          <h1>Surat {{ $item->nama_surat }}</h1>
+          <p class="text-xs">{{$item->deskripsi}}</p>
+      </div>
+      <div class="flex space-x-2">
+          <a href="surat/detail/{{$item->id}}">
+              <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
+          </a>
+          <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
+      </div>
   </div>
   @endforeach
 
@@ -139,30 +144,31 @@
 <script>
   // Script searching
   document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('searchInput');
-      const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('searchInput');
+    const noResults = document.getElementById('noResults');
 
-      searchInput.addEventListener('input', function() {
-          const query = searchInput.value.toLowerCase();
-          let hasResults = false;
-          @foreach ($surat as $surat)
-              const suratList{{$surat->nama_surat}} = document.getElementById('suratList{{$surat->nama_surat}}');
-              const title{{$surat->nama_surat}} = suratList{{$surat->nama_surat}}.getAttribute('data-title').toLowerCase();
-              if (title{{$surat->nama_surat}}.includes(query)) {
-                  suratList{{$surat->nama_surat}}.style.display = 'flex';
-                  hasResults = true;
-              } else {
-                  suratList{{$surat->nama_surat}}.style.display = 'none';
-              }
-          @endforeach
+    searchInput.addEventListener('input', function() {
+        const query = searchInput.value.toLowerCase();
+        let hasResults = false;
+        @foreach ($surat as $item)
+            const suratList = document.getElementById('suratList{{$item->id}}');
+            const title = suratList.getAttribute('data-title').toLowerCase();
+            if (title.includes(query)) {
+                suratList.style.display = 'flex';
+                hasResults = true;
+            } else {
+                suratList.style.display = 'none';
+            }
+        @endforeach
 
-          if (hasResults) {
-              noResults.classList.add('hidden');
-          } else {
-              noResults.classList.remove('hidden');
-          }
-      });
-  });
+        if (hasResults) {
+            noResults.classList.add('hidden');
+        } else {
+            noResults.classList.remove('hidden');
+        }
+    });
+});
+
 </script>
 
 <script>
