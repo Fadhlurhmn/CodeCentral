@@ -111,20 +111,32 @@
 
 {{-- Start Macam bantuan sosial --}}
 <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
-  @foreach($surat as $item)
+  {{-- @foreach($surat as $item)
   <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-lg rounded-md" data-title="Surat {{ $item->nama_surat }}" id="suratList{{$item->id_surat}}">
       <div class="flex-col">
-          <h1>Surat {{ $item->nama_surat }}</h1>
-          <p class="text-xs">{{$item->deskripsi}}</p>
+          <h1 class="nama_surat">{{$item->nama_surat}}</h1> <!-- Tambahkan kelas nama_surat -->
+          <p class="deskripsi text-xs">{{$item->deskripsi}}</p> <!-- Tambahkan kelas deskripsi -->
       </div>
       <div class="flex space-x-2">
-          <a href="surat/detail/{{$item->id_surat}}">
-              <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
-          </a>
+          <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out" onclick="openEditModal({{$item->id_surat}})" id="editSuratBtn{{$item->id_surat}}"><i class="fas fa-edit"></i>Edit</button> <!-- Tambahkan fungsi onclick untuk membuka modal edit -->
           <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
       </div>
   </div>
-  @endforeach
+  @endforeach --}}
+  @foreach($surat as $item)
+<div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-lg rounded-md" data-title="Surat {{ $item->nama_surat }}" id="suratList{{$item->id_surat}}">
+    <div class="flex-col">
+        <h1 class="nama_surat">{{$item->nama_surat}}</h1> <!-- Tambahkan kelas nama_surat -->
+        <p class="deskripsi text-xs">{{$item->deskripsi}}</p> <!-- Tambahkan kelas deskripsi -->
+    </div>
+    <div class="flex space-x-2">
+        <button class="editSuratBtn px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out" data-id="{{$item->id_surat}}"><i class="fas fa-edit"></i></button> <!-- Tambahkan kelas dan data-id -->
+        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
+    </div>
+</div>
+@endforeach
+
+  
 
 
   {{-- Pesan ketika tidak ada hasil pencarian --}}
@@ -172,6 +184,57 @@
 </script>
 
 
+{{-- <script>
+  // Function to open the add surat modal
+  const openModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+    modal.classList.remove('pointer-events-none');
+    document.body.classList.add('modal-active');
+  }
+
+  // Function to open the edit surat modal
+  const openEditModal = (id) => {
+    const modal = document.getElementById('modal');
+    const form = document.getElementById('formSurat');
+    const surat = document.getElementById('suratList' + id);
+
+    document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
+    document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
+    // Set form action for editing
+    form.action = "{{url('admin/surat')}}" + '/' + id;
+    
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+    modal.classList.remove('pointer-events-none');
+    document.body.classList.add('modal-active');
+  }
+
+  // Function to close the modal
+  const closeModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+    modal.classList.add('pointer-events-none');
+    document.body.classList.remove('modal-active');
+  }
+
+  // Event listener to open the add surat modal
+  document.getElementById('addSuratBtn').addEventListener('click', openModal);
+  document.getElementById('editSuratBtn').addEventListener('click', openEditModal);
+
+  // Event listener to close the modal when clicking on close buttons
+  document.querySelectorAll('.modal-close').forEach(el => {
+    el.addEventListener('click', closeModal);
+  });
+
+  // Event listener to close the modal when clicking outside the modal
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target == e.currentTarget) closeModal();
+  });
+</script> --}}
+
 <script>
   // Function to open the add surat modal
   const openModal = () => {
@@ -211,6 +274,14 @@
   // Event listener to open the add surat modal
   document.getElementById('addSuratBtn').addEventListener('click', openModal);
 
+  // Add event listeners to all edit buttons
+  document.querySelectorAll('.editSuratBtn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const id = e.target.getAttribute('data-id');
+      openEditModal(id);
+    });
+  });
+
   // Event listener to close the modal when clicking on close buttons
   document.querySelectorAll('.modal-close').forEach(el => {
     el.addEventListener('click', closeModal);
@@ -221,6 +292,9 @@
     if (e.target == e.currentTarget) closeModal();
   });
 </script>
+
+
+
 
 
 @endpush
