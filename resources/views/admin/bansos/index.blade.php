@@ -95,7 +95,7 @@
 </div>
 {{-- End Macam bantuan sosial --}}
 
-
+@push('js')
 <script>
     // Script searching
     document.addEventListener('DOMContentLoaded', function() {
@@ -124,3 +124,4 @@
         });
     });
 </script>
+@endpush
