@@ -73,7 +73,7 @@
   <div class="modal-container bg-white w-2/5 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
       <div class="modal-content py-4 text-left px-6">
           <div class="flex mb-3 justify-between items-center border-b-2 border-teal-500 pb-3">
-              <p class="text-xl text-gray-900 font-bold">Tambah Surat</p>
+              <p class="text-xl text-gray-900 font-bold modal-title">Tambah Surat</p>
               <div class="modal-close cursor-pointer z-50">
                   <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                       <path d="M14.53 3.47a.75.75 0 00-1.06 0L9 7.94 4.53 3.47a.75.75 0 10-1.06 1.06L7.94 9 3.47 13.47a.75.75 0 101.06 1.06L9 10.06l4.47 4.47a.75.75 0 101.06-1.06L10.06 9l4.47-4.47a.75.75 0 000-1.06z"></path>
@@ -239,6 +239,8 @@
   // Function to open the add surat modal
   const openModal = () => {
     const modal = document.getElementById('modal');
+    const modalTitle = modal.querySelector('.modal-content .modal-title');
+    modalTitle.textContent = "Tambah Surat";
     modal.classList.remove('opacity-0');
     modal.classList.add('opacity-100');
     modal.classList.remove('pointer-events-none');
@@ -251,8 +253,13 @@
     const form = document.getElementById('formSurat');
     const surat = document.getElementById('suratList' + id);
 
+    // Mengubah judul modal menjadi "Edit Surat"
+    const modalTitle = modal.querySelector('.modal-content .modal-title');
+    modalTitle.textContent = "Edit Surat";
+    
     document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
     document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
+    
     // Set form action for editing
     form.action = "{{url('admin/surat')}}" + '/' + id;
     
