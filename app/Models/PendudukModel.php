@@ -20,4 +20,8 @@ class PendudukModel extends Model
     {
         return $this->hasMany(detail_keluarga_model::class);
     }
+    public function buat_surat(): HasMany
+    {
+        return $this->hasMany(SuratModel::class);
+    }
 }
