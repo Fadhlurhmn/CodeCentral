@@ -22,7 +22,7 @@ class SuratController extends Controller
 
         $activeMenu = 'surat';
 
-        return view('admin.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
