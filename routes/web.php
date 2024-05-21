@@ -6,6 +6,8 @@ use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuratController;
+use App\Models\SuratModel;
 
 Route::get('/', function () {
     // return view('index');
@@ -150,5 +152,14 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
         Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
+    });
+    Route::group(['prefix' => 'surat'], function () {
+        Route::get('/', [SuratController::class, 'index']);
+        Route::post('/list', [SuratController::class, 'list']);
+        Route::get('/create', [SuratController::class, 'create']);
+        Route::post('/', [SuratController::class, 'store']);
+        Route::get('/{id}/edit', [SuratController::class, 'edit']);
+        Route::post('/{id}', [SuratController::class, 'update']);
+        Route::delete('/{id}', [SuratController::class, 'delete']);
     });
 });
