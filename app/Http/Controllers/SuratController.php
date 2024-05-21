@@ -60,6 +60,7 @@ class SuratController extends Controller
         $request->validate([
             'id_penduduk' => 'required|integer',
             'berkas' => 'required|file|docx',
+            'deskripsi' => 'required|string|255',
             'nama_file' => 'required'
         ]);
 
@@ -100,6 +101,7 @@ class SuratController extends Controller
         $request->validate([
             'id_penduduk' => 'required|integer',
             'berkas' => 'nullable|file|docx',
+            'deskripsi' => 'required|string|255',
             'nama_file' => 'required'
         ]);
 
