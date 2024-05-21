@@ -131,7 +131,10 @@
     </div>
     <div class="flex space-x-2">
         <button class="editSuratBtn px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out" data-id="{{$item->id_surat}}"><i class="fas fa-edit"></i></button> <!-- Tambahkan kelas dan data-id -->
-        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
+        {{-- <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button> --}}
+        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out delete-surat" data-id="{{$item->id_surat}}">
+          <i class="fas fa-trash"></i>
+        </button>
     </div>
 </div>
 @endforeach
@@ -300,7 +303,32 @@
   });
 </script>
 
-
+<script>
+  // Script Delete
+  document.querySelectorAll('.delete-surat').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+          const id = e.currentTarget.dataset.id;
+          if (confirm('Apakah Anda yakin ingin menghapus surat ini?')) {
+              try {
+                  const response = await fetch(`{{ url('admin/surat') }}/${id}`, {
+                      method: 'DELETE',
+                      headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                      }
+                  });
+                  if (response.ok) {
+                      // Redirect or refresh the page if deletion is successful
+                      window.location.reload();
+                  } else {
+                      console.error('Failed to delete surat');
+                  }
+              } catch (error) {
+                  console.error('Error occurred while deleting surat:', error);
+              }
+          }
+      });
+  });
+  </script>
 
 
 

@@ -23,7 +23,7 @@ class SuratController extends Controller
         $activeMenu = 'surat';
         $surat = SuratModel::all();
         $totalSurat = SuratModel::count();
-        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat' => $surat, 'totalSurat'=>$totalSurat]);
+        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat' => $surat, 'totalSurat' => $totalSurat]);
     }
 
     public function list(Request $request)
@@ -139,19 +139,34 @@ class SuratController extends Controller
         return redirect('admin/surat')->with('success', 'Data surat berhasil diperbarui');
     }
 
+    // public function delete($id)
+    // {
+    //     $surat = SuratModel::findOrFail($id);
+
+    //     // Hapus file terkait jika ada
+    //     if (!empty($surat->path_berkas)) {
+    //         Storage::disk('public')->delete($surat->path_berkas);
+    //     }
+
+    //     // Hapus data surat dari database
+    //     $surat->delete();
+
+    //     // Redirect kembali dengan pesan sukses
+    //     return redirect('admin/surat')->with('success', 'Data surat berhasil dihapus');
+    // }
+
     public function delete($id)
     {
-        $surat = SuratModel::findOrFail($id);
-
-        // Hapus file terkait jika ada
-        if (!empty($surat->path_berkas)) {
-            Storage::disk('public')->delete($surat->path_berkas);
+        $surat = SuratModel::find($id);
+        if ($surat) {
+            if ($surat->berkas) {
+                Storage::delete($surat->path_berkas);
+            }
+            // Hapus data dari database
+            $surat->delete();
+            return response()->json(['success' => 'Surat berhasil dihapus.']);
+        } else {
+            return response()->json(['error' => 'Surat tidak ditemukan.'], 404);
         }
-
-        // Hapus data surat dari database
-        $surat->delete();
-
-        // Redirect kembali dengan pesan sukses
-        return redirect('admin/surat')->with('success', 'Data surat berhasil dihapus');
     }
 }
