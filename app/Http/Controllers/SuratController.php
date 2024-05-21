@@ -21,8 +21,9 @@ class SuratController extends Controller
         ];
 
         $activeMenu = 'surat';
+        $surat = SuratModel::all();
 
-        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat'=>$surat]);
     }
 
     public function list(Request $request)
