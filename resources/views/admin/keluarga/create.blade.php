@@ -1,4 +1,4 @@
-@extends('layout.start')
+@include('layout.start')
 
 @include('layout.a_navbar')
 
