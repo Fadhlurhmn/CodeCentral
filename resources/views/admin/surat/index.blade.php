@@ -92,12 +92,12 @@
       <form id="formSurat">
         <div class="mb-4 text-sm">
           <label class="block text-gray-700 text-sm mb-2" for="namaSurat">Nama Surat</label>
-          <input type="text" id="namaSurat" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nama Surat...">
+          <input type="text" id="namaSurat" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nama Surat..." required>
         </div>
 
         <div class="mb-4 text-sm">
           <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
-          <input type="file" id="fileSurat" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file...">
+          <input type="file" id="fileSurat" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
         </div>
         
         <div class="flex justify-start pt-2">
@@ -196,7 +196,7 @@
 
   document.getElementById('formSurat').addEventListener('submit', e => {
     e.preventDefault();
-    alert('Surat berhasil disimpan!');
+    // alert('Surat berhasil disimpan!');
     closeModal();
   });
 </script>
