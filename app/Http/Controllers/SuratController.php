@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuratController extends Controller
