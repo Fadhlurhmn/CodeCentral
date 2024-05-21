@@ -83,8 +83,8 @@
                  searchable: false },
                 { data: "status_akun",
                  className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: false,
-                 searchable: false,
+                 orderable: true,
+                 searchable: true,
                  render: function(data, type, row) {
                     if (data === 'Aktif') {
                         return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';

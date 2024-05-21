@@ -11,6 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
+        $level = LevelModel::all();
+
         $breadcrumb = (object) [
             'title' => 'Daftar Akun',
             'list' => ['Home', 'Akun']
@@ -20,8 +22,8 @@ class UserController extends Controller
             'title' => 'Daftar Akun'
         ];
 
-        $level = LevelModel::all();
         $activeMenu = 'user';
+
         return view('admin.akun.akun', ['breadcrumb' => $breadcrumb, 'page' => $page,'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
@@ -37,7 +39,7 @@ class UserController extends Controller
         return DataTables::of($akun)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) {
-                $btn = '<a href="'.url('admin/akun/' . $user->id_user).'" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
+                $btn = '<a href="'.url('admin/akun/' . $user->id_user. '/show').'" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
                 $btn .= '<a href="'.url('admin/akun/' . $user->id_user . '/edit').'" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
             })
@@ -47,6 +49,9 @@ class UserController extends Controller
 
     public function create()
     {
+        $level = LevelModel::all();
+        $penduduk = PendudukModel::all();
+
         $breadcrumb = (object) [
             'title' => 'Tambah Akun',
             'list' => ['Home', 'Akun', 'Tambah']
@@ -57,8 +62,6 @@ class UserController extends Controller
         ];
 
         $activeMenu = 'user';
-        $level = LevelModel::all();
-        $penduduk = PendudukModel::all();
 
         return view('admin.akun.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level,'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
@@ -81,12 +84,13 @@ class UserController extends Controller
             'status_akun' => $request->status_akun,
         ]);
 
-        return redirect('admin/akun')->with('success', 'Data user berhasil disimpan ');
+        return redirect('admin/akun')->with('success', 'Data user berhasil disimpan');
     }
 
     public function show(string $id)
     {
-        $user = UserModel::with('level')->find($id);
+        // $user = UserModel::with('level')->find($id);
+        $user = UserModel::all()->find($id);
         $level = LevelModel::all()->find($id);
         $penduduk = PendudukModel::all()->find($id);
 
