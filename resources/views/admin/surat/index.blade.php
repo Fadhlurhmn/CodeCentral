@@ -97,7 +97,7 @@
           
             <div class="mb-4 text-sm">
               <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
-              <input type="file" id="berkas" name="berkas" accept="application/word" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
+              <input type="file" id="berkas" name="berkas" accept=".docx" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
             </div>
             
             <div class="flex justify-start pt-2">
@@ -113,17 +113,19 @@
 
 {{-- Start Macam bantuan sosial --}}
 <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
-
   @foreach($surat as $item)
-  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md" data-title="Surat {{$item->nama_surat}}" id="suratList{{$item->id}}">
+  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md" data-title="Surat {{ $item->nama_surat }}" id="suratList{{$item->id_surat}}">
       <div class="flex-col">
           <h1>Surat {{ $item->nama_surat }}</h1>
+          <p class="text-xs">{{$item->id_surat}}</p>
           <p class="text-xs">{{$item->deskripsi}}</p>
       </div>
       <div class="flex space-x-2">
-        <button onclick="openEditModal('{{$item->id_surat}}')" class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
-        <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
-    </div>
+          <a href="surat/detail/{{$item->id_surat}}">
+              <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 transition duration-200 ease-in-out"><i class="fas fa-edit"></i></button>
+          </a>
+          <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
+      </div>
   </div>
   @endforeach
 
@@ -139,37 +141,38 @@
 {{-- End Macam bantuan sosial --}}
 </div>
 @push('js')
+
 <script>
   // Script searching
   document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    const noResults = document.getElementById('noResults');
+      const searchInput = document.getElementById('searchInput');
+      const noResults = document.getElementById('noResults');
+      const suratList = document.querySelectorAll('[id^="suratList"]'); // Mengambil semua elemen dengan ID yang dimulai dengan "suratList"
 
-    searchInput.addEventListener('input', function() {
-        const query = searchInput.value.toLowerCase();
-        let hasResults = false;
-        @foreach ($surat as $item)
-            const suratList = document.getElementById('suratList{{$item->id}}');
-            const title = suratList.getAttribute('data-title').toLowerCase();
-            if (title.includes(query)) {
-                suratList.style.display = 'flex';
-                hasResults = true;
-            } else {
-                suratList.style.display = 'none';
-            }
-        @endforeach
+      searchInput.addEventListener('input', function() {
+          const query = searchInput.value.toLowerCase();
+          let hasResults = false;
 
-        if (hasResults) {
-            noResults.classList.add('hidden');
-        } else {
-            noResults.classList.remove('hidden');
-        }
-    });
-});
+          suratList.forEach(function(element) {
+              const namaSurat = element.getAttribute('data-title').toLowerCase();
+              if (namaSurat.includes(query)) {
+                  element.style.display = 'flex';
+                  hasResults = true;
+              } else {
+                  element.style.display = 'none';
+              }
+          });
 
+          if (hasResults) {
+              noResults.classList.add('hidden');
+          } else {
+              noResults.classList.remove('hidden');
+          }
+      });
+  });
 </script>
 
-{{-- Script --}}
+
 <script>
   // Function to open the add surat modal
   const openModal = () => {
