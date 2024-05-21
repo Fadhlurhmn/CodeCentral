@@ -87,8 +87,6 @@ class SuratController extends Controller
     }
 
 
-
-
     public function edit(string $id)
     {
         $surat = SuratModel::find($id);
@@ -109,37 +107,45 @@ class SuratController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'berkas' => 'required|file|mimes:docx',
+            'berkas' => 'nullable|file|mimes:docx',
             'deskripsi' => 'required|string|max:255',
             'nama_surat' => 'required|string|max:255'
         ]);
 
         $surat = SuratModel::findOrFail($id);
 
-        $namaFile = $request->nama_surat;
+        // Perbarui deskripsi surat
+        $surat->deskripsi = $request->deskripsi;
+        $surat->nama_surat = $request->nama_surat;
 
-        // Jika ada file baru diunggah, proses perubahan nama file
+        // Jika ada file baru diunggah, proses perubahan file
         if ($request->hasFile('berkas')) {
             $extfile = $request->berkas->getClientOriginalExtension();
+            $namaFile = $request->nama_surat;
             $namaFileFix = $namaFile . '.' . $extfile;
             $berkasPath = $request->file('berkas')->storeAs('data_surat', $namaFileFix, 'public');
-            $surat->nama_surat = $namaFileFix;
-            $surat->path = $berkasPath;
+
+            // Hapus file lama jika ada
+            if (!empty($surat->path_berkas)) {
+                Storage::disk('public')->delete($surat->path_berkas);
+            }
+
+            $surat->path_berkas = $berkasPath;
         }
 
-        $surat->id_penduduk = $request->id_penduduk;
+        // Simpan perubahan
         $surat->save();
 
         return redirect('admin/surat')->with('success', 'Data surat berhasil diperbarui');
     }
+
     public function delete($id)
     {
-        // Temukan data surat berdasarkan ID
         $surat = SuratModel::findOrFail($id);
 
         // Hapus file terkait jika ada
-        if (!empty($surat->path)) {
-            Storage::disk('public')->delete($surat->path);
+        if (!empty($surat->path_berkas)) {
+            Storage::disk('public')->delete($surat->path_berkas);
         }
 
         // Hapus data surat dari database
