@@ -95,10 +95,10 @@
             <input type="text" id="deskripsi" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Deskripsi Surat..." required>
           </div>
 
-          <div class="mb-4 text-sm">
+          {{-- <div class="mb-4 text-sm">
             <label class="block text-gray-700 text-sm mb-2" for="fileSurat">Upload File word</label>
             <input type="file" id="berkas" accept=".doc, .docx" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
-          </div>
+          </div> --}}
           
           <div class="flex justify-start pt-2">
             {{-- <button class="modal-close bg-red-600 hover:bg-red-700 rounded-full text-white py-2 px-4 mr-2">Batal</button> --}}
