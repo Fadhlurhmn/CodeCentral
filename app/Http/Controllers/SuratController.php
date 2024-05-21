@@ -56,30 +56,39 @@ class SuratController extends Controller
         $activeMenu = 'surat';
         return view('admin.surat.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'id_penduduk' => 'required|integer',
-            'berkas' => 'required|file|docx',
-            'deskripsi' => 'required|string|255',
-            'nama_file' => 'required'
+            'berkas' => 'required|file|mimes:docx',
+            'deskripsi' => 'required|string|max:255',
+            'nama_surat' => 'required|string|max:255'
         ]);
 
-        $namaFile = $request->nama_file;
-        $extfile = $request->berkas->getClientOriginalExtension();
+        // Dapatkan nama asli file
+        $namaFile = $request->nama_surat;
+        // Dapatkan ekstensi file
+        $extfile = $request->file('berkas')->getClientOriginalExtension();
+        // Gabungkan nama file dengan ekstensi
         $namaFileFix = $namaFile . '.' . $extfile;
 
         // Simpan file dengan nama yang diinginkan oleh pengguna
         $berkasPath = $request->file('berkas')->storeAs('data_surat', $namaFileFix, 'public');
 
-        SuratModel::create([
-            'id_penduduk' => $request->id_penduduk,
-            'nama_surat' => $namaFileFix,
-            'path' => $berkasPath // Simpan path file jika diperlukan
+        // Buat entri baru di database
+        $surat = SuratModel::create([
+            'deskripsi' => $request->deskripsi,
+            'nama_surat' => $request->nama_surat,
+            'path_berkas' => $berkasPath // Simpan path untuk referensi (opsional)
         ]);
 
+        // Redirect ke halaman daftar surat dengan pesan sukses
         return redirect('admin/surat')->with('success', 'Data surat berhasil disimpan');
     }
+
+
+
+
     public function edit(string $id)
     {
         $surat = SuratModel::find($id);
@@ -100,15 +109,14 @@ class SuratController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_penduduk' => 'required|integer',
-            'berkas' => 'nullable|file|docx',
-            'deskripsi' => 'required|string|255',
-            'nama_file' => 'required'
+            'berkas' => 'required|file|mimes:docx',
+            'deskripsi' => 'required|string|max:255',
+            'nama_surat' => 'required|string|max:255'
         ]);
 
         $surat = SuratModel::findOrFail($id);
 
-        $namaFile = $request->nama_file;
+        $namaFile = $request->nama_surat;
 
         // Jika ada file baru diunggah, proses perubahan nama file
         if ($request->hasFile('berkas')) {

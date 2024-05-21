@@ -11,7 +11,7 @@ class SuratModel extends Model
     use HasFactory;
     protected $table = 'surat';
     protected $primaryKey = 'id_surat';
-    protected $fillable = ['id_user', 'nama_surat', 'deskripsi'];
+    protected $fillable = ['id_penduduk', 'nama_surat', 'deskripsi', 'path_berkas'];
 
     public function pengurus(): BelongsTo
     {
