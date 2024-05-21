@@ -108,7 +108,7 @@ Route::group(['prefix' => 'admin'], function () {
     //     return view('admin.promosi.show');
     // }); //untuk halaman daftar dari promosi
     Route::get('/surat', function () {
-        return view('admin.surat.index');
+        return view('admin.surat.surat');
     });
     Route::get('/jadwal', function () {
         return view('admin.jadwal.index');
