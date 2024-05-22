@@ -42,7 +42,7 @@ class JadwalController extends Controller
     }
 
     // method buat nampilin form update kebersihan
-    public function rubah_kebersihan()
+    public function form_kebersihan()
     {
         $breadcrumb = (object)[
             'title' => 'Update Jadwal Kebersihan',
@@ -67,7 +67,7 @@ class JadwalController extends Controller
     }
 
     // method buat nampilin form update keamanan
-    public function rubah_keamanan()
+    public function form_keamanan()
     {
         $breadcrumb = (object)[
             'title' => 'Update Jadwal Keamanan',
