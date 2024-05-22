@@ -7,16 +7,25 @@ use Illuminate\Http\Request;
 class JadwalController extends Controller
 {
     // Variables to hold the schedules
-    private $jadwal_kebersihan = [
-        'hari' => 'Senin',
-        'waktu' => '08:00 - 12:00'
-    ];
-    private $jadwal_keamanan = [
-        'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
-        'waktu' => ['Pagi', 'Sore', 'Malam'],
-        'nama' => ['Budi', 'Adi', 'Dedi'],
-        'telepon' => ['08123456789', '082122222222', '08211111111'],
-    ];
+    private $jadwal_kebersihan;
+    private $jadwal_keamanan;
+
+    public function __construct()
+    {
+        // Inisialisasi jadwal kebersihan sebagai objek
+        $this->jadwal_kebersihan = (object)[
+            'hari' => 'Senin',
+            'waktu' => '08:00 - 12:00'
+        ];
+
+        // Inisialisasi jadwal keamanan sebagai objek dengan nama sebagai array dua dimensi
+        $this->jadwal_keamanan = (object)[
+            'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+            'waktu' => ['Pagi', 'Sore', 'Malam'],
+            'nama' => [['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi']],
+            'telepon' => ['08123456789', '082122222222', '08211111111'],
+        ];
+    }
 
     // Method to display the index page with schedules
     public function index()
@@ -78,16 +87,15 @@ class JadwalController extends Controller
             'title' => 'Form Update Jadwal Keamanan'
         ];
         $activeMenu = 'jadwal';
-        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_keamanan' => $this->jadwal_keamanan]);
     }
     // Method to update jadwal_keamanan
     public function update_keamanan(Request $request)
     {
-        $this->jadwal_keamanan['hari'] = $request->input('hari');
-        $this->jadwal_keamanan['waktu'] = $request->input('waktu');
-        $this->jadwal_keamanan['nama'] = $request->input('nama');
-        $this->jadwal_keamanan['telepon'] = $request->input('telepon');
-
+        $this->jadwal_keamanan->hari = $request->input('hari');
+        $this->jadwal_keamanan->waktu = $request->input('waktu');
+        $this->jadwal_keamanan->nama = $request->input('nama');
+        $this->jadwal_keamanan->telepon = $request->input('telepon');
         // Redirect back to the index page or wherever needed
         return redirect('admin/jadwal')->with('success', 'Jadwal keamanan updated successfully');
     }
