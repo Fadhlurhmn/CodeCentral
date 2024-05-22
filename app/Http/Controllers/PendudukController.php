@@ -61,7 +61,7 @@ class PendudukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|string',
+            'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
             'alamat_ktp' => 'required|string',
             'no_telp' => 'required|string',
@@ -143,11 +143,11 @@ class PendudukController extends Controller
 
         return view('admin.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
-    // menyimpan perubahan data barang
+    // menyimpan perubahan data penduduk
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nik' => 'required|string',
+            'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
             'alamat_ktp' => 'required|string',
             'alamat_domisili' => 'required|string',

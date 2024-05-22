@@ -28,8 +28,10 @@ class KeluargaController extends Controller
 
     public function list(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah');
-
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah','rt');
+        if ($request->has('rt')) {
+            $keluarga->where('rt', $request->rt);
+        }
         return DataTables::of($keluarga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
@@ -169,7 +171,7 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('admin/keluarga/' . $request->id_keluarga . '/show')->with('success', 'Data detail anggota berhasil disimpan');
+        return redirect('admin/keluarga/')->with('success', 'Data detail anggota berhasil disimpan');
     }
 
 

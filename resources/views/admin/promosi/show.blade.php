@@ -8,8 +8,8 @@
   @include('layout.a_sidebar')
 
   <!-- start content -->
-  <div class="bg-gray-100 flex-1 p-6 md:mt-16 cursor-default"> 
-    <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{ $breadcrumb->title }}</h1>
+  <div class="bg-white flex-1 p-5 md:mt-16 cursor-default border-t-2 border-teal-500">
+    <h1 class=" text-2xl text-gray-600 font-extrabold">{{ $breadcrumb->title }}</h1>
     {{-- Alert ketika data tidak ditemukan --}}
     @if(!$promosi)
     <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
