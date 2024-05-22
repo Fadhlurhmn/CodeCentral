@@ -22,7 +22,7 @@ class JadwalController extends Controller
         $this->jadwal_keamanan = (object)[
             'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
             'waktu' => ['Pagi', 'Sore', 'Malam'],
-            'nama' => [['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi']],
+            'nama' => [['Budi', 'Adi', 'Dedi'], ['Charli', 'Fahmi', 'Ahmadi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi']],
             'telepon' => ['08123456789', '082122222222', '08211111111'],
         ];
     }
