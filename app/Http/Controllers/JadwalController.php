@@ -41,18 +41,47 @@ class JadwalController extends Controller
         ]);
     }
 
+    // method buat nampilin form update kebersihan
+    public function rubah_kebersihan()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Update Jadwal Kebersihan',
+            'list' => ['Home', 'Jadwal Kebersihan', 'Update']
+        ];
+
+        $page = (object)[
+            'title' => 'Form Update Jadwal Kebersihan'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.update_kebersihan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    }
+
     // Method to update jadwal_kebersihan
-    public function rubah_kebersihan(Request $request)
+    public function udpate_kebersihan(Request $request)
     {
         $this->jadwal_kebersihan['hari'] = $request->input('hari');
         $this->jadwal_kebersihan['waktu'] = $request->input('waktu');
 
         // Redirect back to the index page or wherever needed
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal kebersihan updated successfully');
+        return redirect('admin/jadwal')->with('success', 'Jadwal kebersihan updated successfully');
     }
 
+    // method buat nampilin form update keamanan
+    public function rubah_keamanan()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Update Jadwal Keamanan',
+            'list' => ['Home', 'Jadwal Keamanan', 'Update']
+        ];
+
+        $page = (object)[
+            'title' => 'Form Update Jadwal Keamanan'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    }
     // Method to update jadwal_keamanan
-    public function rubah_keamanan(Request $request)
+    public function update_keamanan(Request $request)
     {
         $this->jadwal_keamanan['hari'] = $request->input('hari');
         $this->jadwal_keamanan['waktu'] = $request->input('waktu');
@@ -60,6 +89,6 @@ class JadwalController extends Controller
         $this->jadwal_keamanan['telepon'] = $request->input('telepon');
 
         // Redirect back to the index page or wherever needed
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal keamanan updated successfully');
+        return redirect('admin/jadwal')->with('success', 'Jadwal keamanan updated successfully');
     }
 }
