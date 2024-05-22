@@ -6,6 +6,8 @@ use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuratController;
+use App\Models\SuratModel;
 
 Route::get('/', function () {
     // return view('index');
@@ -58,7 +60,6 @@ Route::group(['middleware' => ['cek_login:1']], function () {
         Route::get('/bansos', function () {
             return view('admin.bansos.index');
         });
-        //         Route::get('/penduduk', function () {return view('admin.penduduk.index');});
         Route::get('/pengumuman', function () {
             return view('admin.pengumuman.index');
         });
@@ -86,7 +87,10 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.akun.index');
     });
     Route::get('/bansos', function () {
-        return view('admin.bansos.index');
+        return view('admin.bansos.bansos');
+    });
+    Route::get('/bansos/detail', function () {
+        return view('admin.bansos.detail');
     });
     Route::get('/penduduk', function () {
         return view('admin.penduduk.index');
@@ -104,7 +108,7 @@ Route::group(['prefix' => 'admin'], function () {
     //     return view('admin.promosi.show');
     // }); //untuk halaman daftar dari promosi
     Route::get('/surat', function () {
-        return view('admin.surat.index');
+        return view('admin.surat.surat');
     });
     Route::get('/jadwal', function () {
         return view('admin.jadwal.index');
@@ -148,5 +152,14 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
         Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
+    });
+    Route::group(['prefix' => 'surat'], function () {
+        Route::get('/', [SuratController::class, 'index']);
+        Route::post('/list', [SuratController::class, 'list']);
+        Route::get('/create', [SuratController::class, 'create']);
+        Route::post('/', [SuratController::class, 'store']);
+        Route::get('/{id}/edit', [SuratController::class, 'edit']);
+        Route::post('/{id}', [SuratController::class, 'update']);
+        Route::delete('/{id}', [SuratController::class, 'delete']);
     });
 });
