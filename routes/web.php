@@ -165,9 +165,9 @@ Route::group(['prefix' => 'admin'], function () {
     });
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [JadwalController::class, 'index']);
-        Route::get('/update_kebersihan', [JadwalController::class, 'rubah_kebersihan']);
-        Route::get('/update_keamanan', [JadwalController::class, 'rubah_keamanan']);
-        Route::post('/', [JadwalController::class, 'update_kebersihan']);
-        Route::post('/', [JadwalController::class, 'update_keamanan']);
+        Route::get('/update_kebersihan', [JadwalController::class, 'form_kebersihan']);
+        Route::get('/update_keamanan', [JadwalController::class, 'form_keamanan']);
+        Route::post('/kebersihan', [JadwalController::class, 'update_kebersihan']);
+        Route::post('/keamanan', [JadwalController::class, 'update_keamanan']);
     });
 });
