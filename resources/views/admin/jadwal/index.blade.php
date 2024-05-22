@@ -4,19 +4,6 @@
   <div class="p-5 text-sm font-normal rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
     <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
 
-    {{-- Data dummy --}}
-    @php
-      $jadwal_kebersihan = [
-          'hari' => 'Senin',
-          'waktu' => '08:00 - 12:00'
-      ];
-      $jadwal_keamanan = [
-          'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
-          'waktu' => ['Pagi', 'Sore', 'Malam'],
-          'nama' => ['Budi', 'Adi', 'Dedi'],
-          'telepon' => ['08123456789', '082122222222', '08211111111'],
-      ];
-    @endphp
 
     <!-- Tabel Jadwal Keamanan -->
     {{-- Button --}}
