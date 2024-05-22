@@ -23,7 +23,7 @@ class JadwalController extends Controller
             'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
             'waktu' => ['Pagi', 'Sore', 'Malam'],
             'nama' => [['Budi', 'Adi', 'Dedi'], ['Charli', 'Fahmi', 'Ahmadi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Dedi', 'Adi', 'Budi']],
-            'telepon' => '08123456789', '082122222222', '08211111111',
+            'telepon' => ['08123456789', '082122222222', '08211111111'],
         ];
     }
 

@@ -69,7 +69,6 @@
 <!-- end wrapper -->
 
 @include('layout.end')
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var cells = document.querySelectorAll("[contenteditable=true]");
@@ -80,9 +79,25 @@
                 var colIndex = this.getAttribute("data-col");
                 var fieldName = this.getAttribute("data-field");
 
+                // Batasi panjang teks maksimal 12 karakter
+                if (fieldName === "nama" && newValue.length > 12) {
+                    this.innerText = newValue.substring(0, 12);
+                    alert("Panjang maksimal adalah 12 karakter");
+                }
+
+                if (fieldName === "telepon" && newValue.length > 12) {
+                    this.innerText = newValue.substring(0, 12);
+                    alert("Panjang nomor telepon adalah 12 karakter");
+                }
+
                 // Jika mengubah nama
                 if (fieldName === "nama") {
-                    // Kirim data nama ke server
+                    // Kirim data nama ke server (tambahkan kode AJAX jika diperlukan)
+                }
+
+                // Jika mengubah telepon
+                if (fieldName === "telepon") {
+                    // Kirim data telepon ke server (tambahkan kode AJAX jika diperlukan)
                 }
             });
         });
