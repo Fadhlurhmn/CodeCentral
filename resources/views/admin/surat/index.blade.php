@@ -130,7 +130,10 @@
         <p class="deskripsi text-xs">{{$item->deskripsi}}</p> <!-- Tambahkan kelas deskripsi -->
     </div>
     <div class="flex space-x-2">
-        <button class="editSuratBtn px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out" data-id="{{$item->id_surat}}"><i class="fas fa-edit"></i></button> <!-- Tambahkan kelas dan data-id -->
+        <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out editSuratBtn" data-id="{{$item->id_surat}}">
+          <i class="fas fa-edit"></i>
+          {{-- Edit --}}
+        </button> <!-- Tambahkan kelas dan data-id -->
         {{-- <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button> --}}
         <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out delete-surat" data-id="{{$item->id_surat}}">
           <i class="fas fa-trash"></i>
@@ -249,7 +252,6 @@
     modal.classList.remove('pointer-events-none');
     document.body.classList.add('modal-active');
   }
-
   // Function to open the edit surat modal
   const openEditModal = (id) => {
     const modal = document.getElementById('modal');
@@ -287,7 +289,7 @@
   // Add event listeners to all edit buttons
   document.querySelectorAll('.editSuratBtn').forEach(button => {
     button.addEventListener('click', (e) => {
-      const id = e.target.getAttribute('data-id');
+      const id = e.currentTarget.getAttribute('data-id');
       openEditModal(id);
     });
   });
