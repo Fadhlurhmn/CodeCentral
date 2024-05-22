@@ -29,7 +29,7 @@
   <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
   @if (session('success'))
         <div class="col-span-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <div class="bg-green-100 border border-green-400 text-green-700 shadow-md shadow-green-300/40 px-4 py-3 rounded relative" role="alert">
                 {{-- <strong class="font-bold">Sukses, Surat Berhasil Ditambahkan!</strong> --}}
                 <span class="block font-bold sm:inline">{{ session('success') }} !</span>
             </div>
