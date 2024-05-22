@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->id('id_surat');
-            $table->ungsignedBigInteger('id_user')->index();
+            $table->unsignedBigInteger('id_user')->index();
             $table->string('nama_surat', 255);
             $table->string('deskripsi', 255);
             $table->timestamps();
