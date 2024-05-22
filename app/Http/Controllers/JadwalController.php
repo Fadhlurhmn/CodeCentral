@@ -6,28 +6,25 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    // Variables to hold the schedules
-    private $jadwal_kebersihan;
-    private $jadwal_keamanan;
-
     public function __construct()
     {
-        // Inisialisasi jadwal kebersihan sebagai objek
-        $this->jadwal_kebersihan = (object)[
-            'hari' => 'Senin',
-            'waktu' => '08:00 - 12:00'
-        ];
-
-        // Inisialisasi jadwal keamanan sebagai objek dengan nama sebagai array dua dimensi
-        $this->jadwal_keamanan = (object)[
-            'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-            'waktu' => ['Pagi', 'Sore', 'Malam'],
-            'nama' => [['Budi', 'Adi', 'Dedi'], ['Charli', 'Fahmi', 'Ahmadi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Dedi', 'Adi', 'Budi']],
-            'telepon' => ['08123456789', '082122222222', '08211111111'],
-        ];
+        if (!session()->has('jadwal_kebersihan')) {
+            session(['jadwal_kebersihan' => [
+                'hari' => [],
+                'waktu' => [],
+            ]]);
+        }
+        // Constructor update
+        if (!session()->has('jadwal_keamanan')) {
+            session(['jadwal_keamanan' => (object)[
+                'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+                'waktu' => ['Pagi', 'Sore', 'Malam'],
+                'nama' => [['Budi', 'Adi', 'Dedi'], ['Charli', 'Fahmi', 'Ahmadi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Dedi', 'Adi', 'Budi']],
+                'telepon' => [['08123456789', '082122222222', '08211111111'], ['11111111111', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111']],
+            ]]);
+        }
     }
 
-    // Method to display the index page with schedules
     public function index()
     {
         $breadcrumb = (object)[
@@ -45,12 +42,11 @@ class JadwalController extends Controller
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
-            'jadwal_kebersihan' => $this->jadwal_kebersihan,
-            'jadwal_keamanan' => $this->jadwal_keamanan
+            'jadwal_kebersihan' => session('jadwal_kebersihan'),
+            'jadwal_keamanan' => session('jadwal_keamanan')
         ]);
     }
 
-    // method buat nampilin form update kebersihan
     public function form_kebersihan()
     {
         $breadcrumb = (object)[
@@ -62,20 +58,24 @@ class JadwalController extends Controller
             'title' => 'Form Update Jadwal Kebersihan'
         ];
         $activeMenu = 'jadwal';
-        return view('admin.jadwal.update_kebersihan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.jadwal.update_kebersihan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_kebersihan' => session('jadwal_kebersihan')]);
     }
 
-    // Method to update jadwal_kebersihan
-    public function udpate_kebersihan(Request $request)
+    public function update_kebersihan(Request $request)
     {
-        $this->jadwal_kebersihan['hari'] = $request->input('hari');
-        $this->jadwal_kebersihan['waktu'] = $request->input('waktu');
+        $hari = $request->input('hari');
+        $waktu = $request->input('waktu');
+        $jadwal_kebersihan = session('jadwal_kebersihan');
 
-        // Redirect back to the index page or wherever needed
-        return redirect('admin/jadwal')->with('success', 'Jadwal kebersihan updated successfully');
+        // Tambahkan data baru ke dalam session
+        $jadwal_kebersihan['hari'] = array_merge($jadwal_kebersihan['hari'], $hari);
+        $jadwal_kebersihan['waktu'] = array_merge($jadwal_kebersihan['waktu'], $waktu);
+
+        // Simpan kembali ke session
+        session(['jadwal_kebersihan' => $jadwal_kebersihan]);
+
+        return response()->json(['success' => true]);
     }
-
-    // method buat nampilin form update keamanan
     public function form_keamanan()
     {
         $breadcrumb = (object)[
@@ -87,16 +87,31 @@ class JadwalController extends Controller
             'title' => 'Form Update Jadwal Keamanan'
         ];
         $activeMenu = 'jadwal';
-        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_keamanan' => $this->jadwal_keamanan]);
+        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_keamanan' => session('jadwal_keamanan')]);
     }
-    // Method to update jadwal_keamanan
+
     public function update_keamanan(Request $request)
     {
-        $this->jadwal_keamanan->hari = $request->input('hari');
-        $this->jadwal_keamanan->waktu = $request->input('waktu');
-        $this->jadwal_keamanan->nama = $request->input('nama');
-        $this->jadwal_keamanan->telepon = $request->input('telepon');
-        // Redirect back to the index page or wherever needed
-        return redirect('admin/jadwal')->with('success', 'Jadwal keamanan updated successfully');
+        $changes = $request->input('changes');
+        $jadwal_keamanan = session('jadwal_keamanan');
+
+        foreach ($changes as $change) {
+            $field = $change['field'];
+            $row = $change['row'];
+            $col = $change['col'];
+            $value = $change['value'];
+
+            if ($field === 'nama') {
+                $jadwal_keamanan->nama[$row][$col] = $value;
+            }
+
+            if ($field === 'telepon') {
+                $jadwal_keamanan->telepon[$row][$col] = $value;
+            }
+        }
+
+        session(['jadwal_keamanan' => $jadwal_keamanan]);
+
+        return response()->json(['success' => true]);
     }
 }
