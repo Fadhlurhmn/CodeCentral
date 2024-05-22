@@ -19,6 +19,14 @@
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
         </div>
+        @if (session('success'))
+        <div class="col-span-4">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Sukses!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        </div>
+        @endif
         <div class="h-auto p-2">
             <table id="table_penduduk" class="w-full min-w-max cursor-default">
                 <thead class="bg-teal-400 px-10 text-center justify-between">

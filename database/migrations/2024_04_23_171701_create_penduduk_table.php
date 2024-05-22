@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nik', 100)->unique();
             $table->text('alamat_ktp');
             $table->text('alamat_domisili');
-            $table->integer('no_telp');
+            $table->string('no_telp', 20);
             $table->string('tempat_lahir', 200);
             $table->date('tanggal_lahir');
             $table->string('agama', 200);
