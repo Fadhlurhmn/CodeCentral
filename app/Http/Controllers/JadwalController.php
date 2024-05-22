@@ -12,10 +12,10 @@ class JadwalController extends Controller
         'waktu' => '08:00 - 12:00'
     ];
     private $jadwal_keamanan = [
-        'hari' => 'Senin',
-        'waktu' => '08:00 - 12:00',
-        'nama' => 'Budi',
-        'telepon' => '08123456789'
+        'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+        'waktu' => ['Pagi', 'Sore', 'Malam'],
+        'nama' => ['Budi', 'Adi', 'Dedi'],
+        'telepon' => ['08123456789', '082122222222', '08211111111'],
     ];
 
     // Method to display the index page with schedules
