@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('mutasi_penduduk', function (Blueprint $table) {
-            //
+        Schema::create('mutasi_penduduk', function (Blueprint $table) {
+            $table->id('id_mutasi');
+            $table->unsignedBigInteger('id_penduduk')->index();
+            $table->date('tanggal_mutasi');
+            $table->integer('status');
+            $table->timestamps();
+
+            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
         });
     }
 
@@ -21,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('mutasi_penduduk', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('mutasi_penduduk');
     }
 };
