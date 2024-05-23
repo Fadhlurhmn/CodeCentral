@@ -14,7 +14,7 @@
                     Update Jadwal Kebersihan
                 </h1>
                 @csrf
-            
+
                 <!-- Tabel Jadwal Kebersihan -->
                 <div class="h-auto p-2 mb-10 border-2 border-teal-400 rounded-lg">
                     <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Kebersihan</h2>
@@ -27,10 +27,35 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($jadwal_kebersihan->hari as $index => $hari)
+                            <tr>
+                                <td class="p-3 text-sm text-center border border-teal-300">
+                                    <select name="hari[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                                        <option value="Senin" {{ $hari == 'Senin' ? 'selected' : '' }}>Senin</option>
+                                        <option value="Selasa" {{ $hari == 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                        <option value="Rabu" {{ $hari == 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                        <option value="Kamis" {{ $hari == 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                        <option value="Jumat" {{ $hari == 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                                        <option value="Sabtu" {{ $hari == 'Sabtu' ? 'selected' : '' }}>Sabtu</option>
+                                        <option value="Minggu" {{ $hari == 'Minggu' ? 'selected' : '' }}>Minggu</option>
+                                    </select>                               
+                                </td>
+                                <td class="p-3 text-sm text-center border border-teal-300">
+                                    <select name="waktu[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                                        <option value="08:00 - 12:00" {{ $jadwal_kebersihan->waktu[0] == '08:00 - 12:00' ? 'selected' : '' }}>08:00 - 12:00</option>
+                                        <option value="12:00 - 16:00" {{ $jadwal_kebersihan->waktu[1] == '12:00 - 16:00' ? 'selected' : '' }}>12:00 - 16:00</option>
+                                    </select>
+                                </td>
+                                <td class="p-3 text-sm text-center border border-teal-300">
+                                    <button type="button" class="text-red-600 hover:text-red-800" onclick="removeRow(this)">Hapus</button>
+                                </td>
+                            </tr>
+                            @endforeach
                             <!-- Isi form dengan input untuk baris baru -->
                             <tr>
                                 <td class="p-3 text-sm text-center border border-teal-300">
                                     <select name="hari[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                                        <option value="" selected hidden>Pilih Hari</option>
                                         <option value="Senin">Senin</option>
                                         <option value="Selasa">Selasa</option>
                                         <option value="Rabu">Rabu</option>
@@ -39,14 +64,13 @@
                                         <option value="Sabtu">Sabtu</option>
                                         <option value="Minggu">Minggu</option>
                                     </select>                               
-                                    
                                 </td>
                                 <td class="p-3 text-sm text-center border border-teal-300">
                                     <select name="waktu[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                                        <option value="" selected hidden>Pilih Waktu</option>
                                         <option value="08:00 - 12:00">08:00 - 12:00</option>
                                         <option value="12:00 - 16:00">12:00 - 16:00</option>
                                     </select>
-                                    
                                 </td>
                                 <td class="p-3 text-sm text-center border border-teal-300">
                                     <button type="button" class="text-red-600 hover:text-red-800" onclick="removeRow(this)">Hapus</button>
@@ -86,6 +110,7 @@
 
         hariCell.innerHTML = `
             <select name="hari[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                <option value="" selected hidden>Pilih Hari</option>
                 <option value="Senin">Senin</option>
                 <option value="Selasa">Selasa</option>
                 <option value="Rabu">Rabu</option>
@@ -97,6 +122,7 @@
         `;
         waktuCell.innerHTML = `
             <select name="waktu[]" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" required>
+                <option value="" selected hidden>Pilih Waktu</option>
                 <option value="08:00 - 12:00">08:00 - 12:00</option>
                 <option value="12:00 - 16:00">12:00 - 16:00</option>
             </select>
@@ -111,5 +137,3 @@
         row.parentNode.removeChild(row);
     }
 </script>
-
-

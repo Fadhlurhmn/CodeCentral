@@ -9,12 +9,11 @@ class JadwalController extends Controller
     public function __construct()
     {
         if (!session()->has('jadwal_kebersihan')) {
-            session(['jadwal_kebersihan' => [
-                'hari' => [],
-                'waktu' => [],
+            session(['jadwal_kebersihan' => (object)[
+                'hari' => ['Senin', 'Kamis', 'Sabtu'],
+                'waktu' => ['08:00-12:00', '12:00-16:00'],
             ]]);
         }
-        // Constructor update
         if (!session()->has('jadwal_keamanan')) {
             session(['jadwal_keamanan' => (object)[
                 'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
@@ -47,6 +46,7 @@ class JadwalController extends Controller
         ]);
     }
 
+
     public function form_kebersihan()
     {
         $breadcrumb = (object)[
@@ -63,18 +63,14 @@ class JadwalController extends Controller
 
     public function update_kebersihan(Request $request)
     {
-        $hari = $request->input('hari');
-        $waktu = $request->input('waktu');
-        $jadwal_kebersihan = session('jadwal_kebersihan');
-
-        // Tambahkan data baru ke dalam session
-        $jadwal_kebersihan['hari'] = array_merge($jadwal_kebersihan['hari'], $hari);
-        $jadwal_kebersihan['waktu'] = array_merge($jadwal_kebersihan['waktu'], $waktu);
-
-        // Simpan kembali ke session
+        $data = $request->all();
+        $jadwal_kebersihan = (object)[
+            'hari' => $data['hari'],
+            'waktu' => $data['waktu'],
+        ];
         session(['jadwal_kebersihan' => $jadwal_kebersihan]);
-
-        return response()->json(['success' => true]);
+    
+        return redirect('admin/jadwal');
     }
     public function form_keamanan()
     {
