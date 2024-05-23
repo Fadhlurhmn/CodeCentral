@@ -60,14 +60,15 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.keuangan.index');
     });
 
-    Route::group(['prefix' => 'akun'], function() {
-        Route::get('/', [UserController::class, 'index']);              // menampilkan halaman awal user
-        Route::post('/list', [UserController::class, 'list']);          // menampilkan data user dalam bentuk json untuk datatables
-        Route::get('/create', [UserController::class, 'create']);       // menampilkan halaman form tambah user
-        Route::post('/', [UserController::class, 'store']);             // menyimpan data user baru
-        Route::get('/{id}/show', [UserController::class, 'show']);           // menampilkan detail user
-        Route::get('/{id}/edit', [UserController::class, 'edit']);      // menampilkan halaman form edit user
-        Route::post('/{id}', [UserController::class, 'update']);         // menyimpan perubahan data user
-        Route::delete('/{id}', [UserController::class, 'destroy']);     // menghapus data user
+    Route::prefix('akun')->group(function() {
+        Route::get('/', [UserController::class, 'index']);              // Menampilkan halaman awal user
+        Route::post('/list', [UserController::class, 'list']);          // Menampilkan data user dalam bentuk JSON untuk datatables
+        Route::get('/create', [UserController::class, 'create']);       // Menampilkan halaman form tambah user
+        Route::post('/', [UserController::class, 'store']);             // Menyimpan data user baru
+        Route::get('/{id}/show', [UserController::class, 'show']);      // Menampilkan detail user
+        Route::get('/{id}/edit', [UserController::class, 'edit']);      // Menampilkan halaman form edit user
+        Route::put('/{id}', [UserController::class, 'update']);         // Menyimpan perubahan data user
+        // Route::delete('/{id}', [UserController::class, 'destroy']);     // Menghapus data user
     });
+
 });

@@ -1,10 +1,16 @@
 <div class="container h-full bg-slate-100">
+    <!-- Bagian judul halaman -->
     {{-- <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1> --}}
+
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
+        <!-- Menampilkan judul halaman -->
         <h1 class="pb-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
+
+        <!-- Bagian untuk tombol tambah data akun dan filter level akun -->
         <div class="mb-5 text-sm flex justify-between">
             <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/akun/create')}}">Tambah Data Akun</a>
-            {{-- Filter Level Akun dan Pencarian --}}
+
+            <!-- Filter Level Akun -->
             <div class="flex items-center space-x-3">
                 <div class="flex items-center">
                     <p class="py-1 mr-2">Filter Jabatan: </p>
@@ -22,28 +28,22 @@
                 </div>
             </div>
         </div>
-        @if (session('success'))
-        <div class="col-span-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Sukses!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        </div>
-        @endif
+
+        <!-- Bagian tabel untuk menampilkan data akun -->
         <div class="relatives mt-5 h-screen p-5 shadow-md">
             <table id="table_akun" class="border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400 text-center">
                     <tr>
-                        <th class="p-3 text-lg font-normal tracking-wide border-r">No</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Username</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Nama</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Jabatan</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Status</th>
-                        <th class="p-3 text-lg font-normal justify-between tracking-wide border-r">Aksi</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r text-left">No</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r">Username</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r">Warga</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r">Jabatan</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r">Status</th>
+                        <th class="p-3 text-lg font-normal tracking-wide border-r">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="text-center justify-between">
-                    <!-- Data akan dimasukkan di sini -->
+                <tbody class="text-center">
+                    <!-- Data akan dimasukkan di sini oleh DataTables -->
                 </tbody>
             </table>
         </div>
@@ -53,53 +53,56 @@
 @push('js')
 <script>
     $(document).ready(function() {
+        // Inisialisasi DataTables
         var table = $('#table_akun').DataTable({
             serverSide: true,
             ajax: {
-                "url": "{{ url('admin/akun/list') }}",
-                "dataType": "json",
-                "type": "POST",
-                "data" : function (d) {
-                d.id_level = $('#id_level').val();
-                d.id_penduduk = $('#id_penduduk').val();
-            }
+                url: "{{ url('admin/akun/list') }}",  // URL untuk mengambil data
+                dataType: "json",
+                type: "POST",
+                data: function(d) {
+                    d.id_level = $('#id_level').val();  // Mengirim parameter filter level
+                }
             },
             columns: [
                 { data: "DT_RowIndex",
-                 className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: false,
-                 searchable: false },
+                  className: "text-sm border-b border-r border-l border-gray-500/40 text-left",
+                  orderable: false,
+                  searchable: false },
                 { data: "username",
-                 className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: true,
-                 searchable: true },
+                  className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: true,
+                  searchable: true },
                 { data: "penduduk.nama",
-                 className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: false,
-                 searchable: false },
+                  className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: false,
+                  searchable: false },
                 { data: "level.nama_level",
-                 className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: false,
-                 searchable: false },
+                  className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: false,
+                  searchable: false },
                 { data: "status_akun",
-                 className: "text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: true,
-                 searchable: true,
-                 render: function(data, type, row) {
+                  className: "text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: true,
+                  searchable: true,
+                  render: function(data, type, row) {
+                    // Menampilkan status akun dengan warna yang berbeda
                     if (data === 'Aktif') {
                         return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
                     } else {
                         return '<div class="rounded-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
                     }
-                    }
+                  }
                 },
                 { data: "aksi",
-                 className: "flex text-sm border-b border-r border-l border-gray-500/40",
-                 orderable: false,
-                 searchable: false },
-            ]
+                  className: "flex text-sm border-b border-r border-l border-gray-500/40",
+                  orderable: false,
+                  searchable: false },
+            ],
+            order: [[1, 'asc']]  // Mengurutkan berdasarkan kolom kedua (Username) secara default
         });
 
+        // Mengupdate tabel ketika filter level berubah
         $('#id_level').on('change', function() {
             var selectedLevel = $(this).val();
             if (selectedLevel === 'all') {
@@ -113,7 +116,14 @@
     });
 </script>
 @endpush
+
 @stack('js')
+
 <script>
-    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    // Mengatur AJAX setup untuk menyertakan token CSRF
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>
