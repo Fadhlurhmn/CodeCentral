@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
 
 class PendudukModel extends Model
 {
@@ -23,5 +21,8 @@ class PendudukModel extends Model
     public function buat_surat(): HasMany
     {
         return $this->hasMany(SuratModel::class);
+    public function users(): HasMany
+    {
+        return $this->hasMany(UserModel::class);
     }
 }

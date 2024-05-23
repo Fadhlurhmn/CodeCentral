@@ -9,13 +9,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Models\SuratModel;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     // return view('index');
     return redirect('/admin');
 })->name('public');
 
-// Template 
+// Template
 Route::group(['prefix' => 'template'], function () {
     Route::get('/', function () {
         return view('template.index');
@@ -169,5 +170,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/update_keamanan', [JadwalController::class, 'form_keamanan']);
         Route::post('/kebersihan', [JadwalController::class, 'update_kebersihan']);
         Route::post('/keamanan', [JadwalController::class, 'update_keamanan']);
+    });
+    Route::prefix('akun')->group(function() {
+        Route::get('/', [UserController::class, 'index']);              // Menampilkan halaman awal user
+        Route::post('/list', [UserController::class, 'list']);          // Menampilkan data user dalam bentuk JSON untuk datatables
+        Route::get('/create', [UserController::class, 'create']);       // Menampilkan halaman form tambah user
+        Route::post('/', [UserController::class, 'store']);             // Menyimpan data user baru
+        Route::get('/{id}/show', [UserController::class, 'show']);      // Menampilkan detail user
+        Route::get('/{id}/edit', [UserController::class, 'edit']);      // Menampilkan halaman form edit user
+        Route::put('/{id}', [UserController::class, 'update']);         // Menyimpan perubahan data user
+        // Route::delete('/{id}', [UserController::class, 'destroy']);     // Menghapus data user
     });
 });
