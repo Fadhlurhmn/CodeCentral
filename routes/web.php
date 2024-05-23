@@ -6,6 +6,7 @@ use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Models\SuratModel;
 
@@ -161,5 +162,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [SuratController::class, 'edit']);
         Route::post('/{id}', [SuratController::class, 'update']);
         Route::delete('/{id}', [SuratController::class, 'delete']);
+    });
+    Route::group(['prefix' => 'jadwal'], function () {
+        Route::get('/', [JadwalController::class, 'index']);
+        Route::get('/update_kebersihan', [JadwalController::class, 'form_kebersihan']);
+        Route::get('/update_keamanan', [JadwalController::class, 'form_keamanan']);
+        Route::post('/kebersihan', [JadwalController::class, 'update_kebersihan']);
+        Route::post('/keamanan', [JadwalController::class, 'update_keamanan']);
     });
 });
