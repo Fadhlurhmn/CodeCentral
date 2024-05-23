@@ -11,8 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('umkm', function (Blueprint $table) {
-            //
+        Schema::create('umkm', function (Blueprint $table) {
+            $table->id('id_umkm');
+            $table->unsignedBigInteger('id_keluarga')->index();
+            $table->string('nama_usaha', 100);
+            $table->string('gambar', 255);
+            $table->text('deskripsi');
+            $table->string('status_pengajuan', 100);
+            $table->text('alamat');
+            $table->dateTime('countdown');
+            $table->timestamps();
+
+            $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga_penduduk');
         });
     }
 
@@ -21,8 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('umkm', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('umkm');
     }
 };
