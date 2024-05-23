@@ -53,7 +53,8 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        // Inisialisasi DataTables
+    // Inisialisasi DataTables hanya jika belum diinisialisasi
+    if (!$.fn.DataTable.isDataTable('#table_akun')) {
         var table = $('#table_akun').DataTable({
             serverSide: true,
             ajax: {
@@ -113,7 +114,9 @@
                 table.ajax.url("{{ url('admin/akun/list') }}?id_level=" + selectedLevel).load();
             }
         });
+    }
     });
+
 </script>
 @endpush
 
