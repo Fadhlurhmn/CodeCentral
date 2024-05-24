@@ -91,6 +91,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/bansos/detail', function () {
         return view('admin.bansos.detail');
     });
+    Route::get('/bansos/daftar', function () {
+        return view('admin.bansos.daftar');
+    });
     Route::get('/penduduk', function () {
         return view('admin.penduduk.index');
     });
