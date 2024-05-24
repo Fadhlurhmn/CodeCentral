@@ -169,6 +169,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
         Route::get('/{id}/create_kriteria', [BansosController::class, 'create_kriteria']); // Form tambah kriteria untuk bansos tertentu
-        Route::post('/kriteria', [BansosController::class, 'store_kriteria']); // Menyimpan kriteria baru
+        Route::post('/kriteria', [BansosController::class, 'store_kriteria']); // Menyimpan kriteria baru
     });
 });
