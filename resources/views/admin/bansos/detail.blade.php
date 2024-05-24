@@ -10,8 +10,8 @@
         <div class="container h-full bg-white">
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-b-2 border-teal-500">
                 {{-- Detail --}}
-                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos Yg Ditekan</h1>
-                <p class="pb-5 my-2 text-md text-gray-600">Informasi Jenis Bantuan Sosial Yg Ditekan.</p>
+                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos {{$bansos->nama}}</h1>
+                <p class="pb-5 my-2 text-md text-gray-600">Bantuan Sosial {{$bansos->nama}} diberikan oleh {{$bansos->pengirim}} untuk {{$bansos->jumlah_penerima}} orang.</p>
 
                 <!-- Filter Section -->
                 <div class="flex justify-between">
