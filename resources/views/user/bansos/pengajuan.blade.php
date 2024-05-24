@@ -36,9 +36,14 @@
 
 {{-- Bansos Form --}}
 <section class="section pt-0">
-  <div class="flex container">
-    <div class="justify-center md:col-6 md:order-1">
-      <form class="" action="#" method="POST">
+  <div class="container">
+    <div class="col-12 md:order-1">
+      <form class="px-0 lg:px-60" action="#" method="POST">
+        @error('bansos')
+          <div class="alert alert-error mb-5">
+            <span>a simple alert it out!</span>
+          </div>
+        @enderror
         <div class="form-group mb-5">
           <label class="form-label" for="nama">Nama</label>
           <input
@@ -50,7 +55,7 @@
             value="{{ old('nama') }}"
           />
           @error('nama')
-              <small class="text-red-500 text-sm ml-3">Masukkan nama yg benar ajg</small>
+              <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
         <div class="form-group mb-5">
@@ -64,7 +69,7 @@
             value="{{ old('nik') }}"
           />
           @error('nik')
-              <small class="text-red-500 text-sm ml-3">Masukkan nama yg benar ajg</small>
+              <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
         <div class="form-group mb-5">
@@ -76,7 +81,7 @@
             <option value="Bansos-3">Bansos 3</option>
           </select>
           @error('jenis_bansos')
-              <small class="text-red-500 text-sm ml-3">Masukkan nama yg benar ajg</small>
+              <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
         <button

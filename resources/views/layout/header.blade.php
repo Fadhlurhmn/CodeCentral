@@ -45,8 +45,30 @@
       <li class="nav-item">
         <a href="{{ route('user/umkm') }}" class="nav-link">UMKM</a>
       </li>
-      <li class="nav-item">
-        <a href="{{ route('user/bansos') }}" class="nav-link">Bansos</a>
+      
+      <li class="nav-item nav-dropdown group relative">
+        <span class="nav-link inline-flex items-center">
+          Bansos
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </span>
+        <ul
+          class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100"
+        >
+          <li class="nav-dropdown-item">
+            <a href="{{ route('user/bansos/pengajuan') }}" class="nav-dropdown-link"
+              >Pengajuan</a
+            >
+          </li>
+          <li class="nav-dropdown-item">
+            <a href="{{ route('user/bansos/list') }}" class="nav-dropdown-link"
+              >Daftar Penerima</a
+            >
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a href="{{ route('user/surat') }}" class="nav-link">Surat</a>

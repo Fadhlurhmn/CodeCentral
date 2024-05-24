@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('user.index');
+    return view('index');
 })->name('user/landing');
 
 Route::get('/pengumuman', function () {
@@ -19,13 +19,27 @@ Route::get('/pengumuman/{id}', function () {
     return view('user.pengumuman.show');
 })->name('user/pengumuman/show');
 
-Route::get('/umkm', function () {
-    return view('user.umkm.index');
-})->name('user/umkm');
 
-Route::get('/bansos', function () {
-    return view('user.bansos.index');
-})->name('user/bansos');
+
+Route::group(['prefix' => 'umkm'], function () {
+    Route::get('/', function () {
+        return view('user.umkm.index');
+    })->name('user/umkm');
+
+    Route::get('/promosi-umkm', function () {
+        return view('user.umkm.create');
+    })->name('user/umkm/create');
+});
+
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/list', function () {
+        return view('user.bansos.list');
+    })->name('user/bansos/list');
+    
+    Route::get('/pengajuan', function () {
+        return view('user.bansos.pengajuan');
+    })->name('user/bansos/pengajuan');
+});
 
 Route::get('/surat', function () {
     return view('user.surat.index');

@@ -50,7 +50,7 @@
             alt=""
           />
           <div class="card-content">
-            <h3 class="h4 card-title">
+            <h3 class="h4 card-title ease-in-out duration-300 hover:text-primary"> 
               <a href="{{ route('user/pengumuman/show', ['id' => 1]) }}"
                 >Menjemput Menuju Surga Dalam Kristen</a
               >
@@ -101,7 +101,7 @@
             alt=""
           />
           <div class="card-content">
-            <h3 class="h4 card-title">
+            <h3 class="h4 card-title ease-in-out duration-300 hover:text-primary">
               <a href="{{ route('user/pengumuman/show', ['id' => 1]) }}">
                 STOP GRATIFIKASI!!
               </a>

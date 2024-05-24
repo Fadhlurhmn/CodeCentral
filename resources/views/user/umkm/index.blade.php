@@ -29,6 +29,7 @@
           Selamat datang di halaman UMKM <span class="font-bold">RW 3 Tlogomas.</span> 
           <br>Di sini, Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
         </p>
+        <a class="btn btn-primary mt-4" href="{{ route('user/umkm/create') }}">Promosikan Usaha Anda</a>
     </div>
   </div>
 </section>
