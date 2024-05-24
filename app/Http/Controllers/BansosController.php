@@ -21,11 +21,13 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
+        $bansos = BansosModel::all();
 
         return view('admin.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'bansos' => $bansos
         ]);
     }
 

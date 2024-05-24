@@ -16,15 +16,14 @@
     .custom-scrollbar {
         overflow-y: auto;
     }
-    </style>
-    
+</style>
+
 {{-- End Styling tambahan manual--}}
 
+{{-- Pembatas luar halaman dan background --}}
+<div class="container h-full bg-white cursor-default">
 
-    {{-- Pembatas luar halaman dan background --}}
-    <div class="container h-full bg-white cursor-default">
-
-{{-- Kotak konten atas (Judul,Card & Search) --}}
+    {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         <h1 class="my-2 text-2xl font-extrabold text-gray-600">Daftar Bantuan Sosial</h1>
         
@@ -67,36 +66,36 @@
             </form>
         </div>
         {{-- End Search --}}
-
     </div>
-{{-- End Kotak konten atas (Judul,Card & Search) --}}
+    {{-- End Kotak konten atas (Judul,Card & Search) --}}
 
+    {{-- Start Macam bantuan sosial --}}
+    <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
+        
+        @foreach ($bansos as $Bansos)
+        <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->nama }}">
+            <div class="flex-col">
+                <h1>Bantuan sosial {{$Bansos->nama}}</h1>
+                <p class="text-xs">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}}</p>
+            </div>
 
-{{-- Start Macam bantuan sosial --}}
-<div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
-    @foreach (range(1, 15) as $i)
-    <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md" data-title="Bantuan Sosial {{ $i }}" id="bansosList{{$i}}">
-        <div class="flex-col">
-            <h1>Bantuan Sosial {{ $i }}</h1>
-            <p class="text-xs">Bansos sosial {{ $i }} diberikan oleh pemerintah dengan target bla bla</p>
+            {{-- Button detail bansos --}}
+            <a href="bansos/detail">
+                <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
+            </a>
         </div>
-        {{-- Button detail bansos --}}
-        <a href="bansos/detail">
-            <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
-        </a>
-        {{-- End button detail bansos --}}
-    </div>
-    @endforeach
-    {{-- Pesan ketika tidak ada hasil pencarian --}}
-    <div class="p-4 mb-5 bg-neutral-50 flex justify-center shadow-md rounded-md hidden" id="noResults">
-        <div class="flex-col text-center">
-            <h1 class="text-xl font-bold text-gray-600">No Results Found</h1>
-            <p class="text-xs text-gray-500">Tidak ada bantuan sosial yang sesuai dengan pencarian Anda.</p>
+        @endforeach
+        
+        {{-- Pesan ketika tidak ada hasil pencarian --}}
+        <div class="p-4 mb-5 bg-neutral-50 flex justify-center shadow-md rounded-md hidden" id="noResults">
+            <div class="flex-col text-center">
+                <h1 class="text-xl font-bold text-gray-600">No Results Found</h1>
+                <p class="text-xs text-gray-500">Tidak ada bantuan sosial yang sesuai dengan pencarian Anda.</p>
+            </div>
         </div>
     </div>
+    {{-- End Macam bantuan sosial --}}
 </div>
-{{-- End Macam bantuan sosial --}}
-
 
 @push('js')
 <script>
@@ -107,17 +106,18 @@
 
         searchInput.addEventListener('input', function() {
             const query = searchInput.value.toLowerCase();
+            const bansosItems = document.querySelectorAll('.bansos-item');
             let hasResults = false;
-            @foreach (range(1, 15) as $i)
-                const bansosList{{$i}} = document.getElementById('bansosList{{$i}}');
-                const title{{$i}} = bansosList{{$i}}.getAttribute('data-title').toLowerCase();
-                if (title{{$i}}.includes(query)) {
-                    bansosList{{$i}}.style.display = 'flex';
+
+            bansosItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    item.style.display = 'flex';
                     hasResults = true;
                 } else {
-                    bansosList{{$i}}.style.display = 'none';
+                    item.style.display = 'none';
                 }
-            @endforeach
+            });
 
             if (hasResults) {
                 noResults.classList.add('hidden');
