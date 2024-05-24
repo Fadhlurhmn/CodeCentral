@@ -17,6 +17,9 @@ class KeluargaModel extends Model
     public function detail_keluarga(): HasMany
     {
         return $this->hasMany(detail_keluarga_model::class);
-
+    }
+    public function keluarga_bansos(): HasMany
+    {
+        return $this->hasMany(DetailBansosModel::class);
     }
 }
