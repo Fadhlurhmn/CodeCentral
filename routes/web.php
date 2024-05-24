@@ -8,9 +8,32 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    // return view('index');
-    return redirect('/admin');
-})->name('public');
+    return view('user.index');
+})->name('user/landing');
+
+Route::get('/pengumuman', function () {
+    return view('user.pengumuman.index');
+})->name('user/pengumuman');
+
+Route::get('/pengumuman/{id}', function () {
+    return view('user.pengumuman.show');
+})->name('user/pengumuman/show');
+
+Route::get('/umkm', function () {
+    return view('user.umkm.index');
+})->name('user/umkm');
+
+Route::get('/bansos', function () {
+    return view('user.bansos.index');
+})->name('user/bansos');
+
+Route::get('/surat', function () {
+    return view('user.surat.index');
+})->name('user/surat');
+
+Route::get('/pengaduan', function () {
+    return view('user.pengaduan.index');
+})->name('user/pengaduan');
 
 // Template 
 Route::group(['prefix' => 'template'], function () {
