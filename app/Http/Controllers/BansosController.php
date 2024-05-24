@@ -21,14 +21,21 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
+        
         $bansos = BansosModel::all();
+        
+        $totalBansos = $bansos->count('id_bansos');
+
+        // Lakukan pengecekan apakah kriteria sudah ada atau belum
+        $kriteriaExists = KriteriaBansosModel::count() > 0;
 
         return view('admin.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
-            'bansos' => $bansos
-        ]);
+            'bansos' => $bansos,
+            'totalBansos' => $totalBansos,
+        ])->with('kriteriaExists', $kriteriaExists);
     }
 
     public function list(Request $request)
@@ -62,7 +69,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.show', [
+        return view('admin.bansos.detail', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'bansos' => $bansos,

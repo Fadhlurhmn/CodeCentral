@@ -36,7 +36,7 @@
                         <i class="fad fa-people-carry"></i>
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-semibold">-- Total Bantuan Sosial</h1>
+                        <h1 class="font-semibold">{{$totalBansos}} Total Bantuan Sosial</h1>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,11 @@
         {{-- Search --}}
         <div class="flex mb-3 text-xs">
             <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/create')}}">Tambah Bantuan Sosial</a>
-            <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/create_kriteria')}}">Ubah Kriteria</a>
+            @if ($kriteriaExists)
+                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/kriteria/edit')}}">Ubah Kriteria</a>
+            @else
+                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/kriteria/create')}}">Tambah Kriteria</a>
+            @endif
             <form action="javascript:void(0);" method="GET" class="text-sm font-medium ml-auto" id="searchForm">
                 <input type="text" id="searchInput" name="query" placeholder="Cari nama bansos..." class="px-4 py-2 border border-gray-500 rounded-md text-xs">
             </form>
@@ -81,7 +85,7 @@
 
             {{-- Button detail bansos --}}
             <div class="flex justify-end gap-3">
-                <a href="bansos/detail">
+                <a href={{ url('admin/bansos/'.$Bansos->id_bansos.'/show') }}>
                     <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
                 </a>
                 <a href={{ url('admin/bansos/'.$Bansos->id_bansos . '/edit') }}>
