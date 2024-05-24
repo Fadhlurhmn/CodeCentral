@@ -6,6 +6,7 @@ use App\Http\Controllers\PendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BansosController;
 
 Route::get('/', function () {
     // return view('index');
@@ -157,5 +158,17 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
         Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
+    });
+    Route::group(['prefix' => 'bansos'], function () {
+        Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
+        Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
+        Route::get('/create', [BansosController::class, 'create_bansos']); // Form tambah bansos
+        Route::post('/', [BansosController::class, 'store_bansos']); // Menyimpan bansos baru
+        Route::get('/{id}/show', [BansosController::class, 'show']); // Menampilkan detail bansos
+        Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
+        Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
+        Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
+        Route::get('/{id}/create_kriteria', [BansosController::class, 'create_kriteria']); // Form tambah kriteria untuk bansos tertentu
+        Route::post('/kriteria', [BansosController::class, 'store_kriteria']); // Menyimpan kriteria baru
     });
 });
