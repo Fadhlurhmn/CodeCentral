@@ -43,6 +43,33 @@ class BansosController extends Controller
             ->make(true);
     }
 
+    // detail bansos
+    public function show($id)
+    {
+        $bansos = BansosModel::find($id);
+
+        if (!$bansos) {
+            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+        }
+        $breadcrumb = (object) [
+            'title' => 'Detail Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail datail bansos '
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
     // Form tambah bansos
     public function create_bansos()
     {
@@ -172,6 +199,7 @@ class BansosController extends Controller
         }
     }
 
+    // hapus bansos
     public function delete_bansos($id)
     {
         $bansos = BansosModel::find($id);
