@@ -34,18 +34,16 @@
                                     <tr class="border-b">
                                         {{-- <td class="p-3">{{ $request->no }}</td>
                                         <td class="p-3">{{ $request->no_keluarga }}</td>
-                                        <td class="p-3">{{ $request->nama }}</td>
                                         <td class="p-3">{{ $request->tanggal }}</td> --}}
                                         <td class="p-3">No</td>
                                         <td class="p-3">12345</td>
-                                        {{-- <td class="p-3"></td> --}}
                                         <td class="p-3">12-09-2023</td>
                                         <td class="p-3">
-                                            {{-- <span class="px-2 py-1 rounded-full text-white {{ $request->status == 'acc' ? 'bg-green-500' : 'bg-red-500' }}">
+                                            {{-- <span class="px-2 py-1 rounded-full text-white {{ $request->status == 'acc' ? 'bg-teal-600' : 'bg-red-600' }}">
                                                 {{ ucfirst($request->status) }}
                                             </span> --}}
-                                            <span class="px-2 py-1 rounded-full text-white bg-red-500">
-                                                terima
+                                            <span class="px-2 py-1 rounded-full text-white bg-red-600">
+                                                tolak
                                             </span>
                                         </td>
                                     </tr>
@@ -81,7 +79,7 @@
                                         <td class="p-3">{{ $request->nama }}</td>
                                         <td class="p-3">{{ $request->tanggal }}</td>
                                         <td class="p-3">
-                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-500">
+                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
                                                 {{ ucfirst($request->status) }}
                                             </span>
                                         </td> --}}
@@ -90,14 +88,14 @@
                                         <td class="p-3">12-09-2002</td>
                                         {{-- <td class="p-3"></td> --}}
                                         <td class="p-3">
-                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-500">
+                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
                                                 Pending
                                             </span>
                                         </td>
                                         <td class="p-3 space-x-2">
-                                            {{-- <button onclick="updateStatus('{{ $request->id }}', 'acc')" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Terima</button>
+                                            {{-- <button onclick="updateStatus('{{ $request->id }}', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-600/60">Terima</button>
                                             <button onclick="updateStatus('{{ $request->id }}', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button> --}}
-                                            <button onclick="updateStatus('', 'acc')" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Terima</button>
+                                            <button onclick="updateStatus('', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-700/60">Terima</button>
                                             <button onclick="updateStatus('', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button>
                                         </td>
                                     </tr>
