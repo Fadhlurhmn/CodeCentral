@@ -163,10 +163,8 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     Route::group(['prefix' => 'kriteria'], function () {
-        Route::get('/create', [KriteriaController::class, 'create_kriteria']); //menambahkan
+        Route::get('/update', [KriteriaController::class, 'update_kriteria']); //menambahkan
         Route::post('/', [KriteriaController::class, 'store_kriteria']); // Menyimpan kriteria baru
-        Route::get('/{id}/edit', [KriteriaController::class, 'edit_kriteria']); //mengedit
-        Route::post('/{id}', [KriteriaController::class, 'update_kriteria']); // mengupdate kriteria baru
-        Route::delete('/{id}', [KriteriaController::class, 'delete_kriteria']); // menghapus
+        Route::get('/show', [KriteriaController::class, 'show_kriteria']); // melihat kriteria
     });
 });
