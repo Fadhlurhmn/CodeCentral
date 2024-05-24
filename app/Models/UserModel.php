@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
 
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     protected $fillable = ['username', 'id_penduduk', 'password', 'id_level', 'status_akun'];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public function penduduk()
     {
