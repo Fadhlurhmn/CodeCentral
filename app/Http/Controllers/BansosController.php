@@ -6,7 +6,6 @@ use App\Models\BansosModel;
 use App\Models\DetailBansosModel;
 use App\Models\KriteriaBansosModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Yajra\DataTables\Facades\DataTables;
 
 class BansosController extends Controller
@@ -24,7 +23,11 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.bansos', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.bansos.bansos', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function list(Request $request)
@@ -34,15 +37,13 @@ class BansosController extends Controller
         return DataTables::of($bansos)
             ->addIndexColumn()
             ->addColumn('aksi', function ($bansos) {
-                $btn = '<a href="' . url('admin/bansos/' . $bansos->id_bansos . '/show') . '"';
-
-                return $btn;
+                return '<a href="' . url('admin/bansos/' . $bansos->id_bansos . '/show') . '">Detail</a>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
 
-    // form tambah bansos
+    // Form tambah bansos
     public function create_bansos()
     {
         $breadcrumb = (object)[
@@ -55,10 +56,14 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
-        return view('admin.bansos.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.bansos.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
-    // simpan data bansos ke database
+    // Simpan data bansos ke database
     public function store_bansos(Request $request)
     {
         $request->validate([
@@ -70,27 +75,24 @@ class BansosController extends Controller
             'jumlah_penerima' => 'required|integer'
         ]);
 
-        BansosModel::create([
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-            'tanggal_pemberian' => $request->tanggal_pemberian,
-            'pengirim' => $request->pengirim,
-            'bentuk_pemberian' => $request->bentuk_pemberian,
-            'jumlah_penerima' => $request->jumlah_penerima
-        ]);
+        $bansos = BansosModel::create($request->all());
 
-        $bansos = BansosModel::where('kode', $request->kode)->first();
-
-        return redirect('admin/bansos/' . $bansos->id_bansos . '/create_kriteria')->with('success', 'Data Bansos Berhasil Ditambahkan');
+        return redirect('admin/bansos/' . $bansos->id_bansos . '/create_kriteria')
+            ->with('success', 'Data Bansos Berhasil Ditambahkan');
     }
 
-    // form tambah kriteria yang diguankan pada bansos
+    // Form tambah kriteria yang digunakan pada bansos
     public function create_kriteria($id)
     {
-        $bansos = BansosModel::where('id_bansos', $id);
+        $bansos = BansosModel::find($id);
+
+        if (!$bansos) {
+            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
+        }
+
         $breadcrumb = (object)[
             'title' => 'Kriteria Bansos ' . $bansos->nama,
-            'list' => ['Home', 'Kriteria Bansos ' . $bansos->nama . 'Tambah']
+            'list' => ['Home', 'Kriteria Bansos', 'Tambah']
         ];
 
         $page = (object)[
@@ -98,30 +100,32 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'kriteria_bansos';
-        return view('admin.bansos.create_kriteria', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
+        return view('admin.bansos.create_kriteria', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
-    // simpan data kriteria yang diinputkan pada form
+    // Simpan data kriteria yang diinputkan pada form
     public function store_kriteria(Request $request)
     {
         $request->validate([
+            'id_bansos' => 'required|integer|exists:bansos,id_bansos',
             'nama_kriteria' => 'required|string',
-            'bobot' => 'kriteria|double'
+            'bobot' => 'required|numeric'
         ]);
 
-        KriteriaBansosModel::create([
-            'id_bansos' => $request->id_bansos,
-            'nama_kriteria' => $request->nama_kriteria,
-            'bobot' => $request->bobot
-        ]);
+        KriteriaBansosModel::create($request->all());
 
-        return redirect('admin/bansos')->with('success', 'Kriteria Bansos Berhasil ditambahkan');
+        return redirect('admin/bansos')->with('success', 'Kriteria Bansos Berhasil Ditambahkan');
     }
 
-    // edit data bansos
+    // Form edit data bansos
     public function edit_bansos($id)
     {
-        $bansos = BansosModel::fid($id);
+        $bansos = BansosModel::find($id);
 
         if (!$bansos) {
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
@@ -137,13 +141,17 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
-        return view('admin.bansos.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'bansos' => $bansos, 'activeMenu' => $activeMenu]);
+        return view('admin.bansos.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
-    // simpan perubahan bansos
+    // Simpan perubahan bansos
     public function update_bansos(Request $request, string $id)
     {
-        // Validasi data yang diterima dari request
         $request->validate([
             'kode' => 'required|string',
             'nama' => 'required|string',
@@ -153,47 +161,27 @@ class BansosController extends Controller
             'jumlah_penerima' => 'required|integer'
         ]);
 
-        // Mencari data bansos berdasarkan id
         $bansos = BansosModel::find($id);
 
-        // Mengecek apakah data bansos ditemukan
         if ($bansos) {
-            // Mengupdate data bansos
-            $bansos->update([
-                'kode' => $request->kode,
-                'nama' => $request->nama,
-                'tanggal_pemberian' => $request->tanggal_pemberian,
-                'pengirim' => $request->pengirim,
-                'bentuk_pemberian' => $request->bentuk_pemberian,
-                'jumlah_penerima' => $request->jumlah_penerima
-            ]);
+            $bansos->update($request->all());
 
-            // Redirect ke halaman admin/bansos dengan pesan sukses
             return redirect('admin/bansos')->with('success', 'Kriteria Bansos Berhasil diperbarui');
         } else {
-            // Jika data bansos tidak ditemukan, redirect dengan pesan error
             return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
         }
     }
 
     public function delete_bansos($id)
     {
-        // Mencari data bansos berdasarkan id
         $bansos = BansosModel::find($id);
 
-        // Mengecek apakah data bansos ditemukan
         if ($bansos) {
-            // Menghapus data bansos
             $bansos->delete();
 
-            // Redirect ke halaman admin/bansos dengan pesan sukses
             return redirect('admin/bansos')->with('success', 'Data Bansos Berhasil dihapus');
         } else {
-            // Jika data bansos tidak ditemukan, redirect dengan pesan error
             return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
         }
     }
-
-
-    // kalkulasi perhitungan metode SMART
 }
