@@ -113,45 +113,6 @@ class BansosController extends Controller
             ->with('success', 'Data Bansos Berhasil Ditambahkan');
     }
 
-    public function create_kriteria($id)
-    {
-        $bansos = BansosModel::find($id);
-
-        if (!$bansos) {
-            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
-        }
-
-        $breadcrumb = (object)[
-            'title' => 'Kriteria Bansos ' . $bansos->nama,
-            'list' => ['Home', 'Kriteria Bansos', 'Tambah']
-        ];
-
-        $page = (object)[
-            'title' => 'Kriteria Bansos ' . $bansos->nama
-        ];
-
-        $activeMenu = 'kriteria_bansos';
-        return view('admin.bansos.create_kriteria', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'bansos' => $bansos,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function store_kriteria(Request $request)
-    {
-        $request->validate([
-            'id_bansos' => 'required|integer|exists:bansos,id_bansos',
-            'nama_kriteria' => 'required|string',
-            'bobot' => 'required|numeric'
-        ]);
-
-        KriteriaBansosModel::create($request->all());
-
-        return redirect('admin/bansos')->with('success', 'Kriteria Bansos Berhasil Ditambahkan');
-    }
-
     public function edit_bansos($id)
     {
         $bansos = BansosModel::find($id);
