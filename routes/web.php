@@ -89,6 +89,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/bansos', function () {
         return view('admin.bansos.bansos');
     });
+    Route::get('/bansos/create', function () {
+        return view('admin.bansos.create');
+    });
     Route::get('/bansos/detail', function () {
         return view('admin.bansos.detail');
     });
