@@ -81,12 +81,17 @@
 
             {{-- Button detail bansos --}}
             <div class="flex justify-end gap-3">
-                <a href={{ url('admin/bansos/'.$Bansos->id_bansos . '/edit') }}>
-                    <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-gray-900/80 hover:bg-yellow-500/30 transition duration-200 ease-in-out">Edit <i class="fad fa-pencil-alt"></i></button>
-                </a>
                 <a href="bansos/detail">
                     <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
                 </a>
+                <a href={{ url('admin/bansos/'.$Bansos->id_bansos . '/edit') }}>
+                    <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-yellow-900/80 hover:bg-yellow-500/30 transition duration-200 ease-in-out">Edit <i class="fad fa-pencil-alt"></i></button>
+                </a>
+                <form action="{{ url('admin/bansos/'.$Bansos->id_bansos) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus <i class="fad fa-trash"></i></button>
+                </form>
             </div>
         </div>
         @endforeach
