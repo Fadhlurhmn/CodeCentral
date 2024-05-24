@@ -80,9 +80,14 @@
             </div>
 
             {{-- Button detail bansos --}}
-            <a href="bansos/detail">
-                <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
-            </a>
+            <div class="flex justify-end gap-3">
+                <a href={{ url('admin/bansos/'.$Bansos->id_bansos . '/edit') }}>
+                    <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-gray-900/80 hover:bg-yellow-500/30 transition duration-200 ease-in-out">Edit <i class="fad fa-pencil-alt"></i></button>
+                </a>
+                <a href="bansos/detail">
+                    <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
+                </a>
+            </div>
         </div>
         @endforeach
         
