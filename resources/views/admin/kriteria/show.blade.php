@@ -3,6 +3,7 @@
         <tr>
             <th>Kriteria</th>
             <th>Bobot</th>
+            <th>Jenis</th>
         </tr>
     </thead>
     <tbody>
@@ -10,6 +11,7 @@
             <tr>
                 <td>{{ $item->nama_kriteria }}</td>
                 <td>{{ $item->bobot }}</td>
+                <td>{{ $item->jenis}}</td>
             </tr>
         @endforeach
     </tbody>

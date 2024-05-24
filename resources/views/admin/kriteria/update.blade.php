@@ -20,6 +20,10 @@
                             <div class="flex items-center gap-x-4 mt-2">
                                 <input type="text" name="kriteria[]" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Kriteria" required>
                                 <input type="number" name="bobot[]" class="bobot-input shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Bobot" oninput="calculateTotalBobot()" required>
+                                <select name="jenis[]" id="" class="shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5">
+                                    <option value="benefit">Benefit</option>
+                                    <option value="cost">Cost</option>
+                                </select>
                                 <button type="button" class="remove-kriteria p-2 bg-red-600 text-white hover:bg-red-700 focus:outline-none rounded-lg" onclick="removeKriteria(this)">Hapus</button>
                             </div>
                         </div>
@@ -48,17 +52,21 @@
 
 @include('layout.end')
 <script>
-    function addKriteria() {
-        const container = document.getElementById('kriteria-container');
-        const kriteriaDiv = document.createElement('div');
-        kriteriaDiv.className = 'flex items-center gap-x-4 mt-2';
-        kriteriaDiv.innerHTML = `
-            <input type="text" name="kriteria[]" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Kriteria" required>
-            <input type="number" name="bobot[]" class="bobot-input shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Bobot" oninput="calculateTotalBobot()" required>
-            <button type="button" class="remove-kriteria p-2 bg-red-600 text-white hover:bg-red-700 focus:outline-none rounded-lg" onclick="removeKriteria(this)">Hapus</button>
-        `;
-        container.appendChild(kriteriaDiv);
-    }
+function addKriteria() {
+    const container = document.getElementById('kriteria-container');
+    const kriteriaDiv = document.createElement('div');
+    kriteriaDiv.className = 'flex items-center gap-x-4 mt-2';
+    kriteriaDiv.innerHTML = `
+        <input type="text" name="kriteria[]" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Kriteria" required>
+        <input type="number" name="bobot[]" class="bobot-input shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Bobot" oninput="calculateTotalBobot()" required>
+        <select name="jenis[]" class="shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5">
+            <option value="Benefit">Benefit</option>
+            <option value="Cost">Cost</option>
+        </select>
+        <button type="button" class="remove-kriteria p-2 bg-red-600 text-white hover:bg-red-700 focus:outline-none rounded-lg" onclick="removeKriteria(this)">Hapus</button>
+    `;
+    container.appendChild(kriteriaDiv);
+}
     
     function removeKriteria(button) {
         button.parentElement.remove();

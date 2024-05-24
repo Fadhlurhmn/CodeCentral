@@ -58,16 +58,18 @@ class KriteriaController extends Controller
 
     public function store_kriteria(Request $request)
     {
+        // dd($request->all());
         // Menghapus semua data jika sudah ada sebelumnya
         KriteriaBansosModel::query()->delete();
 
         $request->validate([
             'kriteria.*' => 'required|string',
-            'bobot.*' => 'required|numeric'
+            'bobot.*' => 'required|numeric',
+            'jenis.*' => 'required|string'
         ]);
 
         // Mengambil semua data yang dikirimkan melalui form
-        $kriteriaData = $request->only('kriteria', 'bobot');
+        $kriteriaData = $request->only('kriteria', 'bobot', 'jenis');
 
         // Inisialisasi array untuk menyimpan data kriteria
         $kriteria = [];
@@ -78,6 +80,7 @@ class KriteriaController extends Controller
             $kriteria[] = [
                 'nama_kriteria' => $kriteriaData['kriteria'][$key],
                 'bobot' => $kriteriaData['bobot'][$key],
+                'jenis' => $kriteriaData['jenis'][$key]
             ];
         }
 
