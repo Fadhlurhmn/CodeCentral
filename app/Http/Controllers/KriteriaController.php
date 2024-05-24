@@ -21,7 +21,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'kriteria';
 
-        return view('admin.bansos.kriteria.index', [
+        return view('admin.kriteria.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -35,7 +35,7 @@ class KriteriaController extends Controller
         return DataTables::of($kriteria)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kriteria) {
-                return '<a href="' . url('admin/bansos/kriteria/' . $kriteria->id_kriteria . '/show') . '">Detail</a>';
+                return '<a href="' . url('admin/kriteria/' . $kriteria->id_kriteria . '/show') . '">Detail</a>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -46,7 +46,7 @@ class KriteriaController extends Controller
         $kriteria = KriteriaBansosModel::find($id);
 
         if (!$kriteria) {
-            return redirect('admin/bansos/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
 
         $breadcrumb = (object) [
@@ -60,7 +60,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'kriteria';
 
-        return view('admin.bansos.kriteria.show', [
+        return view('admin.kriteria.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kriteria' => $kriteria,
@@ -81,7 +81,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'kriteria';
 
-        return view('admin.bansos.kriteria.create', [
+        return view('admin.kriteria.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -90,26 +90,39 @@ class KriteriaController extends Controller
 
     public function store_kriteria(Request $request)
     {
+        // dd($request->all());
         $request->validate([
-            'nama_kriteria' => 'required|string',
-            'bobot' => 'required|numeric'
+            'kriteria.*' => 'required|string',
+            'bobot.*' => 'required|numeric'
         ]);
 
-        $kriteria = new KriteriaBansosModel();
-        $kriteria->nama_kriteria = $request->nama_kriteria;
-        $kriteria->bobot = $request->bobot;
-        $kriteria->save();
+        // Mengambil semua data yang dikirimkan melalui form
+        $kriteriaData = $request->only('kriteria', 'bobot');
 
-        return redirect('admin/bansos/kriteria')
+        // Inisialisasi array untuk menyimpan data kriteria
+        $kriteria = [];
+
+        // Melakukan iterasi untuk setiap elemen dalam array nama_kriteria dan bobot
+        foreach ($kriteriaData['kriteria'] as $key => $value) {
+            // Menambahkan data kriteria ke dalam array kriteria
+            $kriteria[] = [
+                'nama_kriteria' => $kriteriaData['kriteria'][$key],
+                'bobot' => $kriteriaData['bobot'][$key],
+            ];
+        }
+
+        // Menyimpan data kriteria ke dalam database
+        KriteriaBansosModel::insert($kriteria);
+
+        return redirect('admin/bansos')
             ->with('success', 'Data Kriteria Berhasil Ditambahkan');
     }
-
     public function edit_kriteria($id)
     {
         $kriteria = KriteriaBansosModel::find($id);
 
         if (!$kriteria) {
-            return redirect('admin/bansos/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
 
         $breadcrumb = (object)[
@@ -123,7 +136,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'kriteria';
 
-        return view('admin.bansos.kriteria.edit', [
+        return view('admin.kriteria.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kriteria' => $kriteria,
@@ -145,9 +158,9 @@ class KriteriaController extends Controller
             $kriteria->bobot = $request->bobot;
             $kriteria->save();
 
-            return redirect('admin/bansos/kriteria')->with('success', 'Data Kriteria Berhasil diperbarui');
+            return redirect('admin/kriteria')->with('success', 'Data Kriteria Berhasil diperbarui');
         } else {
-            return redirect('admin/bansos/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
     }
 
@@ -158,9 +171,9 @@ class KriteriaController extends Controller
         if ($kriteria) {
             $kriteria->delete();
 
-            return redirect('admin/bansos/kriteria')->with('success', 'Data Kriteria Berhasil dihapus');
+            return redirect('admin/kriteria')->with('success', 'Data Kriteria Berhasil dihapus');
         } else {
-            return redirect('admin/bansos/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
     }
 }

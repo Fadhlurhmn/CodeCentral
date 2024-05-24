@@ -61,9 +61,9 @@
         <div class="flex mb-3 text-xs">
             <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/create')}}">Tambah Bantuan Sosial</a>
             @if ($kriteriaExists)
-                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/kriteria/edit')}}">Ubah Kriteria</a>
+                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/kriteria/edit')}}">Ubah Kriteria</a>
             @else
-                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/bansos/kriteria/create')}}">Tambah Kriteria</a>
+                <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/kriteria/create')}}">Tambah Kriteria</a>
             @endif
             <form action="javascript:void(0);" method="GET" class="text-sm font-medium ml-auto" id="searchForm">
                 <input type="text" id="searchInput" name="query" placeholder="Cari nama bansos..." class="px-4 py-2 border border-gray-500 rounded-md text-xs">

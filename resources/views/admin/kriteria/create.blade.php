@@ -6,13 +6,10 @@
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
         <div class="w-full h-fit min-w-max p-5">
-            
-            <form id="form_kriteria" action="{{ url('admin/bansos/kriteria') }}" method="POST">
-                
+            <form id="form_kriteria" action="{{ url('admin/kriteria') }}" method="POST">
                 @csrf
                 <div class="px-10 py-10 text-xs bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline outline-none outline-4 outline-gray-700 rounded-xl">
                     <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full">
-                        {{-- {{$page->title}} --}}
                         Penambahan Kriteria
                     </h1>
                     
@@ -28,14 +25,14 @@
                         </div>
                         <button type="button" class="py-1.5 px-2 mt-2 bg-teal-500 hover:bg-teal-600 text-white focus:outline-none rounded-lg" onclick="addKriteria()">Tambah Kriteria</button>
                     </div>
-    
+            
                     {{-- Total Bobot --}}
                     <div class="col-span-4 mt-4">
                         <label for="total_bobot" class="block text-sm font-medium text-gray-700">Total Bobot</label>
                         <input type="number" id="total_bobot" class="p-2 mt-1 block w-24 rounded-md bg-gray-50 border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" readonly>
                         <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Total bobot harus tepat 100.</p>
                     </div>
-    
+            
                     {{-- Button submit --}}
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
                         <a href="{{ url('admin/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
@@ -43,6 +40,7 @@
                     </div>
                 </div>
             </form>
+            
 
         </div>
     </div>
