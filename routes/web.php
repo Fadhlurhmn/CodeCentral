@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BansosController;
+use App\Http\Controllers\KriteriaController;
 
 Route::get('/', function () {
     // return view('index');
@@ -168,7 +169,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
-        Route::get('/{id}/create_kriteria', [BansosController::class, 'create_kriteria']); // Form tambah kriteria untuk bansos tertentu
-        Route::post('/kriteria', [BansosController::class, 'store_kriteria']); // Menyimpan kriteria baru
+
+        Route::get('/kriteria', [KriteriaController::class, 'index']); // menampilkan daftar kriteria
+        Route::post('/kriteria/list', [KriteriaController::class, 'list']); // mengambil daftar kriteria untuk datatables
+        Route::get('/kriteria/create', [KriteriaController::class, 'create_kriteria']); //menambahkan kriteria
+        Route::post('/kriteria', [KriteriaController::class, 'store_kriteria']); // Menyimpan kriteria baru
+        Route::get('/kriteria/{id}/edit', [KriteriaController::class, 'edit_kriteria']); //mengedit kriteria
+        Route::post('/kriteria/{id}', [KriteriaController::class, 'update_kriteria']); // mengupdate kriteria baru
+        Route::delete('/kriteria/{id}', [KriteriaController::class, 'delete_kriteria']); // menghapus kriteria
     });
 });
