@@ -107,7 +107,7 @@ class BansosController extends Controller
         $bansos->jumlah_penerima = $request->jumlah_penerima;
         $bansos->save();
 
-        return redirect('admin/bansos/' . $bansos->id_bansos . '/create_kriteria')
+        return redirect('admin/bansos/')
             ->with('success', 'Data Bansos Berhasil Ditambahkan');
     }
 
