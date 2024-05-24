@@ -76,7 +76,7 @@
         <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->nama }}">
             <div class="flex-col">
                 <h1>Bantuan sosial {{$Bansos->nama}}</h1>
-                <p class="text-xs">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}}</p>
+                <p class="text-xs">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
             </div>
 
             {{-- Button detail bansos --}}
