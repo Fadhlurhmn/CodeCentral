@@ -94,6 +94,7 @@ function addKriteria() {
 
 function removeKriteria(button) {
     button.parentElement.remove();
+    calculateTotalBobot();
 }
 
 function calculateTotalBobot() {
