@@ -11,10 +11,10 @@ class DetailBansosModel extends Model
     use HasFactory;
     protected $table = 'detail_bansos';
 
-    protected $fillable = ['id_keluarga', 'id_kriteria', 'nilai_kriteria', 'status'];
+    protected $fillable = ['id_keluarga', 'status'];
 
-    public function value_kriteria(): BelongsTo
+    public function keluarga(): BelongsTo
     {
-        return $this->belongsTo(KriteriaBansosModel::class, 'id_kriterai', 'id_kriteria');
+        return $this->belongsTo(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
     }
 }

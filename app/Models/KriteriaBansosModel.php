@@ -13,15 +13,10 @@ class KriteriaBansosModel extends Model
     protected $table = 'kriteria_bansos';
     protected $primaryKey = 'id_kriteria';
 
-    protected $fillable = ['id_bansos', 'nama_kriteria', 'bobot'];
-
-    public function Bansos(): BelongsTo
-    {
-        return $this->belongsTo(BansosModel::class, 'id_bansos', 'id_bansos');
-    }
+    protected $fillable = ['nama_kriteria', 'bobot'];
 
     public function kriteria_keluarga(): HasMany
     {
-        return $this->hasMany(DetailBansosModel::class);
+        return $this->hasMany(KriteriaKeluargaModel::class);
     }
 }
