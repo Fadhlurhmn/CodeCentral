@@ -21,9 +21,9 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
-        
+
         $bansos = BansosModel::all();
-        
+
         $totalBansos = $bansos->count('id_bansos');
 
         // Lakukan pengecekan apakah kriteria sudah ada atau belum
@@ -53,11 +53,13 @@ class BansosController extends Controller
 
     public function show($id)
     {
-        $bansos = BansosModel::find($id);
+        // Mengambil data Bansos beserta DetailBansos terkait berdasarkan id_bansos
+        $bansos = BansosModel::with(['detail_bansos.keluarga'])->find($id);
 
         if (!$bansos) {
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
+
         $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
             'list' => ['Home', 'Bantuan Sosial', 'Detail']
@@ -73,7 +75,8 @@ class BansosController extends Controller
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'bansos' => $bansos,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'detailBansos' => $bansos->detail_bansos
         ]);
     }
 

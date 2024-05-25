@@ -17,4 +17,9 @@ class DetailBansosModel extends Model
     {
         return $this->belongsTo(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
     }
+
+    public function bansos(): BelongsTo
+    {
+        return $this->belongsTo(BansosModel::class, 'id_bansos', 'id_bansos');
+    }
 }

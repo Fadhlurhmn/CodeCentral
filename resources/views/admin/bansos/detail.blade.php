@@ -46,7 +46,12 @@
                             </tr>
                         </thead>
                         <tbody id="table-body" class="text-gray-700">
-                            <!-- Data rows will be inserted here -->
+                            @foreach($bansos->detail_bansos as $index => $detail)
+                                <tr class="border-b">
+                                    <td class="p-3 text-sm">{{ $index + 1 }}</td>
+                                    <td class="p-3 text-sm">{{ $detail->keluarga->nomor_keluarga }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -64,63 +69,81 @@
 @include('layout.end')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const filterPeriode = document.getElementById('filter-periode');
-    const searchBar = document.getElementById('search-bar');
-    const tableBody = document.getElementById('table-body');
-    const pagination = document.getElementById('pagination');
-
-    filterPeriode.addEventListener('change', filterData);
-    searchBar.addEventListener('input', filterData);
-
-    function filterData() {
-        const periode = filterPeriode.value.toLowerCase();
-        const searchQuery = searchBar.value.toLowerCase();
-
-        // Fetch and filter data (dummy data example)
-        const data = [
-            { no: 1, noKeluarga: '12345' },
-            { no: 2, noKeluarga: '67890' },
-            // Add more data here
-        ];
-
-        const filteredData = data.filter(item => {
-            const itemTanggal = new Date(item.tanggal).toLocaleString('id-ID', { month: 'long' }).toLowerCase();
-            const matchesPeriode = periode ? itemTanggal.includes(periode) : true;
-            const matchesSearch = item.noKeluarga.includes(searchQuery);
-
-            return matchesPeriode && matchesSearch;
-        });
-
-        renderTable(filteredData);
-        renderPagination(filteredData);
-    }
-
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        data.forEach(item => {
-            const row = `<tr class="border-b">
-                <td class="p-3">${item.no}</td>
-                <td class="p-3">${item.noKeluarga}</td>
-            </tr>`;
-            tableBody.insertAdjacentHTML('beforeend', row);
-        });
-    }
-
-    function renderPagination(data) {
-        // Implement pagination if needed
-        pagination.innerHTML = '';
-        // Example pagination buttons
-        if (data.length > 10) {
-            pagination.innerHTML = `
-                <button class="mx-1 px-3 py-1 border rounded hover:bg-teal-500 hover:text-white transition duration-300">Previous</button>
-                <button class="mx-1 px-3 py-1 border rounded hover:bg-teal-500 hover:text-white transition duration-300">Next</button>
-            `;
+    document.addEventListener('DOMContentLoaded', function() {
+        const rowsPerPage = 5;
+        let currentPage = 1;
+    
+        const tableBody = document.getElementById('table-body');
+        const pagination = document.getElementById('pagination');
+        const searchBar = document.getElementById('search-bar');
+        const filterPeriode = document.getElementById('filter-periode');
+        
+        const originalData = Array.from(tableBody.children);
+    
+        function renderTable(data, page = 1) {
+            tableBody.innerHTML = '';
+    
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = data.slice(start, end);
+    
+            paginatedData.forEach((row, index) => {
+                row.querySelector('td:first-child').textContent = start + index + 1;
+                tableBody.appendChild(row);
+            });
+    
+            renderPagination(data.length);
         }
-    }
-
-    // Initial render
-    filterData();
-});
-
-</script>
+    
+        function renderPagination(totalRows) {
+            pagination.innerHTML = '';
+    
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+    
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-teal-700', 'bg-white', 'hover:bg-teal-500', 'hover:text-white');
+    
+                if (i === currentPage) {
+                    button.classList.add('bg-teal-500', 'text-white');
+                }
+    
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    filterAndRenderTable();
+                });
+    
+                pagination.appendChild(button);
+            }
+        }
+    
+        function filterAndRenderTable() {
+            const searchTerm = searchBar.value.toLowerCase();
+            const selectedPeriod = filterPeriode.value;
+    
+            const filteredData = originalData.filter(row => {
+                const noKeluarga = row.children[1].textContent.toLowerCase();
+                const matchesSearch = noKeluarga.includes(searchTerm);
+                const matchesPeriod = selectedPeriod === '' || noKeluarga.includes(selectedPeriod); // Adjust this logic based on actual data structure
+    
+                return matchesSearch && matchesPeriod;
+            });
+    
+            renderTable(filteredData, currentPage);
+        }
+    
+        searchBar.addEventListener('input', () => {
+            currentPage = 1;
+            filterAndRenderTable();
+        });
+    
+        filterPeriode.addEventListener('change', () => {
+            currentPage = 1;
+            filterAndRenderTable();
+        });
+    
+        renderTable(originalData);
+    });
+    </script>
+    
