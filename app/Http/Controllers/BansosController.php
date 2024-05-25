@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
 use App\Models\DetailBansosModel;
+use App\Models\historibansos;
 use App\Models\KriteriaBansosModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -219,8 +220,9 @@ class BansosController extends Controller
 
     public function cek_histori()
     {
-        // ambil data histori penerimaan bansos
-        $histori_bansos = DetailBansosModel::where('status', 'acc')->get();
+        $histori_bansos = historibansos::all();
+
+        dd($histori_bansos);
 
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
