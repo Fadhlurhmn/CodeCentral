@@ -8,6 +8,8 @@ use App\Models\bansos\histori_penerimaan_bansos;
 use App\Models\bansos\KriteriaBansosModel;
 use App\Models\bansos\list_rekomendasi_bansos;
 use App\Models\BansosModel as ModelsBansosModel;
+use App\Models\detail_pertimbangan_acc_bansos;
+use App\Models\DetailBansosModel as ModelsDetailBansosModel;
 use App\Models\histori_penerimaan_bansos as ModelsHistori_penerimaan_bansos;
 use App\Models\KriteriaBansosModel as ModelsKriteriaBansosModel;
 use App\Models\list_rekomendasi_bansos as ModelsList_rekomendasi_bansos;
@@ -248,7 +250,7 @@ class BansosController extends Controller
     // ini buat nampilin list rekomendasi penerimaan bansos beserta ranking nya berdasarkan id bansos
     public function list_rekomendasi($id)
     {
-        $rekomendasi = ModelsList_rekomendasi_bansos::find('id_bansos', $id);
+        $rekomendasi = ModelsList_rekomendasi_bansos::where('id_bansos', $id)->get();
 
         $breadcrumb = (object) [
             'title' => 'Rekomendasi Penerimaan Bantuan Sosial',
@@ -267,5 +269,47 @@ class BansosController extends Controller
             'rekomendasi' => $rekomendasi,
             'activeMenu' => $activeMenu
         ]);
+    }
+    // show detail isi jawaban form kriteria
+    public function show_kriteria($id)
+    {
+        $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id)->first();
+        $breadcrumb = (object) [
+            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Detail Keluarga Penerimaan']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.detail_kriteria', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'detail' => $detail,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    public function update_acc_bansos(Request $request)
+    {
+        $request->validate([
+            'status' => 'required|in:acc,tolak'
+        ]);
+
+        $cari_data = ModelsDetailBansosModel::where('id_keluarga', $request->id_keluarga)
+            ->where('id_bansos', $request->id_bansos)
+            ->first();
+
+        if ($cari_data) {
+            $cari_data->update([
+                'status' => $request->status
+            ]);
+
+            return redirect('admin/bansos')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
+        } else {
+            return redirect('admin/bansos')->with('error', 'Data tidak ditemukan');
+        }
     }
 }

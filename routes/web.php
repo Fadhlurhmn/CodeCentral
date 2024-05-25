@@ -151,6 +151,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']); // nampilin form tambah detail keluarga
         Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']); // simpan data ke dalam database
     });
+
     Route::group(['prefix' => 'bansos'], function () {
         Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
         Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
@@ -161,9 +162,16 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
-        Route::get('/histori', [BansosController::class, 'cek_histori']); // melihat histori penerimaan bansos
-        Route::get('/rekomendasi/{id}', [BansosController::class, 'list_rekomendasi']); // cek rekomendasi per id bansos
+        Route::get('/histori', [BansosController::class, 'cek_histori']); // Melihat histori penerimaan bansos
+        Route::get('/rekomendasi/{id}', [BansosController::class, 'list_rekomendasi']); // Cek rekomendasi per id bansos
+
+        // Menambahkan route untuk menampilkan detail kriteria
+        Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
+
+        // Menambahkan route untuk memperbarui status ACC bansos
+        Route::post('/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
     });
+
 
     Route::group(['prefix' => 'kriteria'], function () {
         Route::get('/update', [KriteriaController::class, 'update_kriteria']); //menambahkan
