@@ -42,7 +42,7 @@
                             <tr>
                                 <th class="p-3 text-sm font-medium tracking-normal">No</th>
                                 <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
-                                <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th>
+                                {{-- <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th> --}}
                             </tr>
                         </thead>
                         <tbody id="table-body" class="text-gray-700">
@@ -79,8 +79,8 @@
 
         // Fetch and filter data (dummy data example)
         const data = [
-            { no: 1, noKeluarga: '12345', tanggal: '2023-01-15' },
-            { no: 2, noKeluarga: '67890', tanggal: '2023-02-20' },
+            { no: 1, noKeluarga: '12345' },
+            { no: 2, noKeluarga: '67890' },
             // Add more data here
         ];
 
@@ -102,7 +102,6 @@
             const row = `<tr class="border-b">
                 <td class="p-3">${item.no}</td>
                 <td class="p-3">${item.noKeluarga}</td>
-                <td class="p-3">${item.tanggal}</td>
             </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);
         });
