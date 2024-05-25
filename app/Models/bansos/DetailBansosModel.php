@@ -11,7 +11,7 @@ class DetailBansosModel extends Model
     use HasFactory;
     protected $table = 'detail_bansos';
 
-    protected $fillable = ['id_keluarga', 'status'];
+    protected $fillable = ['id_keluarga', 'status', 'id_bansos', 'id_kriteria', 'nilai_kriteria'];
 
     public function keluarga(): BelongsTo
     {

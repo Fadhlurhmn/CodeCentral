@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
 use App\Models\DetailBansosModel;
+use App\Models\histori_penerimaan_bansos;
 use App\Models\historibansos;
 use App\Models\KriteriaBansosModel;
+use App\Models\list_rekomendasi_bansos;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -220,7 +222,7 @@ class BansosController extends Controller
 
     public function cek_histori()
     {
-        $histori_bansos = historibansos::all();
+        $histori_bansos = histori_penerimaan_bansos::all();
 
         dd($histori_bansos);
 
@@ -241,5 +243,10 @@ class BansosController extends Controller
             'histori_bansos' => $histori_bansos,
             'activeMenu' => $activeMenu
         ]);
+    }
+    // ini buat nampilin list rekomendasi penerimaan bansos beserta ranking nya
+    public function list_rekomendasi()
+    {
+        $rekomendasi = list_rekomendasi_bansos::all();
     }
 }
