@@ -100,21 +100,32 @@
     
             const totalPages = Math.ceil(totalRows / rowsPerPage);
     
-            for (let i = 1; i <= totalPages; i++) {
+            const createButton = (label, page) => {
                 const button = document.createElement('button');
-                button.textContent = i;
-                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-teal-700', 'bg-white', 'hover:bg-teal-500', 'hover:text-white');
-    
-                if (i === currentPage) {
+                button.textContent = label;
+                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-white', 'bg-teal-500', 'hover:bg-teal-500', 'hover:text-white', 'transition', 'duration-300', 'ease-in-out');
+                if (page === currentPage) {
                     button.classList.add('bg-teal-500', 'text-white');
                 }
-    
                 button.addEventListener('click', () => {
-                    currentPage = i;
+                    currentPage = page;
                     filterAndRenderTable();
                 });
+                return button;
+            };
     
-                pagination.appendChild(button);
+            if (currentPage > 1) {
+                pagination.appendChild(createButton('First', 1));
+                pagination.appendChild(createButton('Previous', currentPage - 1));
+            }
+    
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.appendChild(createButton(i, i));
+            }
+    
+            if (currentPage < totalPages) {
+                pagination.appendChild(createButton('Next', currentPage + 1));
+                pagination.appendChild(createButton('Last', totalPages));
             }
         }
     
@@ -146,4 +157,5 @@
         renderTable(originalData);
     });
     </script>
+    
     
