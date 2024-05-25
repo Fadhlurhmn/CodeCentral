@@ -29,14 +29,7 @@
                         </div>
                         <button type="button" class="py-1.5 px-2 mt-2 bg-teal-500 hover:bg-teal-600 text-white focus:outline-none rounded-lg" onclick="addKriteria()">Tambah Kriteria</button>
                     </div>
-            
-                    {{-- Total Bobot --}}
-                    <div class="col-span-4 mt-4">
-                        <label for="total_bobot" class="block text-sm font-medium text-gray-700">Total Bobot</label>
-                        <input type="number" id="total_bobot" class="p-2 mt-1 block w-24 rounded-md bg-gray-50 border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" readonly>
-                        <p id="error-message" class="text-red-500 text-sm mt-2 hidden">Total bobot harus tepat 100.</p>
-                    </div>
-            
+                        
                     {{-- Button submit --}}
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
                         <a href="{{ url('admin/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
@@ -67,28 +60,4 @@ function addKriteria() {
     `;
     container.appendChild(kriteriaDiv);
 }
-    
-    function removeKriteria(button) {
-        button.parentElement.remove();
-        calculateTotalBobot();
-    }
-    
-    function calculateTotalBobot() {
-        let total = 0;
-        document.querySelectorAll('.bobot-input').forEach(input => {
-            total += parseInt(input.value) || 0;
-        });
-        document.getElementById('total_bobot').value = total;
-        document.getElementById('error-message').classList.toggle('hidden', total === 100);
-    }
-    
-    function validateForm() {
-        const total = parseInt(document.getElementById('total_bobot').value);
-        if (total !== 100) {
-            document.getElementById('error-message').classList.remove('hidden');
-            return false;
-        }
-        document.getElementById('error-message').classList.add('hidden');
-        return true;
-    }
-    </script>
+</script>
