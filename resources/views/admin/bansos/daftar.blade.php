@@ -11,18 +11,21 @@
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-b-2 border-teal-500">
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-800">Daftar Permintaan</h1>
                 <p class="pb-5 my-2 text-md text-gray-600">Informasi daftar permintaan warga terhadap bansos.</p>
-                <a href="{{ url('admin/bansos/') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                
+                <a href={{ url('admin/bansos/'.$bansos->id_bansos.'/show') }} class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
                 
                 <!-- Section for 'acc' and 'tolak' statuses -->
                 <div class="mt-6">
-                    <h2 class="text-xl font-bold text-gray-700">Permintaan Diterima atau Ditolak</h2>
+                    <div class="flex justify-between">
+                        <h2 class="text-xl font-bold text-gray-700">Permintaan Diterima</h2>
+                        <a href="{{ url('#')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Cek Rekomendasi</a>
+                    </div>
                     <div class="overflow-x-auto mt-4">
                         <table class="table-auto w-full min-w-max text-center cursor-default">
                             <thead class="bg-teal-500 text-white">
                                 <tr>
                                     <th class="p-3 text-sm font-medium tracking-normal">No</th>
                                     <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th>
                                     <th class="p-3 text-sm font-medium tracking-normal">Status</th>
                                 </tr>
                             </thead>
@@ -36,14 +39,15 @@
                                         <td class="p-3">{{ $request->tanggal }}</td> --}}
                                         <td class="p-3">No</td>
                                         <td class="p-3">12345</td>
-                                        <td class="p-3">12-09-2023</td>
                                         <td class="p-3">
+                                            
                                             {{-- <span class="px-2 py-1 rounded-full text-white {{ $request->status == 'acc' ? 'bg-teal-600' : 'bg-red-600' }}">
                                                 {{ ucfirst($request->status) }}
                                             </span> --}}
-                                            <span class="px-2 py-1 rounded-full text-white bg-red-600">
-                                                tolak
+                                            <span class="px-2 py-1 rounded-full text-white bg-teal-600">
+                                                terima
                                             </span>
+                                        
                                         </td>
                                     </tr>
                                     {{-- @endif
@@ -56,47 +60,48 @@
                 <!-- Section for 'pending' status -->
                 <div class="mt-6">
                     <h2 class="text-xl font-bold text-gray-700">Permintaan Pending</h2>
+
                     <div class="overflow-x-auto mt-4">
                         <table class="table-auto w-full min-w-max text-center cursor-default">
                             <thead class="bg-teal-500 text-white">
                                 <tr>
                                     <th class="p-3 text-sm font-medium tracking-normal">No</th>
                                     <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
-                                    {{-- <th class="p-3 text-sm font-medium tracking-normal">Nama</th> --}}
-                                    <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th>
                                     <th class="p-3 text-sm font-medium tracking-normal">Status</th>
                                     <th class="p-3 text-sm font-medium tracking-normal">Aksi</th>
                                 </tr>
                             </thead>
+                            
                             <tbody class="text-gray-700">
                                 <!-- Data rows for 'pending' status will be inserted here -->
+
                                 {{-- @foreach ($requests as $request)
                                     @if ($request->status == 'pending') --}}
                                     <tr class="border-b">
                                         {{-- <td class="p-3">{{ $request->no }}</td>
                                         <td class="p-3">{{ $request->no_keluarga }}</td>
-                                        <td class="p-3">{{ $request->nama }}</td>
-                                        <td class="p-3">{{ $request->tanggal }}</td>
                                         <td class="p-3">
                                             <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
                                                 {{ ucfirst($request->status) }}
                                             </span>
                                         </td> --}}
+
                                         <td class="p-3">1</td>
                                         <td class="p-3">987654321</td>
-                                        <td class="p-3">12-09-2002</td>
                                         {{-- <td class="p-3"></td> --}}
                                         <td class="p-3">
                                             <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
                                                 Pending
                                             </span>
                                         </td>
+
                                         <td class="p-3 space-x-2">
                                             {{-- <button onclick="updateStatus('{{ $request->id }}', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-600/60">Terima</button>
                                             <button onclick="updateStatus('{{ $request->id }}', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button> --}}
                                             <button onclick="updateStatus('', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-700/60">Terima</button>
                                             <button onclick="updateStatus('', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button>
                                         </td>
+
                                     </tr>
                                     {{-- @endif
                                 @endforeach --}}

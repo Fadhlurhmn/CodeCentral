@@ -28,7 +28,7 @@
         <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
         
         {{-- Card Jumlah bansos & penerima --}}
-        <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5">
+        <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">
             @if (session('success'))
                     <div class="col-span-2">
                         <div class="bg-green-100 border border-green-400 text-green-700 shadow-md shadow-green-300/40 px-4 py-3 rounded relative" role="alert">
@@ -37,7 +37,7 @@
                     </div>
             @endif
             {{-- Card Jumlah bansos --}}
-            <div class="card mt-6 col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
+            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
                 <div class="card-body flex items-center">
                     <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
                         <i class="fad fa-people-carry"></i>
@@ -50,7 +50,7 @@
             {{-- End card jumlah penerima bansos --}}
             
             {{-- Card jumlah warga penerima --}}
-            <div class="card mt-6 col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
+            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
                 <div class="card-body flex items-center">
                     <div class="px-3 py-2 rounded bg-green-500 text-white mr-3">
                         <i class="fad fa-user-friends"></i>

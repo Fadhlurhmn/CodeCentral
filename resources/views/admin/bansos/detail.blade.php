@@ -16,7 +16,7 @@
                 <!-- Filter Section -->
                 <div class="flex justify-between">
                     <a href="{{ url('admin/bansos/') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
-                    <a href="{{ url('admin/bansos/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">cek daftar permintaan</a>
+                    <a href={{ url('admin/bansos/'.$bansos->id_bansos.'/daftar') }} class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">cek daftar permintaan</a>
                 </div>
                 <div class="flex px-2 justify-between items-center text-xs mb-4 mt-7">
                     <div class="flex items-center">
@@ -38,11 +38,11 @@
 
                 <div class="h-auto p-2">
                     <table id="table_keluarga" class="table-auto w-full min-w-max text-center cursor-default">
-                        <thead class="bg-teal-400 ">
+                        <thead class="bg-teal-500 text-white">
                             <tr>
-                                <th class="p-3 text-sm font-semibold tracking-normal">No</th>
-                                <th class="p-3 text-sm font-semibold tracking-normal">No Keluarga</th>
-                                <th class="p-3 text-sm font-semibold tracking-normal">Tanggal</th>
+                                <th class="p-3 text-sm font-medium tracking-normal">No</th>
+                                <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
+                                <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th>
                             </tr>
                         </thead>
                         <tbody id="table-body" class="text-gray-700">

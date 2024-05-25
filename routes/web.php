@@ -157,6 +157,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/create', [BansosController::class, 'create_bansos']); // Form tambah bansos
         Route::post('/', [BansosController::class, 'store_bansos']); // Menyimpan bansos baru
         Route::get('/{id}/show', [BansosController::class, 'show']); // Menampilkan detail bansos
+        Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
         Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
