@@ -25,10 +25,11 @@
 
     {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <h1 class="my-2 text-2xl font-extrabold text-gray-600">Daftar Bantuan Sosial</h1>
+        <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
         
         {{-- Card Jumlah bansos & penerima --}}
         <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5">
+            
             {{-- Card Jumlah bansos --}}
             <div class="card mt-6 col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
                 <div class="card-body flex items-center">
@@ -80,7 +81,7 @@
         <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->nama }}">
             <div class="flex-col">
                 <h1>Bantuan sosial {{$Bansos->nama}}</h1>
-                <p class="text-xs">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
+                <p class="text-xs w-96 xl:w-56 md:w-64">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
             </div>
 
             {{-- Button detail bansos --}}

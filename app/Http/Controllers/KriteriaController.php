@@ -53,7 +53,7 @@ class KriteriaController extends Controller
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
-        ]);
+        ])->with('success','Kriteria Berhasil Dibuat');
     }
 
     public function store_kriteria(Request $request)
