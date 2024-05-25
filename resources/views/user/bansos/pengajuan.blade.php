@@ -1,5 +1,5 @@
 @include('layout.head')
-@include('layout.header')
+@include('layout.u_navbar')
 <!-- floating assets -->
 <img
   class="floating-bubble-1 absolute right-0 top-0 -z-[1]"
@@ -96,4 +96,4 @@
 {{-- end Bansos Form --}}
 
 @include('layout.footer')
-@include('layout.foot')
+

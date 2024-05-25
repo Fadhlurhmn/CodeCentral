@@ -1,18 +1,18 @@
 <footer class="footer bg-theme-light/50">
   <div class="container">
     <div class="row gx-5 pb-10 pt-[52px]">
-      <div class="col-12 mt-12 md:col-6 lg:col-3">
-        <a href="index.html">
-          <img src="{{ asset('images/logo.svg') }}" alt="" />
+      <div class="col-12 mt-12 md:col-4 lg:col-6">
+        <a href="{{ route('user/landing') }}" class="text-black text-lg font-semibold">
+          SI RW 3 TLOGOMAS
         </a>
         <p class="mt-6">
-          Lorem ipsum dolor sit sed dmi amet, consectetur adipiscing. Cdo
-          tellus, sed condimentum volutpat.
+          SIRW (Sistem Informasi Rukun Warga) adalah sebuah platform digital yang dirancang untuk memudahkan komunikasi dan layanan antara warga dan pengurus RW dan RT. 
+          <br><br>Melalui situs ini, Anda dapat mengakses berbagai informasi penting seperti berita terkini, jadwal kegiatan, program bantuan sosial, promosi UMKM lokal, dan banyak lagi.
         </p>
       </div>
-      <div class="col-12 mt-12 md:col-6 lg:col-3">
-        <h6>Socials</h6>
-        <p>themefisher@gmail.com</p>
+      <div class="col-12 mt-12 md:col-4 lg:col-3">
+        <h6>SOSIAL MEDIA</h6>
+        <p>rw3tlogomas@gmail.com</p>
         <ul class="social-icons mt-4 lg:mt-6">
           <li>
             <a href="#">
@@ -80,37 +80,41 @@
           </li>
         </ul>
       </div>
-      <div class="col-12 mt-12 md:col-6 lg:col-3">
-        <h6>Quick Links</h6>
+      <div class="col-12 mt-12 md:col-4 lg:col-3">
+        <h6>LAYANAN</h6>
         <ul>
           <li>
-            <a href="about.html">About</a>
+            <a href="{{ route('user/landing') }}">Home</a>
           </li>
           <li>
-            <a href="#">Category</a>
+            <a href="{{ route('user/pengumuman') }}">Pengumuman</a>
           </li>
           <li>
-            <a href="#">Testimonial</a>
+            <a href="{{ route('user/umkm') }}">UMKM</a>
           </li>
           <li>
-            <a href="contact.html">Contact</a>
+            <a href="{{ route('user/bansos/list') }}">Bansos</a>
+          </li>
+          <li>
+            <a href="{{ route('user/surat') }}">Surat</a>
+          </li>
+          <li>
+            <a href="{{ route('user/pengaduan') }}">Pengaduan</a>
+          </li>
+          <li>
+            <a href="/login">Login</a>
           </li>
         </ul>
       </div>
-      <div class="col-12 mt-12 md:col-6 lg:col-3">
-        <h6>Location & Contact</h6>
-        <p>2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
-        <p>(704) 555-0127</p>
-      </div>
     </div>
   </div>
-  <div class="container max-w-[1440px]">
+  {{-- <div class="container max-w-[1440px]">
     <div
       class="footer-copyright mx-auto border-t border-border pb-10 pt-7 text-center"
     >
       <p>Designed And Developed by <a href="https://themefisher.com" target="_blank">Themefisher</a></p>
     </div>
-  </div>
+  </div> --}}
 </footer>
 
 <!-- jQuery -->
@@ -123,3 +127,7 @@
 <!-- Main Script -->
 {{-- <script src="../resources/js/main.js"></script> --}}
 @vite('resources/js/main.js')
+
+@stack('js')
+</body>
+</html>

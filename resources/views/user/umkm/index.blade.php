@@ -1,5 +1,5 @@
 @include('layout.head')
-@include('layout.header')
+@include('layout.u_navbar')
 <!-- floating assets -->
 <img
   class="floating-bubble-1 absolute right-0 top-0 -z-[1]"
@@ -81,9 +81,7 @@
               <a class="tag" href="#">Kerajinan</a>
             </div>
             <h3 class="h4 card-title">
-              <a href="{{ route('user/pengumuman/show', ['id' => 1]) }}">
-                HP ODDO Pak Supri
-              </a>
+              HP ODDO Pak Supri
             </h3>
             <p>
               HP ASLI, DIJAMIN BUKAN KW, KWALITAS TOP!!
@@ -103,4 +101,4 @@
   {{-- end Semua UMKM --}}
 </section>
 @include('layout.footer')
-@include('layout.foot')
+

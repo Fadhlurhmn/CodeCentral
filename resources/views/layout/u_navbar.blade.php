@@ -1,220 +1,84 @@
-<!-- start navbar -->
-<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
-    
+<header class="header">
+  <nav class="navbar container">
     <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="{{ asset('img/logo.png') }}" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1">SIRW</strong>
-
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
+    <div class="order-0">
+      <a href="{{ route('user/landing') }}" class="text-black text-lg font-semibold">
+          SI RW 3 TLOGOMAS
+      </a>
     </div>
-    <!-- end logo -->   
-    
-    <!-- navbar content toggle -->
-    <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
-      <i class="fad fa-chevron-double-down"></i>
-    </button>
-    <!-- end navbar content toggle -->
-
-    <!-- navbar content -->
-    <div id="navbar" class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
-      <!-- left -->
-      <div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
-        {{-- <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-envelope-open-text"></i></a>        
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-comments-alt"></i></a>        
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-check-circle"></i></a>        
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-calendar-exclamation"></i></a>         --}}
-      </div>
-      <!-- end left -->      
-
-      <!-- right -->
-      <div class="flex flex-row-reverse items-center"> 
-
-        <!-- user -->
-        <div class="dropdown relative md:static">
-
-          <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
-            <div class="w-8 h-8 overflow-hidden rounded-full">
-              <img class="w-full h-full object-cover" src="{{ asset('img/user.svg') }}" >
-            </div> 
-
-            <div class="ml-2 capitalize flex ">
-              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">moeSaid</h1>
-              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
-            </div>                        
-          </button>
-
-          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
-
-          <div class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
-              <i class="fad fa-user-edit text-xs mr-1"></i> 
-              edit my profile
-            </a>     
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
-              <i class="fad fa-inbox-in text-xs mr-1"></i> 
-              my inbox
-            </a>     
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
-              <i class="fad fa-badge-check text-xs mr-1"></i> 
-              tasks
-            </a>     
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
-              <i class="fad fa-comment-alt-dots text-xs mr-1"></i> 
-              chats
-            </a>     
-            <!-- end item -->
-
-            <hr>
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
-              <i class="fad fa-user-times text-xs mr-1"></i> 
-              log out
-            </a>     
-            <!-- end item -->
-
-          </div>
-        </div>
-        <!-- end user -->
-
-        <!-- notifcation -->
-        <div class="dropdown relative mr-5 md:static">
-
-          <button class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
-            <i class="fad fa-bells"></i>               
-          </button>
-
-          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
-
-          <div class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
-            <!-- top -->
-            <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
-              <h1>notifications</h1>
-              <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
-                <strong>5</strong>
-              </div>
-            </div>
-            <hr>
-            <!-- end top -->
-
-            <!-- body -->
-
-            <!-- item -->
-            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
-
-              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
-                <i class="fad fa-birthday-cake text-sm"></i>
-              </div>
-
-              <div class="flex-1 flex flex-rowbg-green-100">
-                <div class="flex-1">
-                  <h1 class="text-sm font-semibold">poll..</h1>
-                  <p class="text-xs text-gray-500">text here also</p>
-                </div>
-                <div class="text-right text-xs text-gray-500">
-                  <p>4 min ago</p>
-                </div>
-              </div>
-
-            </a>
-            <hr>
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
-
-              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
-                <i class="fad fa-user-circle text-sm"></i>
-              </div>
-
-              <div class="flex-1 flex flex-rowbg-green-100">
-                <div class="flex-1">
-                  <h1 class="text-sm font-semibold">mohamed..</h1>
-                  <p class="text-xs text-gray-500">text here also</p>
-                </div>
-                <div class="text-right text-xs text-gray-500">
-                  <p>78 min ago</p>
-                </div>
-              </div>
-
-            </a>
-            <hr>
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
-
-              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
-                <i class="fad fa-images text-sm"></i>
-              </div>
-
-              <div class="flex-1 flex flex-rowbg-green-100">
-                <div class="flex-1">
-                  <h1 class="text-sm font-semibold">new imag..</h1>
-                  <p class="text-xs text-gray-500">text here also</p>
-                </div>
-                <div class="text-right text-xs text-gray-500">
-                  <p>65 min ago</p>
-                </div>
-              </div>
-
-            </a>
-            <hr>
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
-
-              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
-                <i class="fad fa-alarm-exclamation text-sm"></i>
-              </div>
-
-              <div class="flex-1 flex flex-rowbg-green-100">
-                <div class="flex-1">
-                  <h1 class="text-sm font-semibold">time is up..</h1>
-                  <p class="text-xs text-gray-500">text here also</p>
-                </div>
-                <div class="text-right text-xs text-gray-500">
-                  <p>1 min ago</p>
-                </div>
-              </div>
-
-            </a>
-            <!-- end item -->
-
-
-            <!-- end body -->
-
-            <!-- bottom -->
-            <hr>
-            <div class="px-4 py-2 mt-2">
-              <a href="#" class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
-                view all
-              </a>
-            </div>
-            <!-- end bottom -->            
-          </div>
-        </div>
-        <!-- end notifcation -->             
-
-      </div>
-      <!-- end right -->
+    <!-- navbar toggler -->
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+    <label
+      id="show-button"
+      for="nav-toggle"
+      class="order-1 flex cursor-pointer items-center lg:order-1 lg:hidden"
+    >
+      <svg class="h-6 fill-current" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+    </label>
+    <label
+      id="hide-button"
+      for="nav-toggle"
+      class="order-2 hidden cursor-pointer items-center lg:order-1"
+    >
+      <svg class="h-6 fill-current" viewBox="0 0 20 20">
+        <title>Menu Close</title>
+        <polygon
+          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+          transform="rotate(45 10 10)"
+        ></polygon>
+      </svg>
+    </label>
+    <!-- /navbar toggler -->
+    <ul
+      id="nav-menu"
+      class="navbar-nav order-2 hidden w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5"
+    >
+      <li class="nav-item">
+        <a href="{{ route('user/landing') }}" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('user/pengumuman') }}" class="nav-link">Pengumuman</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('user/umkm') }}" class="nav-link">UMKM</a>
+      </li>
+      
+      <li class="nav-item nav-dropdown group relative">
+        <span class="nav-link inline-flex items-center">
+          Bansos
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </span>
+        <ul
+          class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100"
+        >
+          <li class="nav-dropdown-item">
+            <a href="{{ route('user/bansos/pengajuan') }}" class="nav-dropdown-link"
+              >Pengajuan</a
+            >
+          </li>
+          <li class="nav-dropdown-item">
+            <a href="{{ route('user/bansos/list') }}" class="nav-dropdown-link"
+              >Daftar Penerima</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('user/surat') }}" class="nav-link">Surat</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('user/pengaduan') }}" class="nav-link">Pengaduan</a>
+      </li>
+    </ul>
+    <div class="order-1 ml-auto hidden items-center opacity-0 md:order-2 md:ml-0 lg:flex">
+      <div class="btn btn-white btn-sm">Sing Up Now</div>
     </div>
-    <!-- end navbar content -->
-
-  </div>
-<!-- end navbar -->
+  </nav>
+</header>

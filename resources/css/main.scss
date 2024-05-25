@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @layer base {
-  @import "base";
+  @import "pinwheel-component/base";
 }
 
 @layer components {
-  @import "components";
-  @import "navigation";
-  @import "buttons";
+  @import "pinwheel-component/components.scss";
+  @import "pinwheel-component/navigation";
+  @import "pinwheel-component/buttons";
 }
 
 @layer utilities {
-  @import "utilities";
+  @import "pinwheel-component/utilities";
 }
