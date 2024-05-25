@@ -39,6 +39,12 @@
   <div class="container">
     <div class="col-12 md:order-1">
       <form class="px-0 lg:px-60" action="#" method="POST">
+        @error('pengaduan')
+          <div class="alert alert-error mb-5">
+            <span>{{ $message }}</span>
+          </div>
+        @enderror
+
         <div class="form-group mb-5">
           <div class="form-group mb-5">
             <label class="form-label" for="judul_pengaduan">Judul Pengaduan</label>
@@ -55,6 +61,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="isi_pengaduan">Isi Pengaduan</label>
             <textarea
@@ -71,6 +78,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="tanggal_pengaduan">Tanggal Kejadian</label>
             <input
@@ -84,6 +92,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="penerima_aduan">Sampaikan aduan ke:</label>
             <select name="penerima_aduan" id="penerima_aduan" class="form-select" required>
@@ -98,6 +107,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="berkas_pengaduan">Lampiran (MAX 2MB)</label>
             <input
@@ -110,6 +120,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <label class="form-label" for="nama">Nama</label>
           <input
             class="form-control"
@@ -124,6 +135,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+
         <div class="form-group mb-5">
           <label class="form-label" for="nik">NIK</label>
           <input
@@ -139,6 +151,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+        
         <button
           class="btn btn-primary block w-full"
           type="submit">

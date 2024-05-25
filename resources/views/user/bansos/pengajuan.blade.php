@@ -41,9 +41,10 @@
       <form class="px-0 lg:px-60" action="#" method="POST">
         @error('bansos')
           <div class="alert alert-error mb-5">
-            <span>a simple alert it out!</span>
+            <span>{{ $message }}</span>
           </div>
         @enderror
+
         <div class="form-group mb-5">
           <label class="form-label" for="nama">Nama</label>
           <input
@@ -58,6 +59,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+
         <div class="form-group mb-5">
           <label class="form-label" for="nik">NIK</label>
           <input
@@ -72,6 +74,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+
         <div class="form-group mb-5">
           <label class="form-label" for="jenis_bansos">Jenis Bansos</label>
           <select name="jenis_bansos" id="jenis_bansos" class="form-select" required>
@@ -84,6 +87,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+
         <button
           class="btn btn-primary block w-full"
           type="submit">

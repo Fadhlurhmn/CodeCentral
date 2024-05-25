@@ -39,6 +39,12 @@
   <div class="container">
     <div class="col-12 md:order-1">
       <form class="px-0 lg:px-60" action="#" method="POST">
+        @error('bansos')
+          <div class="alert alert-error mb-5">
+            <span>{{ $message }}</span>
+          </div>
+        @enderror
+
         <div class="form-group mb-5">
             <label class="form-label" for="nama_usaha">Nama Usaha</label>
             <input
@@ -54,6 +60,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="deskripsi_usaha">Deskripsi Usaha</label>
             <textarea
@@ -70,6 +77,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="jenis_usaha">Jenis usaha</label>
             <select name="jenis_usaha" id="jenis_usaha" class="form-select" required>
@@ -84,6 +92,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="form-group mb-5">
             <label class="form-label" for="berkas_usaha">Foto Usaha (MAX 2MB)</label>
             <input
@@ -96,6 +105,7 @@
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
         </div>
+
         <div class="form-group mb-5">
           <label class="form-label" for="nama">Nama</label>
           <input
@@ -111,6 +121,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+
         <div class="form-group mb-5">
           <label class="form-label" for="nik">NIK</label>
           <input
@@ -126,6 +137,7 @@
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
         </div>
+        
         <button
           class="btn btn-primary block w-full"
           type="submit">

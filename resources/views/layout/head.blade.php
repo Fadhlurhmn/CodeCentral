@@ -27,7 +27,7 @@
     />
   
     <!-- title -->
-    <title>Pinwheel-tailwind</title>
+    <title>SI RW 3 Tlogomas</title>
   
     <!-- noindex robots -->
     <meta name="robots" content="" />

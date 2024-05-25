@@ -1,35 +1,25 @@
 @include('layout.head')
 @include('layout.u_navbar')
-<!-- Banner -->
-{{-- <section class="section banner relative">
-  <div class="container">
-    <div class="row items-center">
-      <div class="lg:col-6">
-        <h1 class="banner-title">
-          Selamat Datang di SI RW 3 Tlogomas
-        </h1>
-        <p class="mt-6">
-            SI RW (Sistem Informasi Rukun Warga) adalah sebuah platform digital yang dirancang untuk memudahkan komunikasi dan layanan antara warga dan pengurus RW. Melalui situs ini, Anda dapat mengakses berbagai informasi penting seperti berita terkini, jadwal kegiatan, program bantuan sosial, promosi UMKM lokal, dan banyak lagi.
-        </p>
-      </div>
-      </div>
-    </div>
-  </div>
-  <img
-    class="banner-shape absolute -top-28 right-0 -z-[1] w-full max-w-[30%]"
-    src="images/banner-shape.svg"
-    alt=""
-  />
-</section> --}}
-<!-- ./end Banner -->
+<!-- floating assets -->
+<img
+  class="floating-bubble-1 absolute right-0 top-0 -z-[1]"
+  src="images/floating-bubble-1.svg"
+  alt=""
+/>
+<img
+  class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]"
+  src="images/floating-bubble-2.svg"
+  alt=""
+/>
+<img
+  class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]"
+  src="images/floating-bubble-3.svg"
+  alt=""
+/>
+<!-- ./end floating assets -->
 
 <!-- Pengumuman -->
 <section class="section key-feature relative">
-  <img
-    class="absolute left-0 top-0 -z-[1] -translate-y-1/2"
-    src="images/icons/feature-shape.svg"
-    alt=""
-  />
   <div class="container">
     <div class="row justify-between text-center lg:text-start">
       <div class="lg:col-5">
@@ -38,7 +28,7 @@
     </div>
     <div class="row mt-10">
         <div class="col-12">
-          <div class="swiper reviews-carousel">
+          <div class="swiper reviews-carousel py-7">
             <div class="swiper-wrapper">
             {{-- max 5 ajah buat pengumuman di home --}}
             @for ($i = 0; $i < 3; $i++)
@@ -100,11 +90,6 @@
 
 <!-- Promosi UMKM -->
 <section class="section key-feature relative">
-    <img
-      class="absolute left-0 top-0 -z-[1] -translate-y-1/2"
-      src="images/icons/feature-shape.svg"
-      alt=""
-    />
     <div class="container">
       <div class="row justify-between text-center lg:text-start">
         <div class="lg:col-5">
@@ -113,7 +98,7 @@
       </div>
       <div class="row mt-10">
           <div class="col-12">
-            <div class="swiper reviews-carousel">
+            <div class="swiper reviews-carousel py-7">
               <div class="swiper-wrapper">
               {{-- max 5 ajah buat umkm di home --}}
               @for ($i = 0; $i < 3; $i++)
@@ -160,11 +145,6 @@
 
 <!-- Jadwal -->
 <section class="section key-feature relative">
-    <img
-      class="absolute left-0 top-0 -z-[1] -translate-y-1/2"
-      src="images/icons/feature-shape.svg"
-      alt=""
-    />
     <div class="container">
       <div class="row justify-between text-center lg:text-start">
         <div class="lg:col-5">
