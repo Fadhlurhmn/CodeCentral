@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
+use App\Models\DetailBansosModel;
 use App\Models\KriteriaBansosModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -214,5 +215,29 @@ class BansosController extends Controller
         } else {
             return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
         }
+    }
+
+    public function cek_histori()
+    {
+        // ambil data histori penerimaan bansos
+        $histori_bansos = DetailBansosModel::where('status', 'acc')->get();
+
+        $breadcrumb = (object) [
+            'title' => 'Histori Penerimaan Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Histori Penerimaan']
+        ];
+
+        $page = (object) [
+            'title' => 'Histori Penerimaan Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.hisgori', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'histori_bansos' => $histori_bansos,
+            'activeMenu' => $activeMenu
+        ]);
     }
 }
