@@ -81,31 +81,17 @@ class PengumumanController extends Controller
 public function store(Request $request)
 {
     $request->validate([
-        'judul_pengumuman' => 'required|string|max:100',
+        'judul_pengumuman' => 'required|string|max:255',
         'deskripsi' => 'required|string',
-        'lampiran' => 'nullable|image|max:2048'
     ]);
-
-    $data = $request->only('judul_pengumuman', 'deskripsi');
-
-    if ($request->hasFile('lampiran')) {
-        // Menyimpan file lampiran yang diupload
-        $lampiran = $request->file('lampiran');
-        $nama_file = time() . "_" . $lampiran->getClientOriginalName();
-        $path = $lampiran->storeAs('pengumuman', $nama_file, 'public');
-        $data['lampiran'] = $path;
-    } else {
-        $data['lampiran'] = null; // atau set default gambar jika diperlukan
-    }
 
     $pengumuman = PengumumanModel::create([
-        'id_user' => Auth::user()->id,
-        'judul_pengumuman' => $data['judul_pengumuman'],
-        'deskripsi' => $data['deskripsi'],
-        'lampiran' => $data['lampiran'],
+        'id_user' => '1', // Replace with Auth::user()->id if using auth
+        'judul_pengumuman' => $request->judul_pengumuman,
+        'deskripsi' => $request->deskripsi,
     ]);
 
-    return redirect('admin/pengumuman/' . $pengumuman->id . '/show')->with('success', 'Pengumuman berhasil ditambahkan');
+    return redirect('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show')->with('success', 'Pengumuman berhasil ditambahkan');
 }
 
     public function show($id)
@@ -151,26 +137,32 @@ public function store(Request $request)
         return view('admin.pengumuman.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'judul_pengumuman' => 'required|string|max:255',
-    //         'deskripsi' => 'required|string',
-    //         'lampiran' => 'nullable|image|max:2048'
-    //     ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul_pengumuman' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+        ]);
 
-    //     $pengumuman = PengumumanModel::findOrFail($id);
-    //     $data = $request->only('judul_pengumuman', 'deskripsi');
+        $pengumuman = PengumumanModel::findOrFail($id);
+        $data = $request->only('judul_pengumuman', 'deskripsi');
 
-    //     if ($request->hasFile('lampiran')) {
-    //         if ($pengumuman->lampiran) {
-    //             \Storage::delete('public/' . $pengumuman->lampiran);
-    //         }
-    //         $data['lampiran'] = $request->file('lampiran')->store('pengumuman', 'public');
-    //     }
+        $pengumuman->update($data);
 
-    //     $pengumuman->update($data);
+        return redirect('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show')->with('success', 'Pengumuman berhasil diubah');
+    }
 
-    //     return view('admin.pengumuman.show')->with('success', 'Pengumuman berhasil diubah');
-    // }
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
+
+            $path = $request->file('upload')->storeAs('public/pengumuman_gambar', $fileName);
+
+            $url = asset('storage/pengumuman_gambar/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        }
+    }
 }

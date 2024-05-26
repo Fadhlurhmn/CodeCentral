@@ -36,9 +36,9 @@
         @endif
 
             {{-- tampilan image/ lampiran (kalo mau dibatesin cuma image boleh) --}}
-            <div class="mb-8">
+            {{-- <div class="mb-8">
                 <img src="{{ $pengumuman->lampiran }}" class="object-cover w-full h-96" alt="no image">
-            </div>
+            </div> --}}
 
             {{-- tampilan content pengumuman --}}
             <div class="flex justify-center just">

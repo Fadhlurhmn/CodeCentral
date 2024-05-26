@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Template 
+// Template
 Route::group(['prefix' => 'template'], function () {
     Route::get('/', function () {return view('template.index');});
     Route::get('/shop', function () {return view('template.index-1');});
@@ -17,7 +17,7 @@ Route::group(['prefix' => 'template'], function () {
     Route::get('/buttons', function () {return view('template.buttons');});
 });
 
-// Admin, RT & RW Login 
+// Admin, RT & RW Login
 Route::get('/login', function () {
     return view('login');
 });
@@ -51,7 +51,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
         Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
         Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
-        Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+        Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
+        // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
     });
 });
 
