@@ -169,6 +169,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
         Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
 
+        // cek jawaban kriteria masing-masing keluarga
+        Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria']);
     });
 
 

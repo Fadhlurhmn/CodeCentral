@@ -271,9 +271,12 @@ class BansosController extends Controller
     }
 
     // show detail isi jawaban form kriteria
-    public function show_kriteria($id)
+    public function show_kriteria($id_bansos, $id_keluarga)
     {
-        $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id)->first();
+        $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id_keluarga)
+            ->where('id_bansos', $id_bansos)
+            ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
+
         $breadcrumb = (object) [
             'title' => 'Detail Keluarga Penerimaan Bantuan Sosial',
             'list' => ['Home', 'Bantuan Sosial', 'Detail Keluarga Penerimaan']
