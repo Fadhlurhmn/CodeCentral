@@ -1,14 +1,12 @@
 @include('layout.start')
 
 @include('layout.a_navbar')
-    
+
 <div class="h-screen flex flex-row">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
         {{-- start breadcrumb --}}
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
-        </div>
+        @include('layout.breadcrumb')
         {{-- end breadcrumb --}}
         <div class="w-full h-fit p-5">
 
@@ -57,10 +55,10 @@
                         <label for="deskripsi" class="block mb-2 text-xs font-bold text-gray-900">Deskripsi</label>
                         <div id="editor">
                             <textarea name="deskripsi" value="{{ $pengumuman->deskripsi }}" class="normal-case">
-                            
-                            </textarea> 
+
+                            </textarea>
                         </div>
-                         
+
                      </div>
 
                     {{-- Lampiran --}}
@@ -70,7 +68,7 @@
                             Submit Gambar Lampiran (Max ukuran 2MB)
                         </label>
                         <input type="file" name="lampiran" id="lampiran" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"/>
-                        
+
                         <span id="file-name" class="text-xs text-gray-700 mt-2 block"></span>
                     </div>
                     <div id="uploadIndicator_foto" class="hidden col-span-4">
@@ -79,9 +77,9 @@
                     </div>
                     <div class="mt-3 mb-2 col-span-4">
                         <p class="text-sm">Gambar Sebelumnya : </p>
-                        <img src="{{ asset('img/'. $pengumuman->lampiran) }}" class="img-thumbnail w-96" />                        
+                        <img src="{{ asset('img/'. $pengumuman->lampiran) }}" class="img-thumbnail w-96" />
                     </div>
-                    
+
                     {{-- Submit --}}
                     <div class="flex col-span-2">
                         <a href="{{ url('admin/pengumuman') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
@@ -92,7 +90,7 @@
             @endif
         </div>
         {{-- start box form create --}}
-        
+
     </div>
 </div>
 

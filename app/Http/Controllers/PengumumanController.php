@@ -2,167 +2,175 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
+use App\Models\PengumumanModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PengumumanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $breadcrumb = (object)[
-            'title' => 'Daftar Pengumuman',
-            'list' => ['Home', 'Pengumuman']
-        ];
+    $breadcrumb = (object)[
+        'title' => 'Daftar Pengumuman',
+        'list' => [
+            ['name' => 'Home', 'url' => url('/admin')],
+            ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')]
+        ]
+    ];
 
-        $page = (object)[
-            'title' => 'Daftar pengumuman dipublish'
-        ];
+    $page = (object)[
+        'title' => 'Daftar pengumuman dipublish'
+    ];
 
-        $activeMenu = 'pengumuman';
+    $activeMenu = 'pengumuman';
 
-        $pengumuman = (object) [
-            (object)[
-                'id_pengumuman' => '1',
-                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
-                'id_user' => '2',
-                'created_at' => '30/04/2024'
-            ],
-            (object)[
-                'id_pengumuman' => '2',
-                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
-                'id_user' => '3',
-                'created_at' => '31/04/2024'
-            ],
-        ];
-
-        return view('admin.pengumuman.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
+    $query = $request->input('query');
+    if ($query) {
+        $pengumuman = PengumumanModel::where('judul_pengumuman', 'like', "%$query%")->get();
+    } else {
+        $pengumuman = PengumumanModel::all();
     }
+
+    return view('admin.pengumuman.index', [
+        'breadcrumb' => $breadcrumb,
+        'page' => $page,
+        'activeMenu' => $activeMenu,
+        'pengumuman' => $pengumuman
+    ]);
+    }
+
     public function list()
     {
-        // data dummy buat testing tabel, silahkan ngikut jobsheet buat ambil data pake select
-        $pengumuman = [
-            [
-                'id_pengumuman' => '1',
-                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
-                'created_at' => '30/04/2024'
-            ],
-            [
-                'id_pengumuman' => '2',
-                'judul_pengumuman' => 'Lorem ipsum dolor sit amet.',
-                'created_at' => '31/04/2024'
-            ],
-        ];
+        $pengumuman = PengumumanModel::select(['id_pengumuman', 'judul_pengumuman', 'created_at']);
 
-        // buat testing tabel, pakai yang bawah aja
-        // return DataTables::of($pengumuman)
-        //     ->addIndexColumn()
-        //     ->addColumn('aksi', function ($pengumuman) {
-        //         $btn = '<a href="' . url('/pengumuman/1/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-        //         $btn .= '<a href="' . url('/pengumuman/1/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-        //         return $btn;
-        //     })
-        //     ->rawColumns(['aksi'])
-        //     ->make(true);
-
-
-            // logic yang fix dipake, karena kalo pake data dummy ada error baca id_pengumuman
-        // return DataTables::of($pengumuman)
-        //     ->addIndexColumn()
-        //     ->addColumn('aksi', function ($pengumuman) {
-        //         $btn = '<a href="' . url('/pengumuman/' . $pengumuman->id_pengumuman . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-        //         $btn .= '<a href="' . url('/pengumuman/' . $pengumuman->id_pengumuman . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-        //         return $btn;
-        //     })
-        //     ->rawColumns(['aksi'])
-        //     ->make(true);
+        return DataTables::of($pengumuman)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($pengumuman) {
+                $btn = '<a href="' . url('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn .= '<a href="' . url('admin/pengumuman/' . $pengumuman->id_pengumuman . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 
     public function create()
-    {
-        // belum ada pemanggilan model pengumuman, silahkan ditambahkan
+{
+    $pengumuman = PengumumanModel::all();
 
-        $breadcrumb = (object)[
-            'title' => 'Tambah Pengumuman',
-            'list' => ['Home', 'Pengumuman', 'Tambah']
-        ];
+    $breadcrumb = (object)[
+        'title' => 'Tambah Pengumuman',
+        'list' => [
+            ['name' => 'Home', 'url' => url('/admin')],
+            ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
+            ['name' => 'Tambah', 'url' => url('admin/pengumuman/create')]
+        ]
+    ];
 
-        $page = (object)[
-            'title' => 'Tambah Pengumuman baru'
-        ];
-       
-        $activeMenu = 'pengumuman';
+    $page = (object)[
+        'title' => 'Tambah Pengumuman baru'
+    ];
 
-        // bila sudah ada model pengumuman, tambah variabel yg nyimpen data pengumuman ke bawah ini
-        return view('admin.pengumuman.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    $activeMenu = 'pengumuman';
+
+    return view('admin.pengumuman.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu]);
+}
+
+public function store(Request $request)
+{
+    $request->validate([
+        'judul_pengumuman' => 'required|string|max:100',
+        'deskripsi' => 'required|string',
+        'lampiran' => 'nullable|image|max:2048'
+    ]);
+
+    $data = $request->only('judul_pengumuman', 'deskripsi');
+
+    if ($request->hasFile('lampiran')) {
+        // Menyimpan file lampiran yang diupload
+        $lampiran = $request->file('lampiran');
+        $nama_file = time() . "_" . $lampiran->getClientOriginalName();
+        $path = $lampiran->storeAs('pengumuman', $nama_file, 'public');
+        $data['lampiran'] = $path;
+    } else {
+        $data['lampiran'] = null; // atau set default gambar jika diperlukan
     }
 
-    public function store(Request $request)
-    {
-        // tgs wahyudi, store itu habis create disimpen ke database
-    }
+    $pengumuman = PengumumanModel::create([
+        'id_user' => Auth::user()->id,
+        'judul_pengumuman' => $data['judul_pengumuman'],
+        'deskripsi' => $data['deskripsi'],
+        'lampiran' => $data['lampiran'],
+    ]);
 
-    public function show(string $id)
-    {
-        // data dummy, buat percobaan, variabel $pengumuman boleh dipake buat ngisi dari database
-        $pengumuman = (object)[
-            'id_pengumuman' => 1,
-            'judul_pengumuman' => 'Lorem ipsum dolor sit amet consectetur',
-            'id_user' => 1,
-            'deskripsi' => '<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed impedit fugit molestiae ratione corrupti, vitae ad magnam sint. Ullam, corrupti.</p>
-            <br><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate aut alias aliquam corporis ducimus fugiat excepturi exercitationem sit esse unde. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus sapiente saepe consequuntur nihil minus! Qui corporis animi perspiciatis dolores cupiditate distinctio odio rem sequi hic explicabo odit totam inventore ipsam, repudiandae aliquam ab velit sapiente reprehenderit dicta quod quis deserunt!</p>', 
-            'created_at' => '31-04-2024',
-            'lampiran' => asset('img/user2.jpg')
-        ];
+    return redirect('admin/pengumuman/' . $pengumuman->id . '/show')->with('success', 'Pengumuman berhasil ditambahkan');
+}
 
-        // belum ada pemanggilan model pengumuman, silahkan ditambahkan
+    public function show($id)
+    {
+        $pengumuman = PengumumanModel::findOrFail($id);
 
         $breadcrumb = (object)[
             'title' => 'Preview Pengumuman',
-            'list' => ['Home', 'Pengumuman', 'Preview']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
+                ['name' => 'Preview', 'url' => url('admin/pengumuman//{id}/show')]
+            ]
         ];
 
         $page = (object)[
             'title' => 'Preview pengumuman'
         ];
 
-        $activeMenu = 'pengumuman'; 
+        $activeMenu = 'pengumuman';
 
-        // bila sudah ada model pengumuman, tambah variabel yg nyimpen data pengumuman ke bawah ini
-        return view('admin.pengumuman.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
+        return view('admin.pengumuman.show', ['breadcrumb' => $breadcrumb,'page' => $page,'activeMenu' => $activeMenu,'pengumuman' => $pengumuman]);
     }
-    public function edit(string $id)
+    public function edit($id)
     {
-        // data dummy, buat percobaan, variabel $pengumuman boleh dipake buat ngisi dari database
-        $pengumuman = (object)[
-            'id_pengumuman' => 1,
-            'judul_pengumuman' => 'Lorem ipsum dolor sit amet consectetur',
-            'id_user' => 1,
-            'deskripsi' => '<p>Nama Saya Manusia</p><p>&nbsp;</p><p>Saya manusia, saya suka makan, tidur, dan lain hal.</p><p><strong>Terkadang</strong></p><p>&nbsp;</p><p><i>Apabila</i></p>',
-            'created_at' => '31-04-2024',
-            'lampiran' => 'user2.jpg'
-        ];
-
-        // belum ada pemanggilan model pengumuman, silahkan ditambahkan
+        $pengumuman = PengumumanModel::findOrFail($id);
 
         $breadcrumb = (object) [
             'title' => 'Edit Pengumuman',
-            'list' => ['Home', 'Pengumuman', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
+                ['name' => 'Edit', 'url' => url('admin/pengumuman//{id}/edit')]
+            ]
         ];
 
         $page = (object) [
             'title' => 'Edit pengumuman'
         ];
 
-        $activeMenu = 'pengumuman'; 
+        $activeMenu = 'pengumuman';
 
-         // bila sudah ada model pengumuman, tambah variabel yg nyimpen data pengumuman ke bawah ini
         return view('admin.pengumuman.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
     }
-    
-    public function update(Request $request, string $id)
-    {
-       // tgs wahyudi, habis edit disimpen ke database
-    }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'judul_pengumuman' => 'required|string|max:255',
+    //         'deskripsi' => 'required|string',
+    //         'lampiran' => 'nullable|image|max:2048'
+    //     ]);
+
+    //     $pengumuman = PengumumanModel::findOrFail($id);
+    //     $data = $request->only('judul_pengumuman', 'deskripsi');
+
+    //     if ($request->hasFile('lampiran')) {
+    //         if ($pengumuman->lampiran) {
+    //             \Storage::delete('public/' . $pengumuman->lampiran);
+    //         }
+    //         $data['lampiran'] = $request->file('lampiran')->store('pengumuman', 'public');
+    //     }
+
+    //     $pengumuman->update($data);
+
+    //     return view('admin.pengumuman.show')->with('success', 'Pengumuman berhasil diubah');
+    // }
 }
