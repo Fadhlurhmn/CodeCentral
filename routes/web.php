@@ -158,18 +158,19 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/create', [BansosController::class, 'create_bansos']); // Form tambah bansos
         Route::post('/', [BansosController::class, 'store_bansos']); // Menyimpan bansos baru
         Route::get('/{id}/show', [BansosController::class, 'show']); // Menampilkan detail bansos
-        Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
         Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
         Route::get('/histori', [BansosController::class, 'cek_histori']); // Melihat histori penerimaan bansos
-        Route::get('/rekomendasi/{id}', [BansosController::class, 'list_rekomendasi']); // Cek rekomendasi per id bansos
 
         // Menambahkan route untuk menampilkan detail kriteria
         Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
 
-        // Menambahkan route untuk memperbarui status ACC bansos
-        Route::post('/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
+        // web.php
+
+        Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
+        Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
+
     });
 
 

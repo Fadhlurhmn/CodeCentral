@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bansos\BansosModel;
-use App\Models\bansos\DetailBansosModel;
-use App\Models\bansos\histori_penerimaan_bansos;
-use App\Models\bansos\KriteriaBansosModel;
-use App\Models\bansos\list_rekomendasi_bansos;
-use App\Models\BansosModel as ModelsBansosModel;
+use App\Models\BansosModel;
 use App\Models\detail_pertimbangan_acc_bansos;
-use App\Models\DetailBansosModel as ModelsDetailBansosModel;
-use App\Models\histori_penerimaan_bansos as ModelsHistori_penerimaan_bansos;
-use App\Models\KriteriaBansosModel as ModelsKriteriaBansosModel;
-use App\Models\list_rekomendasi_bansos as ModelsList_rekomendasi_bansos;
+use App\Models\DetailBansosModel;
+use App\Models\histori_penerimaan_bansos;
+use App\Models\KriteriaBansosModel;
+use App\Models\list_rekomendasi_bansos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class BansosController extends Controller
@@ -31,12 +27,12 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        $bansos = ModelsBansosModel::all();
+        $bansos = BansosModel::all();
 
         $totalBansos = $bansos->count('id_bansos');
 
         // Lakukan pengecekan apakah kriteria sudah ada atau belum
-        $kriteriaExists = ModelsKriteriaBansosModel::count() > 0;
+        $kriteriaExists = KriteriaBansosModel::count() > 0;
 
         return view('admin.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
@@ -49,7 +45,7 @@ class BansosController extends Controller
 
     public function list(Request $request)
     {
-        $bansos = ModelsBansosModel::all();
+        $bansos = BansosModel::all();
 
         return DataTables::of($bansos)
             ->addIndexColumn()
@@ -62,9 +58,15 @@ class BansosController extends Controller
 
     public function show($id)
     {
-        // Mengambil data Bansos beserta DetailBansos terkait berdasarkan id_bansos
-        $bansos = ModelsBansosModel::with(['detail_bansos.keluarga'])->find($id);
+        // Mengambil data Bansos
+        $bansos = BansosModel::find($id);
 
+        // Fetching histori_penerimaan_bansos records
+        $bansos_acc = histori_penerimaan_bansos::where('id_bansos', $id)->get();
+        // dd($bansos_acc);
+
+        // ambil data detail bansos
+        $detail_bansos = DetailBansosModel::where('id_bansos', $id)->get();
         if (!$bansos) {
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
@@ -83,19 +85,21 @@ class BansosController extends Controller
         return view('admin.bansos.detail', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
+            'detail_bansos' => $detail_bansos,
             'bansos' => $bansos,
-            'activeMenu' => $activeMenu,
-            'detailBansos' => $bansos->detail_bansos
+            'bansos_acc' => $bansos_acc,
+            'activeMenu' => $activeMenu
         ]);
     }
 
     public function daftar($id)
     {
-        $bansos = ModelsBansosModel::find($id);
+        $bansos = list_rekomendasi_bansos::where('id_bansos', $id)->get();
 
-        if (!$bansos) {
+        if ($bansos->isEmpty()) {
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
+
         $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
             'list' => ['Home', 'Bantuan Sosial', 'Detail']
@@ -115,6 +119,24 @@ class BansosController extends Controller
         ]);
     }
 
+    public function update_acc_bansos(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'status.*' => 'required|in:acc,tolak'
+        ]);
+
+        // Perbarui status untuk setiap keluarga yang ada di request
+        foreach ($request->status as $id_keluarga => $status) {
+            // Temukan data yang sesuai dengan id_bansos dan id_keluarga
+            DetailBansosModel::where('id_bansos', $id)
+                ->where('id_keluarga', $id_keluarga)
+                ->update(['status' => $status]);
+        }
+
+        // Redirect kembali ke halaman daftar dengan pesan sukses
+        return redirect('admin/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
+    }
     public function create_bansos()
     {
         $breadcrumb = (object)[
@@ -145,7 +167,7 @@ class BansosController extends Controller
             'jumlah_penerima' => 'required|integer'
         ]);
 
-        $bansos = new ModelsBansosModel();
+        $bansos = new BansosModel();
         $bansos->kode = $request->kode;
         $bansos->nama = $request->nama_bansos;
         $bansos->tanggal_pemberian = $request->tanggal_bansos;
@@ -160,7 +182,7 @@ class BansosController extends Controller
 
     public function edit_bansos($id)
     {
-        $bansos = ModelsBansosModel::find($id);
+        $bansos = BansosModel::find($id);
 
         if (!$bansos) {
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
@@ -195,7 +217,7 @@ class BansosController extends Controller
             'jumlah_penerima' => 'required|integer'
         ]);
 
-        $bansos = ModelsBansosModel::find($id);
+        $bansos = BansosModel::find($id);
 
         if ($bansos) {
             $bansos->kode = $request->kode;
@@ -214,7 +236,7 @@ class BansosController extends Controller
 
     public function delete_bansos($id)
     {
-        $bansos = ModelsBansosModel::find($id);
+        $bansos = BansosModel::find($id);
 
         if ($bansos) {
             $bansos->delete();
@@ -227,7 +249,7 @@ class BansosController extends Controller
 
     public function cek_histori()
     {
-        $histori_bansos = ModelsHistori_penerimaan_bansos::all();
+        $histori_bansos = histori_penerimaan_bansos::all();
 
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
@@ -247,29 +269,7 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-    // ini buat nampilin list rekomendasi penerimaan bansos beserta ranking nya berdasarkan id bansos
-    public function list_rekomendasi($id)
-    {
-        $rekomendasi = ModelsList_rekomendasi_bansos::where('id_bansos', $id)->get();
 
-        $breadcrumb = (object) [
-            'title' => 'Rekomendasi Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Rekomendasi Penerimaan']
-        ];
-
-        $page = (object) [
-            'title' => 'Rekomendasi Penerimaan Bantuan Sosial'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('admin.bansos.rekomendasi', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'rekomendasi' => $rekomendasi,
-            'activeMenu' => $activeMenu
-        ]);
-    }
     // show detail isi jawaban form kriteria
     public function show_kriteria($id)
     {
@@ -291,25 +291,5 @@ class BansosController extends Controller
             'detail' => $detail,
             'activeMenu' => $activeMenu
         ]);
-    }
-    public function update_acc_bansos(Request $request)
-    {
-        $request->validate([
-            'status' => 'required|in:acc,tolak'
-        ]);
-
-        $cari_data = ModelsDetailBansosModel::where('id_keluarga', $request->id_keluarga)
-            ->where('id_bansos', $request->id_bansos)
-            ->first();
-
-        if ($cari_data) {
-            $cari_data->update([
-                'status' => $request->status
-            ]);
-
-            return redirect('admin/bansos')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
-        } else {
-            return redirect('admin/bansos')->with('error', 'Data tidak ditemukan');
-        }
     }
 }

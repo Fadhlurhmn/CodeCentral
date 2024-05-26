@@ -10,104 +10,60 @@
         <div class="container h-full bg-white shadow-md rounded-lg p-6">
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-b-2 border-teal-500">
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-800">Daftar Permintaan</h1>
-                <p class="pb-5 my-2 text-md text-gray-600">Informasi daftar permintaan warga terhadap bansos.</p>
+                <p class="pb-5 my-2 text-md text-gray-600">Daftar Permintaan Bantuan Sosial dan Rekomendasi Sistem Penerima.</p>
                 
-                <a href={{ url('admin/bansos/'.$bansos->id_bansos.'/show') }} class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                <a href="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/show') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
                 
                 <!-- Section for 'acc' and 'tolak' statuses -->
                 <div class="mt-6">
                     <div class="flex justify-between">
-                        <h2 class="text-xl font-bold text-gray-700">Permintaan Diterima</h2>
-                        <a href="{{ url('#')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Cek Rekomendasi</a>
+                        <h2 class="text-xl font-bold text-gray-700">Rekomendasi Penerima</h2>
                     </div>
-                    <div class="overflow-x-auto mt-4">
-                        <table class="table-auto w-full min-w-max text-center cursor-default">
-                            <thead class="bg-teal-500 text-white">
-                                <tr>
-                                    <th class="p-3 text-sm font-medium tracking-normal">No</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-700">
-                                <!-- Data rows for 'acc' and 'tolak' statuses will be inserted here -->
-                                {{-- @foreach ($requests as $request)
-                                    @if ($request->status == 'acc' || $request->status == 'tolak') --}}
-                                    <tr class="border-b">
-                                        {{-- <td class="p-3">{{ $request->no }}</td>
-                                        <td class="p-3">{{ $request->no_keluarga }}</td>
-                                        <td class="p-3">{{ $request->tanggal }}</td> --}}
-                                        <td class="p-3">No</td>
-                                        <td class="p-3">12345</td>
-                                        <td class="p-3">
-                                            
-                                            {{-- <span class="px-2 py-1 rounded-full text-white {{ $request->status == 'acc' ? 'bg-teal-600' : 'bg-red-600' }}">
-                                                {{ ucfirst($request->status) }}
-                                            </span> --}}
-                                            <span class="px-2 py-1 rounded-full text-white bg-teal-600">
-                                                terima
-                                            </span>
+                    <form action="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/update_acc_bansos') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id_bansos" value="{{ $bansos[0]->id_bansos }}">
+                        <div class="overflow-x-auto mt-4">
+                            <table class="table-auto w-full min-w-max text-center cursor-default">
+                                <thead class="bg-teal-500 text-white">
+                                    <tr>
+                                        <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Kepala Keluarga</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Alamat</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Ranking</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Status</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700">
+                                    @foreach ($bansos as $ban)
+                                        <tr class="border-b">
+                                            <td class="p-3">{{ $ban->nomor_keluarga }}</td>
+                                            <td class="p-3">{{ $ban->nama_kepala_keluarga }}</td>
+                                            <td class="p-3">{{ $ban->alamat }}</td>
+                                            <td class="p-3">{{ $ban->rank }}</td>
+                                            <td class="p-3">
+                                                <select name="status[{{ $ban->id_keluarga }}]" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
+                                                    <option value="tolak" {{ $ban->status == 'tolak' ? 'selected' : '' }}>Tolak</option>
+                                                    <option value="acc" {{ $ban->status == 'acc' ? 'selected' : '' }}>Acc</option>
+                                                </select>
+                                            </td>
+                                            <td class="p-3">
+                                                <a href="{{ url('admin/bansos/'.$ban->id_bansos.'/keluarga/'.$ban->id_keluarga) }}" class="text-teal-500 hover:text-teal-700">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Simpan</button>
+                        </div>
+                    </form>
                                         
-                                        </td>
-                                    </tr>
-                                    {{-- @endif
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Section for 'pending' status -->
-                <div class="mt-6">
-                    <h2 class="text-xl font-bold text-gray-700">Permintaan Pending</h2>
-
-                    <div class="overflow-x-auto mt-4">
-                        <table class="table-auto w-full min-w-max text-center cursor-default">
-                            <thead class="bg-teal-500 text-white">
-                                <tr>
-                                    <th class="p-3 text-sm font-medium tracking-normal">No</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">Status</th>
-                                    <th class="p-3 text-sm font-medium tracking-normal">Aksi</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody class="text-gray-700">
-                                <!-- Data rows for 'pending' status will be inserted here -->
-
-                                {{-- @foreach ($requests as $request)
-                                    @if ($request->status == 'pending') --}}
-                                    <tr class="border-b">
-                                        {{-- <td class="p-3">{{ $request->no }}</td>
-                                        <td class="p-3">{{ $request->no_keluarga }}</td>
-                                        <td class="p-3">
-                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
-                                                {{ ucfirst($request->status) }}
-                                            </span>
-                                        </td> --}}
-
-                                        <td class="p-3">1</td>
-                                        <td class="p-3">987654321</td>
-                                        {{-- <td class="p-3"></td> --}}
-                                        <td class="p-3">
-                                            <span class="px-2 py-1 rounded-full text-white bg-yellow-600/60">
-                                                Pending
-                                            </span>
-                                        </td>
-
-                                        <td class="p-3 space-x-2">
-                                            {{-- <button onclick="updateStatus('{{ $request->id }}', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-600/60">Terima</button>
-                                            <button onclick="updateStatus('{{ $request->id }}', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button> --}}
-                                            <button onclick="updateStatus('', 'acc')" class="px-3 py-1 bg-teal-600/60 text-white rounded hover:bg-teal-700/60">Terima</button>
-                                            <button onclick="updateStatus('', 'tolak')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Tolak</button>
-                                        </td>
-
-                                    </tr>
-                                    {{-- @endif
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
 
                 <!-- Pagination -->
@@ -121,26 +77,3 @@
 </div>
 
 @include('layout.end')
-
-<script>
-    function updateStatus(requestId, status) {
-        // Send a POST request to update the status of the request
-        fetch(`/requests/update-status`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ id: requestId, status: status })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Failed to update status');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
