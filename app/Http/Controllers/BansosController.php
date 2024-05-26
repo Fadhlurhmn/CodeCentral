@@ -262,7 +262,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.hisgori', [
+        return view('admin.bansos.histori', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'histori_bansos' => $histori_bansos,

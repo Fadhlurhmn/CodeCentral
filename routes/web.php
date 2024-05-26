@@ -166,8 +166,6 @@ Route::group(['prefix' => 'admin'], function () {
         // Menambahkan route untuk menampilkan detail kriteria
         Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
 
-        // web.php
-
         Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
         Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
 
