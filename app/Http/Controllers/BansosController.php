@@ -280,13 +280,20 @@ class BansosController extends Controller
     public function getHistoriData(Request $request)
     {
         $bansos = BansosModel::select('id_bansos', 'nama');
+        $query = histori_penerimaan_bansos::query();
 
         // Filter berdasarkan ID_Bansos jika ada
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('nomor_keluarga', 'like', '%' . $request->search . '%');
+        }
+
         if ($request->has('id_bansos')) {
             $histori_bansos = histori_penerimaan_bansos::where('id_bansos', $request->id_bansos)->get();
         } else {
             $histori_bansos = histori_penerimaan_bansos::all();
         }
+
+
 
         return DataTables::of($histori_bansos)
             ->addIndexColumn()
@@ -294,9 +301,14 @@ class BansosController extends Controller
     }
 
 
-    public function cek_histori()
+    public function cek_histori(Request $request)
     {
-        $histori_bansos = histori_penerimaan_bansos::all();
+        // $histori_bansos = histori_penerimaan_bansos::all();
+        if ($request->has('id_bansos')) {
+            $histori_bansos = histori_penerimaan_bansos::where('id_bansos', $request->id_bansos)->get();
+        } else {
+            $histori_bansos = histori_penerimaan_bansos::all();
+        }
         $bansos = BansosModel::all();
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
