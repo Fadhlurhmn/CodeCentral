@@ -251,29 +251,6 @@ class BansosController extends Controller
         }
     }
 
-    public function cek_histori()
-    {
-        $histori_bansos = histori_penerimaan_bansos::all();
-
-        $breadcrumb = (object) [
-            'title' => 'Histori Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Histori Penerimaan']
-        ];
-
-        $page = (object) [
-            'title' => 'Histori Penerimaan Bantuan Sosial'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('admin.bansos.histori', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'histori_bansos' => $histori_bansos,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
     // show detail isi jawaban form kriteria
     public function show_kriteria($id_bansos, $id_keluarga)
     {
@@ -296,6 +273,47 @@ class BansosController extends Controller
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'detail' => $detail,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function getHistoriData(Request $request)
+    {
+        $bansos = BansosModel::select('id_bansos', 'nama');
+
+        // Filter berdasarkan ID_Bansos jika ada
+        if ($request->has('id_bansos')) {
+            $histori_bansos = histori_penerimaan_bansos::where('id_bansos', $request->id_bansos)->get();
+        } else {
+            $histori_bansos = histori_penerimaan_bansos::all();
+        }
+
+        return DataTables::of($histori_bansos)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+
+    public function cek_histori()
+    {
+        $histori_bansos = histori_penerimaan_bansos::all();
+        $bansos = BansosModel::all();
+        $breadcrumb = (object) [
+            'title' => 'Histori Penerimaan Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Histori Penerimaan']
+        ];
+
+        $page = (object) [
+            'title' => 'Histori Penerimaan Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.histori', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'histori_bansos' => $histori_bansos,
+            'bansos' => $bansos,
             'activeMenu' => $activeMenu
         ]);
     }

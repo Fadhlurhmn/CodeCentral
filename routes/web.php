@@ -162,7 +162,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
         Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
         Route::get('/histori', [BansosController::class, 'cek_histori']); // Melihat histori penerimaan bansos
-
+        Route::get('/histori/data', [BansosController::class, 'getHistoriData'])->name('bansos.data');
+        
         // Menambahkan route untuk menampilkan detail kriteria
         Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
 

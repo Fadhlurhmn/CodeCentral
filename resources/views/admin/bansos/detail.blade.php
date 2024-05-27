@@ -21,17 +21,17 @@
                 </div>
 
                 @if ($bansos_acc->isEmpty())
-                    <p class="text-gray-600">Tidak ada data penerima bansos yang ditemukan.</p>
+                    <p class="mt-7 font-semibold text-center text-gray-900">Tidak ada data penerima bansos yang ditemukan.</p>
                 @else
                     <!-- Filter Section -->
-                    <div class="flex px-2 justify-between items-center text-xs mb-4 mt-7">
+                    <div class="flex px-2 justify-between items-center mb-4 mt-7">
                         <div class="flex items-center">
-                            <label for="filter-periode" class="mr-2 text-gray-700">List Penerima:</label>
+                            <label for="filter-periode" class="mr-2 font-semibold text-sm text-gray-700 ">List Penerima:</label>
                         </div>
 
                         <!-- Search Bar -->
                         <div class="flex items-center">
-                            <input type="text" id="search-bar" placeholder="Cari Nomor Keluarga..." class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
+                            <input type="text" id="search-bar" placeholder="Cari Nomor Keluarga..." class="p-2 text-xs border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
                     </div>
 
@@ -158,5 +158,5 @@
         });
 
         renderTable(originalData);
-    });
+        });
 </script>

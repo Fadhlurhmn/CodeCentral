@@ -8,7 +8,7 @@
     <!-- Start content -->
     <div class="flex flex-col flex-grow p-6">
         <div class="container h-full bg-white shadow-md rounded-lg p-6">
-            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-b-2 border-teal-500">
+            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white">
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-800">Daftar Permintaan</h1>
                 <p class="pb-5 my-2 text-md text-gray-600">Daftar Permintaan Bantuan Sosial dan Rekomendasi Sistem Penerima.</p>
                 
@@ -22,7 +22,7 @@
                     <form action="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/update_acc_bansos') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id_bansos" value="{{ $bansos[0]->id_bansos }}">
-                        <div class="overflow-x-auto mt-4">
+                        <div class="overflow-x-auto mt-4 border-b-2 border-teal-500">
                             <table class="table-auto w-full min-w-max text-center cursor-default">
                                 <thead class="bg-teal-500 text-white">
                                     <tr>
@@ -31,7 +31,7 @@
                                         <th class="p-3 text-sm font-medium tracking-normal">Alamat</th>
                                         <th class="p-3 text-sm font-medium tracking-normal">Ranking</th>
                                         <th class="p-3 text-sm font-medium tracking-normal">Status</th>
-                                        <th class="p-3 text-sm font-medium tracking-normal">Aksi</th>
+                                        <th class="p-3 text-sm font-medium tracking-normal">Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-700">
@@ -48,10 +48,8 @@
                                                 </select>
                                             </td>
                                             <td class="p-3">
-                                                <a href="{{ url('admin/bansos/'.$ban->id_bansos.'/keluarga/'.$ban->id_keluarga) }}" class="text-teal-500 hover:text-teal-700">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
-                                                    </svg>
+                                                <a href="{{ url('admin/bansos/'.$ban->id_bansos.'/keluarga/'.$ban->id_keluarga) }}" class="text-teal-500 hover:text-teal-600 text-lg">
+                                                    <i class="fad fa-info-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
