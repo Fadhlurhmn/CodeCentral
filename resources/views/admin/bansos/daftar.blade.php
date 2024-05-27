@@ -12,8 +12,6 @@
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-800">Daftar Permintaan</h1>
                 <p class="pb-5 my-2 text-md text-gray-600">Daftar Permintaan Bantuan Sosial dan Rekomendasi Sistem Penerima.</p>
                 
-                <a href="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/show') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
-                
                 <!-- Section for 'acc' and 'tolak' statuses -->
                 <div class="mt-6">
                     <div class="flex justify-between">
@@ -57,7 +55,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="flex justify-end mt-4">
+                        <div class="flex justify-between mt-4">
+                            <a href="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/show') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
                             <button type="submit" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Simpan</button>
                         </div>
                     </form>

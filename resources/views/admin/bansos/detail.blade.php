@@ -8,21 +8,27 @@
     <!-- Start content -->
     <div class="flex flex-col flex-grow">
         <div class="container h-full bg-white">
-            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-b-2 border-teal-500">
+            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
                 {{-- Detail --}}
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos {{$bansos->nama}}</h1>
                 <p class="pb-5 my-2 text-md text-gray-600">Bantuan Sosial {{$bansos->nama}} diberikan oleh {{$bansos->pengirim}} untuk {{$bansos->jumlah_penerima}} orang dalam bentuk {{ $bansos->bentuk_pemberian }}.</p>
 
-                <div class="flex justify-between">
-                    <a href="{{ url('admin/bansos/') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                <div class="flex justify-end">
                     @if ($detail_bansos->where('id_bansos', $bansos->id_bansos)->where('status', 'pending')->isNotEmpty())
-                    <a href="{{ url('admin/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
+                    <a href="{{ url('admin/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
                     @endif            
                 </div>
-
+                
+                {{-- Jika tidak ada data penerima --}}
                 @if ($bansos_acc->isEmpty())
-                    <p class="mt-7 font-semibold text-center text-gray-900">Tidak ada data penerima bansos yang ditemukan.</p>
+                <div class="p-4 mt-10 mb-3 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                    <div class="flex-col text-center">
+                        <h1 class="text-lg font-bold text-gray-600">Data Tidak Ditemukan</h1>
+                        <p class="text-xs text-gray-500">Tidak ada data untuk penerima bantuan sosial ini.</p>
+                    </div>
+                </div>
                 @else
+
                     <!-- Filter Section -->
                     <div class="flex px-2 justify-between items-center mb-4 mt-7">
                         <div class="flex items-center">
@@ -56,6 +62,12 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div id="no-search-results" class="p-4 mt-10 mb-3 bg-neutral-50 flex justify-center shadow-md rounded-md hidden">
+                            <div class="flex-col text-center">
+                                <h1 class="text-lg font-bold text-gray-600">Data tidak ditemukan</h1>
+                                <p class="text-xs text-gray-500">Tidak ada data yang cocok dengan pencarian Anda.</p>
+                            </div>
+                        </div>
                     </div> 
                 @endif
 
@@ -64,6 +76,9 @@
                     <!-- Pagination buttons will be inserted here -->
                 </div>
             </div>
+            
+            <a href="{{ url('admin/bansos/') }}" class="mx-7 p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                    
         </div>
     </div>
     <!-- End content -->
@@ -79,7 +94,7 @@
         const tableBody = document.getElementById('table-body');
         const pagination = document.getElementById('pagination');
         const searchBar = document.getElementById('search-bar');
-        const filterPeriode = document.getElementById('filter-periode');
+        const noSearchResults = document.getElementById('no-search-results');
 
         const originalData = Array.from(tableBody.children);
 
@@ -91,7 +106,6 @@
             const paginatedData = data.slice(start, end);
 
             paginatedData.forEach((row, index) => {
-                row.querySelector('td:first-child').textContent = start + index + 1;
                 tableBody.appendChild(row);
             });
 
@@ -106,9 +120,9 @@
             const createButton = (label, page) => {
                 const button = document.createElement('button');
                 button.textContent = label;
-                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-white', 'bg-teal-500', 'hover:bg-teal-500', 'hover:text-white', 'transition', 'duration-300', 'ease-in-out');
+                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-white', 'bg-teal-500', 'hover:bg-teal-600', 'hover:text-white', 'transition', 'duration-300', 'ease-in-out');
                 if (page === currentPage) {
-                    button.classList.add('bg-teal-500', 'text-white');
+                    button.classList.add('bg-teal-600');
                 }
                 button.addEventListener('click', () => {
                     currentPage = page;
@@ -134,15 +148,17 @@
 
         function filterAndRenderTable() {
             const searchTerm = searchBar.value.toLowerCase();
-            const selectedPeriod = filterPeriode.value;
 
             const filteredData = originalData.filter(row => {
-                const noKeluarga = row.children[1].textContent.toLowerCase();
-                const matchesSearch = noKeluarga.includes(searchTerm);
-                const matchesPeriod = selectedPeriod === '' || noKeluarga.includes(selectedPeriod); // Adjust this logic based on actual data structure
-
-                return matchesSearch && matchesPeriod;
+                const noKeluarga = row.children[0].textContent.toLowerCase();
+                return noKeluarga.includes(searchTerm);
             });
+
+            if (filteredData.length === 0) {
+                noSearchResults.classList.remove('hidden');
+            } else {
+                noSearchResults.classList.add('hidden');
+            }
 
             renderTable(filteredData, currentPage);
         }
@@ -152,11 +168,6 @@
             filterAndRenderTable();
         });
 
-        filterPeriode.addEventListener('change', () => {
-            currentPage = 1;
-            filterAndRenderTable();
-        });
-
         renderTable(originalData);
-        });
+    });
 </script>

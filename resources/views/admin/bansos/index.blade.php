@@ -52,11 +52,11 @@
             {{-- Card jumlah warga penerima --}}
             <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
                 <div class="card-body flex items-center">
-                    <div class="px-3 py-2 rounded bg-green-500 text-white mr-3">
-                        <i class="fad fa-user-friends"></i>
+                    <div class="px-3 py-2 rounded bg-teal-600 text-white mr-3">
+                        <i class="fad fa-file-alt"></i>
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Keluarga yang Mengajukan</h1>
+                        <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Permintaan Ajuan</h1>
                     </div>
                 </div>
             </div>
