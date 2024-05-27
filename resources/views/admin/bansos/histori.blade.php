@@ -22,7 +22,7 @@
                         <select id="filter_bansos" name="filter_bansos" class="uppercase p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                             <option value="" hidden>Pilih Jenis</option>
                             @foreach($bansos as $Bansos)
-                            <option value="{{$Bansos->id_bansos}}">{{$Bansos->nama}}</option>
+                            <option value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -81,7 +81,6 @@
         const pagination = document.getElementById('pagination');
         const searchBar = document.getElementById('search-bar');
         const filterBansos = document.getElementById('filter_bansos');
-        console.log('filterBansos');
         const noSearchResults = document.getElementById('no-search-results');
 
         const originalData = Array.from(tableBody.children);
@@ -137,7 +136,7 @@
         function filterAndRenderTable() {
             const searchTerm = searchBar.value.toLowerCase();
             const selectedBansos = filterBansos.value;
-
+            console.log(selectedBansos);
             const filteredData = originalData.filter(row => {
                 const jenisBansos = row.children[0].textContent.toLowerCase();
                 const noKeluarga = row.children[1].textContent.toLowerCase();
