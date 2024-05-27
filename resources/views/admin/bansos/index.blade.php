@@ -56,7 +56,7 @@
                         <i class="fad fa-user-friends"></i>
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-semibold">-- Keluarga Penerima</h1>
+                        <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Keluarga yang Mengajukan</h1>
                     </div>
                 </div>
             </div>

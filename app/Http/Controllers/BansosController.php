@@ -30,6 +30,9 @@ class BansosController extends Controller
         $bansos = BansosModel::all();
 
         $totalBansos = $bansos->count('id_bansos');
+        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
+            ->distinct()
+            ->count('id_keluarga');
 
         // Lakukan pengecekan apakah kriteria sudah ada atau belum
         $kriteriaExists = KriteriaBansosModel::count() > 0;
@@ -40,6 +43,7 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu,
             'bansos' => $bansos,
             'totalBansos' => $totalBansos,
+            'keluarga_yang_mengajukan' => $keluarga_yang_mengajukan,
         ])->with('kriteriaExists', $kriteriaExists);
     }
 
