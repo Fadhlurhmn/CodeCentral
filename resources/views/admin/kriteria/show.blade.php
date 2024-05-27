@@ -5,7 +5,7 @@
 <div class="h-screen w-full flex flex-row flex-wrap bg-gray-100">
     @include('layout.a_sidebar')
         
-    <div class="flex flex-col flex-grow p-6">
+    <div class="flex flex-col flex-grow p-6 cursor-default">
         <div class="container h-full bg-white shadow-md rounded-lg p-6">
             
             <h1 class="ml-5 my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>

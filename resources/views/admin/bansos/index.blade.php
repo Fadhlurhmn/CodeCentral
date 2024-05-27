@@ -37,7 +37,7 @@
                     </div>
             @endif
             {{-- Card Jumlah bansos --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
+            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
                 <div class="card-body flex items-center">
                     <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
                         <i class="fad fa-people-carry"></i>
@@ -47,10 +47,9 @@
                     </div>
                 </div>
             </div>
-            {{-- End card jumlah penerima bansos --}}
             
             {{-- Card jumlah warga penerima --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20 rounded-lg shadow-md">
+            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
                 <div class="card-body flex items-center">
                     <div class="px-3 py-2 rounded bg-teal-600 text-white mr-3">
                         <i class="fad fa-file-alt"></i>
@@ -60,7 +59,6 @@
                     </div>
                 </div>
             </div>
-            {{-- End card jumlah warga penerima --}}
         </div>
         {{-- End Card Jumlah bansos & penerima--}}
 
