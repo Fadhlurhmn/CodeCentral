@@ -6,7 +6,9 @@
   
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
+  
+  {{-- Flowbite --}}
+  {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" /> --}}
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
@@ -19,6 +21,7 @@
   {{-- Font Awesome --}}
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
   @vite('resources/css/app.sass')
+
 
   {{-- replace Admin for $title to change the title each page --}}
   <title>SIRW | Admin</title>
