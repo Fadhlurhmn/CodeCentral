@@ -25,21 +25,10 @@
                     {{ $pengumuman->created_at }}
                 </div>
             </div>
-            @if (session('success'))
-            <!-- Menampilkan pesan sukses jika ada session 'success' -->
-            <div class="col-span-4">
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                    <strong class="font-bold">Sukses!</strong>
-                    <span class="block sm:inline">{{ session('success') }}</span>
-                </div>
-            </div>
-        @endif
-
             {{-- tampilan image/ lampiran (kalo mau dibatesin cuma image boleh) --}}
             {{-- <div class="mb-8">
                 <img src="{{ $pengumuman->lampiran }}" class="object-cover w-full h-96" alt="no image">
             </div> --}}
-
             {{-- tampilan content pengumuman --}}
             <div class="flex justify-center just">
                 <div class="mb-4 text-lg text-wrap max-w-prose">

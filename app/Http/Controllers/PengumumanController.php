@@ -83,15 +83,26 @@ public function store(Request $request)
     $request->validate([
         'judul_pengumuman' => 'required|string|max:255',
         'deskripsi' => 'required|string',
+        'Thumbnail' => 'nullable|image|max:2048'
     ]);
 
-    $pengumuman = PengumumanModel::create([
+    // menyimpan data foto ktp yang diupload ke variabel foto_ktp
+    $thumbnail = $request->file('thumbnail');
+
+    $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
+
+    // isi dengan nama folder tempat kemana file diupload
+    $tujuan_upload = 'pengumuman_thumbnail';
+    $thumbnail->move($tujuan_upload, $nama_file);
+
+    PengumumanModel::create([
         'id_user' => '1', // Replace with Auth::user()->id if using auth
         'judul_pengumuman' => $request->judul_pengumuman,
         'deskripsi' => $request->deskripsi,
+        'thumbnail' => $nama_file
     ]);
 
-    return redirect('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show')->with('success', 'Pengumuman berhasil ditambahkan');
+    return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil ditambahkan');
 }
 
     public function show($id)
@@ -140,16 +151,38 @@ public function store(Request $request)
     public function update(Request $request, $id)
     {
         $request->validate([
-            'judul_pengumuman' => 'required|string|max:255',
+            'judul_pengumuman' => 'required|string',
             'deskripsi' => 'required|string',
+            'thumbnail' => 'nullable|image|max:2048'
         ]);
 
         $pengumuman = PengumumanModel::findOrFail($id);
-        $data = $request->only('judul_pengumuman', 'deskripsi');
 
-        $pengumuman->update($data);
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail = $request->file('thumbnail');
+            $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
 
-        return redirect('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show')->with('success', 'Pengumuman berhasil diubah');
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'pengumuman_thumbnail';
+            $thumbnail->move($tujuan_upload, $nama_file);
+
+            // Update the pengumuman with the new thumbnail
+            $pengumuman->update([
+                'id_user' => '1', // Replace with Auth::user()->id if using auth
+                'judul_pengumuman' => $request->judul_pengumuman,
+                'deskripsi' => $request->deskripsi,
+                'thumbnail' => $nama_file
+            ]);
+        } else {
+            // Update the pengumuman without changing the thumbnail
+            $pengumuman->update([
+                'id_user' => '1', // Replace with Auth::user()->id if using auth
+                'judul_pengumuman' => $request->judul_pengumuman,
+                'deskripsi' => $request->deskripsi
+            ]);
+        }
+
+        return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil diubah');
     }
 
     public function upload(Request $request)

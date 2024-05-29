@@ -24,10 +24,24 @@
         </form>
       </div>
     </div>
+    @if (session('success'))
+    <!-- Menampilkan pesan sukses jika ada session 'success' -->
+    <div class="col-span-4 mb-4 px-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Sukses!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    </div>
+    @endif
       {{-- Bagian pengumuman Usaha Warga --}}
       <div class="h-fit grid grid-cols-1 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
         @foreach ($pengumuman as $pengumumans)
             <div class="rounded-lg shadow-md flex flex-row border-b-2 border-teal-500">
+                @if($pengumumans->thumbnail)
+                    <div class="p-4">
+                        <img src="{{ asset('pengumuman_thumbnail/'. $pengumumans->thumbnail) }}" alt="{{ $pengumumans->judul_pengumuman }}" class="w-16 h-16 object-cover rounded-lg">
+                    </div>
+                @endif
                 <div class="p-4 flex-1">
                     <h2 class="text-lg font-semibold text-gray-900">{{ $pengumumans->judul_pengumuman }}</h2>
                     <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->id_user }}</p>
@@ -49,7 +63,7 @@
                 </div>
             </div>
         @endforeach
-     </div>
+    </div>
     @push('js')
      <script>
          document.addEventListener('DOMContentLoaded', (event) => {
