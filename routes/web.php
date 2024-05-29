@@ -5,11 +5,14 @@ use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BansosController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return redirect('/admin');
@@ -106,16 +109,47 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::put('/{id}', [UserController::class, 'update']);
             // Route::delete('/{id}', [UserController::class, 'destroy']);
         });
+      
         Route::group(['prefix' => 'pengumuman'], function () {
-          Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
-          Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
-          Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
-          Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
-          Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
-          Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
-          Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
-          Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
-        // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+            Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
+            Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
+            Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
+            Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
+            Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
+            Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
+            Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
+            Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
+            // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+        });
+  
+        Route::group(['prefix' => 'bansos'], function () {
+            Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
+            Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
+            Route::get('/create', [BansosController::class, 'create_bansos']); // Form tambah bansos
+            Route::post('/', [BansosController::class, 'store_bansos']); // Menyimpan bansos baru
+            Route::get('/{id}/show', [BansosController::class, 'show']); // Menampilkan detail bansos
+            Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
+            Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
+            Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
+            Route::get('/histori', [BansosController::class, 'cek_histori']); // Melihat histori penerimaan bansos
+            Route::get('/histori/data', [BansosController::class, 'getHistoriData'])->name('bansos.data');
+
+            // Menambahkan route untuk menampilkan detail kriteria
+            Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
+
+            Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
+            Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
+
+            // cek jawaban kriteria masing-masing keluarga
+            Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria']);
+        });
+
+
+        Route::group(['prefix' => 'kriteria'], function () {
+            Route::get('/update', [KriteriaController::class, 'update_kriteria']); //menambahkan
+            Route::post('/', [KriteriaController::class, 'store_kriteria']); // Menyimpan kriteria baru
+            Route::get('/show', [KriteriaController::class, 'show_kriteria']); // melihat kriteria
+        });
     });
-    });
+
 });

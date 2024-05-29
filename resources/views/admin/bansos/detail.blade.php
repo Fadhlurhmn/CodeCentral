@@ -8,48 +8,77 @@
     <!-- Start content -->
     <div class="flex flex-col flex-grow">
         <div class="container h-full bg-white">
-            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos</h1>
+            <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500 cursor-default">
+                {{-- Detail --}}
+                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos {{$bansos->nama}}</h1>
+                <p class="pb-5 my-2 text-md text-gray-600">Bantuan Sosial {{$bansos->nama}} diberikan oleh <b>{{$bansos->pengirim}}</b> untuk {{$bansos->jumlah_penerima}} orang dalam bentuk {{ $bansos->bentuk_pemberian }}.</p>
+
+                <div class="flex justify-end">
+                    @if ($detail_bansos->where('id_bansos', $bansos->id_bansos)->where('status', 'pending')->isNotEmpty())
+                    <a href="{{ url('admin/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
+                    @endif            
+                </div>
                 
-                <!-- Filter Section -->
-                <div class="flex px-2 justify-between items-center text-xs mb-4">
-                    <div class="flex items-center">
-                        <label for="filter-periode" class="mr-2 text-gray-700">Periode:</label>
-                        <select id="filter-periode" class="p-2 border border-gray-300 rounded">
-                            <option value="">Semua</option>
-                            <option value="januari">Januari</option>
-                            <option value="februari">Februari</option>
-                            <option value="maret">Maret</option>
-                            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                        </select>
-                    </div>
-
-                    <!-- Search Bar -->
-                    <div class="flex items-center">
-                        <input type="text" id="search-bar" placeholder="Cari Nomer Keluarga..." class="p-2 border border-gray-300 rounded">
+                {{-- Jika tidak ada data penerima --}}
+                @if ($bansos_acc->isEmpty())
+                <div class="p-4 mt-10 mb-3 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                    <div class="flex-col text-center">
+                        <h1 class="text-lg font-bold text-gray-600">Data Tidak Ditemukan</h1>
+                        <p class="text-xs text-gray-500">Tidak ada data untuk penerima bantuan sosial ini.</p>
                     </div>
                 </div>
+                @else
 
-                <div class="h-auto p-2">
-                    <table id="table_keluarga" class="table-auto w-full min-w-max text-center cursor-default">
-                        <thead class="bg-teal-400">
-                            <tr>
-                                <th class="p-3 text-sm font-normal tracking-normal">No</th>
-                                <th class="p-3 text-sm font-normal tracking-normal">No Keluarga</th>
-                                <th class="p-3 text-sm font-normal tracking-normal">Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            <!-- Data rows will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
+                    <!-- Filter Section -->
+                    <div class="flex px-2 justify-between items-center mb-4 mt-7">
+                        <div class="flex items-center">
+                            <label for="filter-periode" class="mr-2 font-semibold text-sm text-gray-700 ">List Penerima:</label>
+                        </div>
 
-                <!-- Paginasi -->
-                <div id="pagination" class="flex justify-center mt-4">
+                        <!-- Search Bar -->
+                        <div class="flex items-center">
+                            <input type="text" id="search-bar" placeholder="Cari Nomor Keluarga..." class="p-2 text-xs border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        </div>
+                    </div>
+
+                    <div class="h-auto p-2">
+                        <table id="table_keluarga" class="table-auto w-full min-w-max text-center cursor-default">
+                            <thead class="bg-teal-500 text-white">
+                                <tr>
+                                    <th class="p-3 text-sm font-medium tracking-normal">Nomor Keluarga</th>
+                                    <th class="p-3 text-sm font-medium tracking-normal">Kepala Keluarga</th>
+                                    <th class="p-3 text-sm font-medium tracking-normal">Tanggal</th> 
+                                    <th class="p-3 text-sm font-medium tracking-normal">Alamat</th> 
+                                </tr>
+                            </thead>
+                            <tbody id="table-body" class="text-gray-700">
+                                @foreach($bansos_acc as $index => $detail)
+                                    <tr class="border-b">
+                                        <td class="p-3 text-sm">{{ $detail->nomor_keluarga }}</td>
+                                        <td class="p-3 text-sm">{{ $detail->nama_kepala_keluarga }}</td>
+                                        <td class="p-3 text-sm">{{ $detail->tanggal_pemberian }}</td>
+                                        <td class="p-3 text-sm">{{ $detail->alamat }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div id="no-search-results" class="p-4 mt-10 mb-3 bg-neutral-50 flex justify-center shadow-md rounded-md hidden">
+                            <div class="flex-col text-center">
+                                <h1 class="text-lg font-bold text-gray-600">Data tidak ditemukan</h1>
+                                <p class="text-xs text-gray-500">Tidak ada data yang cocok dengan pencarian Anda.</p>
+                            </div>
+                        </div>
+                    </div> 
+                @endif
+
+                <!-- Pagination -->
+                <div id="pagination" class="flex justify-center mt-4 space-x-2">
                     <!-- Pagination buttons will be inserted here -->
                 </div>
             </div>
+            
+            <a href="{{ url('admin/bansos/') }}" class="mx-7 p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                    
         </div>
     </div>
     <!-- End content -->
@@ -58,64 +87,87 @@
 @include('layout.end')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const filterPeriode = document.getElementById('filter-periode');
-    const searchBar = document.getElementById('search-bar');
-    const tableBody = document.getElementById('table-body');
-    const pagination = document.getElementById('pagination');
+    document.addEventListener('DOMContentLoaded', function() {
+        const rowsPerPage = 10;
+        let currentPage = 1;
 
-    filterPeriode.addEventListener('change', filterData);
-    searchBar.addEventListener('input', filterData);
+        const tableBody = document.getElementById('table-body');
+        const pagination = document.getElementById('pagination');
+        const searchBar = document.getElementById('search-bar');
+        const noSearchResults = document.getElementById('no-search-results');
 
-    function filterData() {
-        const periode = filterPeriode.value.toLowerCase();
-        const searchQuery = searchBar.value.toLowerCase();
+        const originalData = Array.from(tableBody.children);
 
-        // Fetch and filter data (dummy data example)
-        const data = [
-            { no: 1, noKeluarga: '12345', tanggal: '2023-01-15' },
-            { no: 2, noKeluarga: '67890', tanggal: '2023-02-20' },
-            // Add more data here
-        ];
+        function renderTable(data, page = 1) {
+            tableBody.innerHTML = '';
 
-        const filteredData = data.filter(item => {
-            const itemTanggal = new Date(item.tanggal).toLocaleString('id-ID', { month: 'long' }).toLowerCase();
-            const matchesPeriode = periode ? itemTanggal.includes(periode) : true;
-            const matchesSearch = item.noKeluarga.includes(searchQuery);
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = data.slice(start, end);
 
-            return matchesPeriode && matchesSearch;
-        });
+            paginatedData.forEach((row, index) => {
+                tableBody.appendChild(row);
+            });
 
-        renderTable(filteredData);
-        renderPagination(filteredData);
-    }
-
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        data.forEach(item => {
-            const row = `<tr>
-                <td class="p-3">${item.no}</td>
-                <td class="p-3">${item.noKeluarga}</td>
-                <td class="p-3">${item.tanggal}</td>
-            </tr>`;
-            tableBody.insertAdjacentHTML('beforeend', row);
-        });
-    }
-
-    function renderPagination(data) {
-        // Implement pagination if needed
-        pagination.innerHTML = '';
-        // Example pagination buttons
-        if (data.length > 10) {
-            pagination.innerHTML = `
-                <button class="mx-1 px-3 py-1 border rounded">Previous</button>
-                <button class="mx-1 px-3 py-1 border rounded">Next</button>
-            `;
+            renderPagination(data.length);
         }
-    }
 
-    // Initial render
-    filterData();
-});
+        function renderPagination(totalRows) {
+            pagination.innerHTML = '';
 
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+            const createButton = (label, page) => {
+                const button = document.createElement('button');
+                button.textContent = label;
+                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-white', 'bg-teal-500', 'hover:bg-teal-600', 'hover:text-white', 'transition', 'duration-300', 'ease-in-out');
+                if (page === currentPage) {
+                    button.classList.add('bg-teal-600');
+                }
+                button.addEventListener('click', () => {
+                    currentPage = page;
+                    filterAndRenderTable();
+                });
+                return button;
+            };
+
+            if (currentPage > 1) {
+                pagination.appendChild(createButton('First', 1));
+                pagination.appendChild(createButton('Previous', currentPage - 1));
+            }
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.appendChild(createButton(i, i));
+            }
+
+            if (currentPage < totalPages) {
+                pagination.appendChild(createButton('Next', currentPage + 1));
+                pagination.appendChild(createButton('Last', totalPages));
+            }
+        }
+
+        function filterAndRenderTable() {
+            const searchTerm = searchBar.value.toLowerCase();
+
+            const filteredData = originalData.filter(row => {
+                const noKeluarga = row.children[0].textContent.toLowerCase();
+                return noKeluarga.includes(searchTerm);
+            });
+
+            if (filteredData.length === 0) {
+                noSearchResults.classList.remove('hidden');
+            } else {
+                noSearchResults.classList.add('hidden');
+            }
+
+            renderTable(filteredData, currentPage);
+        }
+
+        searchBar.addEventListener('input', () => {
+            currentPage = 1;
+            filterAndRenderTable();
+        });
+
+        renderTable(originalData);
+    });
 </script>
