@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\PengumumanModel;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -12,33 +11,33 @@ class PengumumanController extends Controller
 {
     public function index(Request $request)
     {
-    $breadcrumb = (object)[
-        'title' => 'Daftar Pengumuman',
-        'list' => [
-            ['name' => 'Home', 'url' => url('/admin')],
-            ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')]
-        ]
-    ];
+        $breadcrumb = (object)[
+            'title' => 'Daftar Pengumuman',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')]
+            ]
+        ];
 
-    $page = (object)[
-        'title' => 'Daftar pengumuman dipublish'
-    ];
+        $page = (object)[
+            'title' => 'Daftar pengumuman dipublish'
+        ];
 
-    $activeMenu = 'pengumuman';
+        $activeMenu = 'pengumuman';
 
-    $query = $request->input('query');
-    if ($query) {
-        $pengumuman = PengumumanModel::where('judul_pengumuman', 'like', "%$query%")->get();
-    } else {
-        $pengumuman = PengumumanModel::all();
-    }
+        $query = $request->input('query');
+        if ($query) {
+            $pengumuman = PengumumanModel::with('user')->where('judul_pengumuman', 'like', "%$query%")->get();
+        } else {
+            $pengumuman = PengumumanModel::with('user')->get();
+        }
 
-    return view('admin.pengumuman.index', [
-        'breadcrumb' => $breadcrumb,
-        'page' => $page,
-        'activeMenu' => $activeMenu,
-        'pengumuman' => $pengumuman
-    ]);
+        return view('admin.pengumuman.index', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'pengumuman' => $pengumuman
+        ]);
     }
 
     public function list()
@@ -83,7 +82,7 @@ public function store(Request $request)
     $request->validate([
         'judul_pengumuman' => 'required|string|max:255',
         'deskripsi' => 'required|string',
-        'Thumbnail' => 'nullable|image|max:2048'
+        'thumbnail' => 'required|image|max:2048'
     ]);
 
     // menyimpan data foto ktp yang diupload ke variabel foto_ktp
@@ -96,7 +95,7 @@ public function store(Request $request)
     $thumbnail->move($tujuan_upload, $nama_file);
 
     PengumumanModel::create([
-        'id_user' => '1', // Replace with Auth::user()->id if using auth
+        'id_user' => Auth::user()->id_user,
         'judul_pengumuman' => $request->judul_pengumuman,
         'deskripsi' => $request->deskripsi,
         'thumbnail' => $nama_file
@@ -168,7 +167,7 @@ public function store(Request $request)
 
             // Update the pengumuman with the new thumbnail
             $pengumuman->update([
-                'id_user' => '1', // Replace with Auth::user()->id if using auth
+                'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
                 'deskripsi' => $request->deskripsi,
                 'thumbnail' => $nama_file
@@ -176,7 +175,7 @@ public function store(Request $request)
         } else {
             // Update the pengumuman without changing the thumbnail
             $pengumuman->update([
-                'id_user' => '1', // Replace with Auth::user()->id if using auth
+                'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
                 'deskripsi' => $request->deskripsi
             ]);
