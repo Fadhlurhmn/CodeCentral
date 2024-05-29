@@ -33,7 +33,7 @@
         </div>
     </div>
     @endif
-      {{-- Bagian pengumuman Usaha Warga --}}
+      {{-- Bagian pengumuman Warga --}}
       <div class="h-fit grid grid-cols-1 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
         @foreach ($pengumuman as $pengumumans)
             <div class="rounded-lg shadow-md flex flex-row border-b-2 border-teal-500">
@@ -91,7 +91,7 @@
          });
        </script>
      @endpush
-     {{-- End Bagian pengumuman Usaha Warga --}}
+     {{-- End Bagian pengumuman Warga --}}
   <!-- end content -->
   </div>
 </div>

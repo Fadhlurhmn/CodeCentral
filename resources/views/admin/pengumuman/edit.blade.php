@@ -5,10 +5,13 @@
 <div class="h-screen flex flex-row">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
+        {{-- start breadcrumb --}}
         @include('layout.breadcrumb')
+        {{-- end breadcrumb --}}
 
         <div class="w-full h-fit p-5">
 
+            <!-- Display errors -->
             @if(!$pengumuman)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
@@ -40,13 +43,16 @@
                     </div>
                     @endif
 
+                    {{-- judul_pengumuman --}}
                     <label for="judul_pengumuman" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Judul</label>
                     <input type="text" name="judul_pengumuman" id="judul_pengumuman" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Judul" value="{{ $pengumuman->judul_pengumuman }}" required />
 
+                    {{-- nama penulis --}}
                     <input type="hidden" name="id_user" id="id_user" value="{{ $pengumuman->id_user }}" required />
 
                     <input type="hidden" name="created_at" id="created_at" value="{{ $pengumuman->created_at }}" required />
 
+                    {{-- deskripsi --}}
                     <div class="col-span-4 mt-2">
                         <label for="deskripsi" class="block mb-2 text-xs font-bold text-gray-900">Deskripsi</label>
                         <div id="editor">

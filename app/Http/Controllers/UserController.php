@@ -19,12 +19,15 @@ class UserController extends Controller
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
             'title' => 'Daftar Akun',
-            'list' => ['Home', 'Akun']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Akun', 'url' => url('admin/akun')]
+            ]
         ];
 
         // Menyiapkan judul halaman
         $page = (object) [
-            'title' => 'Daftar Akun'
+            'title' => 'Daftar akun yang terdaftar dalam sistem'
         ];
 
         // Menentukan menu yang aktif
@@ -73,13 +76,17 @@ class UserController extends Controller
 
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
-            'title' => 'Tambah Akun',
-            'list' => ['Home', 'Akun', 'Tambah']
+            'title' => 'Form Tambah Akun Baru',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Akun', 'url' => url('admin/akun')],
+                ['name' => 'Tambah', 'url' => url('admin/akun/create')]
+            ]
         ];
 
         // Menyiapkan judul halaman
         $page = (object) [
-            'title' => 'Tambah akun baru'
+            'title' => 'Isi data akun'
         ];
 
         // Menentukan menu yang aktif
@@ -117,7 +124,7 @@ class UserController extends Controller
         ]);
 
         // Mengarahkan ke halaman detail user dengan pesan sukses
-        return redirect('admin/akun/' . $user->id_user . '/show')->with('success', 'Data user berhasil disimpan');
+        return redirect('admin/akun/')->with('success', 'Data akun berhasil disimpan');
     }
 
     // Menampilkan detail user
@@ -134,12 +141,16 @@ class UserController extends Controller
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
             'title' => 'Detail Akun',
-            'list' => ['Home', 'User', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Akun', 'url' => url('admin/akun')],
+                ['name' => 'Detail', 'url' => url('admin/akun//{id}/show')]
+            ]
         ];
 
         // Menyiapkan judul halaman
         $page = (object) [
-            'title' => 'Detail Akun yang terdaftar dalam sistem'
+            'title' => 'Detail akun yang terdaftar dalam sistem'
         ];
 
         // Menentukan menu yang aktif
@@ -166,12 +177,16 @@ class UserController extends Controller
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
             'title' => 'Edit User',
-            'list' => ['Home', 'User', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Akun', 'url' => url('admin/akun')],
+                ['name' => 'Edit', 'url' => url('admin/akun//{id}/edit')]
+            ]
         ];
 
         // Menyiapkan judul halaman
         $page = (object) [
-            'title' => 'Edit user'
+            'title' => 'Ubah data akun'
         ];
 
         // Menentukan menu yang aktif
@@ -215,6 +230,6 @@ class UserController extends Controller
         $user->save();  // Menyimpan perubahan data user
 
         // Mengarahkan ke halaman detail user dengan pesan sukses
-        return redirect('admin/akun/' . $user->id_user . '/show')->with('success', 'Data user berhasil disimpan');
+        return redirect('admin/akun/')->with('success', 'Data akun berhasil diubah');
     }
 }

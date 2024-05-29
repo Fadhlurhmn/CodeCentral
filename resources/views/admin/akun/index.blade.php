@@ -1,10 +1,10 @@
 <div class="container h-full bg-slate-100">
-    <!-- Bagian judul halaman -->
-    {{-- <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1> --}}
+    <!-- Bagian breadcrumb -->
+    @include('layout.breadcrumb')
 
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         <!-- Menampilkan judul halaman -->
-        <h1 class="pb-5 my-5 text-3xl font-extrabold text-gray-600"> {{$page->title}}</h1>
+        <h1 class="mb-3 text-xl"> {{$page->title}}</h1>
 
         <!-- Bagian untuk tombol tambah data akun dan filter level akun -->
         <div class="mb-5 text-sm flex justify-between">
@@ -29,6 +29,15 @@
             </div>
         </div>
 
+        @if (session('success'))
+        <!-- Menampilkan pesan sukses jika ada session 'success' -->
+        <div class="col-span-4">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Sukses!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        </div>
+        @endif
         <!-- Bagian tabel untuk menampilkan data akun -->
         <div class="relatives mt-5 h-screen p-5 shadow-md">
             <table id="table_akun" class="border w-full min-w-max cursor-default">

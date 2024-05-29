@@ -9,15 +9,15 @@
     <!-- Bagian konten utama -->
     <div class="flex-grow bg-slate-100">
         <div class="flex flex-col">
-            <!-- Menampilkan judul halaman -->
-            <h1 class="py-5 ml-5 text-3xl">{{ $page->title }}</h1>
+            <!-- Menampilkan breadcrumb -->
+            @include('layout.breadcrumb')
         </div>
 
         <!-- Container untuk form edit data akun -->
         <div class="w-full h-screen min-w-max p-5 shadow overflow-y-scroll">
             <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/akun/' . $user->id_user) }}" method="POST">
                 <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4">
-                    Ubah Data Akun
+                    {{ $page->title }}
                 </h1>
                 @csrf <!-- Token CSRF untuk keamanan -->
                 @method('PUT') <!-- Metode PUT untuk update data -->

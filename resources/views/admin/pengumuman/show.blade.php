@@ -25,10 +25,6 @@
                     {{ $pengumuman->created_at }}
                 </div>
             </div>
-            {{-- tampilan image/ lampiran (kalo mau dibatesin cuma image boleh) --}}
-            {{-- <div class="mb-8">
-                <img src="{{ $pengumuman->lampiran }}" class="object-cover w-full h-96" alt="no image">
-            </div> --}}
             {{-- tampilan content pengumuman --}}
             <div class="flex justify-center just">
                 <div class="mb-4 text-lg text-wrap max-w-prose">
@@ -37,7 +33,7 @@
             </div>
 
 
-            <a href="{{ url('admin/pengumuman') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2">Kembali</a>
+            <a href="{{ url('admin/pengumuman') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i> Kembali</a>
         </div>
         {{-- end box preview --}}
     </div>

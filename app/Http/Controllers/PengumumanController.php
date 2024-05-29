@@ -9,8 +9,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PengumumanController extends Controller
 {
+    // Menampilkan daftar pengumuman
     public function index(Request $request)
     {
+        // Membuat breadcrumb untuk navigasi
         $breadcrumb = (object)[
             'title' => 'Daftar Pengumuman',
             'list' => [
@@ -19,19 +21,24 @@ class PengumumanController extends Controller
             ]
         ];
 
+        // Membuat data halaman
         $page = (object)[
             'title' => 'Daftar pengumuman dipublish'
         ];
 
         $activeMenu = 'pengumuman';
 
+        // Mendapatkan query pencarian jika ada
         $query = $request->input('query');
         if ($query) {
+            // Jika ada query, cari pengumuman berdasarkan judul
             $pengumuman = PengumumanModel::with('user')->where('judul_pengumuman', 'like', "%$query%")->get();
         } else {
+            // Jika tidak ada query, ambil semua pengumuman
             $pengumuman = PengumumanModel::with('user')->get();
         }
 
+        // Menampilkan view dengan data yang telah dikumpulkan
         return view('admin.pengumuman.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -40,6 +47,7 @@ class PengumumanController extends Controller
         ]);
     }
 
+    // Menampilkan daftar pengumuman dalam bentuk DataTables
     public function list()
     {
         $pengumuman = PengumumanModel::select(['id_pengumuman', 'judul_pengumuman', 'created_at']);
@@ -55,59 +63,71 @@ class PengumumanController extends Controller
             ->make(true);
     }
 
+    // Menampilkan form untuk membuat pengumuman baru
     public function create()
-{
-    $pengumuman = PengumumanModel::all();
+    {
+        $pengumuman = PengumumanModel::all();
 
-    $breadcrumb = (object)[
-        'title' => 'Tambah Pengumuman',
-        'list' => [
-            ['name' => 'Home', 'url' => url('/admin')],
-            ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
-            ['name' => 'Tambah', 'url' => url('admin/pengumuman/create')]
-        ]
-    ];
+        // Membuat breadcrumb untuk navigasi
+        $breadcrumb = (object)[
+            'title' => 'Tambah Pengumuman',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
+                ['name' => 'Tambah', 'url' => url('admin/pengumuman/create')]
+            ]
+        ];
 
-    $page = (object)[
-        'title' => 'Tambah Pengumuman baru'
-    ];
+        // Membuat data halaman
+        $page = (object)[
+            'title' => 'Tambah Pengumuman baru'
+        ];
 
-    $activeMenu = 'pengumuman';
+        $activeMenu = 'pengumuman';
 
-    return view('admin.pengumuman.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'pengumuman' => $pengumuman, 'activeMenu' => $activeMenu]);
-}
+        // Menampilkan view untuk form tambah pengumuman
+        return view('admin.pengumuman.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'pengumuman' => $pengumuman,
+            'activeMenu' => $activeMenu
+        ]);
+    }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'judul_pengumuman' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'thumbnail' => 'required|image|max:2048'
-    ]);
+    // Menyimpan pengumuman baru ke database
+    public function store(Request $request)
+    {
+        // Validasi input dari form
+        $request->validate([
+            'judul_pengumuman' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'thumbnail' => 'required|image|max:2048'
+        ]);
 
-    // menyimpan data foto ktp yang diupload ke variabel foto_ktp
-    $thumbnail = $request->file('thumbnail');
+        // Menyimpan file thumbnail yang diupload
+        $thumbnail = $request->file('thumbnail');
+        $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
+        $tujuan_upload = 'pengumuman_thumbnail';
+        $thumbnail->move($tujuan_upload, $nama_file);
 
-    $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
+        // Menyimpan data pengumuman ke database
+        PengumumanModel::create([
+            'id_user' => Auth::user()->id_user,
+            'judul_pengumuman' => $request->judul_pengumuman,
+            'deskripsi' => $request->deskripsi,
+            'thumbnail' => $nama_file
+        ]);
 
-    // isi dengan nama folder tempat kemana file diupload
-    $tujuan_upload = 'pengumuman_thumbnail';
-    $thumbnail->move($tujuan_upload, $nama_file);
+        // Redirect ke halaman daftar pengumuman dengan pesan sukses
+        return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil ditambahkan');
+    }
 
-    PengumumanModel::create([
-        'id_user' => Auth::user()->id_user,
-        'judul_pengumuman' => $request->judul_pengumuman,
-        'deskripsi' => $request->deskripsi,
-        'thumbnail' => $nama_file
-    ]);
-
-    return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil ditambahkan');
-}
-
+    // Menampilkan detail pengumuman
     public function show($id)
     {
         $pengumuman = PengumumanModel::findOrFail($id);
 
+        // Membuat breadcrumb untuk navigasi
         $breadcrumb = (object)[
             'title' => 'Preview Pengumuman',
             'list' => [
@@ -117,18 +137,28 @@ public function store(Request $request)
             ]
         ];
 
+        // Membuat data halaman
         $page = (object)[
             'title' => 'Preview pengumuman'
         ];
 
         $activeMenu = 'pengumuman';
 
-        return view('admin.pengumuman.show', ['breadcrumb' => $breadcrumb,'page' => $page,'activeMenu' => $activeMenu,'pengumuman' => $pengumuman]);
+        // Menampilkan view dengan data pengumuman yang dipilih
+        return view('admin.pengumuman.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'pengumuman' => $pengumuman
+        ]);
     }
+
+    // Menampilkan form untuk mengedit pengumuman
     public function edit($id)
     {
         $pengumuman = PengumumanModel::findOrFail($id);
 
+        // Membuat breadcrumb untuk navigasi
         $breadcrumb = (object) [
             'title' => 'Edit Pengumuman',
             'list' => [
@@ -138,17 +168,26 @@ public function store(Request $request)
             ]
         ];
 
+        // Membuat data halaman
         $page = (object) [
             'title' => 'Edit pengumuman'
         ];
 
         $activeMenu = 'pengumuman';
 
-        return view('admin.pengumuman.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'pengumuman' => $pengumuman]);
+        // Menampilkan view dengan data pengumuman yang akan diedit
+        return view('admin.pengumuman.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'pengumuman' => $pengumuman
+        ]);
     }
 
+    // Mengupdate data pengumuman yang sudah ada di database
     public function update(Request $request, $id)
     {
+        // Validasi input dari form
         $request->validate([
             'judul_pengumuman' => 'required|string',
             'deskripsi' => 'required|string',
@@ -157,15 +196,13 @@ public function store(Request $request)
 
         $pengumuman = PengumumanModel::findOrFail($id);
 
+        // Jika ada file thumbnail yang diupload, simpan dan update data
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
-
-            // isi dengan nama folder tempat kemana file diupload
             $tujuan_upload = 'pengumuman_thumbnail';
             $thumbnail->move($tujuan_upload, $nama_file);
 
-            // Update the pengumuman with the new thumbnail
             $pengumuman->update([
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
@@ -173,7 +210,7 @@ public function store(Request $request)
                 'thumbnail' => $nama_file
             ]);
         } else {
-            // Update the pengumuman without changing the thumbnail
+            // Jika tidak ada file thumbnail yang diupload, update data tanpa mengubah thumbnail
             $pengumuman->update([
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
@@ -181,9 +218,11 @@ public function store(Request $request)
             ]);
         }
 
+        // Redirect ke halaman daftar pengumuman dengan pesan sukses
         return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil diubah');
     }
 
+    // Mengupload file untuk pengumuman
     public function upload(Request $request)
     {
         if ($request->hasFile('upload')) {
@@ -191,6 +230,7 @@ public function store(Request $request)
             $extension = $request->file('upload')->getClientOriginalExtension();
             $fileName = pathinfo($originName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
 
+            // Menyimpan file yang diupload ke direktori yang ditentukan
             $path = $request->file('upload')->storeAs('public/pengumuman_gambar', $fileName);
 
             $url = asset('storage/pengumuman_gambar/' . $fileName);
