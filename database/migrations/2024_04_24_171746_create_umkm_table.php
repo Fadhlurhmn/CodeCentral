@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_umkm');
             $table->unsignedBigInteger('id_keluarga')->index();
             $table->string('nama_usaha', 100);
-            $table->string('gambar', 100);
+            $table->string('gambar', 255);
             $table->text('deskripsi');
             $table->string('status_pengajuan', 100);
             $table->text('alamat');

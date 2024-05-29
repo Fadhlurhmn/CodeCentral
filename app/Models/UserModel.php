@@ -2,24 +2,28 @@
 
 namespace App\Models;
 
-use App\Models\LevelModel;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model implements Authenticatable
+class UserModel extends Authenticatable
 {
-    use HasFactory, AuthenticatableTrait;
+    use HasFactory;
 
     protected $table = 'user';
     protected $primaryKey = 'id_user';
+    protected $fillable = ['username', 'id_penduduk', 'password', 'id_level', 'status_akun'];
 
-    protected $fillable = ['id_level', 'username', 'password'];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-    public function level(): BelongsTo
+    public function penduduk()
     {
-        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+        return $this->belongsTo(PendudukModel::class, 'id_penduduk', 'id_penduduk');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
 }

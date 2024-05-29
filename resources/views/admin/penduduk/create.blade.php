@@ -14,15 +14,28 @@
                     Isi data penduduk
                 </h1>
                 @csrf
+                @if ($errors->any())
+                    <div class="col-span-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Ada yang salah!</strong>
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
                 {{-- NIK --}}
                 <label for="nik" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">NIK <span class="text-red-500">*</span></label>
-                <input type="text" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" required />
+                <input type="number" name="nik" id="nik" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan NIK" value="{{ old('nik') }}" required />
                 <div id="nikError" class="hidden col-span-4 text-red-500 text-xs">NIK harus diisi dengan 16 karakter</div>
                 <div class="relative col-span-2 w-full h-full rounded-lg transition duration-300 ease-in-out mt-2">
-                    <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" required />
+                    <input type="file" name="foto_ktp" id="foto_ktp" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" value="{{old('foto_ktp')}}" required />
                     <label for="foto_ktp" class="text-xs font-medium cursor-pointer text-white text-center py-2 px-4 bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out">
                         Submit Foto KTP (Max ukuran 2MB)
                     </label>
+                    <span id="file-name" class="text-xs text-gray-700 mt-2 block"></span>
                 </div>
                 <div id="uploadIndicator_foto" class="hidden col-span-4">
                     <!-- Contoh: ikon atau pesan teks -->
@@ -30,13 +43,13 @@
                 </div>
                 {{-- Nama --}}
                 <label for="nama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nama <span class="text-red-500">*</span></label>
-                <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" required />
+                <input type="text" name="nama" id="nama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Nama warga" value="{{ old('nama') }}" required />
                 {{-- Tempat Lahir --}}
                 <label for="tempat_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tempat Lahir <span class="text-red-500">*</span></label>
-                <input type="text" name="tempat_lahir" id="tempat_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" required />
+                <input type="text" name="tempat_lahir" id="tempat_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{old('tempat_lahir')}}" required />
                 {{-- Tanggal Lahir --}}
                 <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir <span class="text-red-500">*</span></label>
-                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tanggal Lahir" required />
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tanggal Lahir" value="{{old('tanggal_lahir')}}" required />
                 {{-- Jenis Kelamin --}}
                 {{-- <label for="jenis_kelamin" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
                 <select name="jenis_kelamin" id="jenis_kelamin" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
@@ -45,37 +58,37 @@
                 </select> --}}
                 {{-- Alamat KTP --}}
                 <label for="alamat_ktp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Alamat KTP <span class="text-red-500">*</span></label>
-                <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat KTP" required></input>
+                <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat KTP" value="{{old('alamat_ktp')}}" required></input>
                 {{-- Alamat Domisili --}}
                 <label for="alamat_domisili" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Alamat Domisili <span class="text-red-500">*</span></label>
-                <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat Domisili" required></input>
+                <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat Domisili" value="{{old('alamat_domisili')}}" required></input>
                 {{-- Rt & RW--}}
                 <input type="hidden" name="rw" value="1" />
                 <label for="rt" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">RT Domisili <span class="text-red-500">*</span></label>
-                <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" required />
+                <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" value="{{old('rt')}}" required />
                 {{-- Agama --}}
                 <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama <span class="text-red-500">*</span></label>
-                <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" required />
+                <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{old('agama')}}" required />
                 {{-- Golongan Darah --}}
                 {{-- Tidak required incase warganya lupa/tdk pernah cek --}}
                 <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah <span class="text-red-500">*</span></label>
-                <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Golongan Darah Warga"/>
+                <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " value="{{old ('gol_darah')}}" placeholder="Golongan Darah Warga"/>
                 {{-- No telpon --}}
                 <label for="no_telp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nomor telepon <span class="text-red-500">*</span></label>
                 <div class="flex col-span-4">
                     <span class="text-gray-800 mr-2 pt-2">+62</span>
-                    <input type="tel" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon"/>
+                    <input type="number" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " value="{{old ('no_telp')}}" placeholder="Masukkan nomor telepon"/>
                 </div>
                 {{-- Pekerjaan --}}
                 {{-- Tidak required untuk yg belum berkja --}}
                 <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan <span class="text-red-500">*</span></label>
-                <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" required/>
+                <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " value="{{old ('pekerjaan')}}" placeholder="Pekerjaan Warga" required/>
                 <div id="pekerjaError" class="hidden col-span-2 text-red-500 text-xs">Isi dengan "Tidak bekerja" jika belum bekerja</div>
                 {{-- Status Data --}}
                 <input type="hidden" name="status_data" value="Aktif" />
                 {{-- Status Penduduk --}}
                 <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk <span class="text-red-500">*</span></label>
-                <select name="status_penduduk" id="status_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
+                <select name="status_penduduk" id="status_penduduk" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" required>
                     <option value="Tetap">Tetap</option>
                     <option value="Sementara">Sementara</option>
                 </select>
@@ -136,5 +149,12 @@
         if (!no_telp_value.startsWith('62')) {
             no_telp_input.value = '62' + no_telp_value;
         }
+    });
+
+    // Script nama gambar
+    document.getElementById('foto_ktp').addEventListener('change', function(event) {
+        const input = event.target;
+        const fileName = input.files[0] ? input.files[0].name : '';
+        document.getElementById('file-name').textContent = fileName;
     });
 </script>
