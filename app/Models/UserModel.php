@@ -26,4 +26,9 @@ class UserModel extends Authenticatable
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
+
+    public function pengumuman()
+    {
+        return $this->hasMany(PengumumanModel::class, 'id_pengumuman', 'id_pengumuman');
+    }
 }

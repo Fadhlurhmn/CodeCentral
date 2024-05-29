@@ -19,7 +19,7 @@
             {{-- tampilan tanggal publish --}}
             <div class="flex justify-between">
                 <div class="text-base text-slate-400 font-light mb-4">
-                    Ditulis oleh {{ $pengumuman->id_user }}
+                    Ditulis oleh {{ $pengumuman->user->username }}
                 </div>
                 <div class="text-base text-slate-400 font-light mb-4">
                     {{ $pengumuman->created_at }}

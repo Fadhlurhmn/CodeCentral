@@ -44,7 +44,7 @@
                 @endif
                 <div class="p-4 flex-1">
                     <h2 class="text-lg font-semibold text-gray-900">{{ $pengumumans->judul_pengumuman }}</h2>
-                    <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->id_user }}</p>
+                    <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->user->username }}</p>
                     <div class="mb-2">
                         <p class="text-xs text-gray-600">Tanggal penulisan: {{ $pengumumans->created_at }}</p>
                     </div>
