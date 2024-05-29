@@ -45,7 +45,6 @@
         Pengumuman
     </a>
 
-
     <a href="{{ url('/admin/promosi') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300">
         <i class="fas fa-ad text-xs mr-2"></i>
         Promosi

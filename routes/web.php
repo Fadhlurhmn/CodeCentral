@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -105,5 +106,16 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::put('/{id}', [UserController::class, 'update']);
             // Route::delete('/{id}', [UserController::class, 'destroy']);
         });
+        Route::group(['prefix' => 'pengumuman'], function () {
+          Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
+          Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
+          Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
+          Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
+          Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
+          Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
+          Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
+          Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
+        // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+    });
     });
 });
