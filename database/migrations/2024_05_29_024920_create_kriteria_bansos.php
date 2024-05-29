@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengumuman', function (Blueprint $table) {
-            $table->id('id_pengumuman');
-            $table->unsignedBigInteger('id_user')->index();
-            $table->string('judul_pengumuman', 100);
-            $table->text('deskripsi');
-            $table->string('gambar', 255);
+        Schema::create('kriteria_bansos', function (Blueprint $table) {
+            $table->id('id_kriteria');
+            $table->string('nama_kriteria');
+            $table->integer('bobot');
+            $table->enum('jenis', ['benefit', 'cost']);
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengumuman');
+        Schema::dropIfExists('kriteria_bansos');
     }
 };
