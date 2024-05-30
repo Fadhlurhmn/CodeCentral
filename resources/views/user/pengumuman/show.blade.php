@@ -32,7 +32,7 @@
             <span class="text-sm">{{ $pengumuman->created_at->format('d M, Y') }}</span>
           </div>
         </div>
-        <div class="content">
+        <div class="content text-justify">
             {!! $pengumuman->deskripsi !!}
         </div>
       </div>

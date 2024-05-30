@@ -44,7 +44,12 @@ class UserPengumumanController extends Controller {
     }
 
     private function getPlainTextFromHtml($htmlContent) {
+        // Extract content within <p> tags
         preg_match('/<p>(.*?)<\/p>/', $htmlContent, $matches);
-        return $matches[1] ?? strip_tags($htmlContent);
+        $text = $matches[1] ?? $htmlContent;
+
+        // Allow certain HTML tags
+        $allowedTags = '<br><strong><i>';
+        return strip_tags($text, $allowedTags);
     }
 }

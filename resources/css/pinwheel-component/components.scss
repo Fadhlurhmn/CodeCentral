@@ -16,7 +16,7 @@
 // social icon style
 .social-icons {
   @apply -ml-2 -mt-2;
-  
+
   li {
     @apply inline-block m-2 leading-none;
 
@@ -623,8 +623,8 @@ select:invalid {
         &:hover {
           @apply opacity-75;
         }
-           
-    }  
+
+    }
 }
 
 .alert-default {
@@ -639,7 +639,7 @@ select:invalid {
     a {
       @apply text-green-700;
     }
-}     
+}
 
 .alert-error {
   @apply bg-red-200 border-red-300 text-red-500;
@@ -647,5 +647,7 @@ select:invalid {
       @apply text-red-700;
     }
 }
-    
-        
+
+figure {
+    @apply flex justify-center;
+}

@@ -8,22 +8,19 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserPengumumanController;
 use Illuminate\Support\Facades\Route;
 
 // User Routes
-Route::get('/', function () {
-    return view('index');
-})->name('user/landing');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('user/landing');
 
-// Route::get('/pengumuman', function () {
-//     return view('user.pengumuman.index');
-// })->name('user/pengumuman');
+// Route untuk halaman landing
+Route::get('/', [HomeController::class, 'index'])->name('user.landing');
 
-// Route::get('/pengumuman/{id}', function () {
-//     return view('user.pengumuman.show');
-// })->name('user/pengumuman/show');
-
+// Route untuk halaman pengumuman
 Route::get('/pengumuman', [UserPengumumanController::class, 'index'])->name('user.pengumuman');
 Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name('user.pengumuman.show');
 

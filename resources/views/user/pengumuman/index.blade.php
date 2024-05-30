@@ -1,4 +1,3 @@
-<!-- resources/views/user/pengumuman/index.blade.php -->
 @include('layout.head')
 @include('layout.u_navbar')
 
@@ -27,7 +26,7 @@
                             <h3 class="h4 card-title">
                                 <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}">{{ $pengumuman->judul_pengumuman }}</a>
                             </h3>
-                            <p>{{ Str::limit($pengumuman->deskripsi, 100) }}</p>
+                            <p>{!! Str::limit($pengumuman->deskripsi, 100) !!}</p>
                             <div class="card-footer mt-6 flex space-x-4">
                                 <span class="inline-flex items-center text-xs text-[#666]">
                                     <i class="fas fa-calendar mr-1.5"></i>
@@ -48,7 +47,7 @@
         {{-- Semua Pengumuman --}}
         <h2 class="h4 mb-4">Semua Pengumuman</h2>
         {{-- search bar --}}
-        <form class="mb-4" method="GET" action="{{ route('user.pengumuman') }}">
+        <form class="mb-4">
             <div class="row">
                 <div class="bg-black opacity-0 lg:col-6"></div>
                 <div class="col-12 lg:col-6">
@@ -59,7 +58,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="search" id="search-input" name="query" class="block w-full p-4 ps-10 text-sm border border-gray-300 rounded-lg focus:border-primary" placeholder="Cari berita dan pengumuman..." required />
+                        <input type="search" id="search-input" class="block w-full p-4 ps-10 text-sm border border-gray-300 rounded-lg focus:border-primary" placeholder="Cari berita dan pengumuman..." required />
                         <button type="submit" class="text-black absolute end-2.5 bottom-2.5 bg-primary focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">Search</button>
                     </div>
                 </div>
@@ -75,7 +74,7 @@
                             <h3 class="h4 card-title">
                                 <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}">{{ $pengumuman->judul_pengumuman }}</a>
                             </h3>
-                            <p>{{ Str::limit($pengumuman->deskripsi, 100) }}</p>
+                            <p>{!! Str::limit($pengumuman->deskripsi, 100) !!}</p>
                             <div class="card-footer mt-6 flex space-x-4">
                                 <span class="inline-flex items-center text-xs text-[#666]">
                                     <i class="fas fa-calendar mr-1.5"></i>
