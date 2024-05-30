@@ -211,4 +211,50 @@ class PendudukController extends Controller
 
         return redirect('admin/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
     }
+
+    // controller rw
+    public function index_rw()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Daftar Penduduk',
+            'list' => ['Home', 'Penduduk']
+        ];
+
+        $page = (object)[
+            'title' => 'Daftar penduduk '
+        ];
+
+        $activeMenu = 'penduduk';
+
+        return view('rw.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    }
+    public function list_rw(Request $request)
+    {
+        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk');
+
+        // Filter berdasarkan RT 
+        if ($request->has('rt')) {
+            $penduduk->where('rt', $request->rt);
+        }
+        return DataTables::of($penduduk)
+            ->addIndexColumn()
+            ->make(true);
+    }
+    public function show_rw(string $id)
+    {
+        $penduduk = PendudukModel::all()->find($id);
+
+        $breadcrumb = (object)[
+            'title' => 'Detail Penduduk',
+            'list' => ['Home', 'Penduduk', 'Detail']
+        ];
+
+        $page = (object)[
+            'title' => 'Detail data penduduk '
+        ];
+
+        $activeMenu = 'penduduk'; // set menu yang sedang aktif
+
+        return view('rw.penduduk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+    }
 }

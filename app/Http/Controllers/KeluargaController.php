@@ -28,7 +28,7 @@ class KeluargaController extends Controller
 
     public function list(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah','rt');
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'rt');
         if ($request->has('rt')) {
             $keluarga->where('rt', $request->rt);
         }
@@ -304,5 +304,68 @@ class KeluargaController extends Controller
         $keluarga->update($data);
 
         return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
+    }
+
+    // controller rw
+    public function index_rw()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Daftar Keluarga Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Keluarga Penduduk']
+        ];
+
+        $page = (object)[
+            'title' => 'Daftar Keluarga Keluarga Penduduk yang terdaftar'
+        ];
+
+        $activeMenu = 'keluarga';
+
+        return view('rw.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    }
+
+    public function list_rw(Request $request)
+    {
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'rt');
+        if ($request->has('rt')) {
+            $keluarga->where('rt', $request->rt);
+        }
+        return DataTables::of($keluarga)
+            ->addIndexColumn()
+            ->make(true);
+    }
+    public function show_rw(string $id)
+    {
+        $keluarga = KeluargaModel::find($id);
+
+        if (!$keluarga) {
+            return redirect('rw/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+        }
+
+        // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
+        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anggota Keluarga'])->get();
+        $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
+        $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
+        $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+        $breadcrumb = (object) [
+            'title' => 'Detail Keluarga Penduduk',
+            'list' => ['Home', 'Keluarga Penduduk', 'Detail']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail data keluarga '
+        ];
+
+        $activeMenu = 'keluarga';
+
+        return view('rw.keluarga.show', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'keluarga' => $keluarga,
+            'detail_keluarga' => $detail_keluarga,
+            'kepala_keluarga' => $kepala_keluarga,
+            'istri' => $istri,
+            'anggota' => $anggota,
+            'activeMenu' => $activeMenu
+        ]);
     }
 }
