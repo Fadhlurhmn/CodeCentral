@@ -2,7 +2,7 @@
 
 @include('layout.a_navbar')
 
-<!-- strat wrapper -->
+<!-- start wrapper -->
 <div class="h-screen flex flex-row flex-wrap ">
 
   @include('layout.a_sidebar')
@@ -35,34 +35,38 @@
     @endif
       {{-- Bagian pengumuman Warga --}}
       <div class="h-fit grid grid-cols-1 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
-        @foreach ($pengumuman as $pengumumans)
-            <div class="rounded-lg shadow-md flex flex-row border-b-2 border-teal-500">
-                @if($pengumumans->thumbnail)
-                    <div class="p-4">
-                        <img src="{{ asset('pengumuman_thumbnail/'. $pengumumans->thumbnail) }}" alt="{{ $pengumumans->judul_pengumuman }}" class="w-16 h-16 object-cover rounded-lg">
+        @if($pengumuman->isEmpty())
+            <p class="text-gray-600 text-center">Pengumuman tidak tersedia</p>
+        @else
+            @foreach ($pengumuman as $pengumumans)
+                <div class="rounded-lg shadow-md flex flex-row border-b-2 border-teal-500">
+                    @if($pengumumans->thumbnail)
+                        <div class="p-4">
+                            <img src="{{ asset('pengumuman_thumbnail/'. $pengumumans->thumbnail) }}" alt="{{ $pengumumans->judul_pengumuman }}" class="w-16 h-16 object-cover rounded-lg">
+                        </div>
+                    @endif
+                    <div class="p-4 flex-1">
+                        <h2 class="text-lg font-semibold text-gray-900">{{ $pengumumans->judul_pengumuman }}</h2>
+                        <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->user->username }}</p>
+                        <div class="mb-2">
+                            <p class="text-xs text-gray-600">Tanggal penulisan: {{ $pengumumans->created_at }}</p>
+                        </div>
                     </div>
-                @endif
-                <div class="p-4 flex-1">
-                    <h2 class="text-lg font-semibold text-gray-900">{{ $pengumumans->judul_pengumuman }}</h2>
-                    <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->user->username }}</p>
-                    <div class="mb-2">
-                        <p class="text-xs text-gray-600">Tanggal penulisan: {{ $pengumumans->created_at }}</p>
+                    <div class="mr-4 flex flex-row items-center justify-center">
+                        <form action="{{ url('admin/pengumuman/'.$pengumumans->id_pengumuman.'/show') }}">
+                            <button type="submit" class="bg-teal-500/70 py-2 px-4 mr-2 text-sm font-normal rounded-full text-white transition duration-300 ease-in-out hover:bg-teal-600">
+                                Preview
+                            </button>
+                        </form>
+                        <form action="{{ url('admin/pengumuman/'.$pengumumans->id_pengumuman.'/edit') }}">
+                            <button type="submit" class="bg-yellow-200 py-2 px-4 text-sm font-normal rounded-full text-yellow-500 transition duration-300 ease-in-out hover:bg-yellow-300">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="mr-4 flex flex-row items-center justify-center">
-                    <form action="{{ url('admin/pengumuman/'.$pengumumans->id_pengumuman.'/show') }}">
-                        <button type="submit" class="bg-teal-500/70 py-2 px-4 mr-2 text-sm font-normal rounded-full text-white transition duration-300 ease-in-out hover:bg-teal-600">
-                            Preview
-                        </button>
-                    </form>
-                    <form action="{{ url('admin/pengumuman/'.$pengumumans->id_pengumuman.'/edit') }}">
-                        <button type="submit" class="bg-yellow-200 py-2 px-4 text-sm font-normal rounded-full text-yellow-500 transition duration-300 ease-in-out hover:bg-yellow-300">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
     @push('js')
      <script>
