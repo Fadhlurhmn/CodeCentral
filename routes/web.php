@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPengumumanController;
 use Illuminate\Support\Facades\Route;
 
 // User Routes
@@ -15,13 +16,17 @@ Route::get('/', function () {
     return view('index');
 })->name('user/landing');
 
-Route::get('/pengumuman', function () {
-    return view('user.pengumuman.index');
-})->name('user/pengumuman');
+// Route::get('/pengumuman', function () {
+//     return view('user.pengumuman.index');
+// })->name('user/pengumuman');
 
-Route::get('/pengumuman/{id}', function () {
-    return view('user.pengumuman.show');
-})->name('user/pengumuman/show');
+// Route::get('/pengumuman/{id}', function () {
+//     return view('user.pengumuman.show');
+// })->name('user/pengumuman/show');
+
+Route::get('/pengumuman', [UserPengumumanController::class, 'index'])->name('user.pengumuman');
+Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name('user.pengumuman.show');
+
 
 Route::group(['prefix' => 'umkm'], function () {
     Route::get('/', function () {
@@ -37,7 +42,7 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::get('/list', function () {
         return view('user.bansos.list');
     })->name('user/bansos/list');
-    
+
     Route::get('/pengajuan', function () {
         return view('user.bansos.pengajuan');
     })->name('user/bansos/pengajuan');

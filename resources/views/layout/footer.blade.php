@@ -6,7 +6,7 @@
           SI RW 3 TLOGOMAS
         </a>
         <p class="mt-6">
-          SIRW (Sistem Informasi Rukun Warga) adalah sebuah platform digital yang dirancang untuk memudahkan komunikasi dan layanan antara warga dan pengurus RW dan RT. 
+          SIRW (Sistem Informasi Rukun Warga) adalah sebuah platform digital yang dirancang untuk memudahkan komunikasi dan layanan antara warga dan pengurus RW dan RT.
           <br><br>Melalui situs ini, Anda dapat mengakses berbagai informasi penting seperti berita terkini, jadwal kegiatan, program bantuan sosial, promosi UMKM lokal, dan banyak lagi.
         </p>
       </div>
@@ -55,7 +55,7 @@
             <a href="{{ route('user/landing') }}">Home</a>
           </li>
           <li>
-            <a href="{{ route('user/pengumuman') }}">Pengumuman</a>
+            <a href="{{ route('user.pengumuman') }}">Pengumuman</a>
           </li>
           <li>
             <a href="{{ route('user/umkm') }}">UMKM</a>

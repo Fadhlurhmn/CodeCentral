@@ -40,12 +40,12 @@
         <a href="{{ route('user/landing') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('user/pengumuman') }}" class="nav-link">Pengumuman</a>
+        <a href="{{ route('user.pengumuman') }}" class="nav-link">Pengumuman</a>
       </li>
       <li class="nav-item">
         <a href="{{ route('user/umkm') }}" class="nav-link">UMKM</a>
       </li>
-      
+
       <li class="nav-item nav-dropdown group relative">
         <span class="nav-link inline-flex items-center">
           Bansos

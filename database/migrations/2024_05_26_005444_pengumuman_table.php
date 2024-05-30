@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id('id_pengumuman');
             $table->unsignedBigInteger('id_user')->index();
             $table->string('judul_pengumuman', 100);
-            $table->text('deskripsi');
-            $table->string('gambar', 255);
+            $table->Longtext('deskripsi');
+            $table->string('thumbnail');
+            $table->integer('views')->default(0);
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id_user')->on('user');
         });
     }
 
