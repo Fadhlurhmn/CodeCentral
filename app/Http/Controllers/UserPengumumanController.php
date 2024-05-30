@@ -8,26 +8,35 @@ use Illuminate\Http\Request;
 class UserPengumumanController extends Controller {
     public function index(Request $request) {
         $topPengumuman = PengumumanModel::orderBy('views', 'desc')->take(2)->get();
-        $allPengumuman = PengumumanModel::orderBy('created_at', 'desc')->get();
 
         foreach ($topPengumuman as $pengumuman) {
             $pengumuman->deskripsi = $this->getPlainTextFromHtml($pengumuman->deskripsi);
         }
 
-         // Mendapatkan query pencarian jika ada
-         $query = $request->input('query');
-         if ($query) {
-             // Jika ada query, cari pengumuman berdasarkan judul
-             $allPengumuman = PengumumanModel::with('user')
-                 ->where('judul_pengumuman', 'like', "%$query%")
-                 ->orderBy('created_at', 'desc')
-                 ->get();
-         } else {
-             // Jika tidak ada query, ambil semua pengumuman
-             $allPengumuman = PengumumanModel::with('user')
-                 ->orderBy('created_at', 'desc')
-                 ->get();
-         }
+        // Mendapatkan query pencarian jika ada
+        $query = $request->input('query');
+        if ($query) {
+            // Jika ada query, cari pengumuman berdasarkan judul
+            $allPengumuman = PengumumanModel::with('user')
+                ->where('judul_pengumuman', 'like', "%$query%")
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            // Cek apakah hasil pencarian kosong
+            if ($allPengumuman->isEmpty()) {
+                return view('user.pengumuman.index', compact('topPengumuman'))->withErrors(['message' => 'Pengumuman tidak ditemukan']);
+            }
+        } else {
+            // Jika tidak ada query, ambil semua pengumuman
+            $allPengumuman = PengumumanModel::with('user')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            // Cek apakah tidak ada pengumuman
+            if ($allPengumuman->isEmpty()) {
+                return redirect()->route('user.pengumuman')->withErrors(['message' => 'Tidak ada pengumuman tersedia']);
+            }
+        }
 
         foreach ($allPengumuman as $pengumuman) {
             $pengumuman->deskripsi = $this->getPlainTextFromHtml($pengumuman->deskripsi);
