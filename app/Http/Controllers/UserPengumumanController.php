@@ -24,7 +24,7 @@ class UserPengumumanController extends Controller {
 
             // Cek apakah hasil pencarian kosong
             if ($allPengumuman->isEmpty()) {
-                return view('user.pengumuman.index', compact('topPengumuman'))->withErrors(['message' => 'Pengumuman tidak ditemukan']);
+                return redirect()->route('user.pengumuman')->with('error', 'Pengumuman tidak ditemukan');
             }
         } else {
             // Jika tidak ada query, ambil semua pengumuman
@@ -34,7 +34,7 @@ class UserPengumumanController extends Controller {
 
             // Cek apakah tidak ada pengumuman
             if ($allPengumuman->isEmpty()) {
-                return redirect()->route('user.pengumuman')->withErrors(['message' => 'Tidak ada pengumuman tersedia']);
+                return redirect()->route('user.pengumuman')->with('error', 'Tidak ada pengumuman tersedia');
             }
         }
 

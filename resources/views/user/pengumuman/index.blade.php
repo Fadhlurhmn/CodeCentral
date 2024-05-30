@@ -68,16 +68,14 @@
         {{-- end search bar --}}
 
         {{-- Display error message if any --}}
-        @if ($errors->any())
+        @if (session('error'))
             <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
+                <p>{{ session('error') }}</p>
             </div>
         @endif
 
-        {{-- Semua Pengumuman hanya jika tidak ada query atau ada hasil pencarian --}}
-        @if(!$errors->any() && (!isset($query) || $allPengumuman->isNotEmpty()))
+        {{-- Semua Pengumuman hanya jika tidak ada error --}}
+        @if (!session('error'))
             @if($allPengumuman->isNotEmpty())
                 <div class="row">
                     @foreach ($allPengumuman as $pengumuman)
