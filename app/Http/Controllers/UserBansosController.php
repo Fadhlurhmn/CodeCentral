@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KeluargaModel;
+use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 
 class UserBansosController extends Controller
@@ -19,23 +21,25 @@ class UserBansosController extends Controller
     public function verifyDataDiri(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'required|numeric',
+            'nama_kk' => 'required|string|max:255',
+            'no_kk' => 'required|numeric|digits:16',
         ]);
 
-        // Perform verification logic here
-        $verificationPassed = true; // Replace with actual verification logic
+        $nama_kk = $request->nama_kk;
+        $no_kk = $request->no_kk;
 
-        if ($verificationPassed) {
-            return response()->json(['success' => true]);
+        $penduduk = KeluargaModel::where('nomor_keluarga', $no_kk)
+        ->whereHas('detail_keluarga', function($query) use ($nama_kk) {
+            $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
+                ->where('penduduk.nama', $nama_kk);
+        })
+        ->first();
+
+        if($penduduk){
+            return redirect()->route('user/bansos/pengajuan')->with('success', 'Data ditemukan');
         } else {
-            return response()->json(['success' => false, 'message' => 'Verification failed.']);
+            return redirect()->route('user/bansos/pengajuan')->with('error', 'Data tidak ditemukan atau Anda telah mengisi form bansos');
         }
-    }
-
-    public function submitBansos(Request $request)
-    {
-        // Handle the submission of the Bansos form
     }
 
     public function submitSurvey(Request $request)
