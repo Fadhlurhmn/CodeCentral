@@ -1,16 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuratController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\JadwalController;
-use App\Http\Controllers\SuratController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserBansosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserPengumumanController;
-use Illuminate\Support\Facades\Route;
 
 // User Routes
 // Route::get('/', function () {
@@ -36,14 +37,14 @@ Route::group(['prefix' => 'umkm'], function () {
 });
 
 Route::group(['prefix' => 'bansos'], function () {
-    Route::get('/list', function () {
-        return view('user.bansos.list');
-    })->name('user/bansos/list');
-
-    Route::get('/pengajuan', function () {
-        return view('user.bansos.pengajuan');
-    })->name('user/bansos/pengajuan');
+    Route::get('/list', [UserBansosController::class, 'list'])->name('user/bansos/list');
+    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user/bansos/pengajuan');
 });
+
+// bansos pengajuan form route
+Route::post('/verify-data-diri', [UserBansosController::class, 'verifyDataDiri'])->name('verifyDataDiri');
+Route::post('/submit-bansos', [UserBansosController::class, 'submitBansos'])->name('submitBansos');
+Route::post('/submit-survey', [UserBansosController::class, 'submitSurvey'])->name('submitSurvey');
 
 Route::get('/surat', function () {
     return view('user.surat.index');
