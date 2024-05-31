@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\PengumumanModel;
 use Illuminate\Http\Request;
 
-class UserPengumumanController extends Controller {
-    public function index(Request $request) {
+class UserPengumumanController extends Controller
+{
+    public function index(Request $request)
+    {
         $topPengumuman = PengumumanModel::orderBy('views', 'desc')->take(2)->get();
 
         foreach ($topPengumuman as $pengumuman) {
@@ -24,7 +26,7 @@ class UserPengumumanController extends Controller {
 
             // Cek apakah hasil pencarian kosong
             if ($allPengumuman->isEmpty()) {
-                return view('user.pengumuman')->with('error', 'Pengumuman tidak ditemukan');
+                return view('user.pengumuman.index')->with('error', 'Pengumuman tidak ditemukan');
             }
         } else {
             // Jika tidak ada query, ambil semua pengumuman
@@ -34,7 +36,7 @@ class UserPengumumanController extends Controller {
 
             // Cek apakah tidak ada pengumuman
             if ($allPengumuman->isEmpty()) {
-                return view('user.pengumuman')->with('error', 'Tidak ada pengumuman tersedia');
+                return view('user.pengumuman.index')->with('error', 'Tidak ada pengumuman tersedia');
             }
         }
 
@@ -45,14 +47,16 @@ class UserPengumumanController extends Controller {
         return view('user.pengumuman.index', compact('topPengumuman', 'allPengumuman'));
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $pengumuman = PengumumanModel::findOrFail($id);
         $pengumuman->increment('views');
 
         return view('user.pengumuman.show', compact('pengumuman'));
     }
 
-    private function getPlainTextFromHtml($htmlContent) {
+    private function getPlainTextFromHtml($htmlContent)
+    {
         // Extract content within <p> tags
         preg_match('/<p>(.*?)<\/p>/', $htmlContent, $matches);
         $text = $matches[1] ?? $htmlContent;
