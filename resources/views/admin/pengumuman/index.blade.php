@@ -49,7 +49,7 @@
                         <h2 class="text-lg font-semibold text-gray-900">{{ $pengumumans->judul_pengumuman }}</h2>
                         <p class="text-xs text-gray-600">Penulis: {{ $pengumumans->user->username }}</p>
                         <div class="mb-2">
-                            <p class="text-xs text-gray-600">Tanggal penulisan: {{ $pengumumans->created_at }}</p>
+                            <p class="text-xs text-gray-600">Tanggal penulisan: {{ $pengumumans->created_at->format('d M Y, H:i:s') }}</p>
                         </div>
                     </div>
                     <div class="mr-4 flex flex-row items-center justify-center">
