@@ -156,7 +156,7 @@ Route::middleware(['cek_login:1'])->group(function () {
 // route untuk rw
 Route::middleware(['cek_login:2'])->group(function () {
     Route::prefix('rw')->group(function () {
-        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/', [AdminController::class, 'index_rw']);
 
         Route::prefix('penduduk')->group(function () {
             Route::get('/', [PendudukController::class, 'index_rw']);

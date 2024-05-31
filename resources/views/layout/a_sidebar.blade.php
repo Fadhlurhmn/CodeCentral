@@ -1,5 +1,5 @@
   <!-- start sidebar -->
-  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 py-4 px-6 flex-none w-52 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated duration-500 ease-in-out">
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-gradient-to-t from-teal-800 via-teal-400/60 to-white border-r border-teal-500 py-4 px-6 flex-none w-52 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated duration-500 ease-in-out">
 
 
     <!-- sidebar content -->
