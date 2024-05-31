@@ -2,7 +2,7 @@
   <nav class="navbar container">
     <!-- logo -->
     <div class="order-0">
-      <a href="{{ route('user/landing') }}" class="text-black text-2xl font-semibold">
+      <a href="{{ route('user.landing') }}" class="text-black text-2xl font-semibold">
           SI RW 3 TLOGOMAS
       </a>
     </div>
@@ -37,7 +37,7 @@
       class="navbar-nav order-2 hidden w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5"
     >
       <li class="nav-item">
-        <a href="{{ route('user/landing') }}" class="nav-link">Home</a>
+        <a href="{{ route('user.landing') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
         <a href="{{ route('user.pengumuman') }}" class="nav-link">Pengumuman</a>

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row gx-5 pb-10 pt-[52px]">
       <div class="col-12 mt-12 md:col-4 lg:col-6">
-        <a href="{{ route('user/landing') }}" class="text-black text-2xl font-semibold">
+        <a href="{{ route('user.landing') }}" class="text-black text-2xl font-semibold">
           SI RW 3 TLOGOMAS
         </a>
         <p class="mt-6">
@@ -52,7 +52,7 @@
         <h6>LAYANAN</h6>
         <ul>
           <li>
-            <a href="{{ route('user/landing') }}">Home</a>
+            <a href="{{ route('user.landing') }}">Home</a>
           </li>
           <li>
             <a href="{{ route('user.pengumuman') }}">Pengumuman</a>
