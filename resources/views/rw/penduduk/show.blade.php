@@ -5,8 +5,9 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.rw_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{$page->title}}</h1>
+        <div class="px-5 pt-5 flex flex-col">
+            {{-- <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1> --}}
+            @include('layout.breadcrumb2')
         </div>
         <div class="w-full min-w-max p-5">
             @if(!$penduduk)

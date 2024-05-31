@@ -23,12 +23,15 @@
             </svg>
         </div>
         @if (session('success'))
-        <div class="col-span-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Sukses!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
+            <div id="successMessage" class="col-span-4">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Sukses!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
             </div>
-        </div>
         @endif
         <div class="h-auto p-2">
             <table id="table_penduduk" class="w-full min-w-max cursor-default">
@@ -88,7 +91,7 @@
                     orderable: true,
                     searchable: true,
                     render: function(data, type, row) {
-                        if (data === 'Aktif') {
+                        if (data === 'aktif'|| data === 'Aktif') {
                             return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
                         } else {
                             return '<div class="rounded-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
@@ -116,6 +119,10 @@
                 table.ajax.url("{{ url('admin/penduduk/list') }}?rt=" + selectedRt).load();
             }
         });
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
     });
 </script>
 @endpush

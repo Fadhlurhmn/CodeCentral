@@ -10,7 +10,7 @@
   @include('layout.rw_sidebar')
 
   <!-- strat content -->
-  <div class="bg-gray-100 flex-1 p-6 md:mt-16"> 
+  <div class="bg-white flex-1 p-6 md:mt-16"> 
 
     
     <div class="text-lg">Ini adalah Halaman Dashboard (HIGH)</div>

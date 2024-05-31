@@ -215,9 +215,12 @@ class PendudukController extends Controller
     // controller rw
     public function index_rw()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Penduduk', 'url' => url('rw/penduduk')]
+            ]
         ];
 
         $page = (object)[
@@ -251,9 +254,13 @@ class PendudukController extends Controller
     {
         $penduduk = PendudukModel::all()->find($id);
 
-        $breadcrumb = (object)[
-            'title' => 'Detail Penduduk',
-            'list' => ['Home', 'Penduduk', 'Detail']
+        $breadcrumb = (object) [
+            'title' => 'Detail data penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Penduduk', 'url' => url('rw/penduduk')],
+                ['name' => 'Detail', 'url' => url('rw/penduduk/show')]
+            ]
         ];
 
         $page = (object)[

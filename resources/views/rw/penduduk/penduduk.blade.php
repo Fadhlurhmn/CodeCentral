@@ -5,7 +5,7 @@
 
 
 <!-- strat wrapper -->
-<div class="h-screen min-w-full flex flex-row flex-wrap">
+<div class="h-screen  min-w-full flex flex-row flex-wrap">
     @include('layout.rw_sidebar')
   
     

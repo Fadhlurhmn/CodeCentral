@@ -309,9 +309,12 @@ class KeluargaController extends Controller
     // controller rw
     public function index_rw()
     {
-        $breadcrumb = (object)[
-            'title' => 'Daftar Keluarga Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Keluarga Penduduk']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Keluarga Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Keluarga', 'url' => url('rw/keluarga')]
+            ]
         ];
 
         $page = (object)[
@@ -331,6 +334,22 @@ class KeluargaController extends Controller
         }
         return DataTables::of($keluarga)
             ->addIndexColumn()
+            ->addColumn('aksi', function ($keluarga) {
+                $btn = '<a href="' . url('rw/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+
+                // Periksa apakah detail keluarga ada untuk keluarga saat ini
+                $detailKeluarga = detail_keluarga_model::where('id_keluarga', $keluarga->id_keluarga)->first();
+
+                // Jika detail keluarga ditemukan
+                if ($detailKeluarga) {
+                    $btn .= '<a href="' . url('rw/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                } else {
+                    $btn .= '<a href="' . url('rw/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+                }
+
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
             ->make(true);
     }
     public function show_rw(string $id)
@@ -346,9 +365,19 @@ class KeluargaController extends Controller
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+
+
         $breadcrumb = (object) [
             'title' => 'Detail Keluarga Penduduk',
             'list' => ['Home', 'Keluarga Penduduk', 'Detail']
+        ];
+        $breadcrumb = (object) [
+            'title' => 'Daftar Keluarga Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Keluarga', 'url' => url('rw/keluarga')],
+                ['name' => 'Detail', 'url' => url('rw/keluarga/show')],
+            ]
         ];
 
         $page = (object) [
