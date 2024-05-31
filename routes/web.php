@@ -109,7 +109,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::put('/{id}', [UserController::class, 'update']);
             // Route::delete('/{id}', [UserController::class, 'destroy']);
         });
-      
+
         Route::group(['prefix' => 'pengumuman'], function () {
             Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
             Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
@@ -121,7 +121,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
             // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
         });
-  
+
         Route::group(['prefix' => 'bansos'], function () {
             Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
             Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
@@ -151,5 +151,23 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/show', [KriteriaController::class, 'show_kriteria']); // melihat kriteria
         });
     });
+});
 
+// route untuk rw
+Route::middleware(['cek_login:2'])->group(function () {
+    Route::prefix('rw')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+
+        Route::prefix('penduduk')->group(function () {
+            Route::get('/', [PendudukController::class, 'index_rw']);
+            Route::post('/list', [PendudukController::class, 'list_rw']);
+            Route::get('/{id}/show', [PendudukController::class, 'show_rw']);
+        });
+
+        Route::prefix('keluarga')->group(function () {
+            Route::get('/', [KeluargaController::class, 'index_rw']);
+            Route::post('/list', [KeluargaController::class, 'list_rw']);
+            Route::get('/{id}/show', [KeluargaController::class, 'show_rw']);
+        });
+    });
 });
