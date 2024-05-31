@@ -171,3 +171,67 @@ Route::middleware(['cek_login:2'])->group(function () {
         });
     });
 });
+
+
+// route untuk rt
+Route::middleware(['cek_login:3'])->group(function () {
+    Route::prefix('rt')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+        Route::view('/bansos', 'rt.bansos.index');
+        Route::view('/pengumuman', 'rt.pengumuman.index');
+        Route::view('/keuangan', 'rt.keuangan.index');
+
+        Route::prefix('penduduk')->group(function () {
+            Route::get('/', [PendudukController::class, 'index']);
+            Route::post('/list', [PendudukController::class, 'list']);
+            Route::get('/create', [PendudukController::class, 'create']);
+            Route::post('/', [PendudukController::class, 'store']);
+            Route::get('/{id}/show', [PendudukController::class, 'show']);
+            Route::get('/{id}/edit', [PendudukController::class, 'edit']);
+            Route::post('/{id}', [PendudukController::class, 'update']);
+            Route::delete('/{id}', [PendudukController::class, 'destroy']);
+        });
+
+        Route::prefix('keluarga')->group(function () {
+            Route::get('/', [KeluargaController::class, 'index']);
+            Route::post('/list', [KeluargaController::class, 'list']);
+            Route::get('/create', [KeluargaController::class, 'create']);
+            Route::post('/', [KeluargaController::class, 'store']);
+            Route::get('/{id}/show', [KeluargaController::class, 'show']);
+            Route::get('/{id}/edit', [KeluargaController::class, 'edit']);
+            Route::post('/{id}', [KeluargaController::class, 'update']);
+            Route::delete('/{id}', [KeluargaController::class, 'destroy']);
+            Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota']);
+            Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota']);
+        });
+
+        Route::group(['prefix' => 'bansos'], function () {
+            Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
+            Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
+            Route::get('/create', [BansosController::class, 'create_bansos']); // Form tambah bansos
+            Route::post('/', [BansosController::class, 'store_bansos']); // Menyimpan bansos baru
+            Route::get('/{id}/show', [BansosController::class, 'show']); // Menampilkan detail bansos
+            Route::get('/{id}/edit', [BansosController::class, 'edit_bansos']); // Form edit bansos
+            Route::post('/{id}', [BansosController::class, 'update_bansos']); // Mengupdate bansos
+            Route::delete('/{id}', [BansosController::class, 'delete_bansos']); // Menghapus bansos
+            Route::get('/histori', [BansosController::class, 'cek_histori']); // Melihat histori penerimaan bansos
+            Route::get('/histori/data', [BansosController::class, 'getHistoriData'])->name('bansos.data');
+
+            // Menambahkan route untuk menampilkan detail kriteria
+            Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria']); // Menampilkan detail kriteria penerimaan bansos
+
+            Route::get('/{id}/daftar', [BansosController::class, 'daftar']); // Menampilkan daftar ajuan bansos
+            Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos']); // Memperbarui status ACC bansos
+
+            // cek jawaban kriteria masing-masing keluarga
+            Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria']);
+        });
+
+
+        Route::group(['prefix' => 'kriteria'], function () {
+            Route::get('/update', [KriteriaController::class, 'update_kriteria']); //menambahkan
+            Route::post('/', [KriteriaController::class, 'store_kriteria']); // Menyimpan kriteria baru
+            Route::get('/show', [KriteriaController::class, 'show_kriteria']); // melihat kriteria
+        });
+    });
+});
