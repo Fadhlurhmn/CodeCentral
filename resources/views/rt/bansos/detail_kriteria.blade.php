@@ -1,9 +1,9 @@
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="min-h-screen flex flex-row bg-gray-100">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
 
     <div class="flex flex-col flex-grow p-6 cursor-default">
         <div class="container bg-white shadow-lg rounded-lg p-6">
