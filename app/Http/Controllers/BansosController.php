@@ -163,7 +163,6 @@ class BansosController extends Controller
     public function store_bansos(Request $request)
     {
         $request->validate([
-            'kode' => 'required|string',
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
             'pengirim' => 'required|string',
@@ -172,7 +171,6 @@ class BansosController extends Controller
         ]);
 
         $bansos = new BansosModel();
-        $bansos->kode = $request->kode;
         $bansos->nama = $request->nama_bansos;
         $bansos->tanggal_pemberian = $request->tanggal_bansos;
         $bansos->pengirim = $request->pengirim;
