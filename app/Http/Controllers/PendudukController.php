@@ -262,9 +262,12 @@ class PendudukController extends Controller
     // controller untuk rt
     public function index_rt()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Penduduk', 'url' => url('rt/penduduk')]
+            ]
         ];
 
         $page = (object)[
@@ -296,9 +299,13 @@ class PendudukController extends Controller
 
     public function create_rt()
     {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Penduduk',
-            'list' => ['Home', 'Penduduk', 'Tambah']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Penduduk', 'url' => url('rw/penduduk')],
+                ['name' => 'Create', 'url' => url('rw/penduduk/create')],
+            ]
         ];
 
         $page = (object)[
@@ -364,9 +371,13 @@ class PendudukController extends Controller
     {
         $penduduk = PendudukModel::all()->find($id);
 
-        $breadcrumb = (object)[
-            'title' => 'Detail Penduduk',
-            'list' => ['Home', 'Penduduk', 'Detail']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Penduduk', 'url' => url('rt/penduduk')],
+                ['name' => 'Show', 'url' => url('rt/penduduk/show')],
+            ]
         ];
 
         $page = (object)[
@@ -382,8 +393,12 @@ class PendudukController extends Controller
         $penduduk = PendudukModel::find($id);
 
         $breadcrumb = (object) [
-            'title' => 'Edit Penduduk',
-            'list' => ['Home', 'Penduduk', 'Edit']
+            'title' => 'Daftar Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Penduduk', 'url' => url('rt/penduduk')],
+                ['name' => 'Edit', 'url' => url('rt/penduduk/edit')],
+            ]
         ];
 
         $page = (object) [

@@ -1,16 +1,17 @@
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1>
+        <div class="p-5 flex flex-col">
+            {{-- <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1> --}}
+            @include('layout.breadcrumb2')
         </div>
         <div class="w-full h-fit min-w-max p-5 ">
             
-            <form id="form" action="{{ url('admin/keluarga/'.$keluarga.'/anggota') }}" method="POST">
+            <form id="form" action="{{ url('rt/keluarga/'.$keluarga.'/anggota') }}" method="POST">
                 {{-- <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full ">
                     {{$page->title}}
                 </h1> --}}
@@ -60,7 +61,7 @@
                     </div> --}}
                     {{-- Button submit --}}
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
-                        <a href="{{ url('admin/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <a href="{{ url('rt/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                     </div>
                 </div>

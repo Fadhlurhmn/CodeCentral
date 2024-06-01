@@ -1,15 +1,35 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{$page->title}}</h1>
+        <div class="p-5 flex flex-col">
+            {{-- <h1 class="py-5 ml-5 text-2xl font-bold">{{$page->title}}</h1> --}}
+            @include('layout.breadcrumb2')
         </div>
-        <div class="w-full h-fit min-w-max p-5">
-            <form id="form" class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/keluarga') }}" method="POST" enctype="multipart/form-data">
+        <div class="w-full h-screen min-w-max p-5 overflow-y-auto custom-scrollbar">
+            <form id="form" class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('rt/keluarga') }}" method="POST" enctype="multipart/form-data">
                 <h1 class="pb-5 mb-10 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2">
                     Isi data keluarga
                 </h1>
@@ -110,7 +130,7 @@
                 </div>
                 {{-- Submit Button --}}
                 <div class="flex col-span-1">
-                    <a href="{{ url('admin/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                    <a href="{{ url('rt/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                     <button id="submitBtn" type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                 </div>
             </form>

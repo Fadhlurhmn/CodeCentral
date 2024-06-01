@@ -1,20 +1,39 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
+        <div class="p-5 flex flex-col">
+            @include('layout.breadcrumb2')
         </div>
-        <div class="w-full h-fit min-w-max p-5">
+        <div class="w-full h-screen min-w-max p-5 overflow-y-auto custom-scrollbar">
 
             @if(!$penduduk)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
                 <p>Data yang Anda cari tidak ditemukan</p>
-                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ url('admin/penduduk') }}';">
+                <button type="button" class="px-5 mt-2 close bg-red-300/30 rounded-lg " data-dismiss="alert" aria-label="Close" onclick="window.location.href = '{{ url('rt/penduduk') }}';">
                     close <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -82,9 +101,17 @@
                     {{-- tanggal_lahir --}}
                     <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
-                    {{-- gol_darah --}}
-                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Gologan Darah</label>
-                    <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->gol_darah }}" />
+                    {{-- Golongan Darah --}}
+                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah</label>
+                    <div class="col-span-4">
+                        @foreach(['A', 'B', 'AB', 'O'] as $gol_darah)
+                            <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                                <input type="radio" name="gol_darah" value="{{ $gol_darah }}" class="form-radio h-4 w-4 text-gray-600" 
+                                    {{ (old('gol_darah') ?? $penduduk->gol_darah) == $gol_darah ? 'checked' : '' }}>
+                                <span class="ml-2 text-gray-700">{{ $gol_darah }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                     {{-- agama --}}
                     <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama</label>
                     <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{ $penduduk->agama }}" required />
@@ -101,20 +128,20 @@
                     {{-- status penduduk --}}
                     <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
                     <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option>
+                        {{-- <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option> --}}
                         <option value="Tetap">Tetap</option>
                         <option value="Sementara">Sementara</option>
                     </select>
                     {{-- status data --}}
                     <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">status_data</label>
                     <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                            
+                        {{-- <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                             --}}
                         <option value="Aktif">Aktif</option>
                         <option value="Tidak aktif">Tidak aktif</option>
                     </select>
                     {{-- Submit --}}
                     <div class="flex col-span-2">
-                        <a href="{{ url('admin/penduduk') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <a href="{{ url('rt/penduduk') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center ">Simpan</button>
                     </div>
                 </div>
@@ -139,7 +166,7 @@
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     // Redirect atau tampilkan pesan sukses sesuai kebutuhan
-                    window.location.href = '{{ url('admin/penduduk/' . $penduduk->id_penduduk . '/show') }}';
+                    window.location.href = '{{ url('rt/penduduk/' . $penduduk->id_penduduk . '/show') }}';
                 } else {
                     // Tampilkan pesan error jika ada
                     console.error('Terjadi kesalahan:', xhr.responseText);

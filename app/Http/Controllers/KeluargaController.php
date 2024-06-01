@@ -373,9 +373,12 @@ class KeluargaController extends Controller
     // controller untuk rt
     public function index_rt()
     {
-        $breadcrumb = (object)[
-            'title' => 'Daftar Keluarga Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Keluarga Penduduk']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Keluarga Penduduk Terdaftar',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
+            ]
         ];
 
         $page = (object)[
@@ -384,7 +387,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('admin.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rt.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function list_rt(Request $request)
@@ -396,16 +399,16 @@ class KeluargaController extends Controller
         return DataTables::of($keluarga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
-                $btn = '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn = '<a href="' . url('rt/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
 
                 // Periksa apakah detail keluarga ada untuk keluarga saat ini
                 $detailKeluarga = detail_keluarga_model::where('id_keluarga', $keluarga->id_keluarga)->first();
 
                 // Jika detail keluarga ditemukan
                 if ($detailKeluarga) {
-                    $btn .= '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                    $btn .= '<a href="' . url('rt/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 } else {
-                    $btn .= '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
+                    $btn .= '<a href="' . url('rt/keluarga/' . $keluarga->id_keluarga . '/create_anggota') . '" class="btn btn-primary ml-2 mr-2 flex-col"><i class="fas fa-user-plus"></i></a> ';
                 }
 
                 return $btn;
@@ -417,9 +420,13 @@ class KeluargaController extends Controller
     // form untuk tabel keluarga
     public function create_rt()
     {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Tambah']
+        $breadcrumb = (object) [
+            'title' => 'Tambah Data Keluarga',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
+                ['name' => 'Create', 'url' => url('rt/keluarga/create')],
+            ]
         ];
 
         $page = (object)[
@@ -429,7 +436,7 @@ class KeluargaController extends Controller
         $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('rt.keluarga.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
 
     // store untuk tabel keluarga
@@ -478,7 +485,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::where('nomor_keluarga', $request->nomor_keluarga)->first();
 
         // Redirect ke halaman create_anggota dengan pesan sukses
-        return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
+        return redirect('rt/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }
 
 
@@ -486,9 +493,13 @@ class KeluargaController extends Controller
     public function createAnggota_rt($id)
     {
         $keluarga = $id; // ambil id keluarga
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Anggota Keluarga',
-            'list' => ['Home', 'Anggota Keluarga', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
+                ['name' => 'Create Anggota', 'url' => url('rt/keluarga/create_anggota')],
+            ]
         ];
 
         $page = (object)[
@@ -505,7 +516,7 @@ class KeluargaController extends Controller
         $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
 
-        return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
+        return view('rt.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
     }
 
     // method untuk simpan data detail anggota di keluarga
@@ -532,7 +543,7 @@ class KeluargaController extends Controller
             ]);
         }
 
-        return redirect('admin/keluarga/')->with('success', 'Data detail anggota berhasil disimpan');
+        return redirect('rt/keluarga/')->with('success', 'Data detail anggota berhasil disimpan');
     }
 
 
@@ -541,7 +552,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         if (!$keluarga) {
-            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('rt/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
@@ -549,9 +560,14 @@ class KeluargaController extends Controller
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+        
         $breadcrumb = (object) [
-            'title' => 'Detail Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Detail']
+            'title' => 'Detail Data Keluarga',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
+                ['name' => 'Show', 'url' => url('rt/keluarga/show')],
+            ]
         ];
 
         $page = (object) [
@@ -560,7 +576,7 @@ class KeluargaController extends Controller
 
         $activeMenu = 'keluarga';
 
-        return view('admin.keluarga.show', [
+        return view('rt.keluarga.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'keluarga' => $keluarga,
@@ -577,12 +593,16 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         if (!$keluarga) {
-            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('rt/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         $breadcrumb = (object) [
-            'title' => 'Edit Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Edit']
+            'title' => 'Ubah Data Keluarga',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
+                ['name' => 'Edit', 'url' => url('rt/keluarga/edit')],
+            ]
         ];
 
         $page = (object) [
@@ -590,7 +610,7 @@ class KeluargaController extends Controller
         ];
 
         $activeMenu = 'keluarga'; // set menu yang sedang aktif
-        return view('admin.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('rt.keluarga.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
     // menyimpan perubahan data keluarga
@@ -614,7 +634,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::find($id);
 
         if (!$keluarga) {
-            return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('rt/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         // Menyimpan data foto KK yang diupload ke variabel foto_kk
@@ -664,6 +684,6 @@ class KeluargaController extends Controller
 
         $keluarga->update($data);
 
-        return redirect('admin/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
+        return redirect('rt/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }
 }

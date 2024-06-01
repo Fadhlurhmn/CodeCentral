@@ -2,10 +2,11 @@
     {{-- <h1 class="py-5 ml-5 text-3xl font-bold text-gray-900 ">{{$breadcrumb->title}}</h1> --}}
     
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <h1 class="pb-5 mb-3 mt-2 text-2xl font-extrabold text-gray-600 "> {{$page->title}}</h1>
+        {{-- <h1 class="pb-5 mb-3 mt-2 text-2xl font-extrabold text-gray-600 "> {{$page->title}}</h1> --}}
+        @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">
-            <a class="p-2 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
-            <div class="flex">
+            <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('rt/keluarga/create')}}">Tambah Data Keluarga</a>
+            {{-- <div class="flex">
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
@@ -14,7 +15,7 @@
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
                 </select>
-            </div>
+            </div> --}}
         </div>
         @if (session('success'))
         <div class="col-span-4">
@@ -49,7 +50,7 @@
         var table = $('#table_keluarga').DataTable({
             serverSide: true,
             ajax: {
-                "url": "{{ url('admin/keluarga/list') }}",
+                "url": "{{ url('rt/keluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
             },
@@ -106,10 +107,10 @@
                 var selectedRt = $(this).val();
                 if (selectedRt === 'all') {
                     // Jika dipilih "Semua", atur URL tanpa parameter rt
-                    table.ajax.url("{{ url('admin/keluarga/list') }}").load();
+                    table.ajax.url("{{ url('rt/keluarga/list') }}").load();
                 } else {
                     // Jika dipilih nilai lain, atur URL dengan parameter rt
-                    table.ajax.url("{{ url('admin/keluarga/list') }}?rt=" + selectedRt).load();
+                    table.ajax.url("{{ url('rt/keluarga/list') }}?rt=" + selectedRt).load();
                 }
         });
     });
