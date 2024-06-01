@@ -62,48 +62,48 @@
             },
             columns: [{
                     data: "DT_RowIndex",
-                    className: "text-center text-xs border-b",
+                    className: "text-center text-xs border",
                     orderable: false,
                     searchable: false
                 },
                 {
                     data: "nomor_keluarga",
-                    className: "text-xs border-b",
+                    className: "text-xs border",
                     orderable: false,
                     searchable: true
                 },
                 {
                     data: "jumlah_orang_kerja",
-                    className: "text-xs border-b",
+                    className: "text-xs border",
                     orderable: true,
                     searchable: false
                 },
                 {
                     data: "jumlah_tanggungan",
-                    className: "text-xs border-b",
+                    className: "text-xs border",
                     orderable: true,
                 },
                 {
                     data: "jumlah_kendaraan",
-                    className: "text-xs border-b",
+                    className: "text-xs border",
                     orderable: true,
                     searchable: false
                 },
                 // {
                 //     data: "luas_tanah",
-                //     className: "text-xs border-b",
+                //     className: "text-xs border",
                 //     orderable: true,
                 //     searchable: false
                 // },
                 {
                     data: "rt",
-                    className: "text-xs border-b",
+                    className: "text-xs border",
                     orderable: true,
                     searchable: false
                 },
                 {
                     data: "aksi",
-                    className: "flex justify-evenly text-xs border-b",
+                    className: "flex justify-evenly text-xs border",
                     orderable: false,
                     searchable: false
                 },

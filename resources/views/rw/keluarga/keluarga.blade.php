@@ -1,7 +1,7 @@
 @include('layout.start')
 
 
-@include('layout.a_navbar')
+@include('layout.rw_navbar')
 
 
 <!-- strat wrapper -->

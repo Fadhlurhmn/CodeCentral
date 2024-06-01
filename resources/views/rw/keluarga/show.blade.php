@@ -1,9 +1,9 @@
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rw_navbar')
     
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rw_sidebar')
     <div class="flex-grow bg-white">
         <div class="px-5 pt-5 flex flex-col">
             {{-- <h1 class="py-5 ml-5 text-2xl font-bold">{{$breadcrumb->title}}</h1> --}}

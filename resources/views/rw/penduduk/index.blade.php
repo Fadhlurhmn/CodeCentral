@@ -81,12 +81,12 @@
                  className: "text-xs border border-gray-500/40", 
                  orderable: true },
                 { data: "rt",
-                 className: "text-xs border border-gray-500/40", 
+                 className: "text-xs text-center border border-gray-500/40", 
                  orderable: true, 
                  searchable: false },
                 { 
                     data: "status_data",
-                    className: "text-xs border border-gray-500/40 text-center",
+                    className: "text-xs text-center border border-gray-500/40",
                     orderable: true,
                     searchable: true,
                     render: function(data, type, row) {
