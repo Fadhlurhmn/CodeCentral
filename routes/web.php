@@ -43,7 +43,6 @@ Route::group(['prefix' => 'bansos'], function () {
 
 // bansos pengajuan form route
 Route::post('/verify-data-diri', [UserBansosController::class, 'verifyDataDiri'])->name('verifyDataDiri');
-Route::post('/submit-bansos', [UserBansosController::class, 'submitBansos'])->name('submitBansos');
 Route::post('/submit-survey', [UserBansosController::class, 'submitSurvey'])->name('submitSurvey');
 
 Route::get('/surat', function () {

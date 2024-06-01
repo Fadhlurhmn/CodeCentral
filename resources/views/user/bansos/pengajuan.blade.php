@@ -68,7 +68,8 @@
       </ol>
       {{-- end navigasi form --}}
 
-      @if (session('success'))
+      {{-- js buat pindah navigasi --}}
+      @if (session('success_verifikasi'))
           <script>
               document.addEventListener('DOMContentLoaded', function() {
                   document.getElementById('verifikasiForm').style.display = 'none';
@@ -86,19 +87,22 @@
                   document.getElementById('number-2').classList.add('border-primary');
               });
           </script>
-      @elseif (session('error'))
-          <div class="alert alert-error px-0 lg:px-60">
-              {{ session('error') }}
-          </div>
       @endif
 
-      {{-- verifikasi data diri --}}
+      {{-- Section 1: verifikasi data diri --}}
       <form class="px-0 lg:px-60" action="{{ route('verifyDataDiri') }}" method="POST" id="verifikasiForm">
-        @error('bansos')
-          <div class="alert alert-error mb-5">
-            <span>{{ $message }}</span>
-          </div>
-        @enderror
+        @if (session('error_verifikasi'))
+          <div class="alert alert-error">
+              {{ session('error_verifikasi') }}
+          </div>  
+        @endif
+        
+        @if (session('success_submit'))
+          <div class="alert alert-success">
+              {{ session('success_submit') }}
+          </div>  
+        @endif
+        
         @csrf
 
         <div class="form-group mb-5">
@@ -117,7 +121,7 @@
         </div>
 
         <div class="form-group mb-5">
-          <label class="form-label mt-3" for="no_kk">Nomor Kartu Keeluarga</label>
+          <label class="form-label mt-3" for="no_kk">Nomor Kartu Keluarga</label>
           <input
             class="form-control"
             type="number"
@@ -136,7 +140,12 @@
       {{-- end verifikasi data diri --}}
 
       {{-- Survey form --}}
-      <form class="hidden px-0 lg:px-60" action="#" method="POST" id="jenisBansos">
+      <form class="hidden px-0 lg:px-60" action="{{ route('submitSurvey') }}" method="POST" id="jenisBansos">
+        {{-- menyimpan id_keluarga untuk kebutuhan form  --}}
+        @if (session('data_pengaju'))
+            <input type="hidden" name="id_kk" value="{{ session('data_pengaju') }}">
+        @endif
+
         @error('bansos')
           <div class="alert alert-error mb-5">
             <span>{{ $message }}</span>
@@ -144,15 +153,15 @@
         @enderror
 
         @csrf
+
         <!-- Section 2: Jenis Bansos -->
         <div class="form-section" id="section-2" style="display:none;">
           <div class="form-group mb-5">
             <label class="form-label mt-3" for="jenis_bansos">Jenis Bansos</label>
             <select name="jenis_bansos" id="jenis_bansos" class="form-select" required>
-              <option value="">Pilih bansos</option>
-              <option value="Bansos-1">Bansos-1</option>
-              <option value="Bansos-2">Bansos 2</option>
-              <option value="Bansos-3">Bansos 3</option>
+              @foreach ($jenis_bansos as $bansos)
+                <option value="{{ $bansos->id_bansos }}">{{ $bansos->nama }}</option>
+              @endforeach
             </select>
             @error('jenis_bansos')
               <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
@@ -172,7 +181,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="kk1" name="kk_keluarga" value="1"/>
+                    <input type="radio" id="kk1" name="kk_keluarga" value="1" required/>
                     <label for="kk1">1 KK</label>
                   </div>
                   <div class="">
@@ -198,7 +207,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="anggota1" name="anggota_keluarga" value="1"/>
+                    <input type="radio" id="anggota1" name="anggota_keluarga" value="1" required/>
                     <label for="anggota1">1 -3 Orang</label>
                   </div>
                   <div class="">
@@ -224,7 +233,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="pendidikan1" name="pendidikan_kk" value="1"/>
+                    <input type="radio" id="pendidikan1" name="pendidikan_kk" value="1" required/>
                     <label for="pendidikan1">Tidak tamat sekolah/ Tidak tamat SD</label>
                   </div>
                   <div class="">
@@ -250,7 +259,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="pendidikan_anggota1" name="pendidikan_anggota" value="1"/>
+                    <input type="radio" id="pendidikan_anggota1" name="pendidikan_anggota" value="1" required/>
                     <label for="pendidikan_anggota1">≥ 3 Orang</label>
                   </div>
                   <div class="">
@@ -271,12 +280,12 @@
             
             <div class="card shadow-sm mb-4 border-l-4 border-primary">
               <div class="card-title mb-0 pb-0">
-                <label class="form-label mt-3" for="pengeluaran">Berapa pengeluaran keluarga dalam satu bulan?</label>
+                <label class="form-label mt-3" for="pengeluaran">Berapa total pengeluaran keluarga dalam satu bulan?</label>
               </div>
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="pengeluaran1" name="pengeluaran" value="1"/>
+                    <input type="radio" id="pengeluaran1" name="pengeluaran" value="1" required/>
                     <label for="pengeluaran1">< 400 ribu</label>
                   </div>
                   <div class="">
@@ -297,12 +306,38 @@
             
             <div class="card shadow-sm mb-4 border-l-4 border-primary">
               <div class="card-title mb-0 pb-0">
+                <label class="form-label mt-3" for="penghasilan">Berapa total penghasilan keluarga dalam satu bulan?</label>
+              </div>
+              <div class="card-content mt-0 pt-0">
+                <div class="grid grid-rows-4">
+                  <div class="">
+                    <input type="radio" id="penghasilan1" name="penghasilan" value="1" required/>
+                    <label for="penghasilan1">< 400 ribu</label>
+                  </div>
+                  <div class="">
+                    <input type="radio" id="penghasilan2" name="penghasilan" value="2"/>
+                    <label for="penghasilan2">400 - 700 ribu</label>
+                  </div>
+                  <div class="">
+                    <input type="radio" id="penghasilan3" name="penghasilan" value="3"/>
+                    <label for="penghasilan3">700 ribu - 1 juta</label>
+                  </div>
+                  <div class="">
+                    <input type="radio" id="penghasilan4" name="penghasilan" value="4"/>
+                    <label for="penghasilan4">> 1 juta</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4 border-l-4 border-primary">
+              <div class="card-title mb-0 pb-0">
                 <label class="form-label mt-3" for="status_rumah">Tempat tinggal sekarang milik siapa?</label>
               </div>
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="status_rumah1" name="status_rumah" value="1"/>
+                    <input type="radio" id="status_rumah1" name="status_rumah" value="1" required/>
                     <label for="status_rumah1">Magersari/ Pakai gratis</label>
                   </div>
                   <div class="">
@@ -328,7 +363,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="sumber_air1" name="sumber_air" value="1"/>
+                    <input type="radio" id="sumber_air1" name="sumber_air" value="1" required/>
                     <label for="sumber_air1">Sumur Milik Tetangga</label>
                   </div>
                   <div class="">
@@ -354,7 +389,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="penerangan1" name="penerangan" value="1"/>
+                    <input type="radio" id="penerangan1" name="penerangan" value="1" required/>
                     <label for="penerangan1">Listrik Numpang</label>
                   </div>
                   <div class="">
@@ -380,7 +415,7 @@
               <div class="card-content mt-0 pt-0">
                 <div class="grid grid-rows-4">
                   <div class="">
-                    <input type="radio" id="transportasi1" name="transportasi" value="1"/>
+                    <input type="radio" id="transportasi1" name="transportasi" value="1" required/>
                     <label for="transportasi1">Jalan Kaki/Sepeda/Sepeda Motor Seadanya</label>
                   </div>
                   <div class="">
