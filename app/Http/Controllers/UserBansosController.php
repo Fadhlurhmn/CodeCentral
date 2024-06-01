@@ -6,6 +6,7 @@ use App\Models\BansosModel;
 use App\Models\DetailBansosModel;
 use Illuminate\Http\Request;
 use App\Models\KeluargaModel;
+use App\Models\KriteriaBansosModel;
 use Illuminate\Support\Facades\DB;
 
 class UserBansosController extends Controller
@@ -17,7 +18,9 @@ class UserBansosController extends Controller
 
     public function pengajuan()
     {
+        // mengambil data bansos yang berstatus 'open' form
         $jenis_bansos = BansosModel::where('status', 'open')->get();
+
         return view('user.bansos.pengajuan', ['jenis_bansos' => $jenis_bansos]);
     }
 
@@ -31,6 +34,7 @@ class UserBansosController extends Controller
         $nama_kk = $request->nama_kk;
         $no_kk = $request->no_kk;
 
+        // mencari data penduduk di database
         $penduduk = KeluargaModel::where('nomor_keluarga', $no_kk)
         ->whereHas('detail_keluarga', function($query) use ($nama_kk) {
             $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
@@ -38,18 +42,22 @@ class UserBansosController extends Controller
         })
         ->first();
 
+        // mengecek apabila no_kk tersebut sudah mengisi atau belum
         $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
             ->where('keluarga_penduduk.nomor_keluarga', $no_kk)
         ->exists();
 
-        if($status_pengisian){
-            return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Data tidak ditemukan atau Anda telah mengisi form bansos');
-        } 
-       
+        // mengecek data penduduk ada atau tidak
         if($penduduk){
-            return redirect()->route('user/bansos/pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
+
+            // mengecek apabila no_kk tersebut sudah mengisi atau belum
+            if($status_pengisian){
+                return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Anda telah mengisi form bansos');
+            } else {
+                return redirect()->route('user/bansos/pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
+            }
         } else {
-            return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Data tidak ditemukan atau Anda telah mengisi form bansos');
+            return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
         
     }
@@ -69,8 +77,8 @@ class UserBansosController extends Controller
             'transportasi' => 'required',
         ]);
     
-        // Define the criteria and their corresponding keys
-        $criteria = [
+        // List kriteria yang ada
+        $kriteria = [
             1 => 'kk_keluarga',
             2 => 'anggota_keluarga',
             3 => 'pendidikan_kk',
@@ -82,14 +90,23 @@ class UserBansosController extends Controller
             9 => 'penerangan',
             10 => 'transportasi',
         ];
+
+        // opsi dinamis, saran ditambahkan nama kode kriteria
+        // $kriteria = KriteriaBansosModel::pluck('nama_kriteria', 'id_kriteria');
+
+        // dd($kriteria);
         
-        // Assuming you have the `id_bansos` and `id_keluarga` available
-        $id_bansos = $request->jenis_bansos; // Set this to the appropriate value
-        // $id_keluarga = KeluargaModel::where('nomor_keluarga', $request->no_kk)->get('id_keluarga'); 
-        $id_keluarga = $request->id_kk; // Set this to the appropriate value
-        $status = 'pending'; // Set this to the appropriate value
+        // mengambil jenis bansos
+        $id_bansos = $request->jenis_bansos;
+
+        // mengambil id_kk dari verifikasi (session('data_pengaju'))
+        $id_keluarga = $request->id_kk;
+
+        // seharusnya di database di set default 'pending'
+        $status = 'pending';
     
-        foreach ($criteria as $id_kriteria => $key) {
+        // memasukkan semua data ke tabel detail_bansos
+        foreach ($kriteria as $id_kriteria => $key) {
             DB::table('detail_bansos')->insert([
                 'id_bansos' => $id_bansos,
                 'id_keluarga' => $id_keluarga,

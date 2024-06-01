@@ -68,27 +68,6 @@
       </ol>
       {{-- end navigasi form --}}
 
-      {{-- js buat pindah navigasi --}}
-      @if (session('success_verifikasi'))
-          <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                  document.getElementById('verifikasiForm').style.display = 'none';
-                  document.getElementById('jenisBansos').style.display = 'block';
-                  document.getElementById('section-2').style.display = 'block';
-
-                  document.getElementById('stepper-1').classList.remove('text-primary');
-                  document.getElementById('stepper-1').classList.add('text-gray-500');
-                  document.getElementById('stepper-2').classList.remove('text-gray-500');
-                  document.getElementById('stepper-2').classList.add('text-primary');
-
-                  document.getElementById('number-1').classList.remove('border-primary');
-                  document.getElementById('number-1').classList.add('border-gray-500');
-                  document.getElementById('number-2').classList.remove('border-gray-500');
-                  document.getElementById('number-2').classList.add('border-primary');
-              });
-          </script>
-      @endif
-
       {{-- Section 1: verifikasi data diri --}}
       <form class="px-0 lg:px-60" action="{{ route('verifyDataDiri') }}" method="POST" id="verifikasiForm">
         @if (session('error_verifikasi'))
@@ -433,17 +412,10 @@
                 </div>
               </div>
             </div>
-            
-
-            @error('anggota_keluarga')
-              <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
-            @enderror
           </div>
 
-          <!-- Add other survey kriteria fields here -->
-
           <div class="row w-full justify-between">
-            <button type="button" class="btn btn-outline-primary col-4" onclick="prevSection(2)">Sebelumnya</button>
+            <button type="button" class="ml-4 btn btn-outline-primary col-4" onclick="prevSection(2)">Sebelumnya</button>
             <button type="submit" class="btn btn-primary col-4">Submit</button>
           </div>
         </div>
@@ -455,40 +427,28 @@
 {{-- end Bansos Form --}}
 
 @push('js')
+
+{{-- js buat pindah navigasi --}}
+@if (session('success_verifikasi'))
+  <script>
+    document.getElementById('verifikasiForm').style.display = 'none';
+    document.getElementById('jenisBansos').style.display = 'block';
+    document.getElementById('section-2').style.display = 'block';
+
+    document.getElementById('stepper-1').classList.remove('text-primary');
+    document.getElementById('stepper-1').classList.add('text-gray-500');
+    document.getElementById('stepper-2').classList.remove('text-gray-500');
+    document.getElementById('stepper-2').classList.add('text-primary');
+
+    document.getElementById('number-1').classList.remove('border-primary');
+    document.getElementById('number-1').classList.add('border-gray-500');
+    document.getElementById('number-2').classList.remove('border-gray-500');
+    document.getElementById('number-2').classList.add('border-primary');
+  </script>
+@endif
+
 <script>
-  // document.getElementById('verifikasiForm').addEventListener('submit', function(event) {
-  //   event.preventDefault(); // Prevent the default form submission
-
-  //   const form = event.target;
-  //   const formData = new FormData(form);
-
-  //   fetch(form.action, {
-  //     method: form.method,
-  //     body: formData
-  //   })
-  //   .then(data => {
-  //     if (data.success) {
-  //       // Hide verification form and show the next section
-  //       form.style.display = 'none';
-  //       document.getElementById('jenisBansos').style.display = 'block';
-  //       document.getElementById('section-2').style.display = 'block';
-
-  //       document.getElementById(`stepper-${section-1}`).classList.remove('text-primary');
-  //       document.getElementById(`stepper-${section-1}`).classList.add('text-gray-500');
-  //       document.getElementById(`stepper-${section}`).classList.remove('text-gray-500');
-  //       document.getElementById(`stepper-${section}`).classList.add('text-primary');
-        
-  //       document.getElementById(`number-${section-1}`).classList.remove('border-primary');
-  //       document.getElementById(`number-${section-1}`).classList.add('border-gray-500');
-  //       document.getElementById(`number-${section}`).classList.remove('border-gray-500');
-  //       document.getElementById(`number-${section}`).classList.add('border-primary');
-  //     } else {
-  //       // Handle validation errors
-  //       alert(data.message);
-  //     }
-  //   });
-  // });
-
+  // logic buat tombol selanjutnya
   function nextSection(section) {
       document.querySelector('.form-section:not([style*="display: none"])').style.display = 'none';
       document.getElementById(`section-${section}`).style.display = 'block';
@@ -504,6 +464,7 @@
       document.getElementById(`number-${section}`).classList.add('border-primary');
   }
 
+  // logic buat tombol sebelumnya
   function prevSection(section) {
       document.querySelector('.form-section:not([style*="display: none"])').style.display = 'none';
       document.getElementById(`section-${section}`).style.display = 'block';
