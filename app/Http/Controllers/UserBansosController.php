@@ -93,8 +93,6 @@ class UserBansosController extends Controller
 
         // opsi dinamis, saran ditambahkan nama kode kriteria
         // $kriteria = KriteriaBansosModel::pluck('nama_kriteria', 'id_kriteria');
-
-        // dd($kriteria);
         
         // mengambil jenis bansos
         $id_bansos = $request->jenis_bansos;
