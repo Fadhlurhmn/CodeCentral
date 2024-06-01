@@ -273,7 +273,7 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk';
 
-        return view('admin.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rt.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     public function list_rt(Request $request)
     {
@@ -286,8 +286,8 @@ class PendudukController extends Controller
         return DataTables::of($penduduk)
             ->addIndexColumn()
             ->addColumn('aksi', function ($penduduk) {
-                $btn = '<a href="' . url('admin/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-                $btn .= '<a href="' . url('admin/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                $btn = '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
+                $btn .= '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -306,7 +306,7 @@ class PendudukController extends Controller
         ];
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rt.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function store_rt(Request $request)
@@ -357,7 +357,7 @@ class PendudukController extends Controller
             'foto_ktp' => $foto_ktp // simpan nama file gambar ke dalam database
         ]);
 
-        return redirect('admin/penduduk')->with('success', 'Data penduduk berhasil disimpan');
+        return redirect('rt/penduduk')->with('success', 'Data penduduk berhasil disimpan');
     }
 
     public function show_rt(string $id)
@@ -375,7 +375,7 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('rt.penduduk.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
     public function edit_rt(string $id)
     {
@@ -392,7 +392,7 @@ class PendudukController extends Controller
 
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('rt.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
     // menyimpan perubahan data penduduk
     public function update_rt(Request $request, string $id)
@@ -460,6 +460,6 @@ class PendudukController extends Controller
             ]);
         }
 
-        return redirect('admin/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
+        return redirect('rt/penduduk/' . $id . '/show')->with('success', 'Data penduduk berhasil diubah');
     }
 }

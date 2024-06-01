@@ -176,7 +176,7 @@ Route::middleware(['cek_login:2'])->group(function () {
 // route untuk rt
 Route::middleware(['cek_login:3'])->group(function () {
     Route::prefix('rt')->group(function () {
-        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/', [AdminController::class, 'index_rt']);
         Route::view('/bansos', 'rt.bansos.index');
         Route::view('/pengumuman', 'rt.pengumuman.index');
         Route::view('/keuangan', 'rt.keuangan.index');
