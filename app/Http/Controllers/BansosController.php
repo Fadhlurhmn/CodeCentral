@@ -333,9 +333,12 @@ class BansosController extends Controller
     // controller untuk rt
     public function index_rt()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penerima Bantuan Sosial',
-            'list' => ['Home', 'Penerima Bantuan Sosial']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+            ]
         ];
 
         $page = (object)[
@@ -354,7 +357,7 @@ class BansosController extends Controller
         // Lakukan pengecekan apakah kriteria sudah ada atau belum
         $kriteriaExists = KriteriaBansosModel::count() > 0;
 
-        return view('admin.bansos.bansos', [
+        return view('rt.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -371,7 +374,7 @@ class BansosController extends Controller
         return DataTables::of($bansos)
             ->addIndexColumn()
             ->addColumn('aksi', function ($bansos) {
-                return '<a href="' . url('admin/bansos/' . $bansos->id_bansos . '/show') . '">Detail</a>';
+                return '<a href="' . url('rt/bansos/' . $bansos->id_bansos . '/show') . '">Detail</a>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -389,12 +392,16 @@ class BansosController extends Controller
         // ambil data detail bansos
         $detail_bansos = DetailBansosModel::where('id_bansos', $id)->get();
         if (!$bansos) {
-            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+            return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
         $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Detail', 'url' => url('rt/bansos/detail')],
+            ]
         ];
 
         $page = (object) [
@@ -403,7 +410,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.detail', [
+        return view('rt.bansos.detail', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'detail_bansos' => $detail_bansos,
@@ -418,12 +425,16 @@ class BansosController extends Controller
         $bansos = list_rekomendasi_bansos::where('id_bansos', $id)->get();
 
         if ($bansos->isEmpty()) {
-            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+            return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
         $breadcrumb = (object) [
-            'title' => 'Detail Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+            'title' => 'Daftar Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Daftar Bantuan Sosial', 'url' => url('rt/bansos/daftar')],
+            ]
         ];
 
         $page = (object) [
@@ -432,7 +443,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.daftar', [
+        return view('rt.bansos.daftar', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'bansos' => $bansos,
@@ -456,13 +467,18 @@ class BansosController extends Controller
         }
 
         // Redirect kembali ke halaman daftar dengan pesan sukses
-        return redirect('admin/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
+        return redirect('rt/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
     }
     public function create_bansos_rt()
     {
-        $breadcrumb = (object)[
+        
+        $breadcrumb = (object) [
             'title' => 'Tambah Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Create', 'url' => url('rt/bansos/create')],
+            ]
         ];
 
         $page = (object)[
@@ -470,7 +486,7 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
-        return view('admin.bansos.create', [
+        return view('rt.bansos.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -497,7 +513,7 @@ class BansosController extends Controller
         $bansos->jumlah_penerima = $request->jumlah_penerima;
         $bansos->save();
 
-        return redirect('admin/bansos/')
+        return redirect('rt/bansos/')
             ->with('success', 'Data Bansos Berhasil Ditambahkan');
     }
 
@@ -506,12 +522,16 @@ class BansosController extends Controller
         $bansos = BansosModel::find($id);
 
         if (!$bansos) {
-            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+            return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Edit Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Edit', 'url' => url('rt/bansos/edit')],
+            ]
         ];
 
         $page = (object)[
@@ -519,7 +539,7 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'bansos';
-        return view('admin.bansos.edit', [
+        return view('rt.bansos.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'bansos' => $bansos,
@@ -549,9 +569,9 @@ class BansosController extends Controller
             $bansos->jumlah_penerima = $request->jumlah_penerima;
             $bansos->save();
 
-            return redirect('admin/bansos')->with('success', 'Data Bansos Berhasil diperbarui');
+            return redirect('rt/bansos')->with('success', 'Data Bansos Berhasil diperbarui');
         } else {
-            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
+            return redirect('rt/bansos')->with('error', 'Data Bansos tidak ditemukan');
         }
     }
 
@@ -562,9 +582,9 @@ class BansosController extends Controller
         if ($bansos) {
             $bansos->delete();
 
-            return redirect('admin/bansos')->with('success', 'Data Bansos Berhasil dihapus');
+            return redirect('rt/bansos')->with('success', 'Data Bansos Berhasil dihapus');
         } else {
-            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
+            return redirect('rt/bansos')->with('error', 'Data Bansos tidak ditemukan');
         }
     }
 
@@ -576,8 +596,12 @@ class BansosController extends Controller
             ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
 
         $breadcrumb = (object) [
-            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail Keluarga Penerimaan']
+            'title' => 'Detail Kriteria Keluarga Penerima',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Detail Kriteria', 'url' => url('rt/bansos/detail_kriteria')],
+            ]
         ];
 
         $page = (object) [
@@ -586,7 +610,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.detail_kriteria', [
+        return view('rt.bansos.detail_kriteria', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'detail' => $detail,
@@ -627,9 +651,14 @@ class BansosController extends Controller
             $histori_bansos = histori_penerimaan_bansos::all();
         }
         $bansos = BansosModel::all();
+        
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Histori Penerimaan']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Histori', 'url' => url('rt/bansos/histori')],
+            ]
         ];
 
         $page = (object) [
@@ -638,7 +667,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.bansos.histori', [
+        return view('rt.bansos.histori', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'histori_bansos' => $histori_bansos,

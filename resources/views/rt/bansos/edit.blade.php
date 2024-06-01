@@ -1,11 +1,12 @@
 @include('layout.start')
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
     <div class="flex-grow bg-white">
         <div class="w-full h-fit min-w-max p-5">
-            <form id="form" action="{{ url('admin/bansos/' . $bansos->id_bansos) }}" method="POST">
+            @include('layout.breadcrumb2')
+            <form id="form" action="{{ url('rt/bansos/' . $bansos->id_bansos) }}" method="POST">
                 @csrf
                 <div class="px-10 py-10 text-xs bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl">
                     <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full">
@@ -43,7 +44,7 @@
                     </div>
 
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
-                        <a href="{{ url('admin/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
+                        <a href="{{ url('rt/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                     </div>
                 </div>

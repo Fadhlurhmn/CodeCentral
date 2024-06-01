@@ -1,21 +1,44 @@
+{{-- Styling tambahan manual --}}
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen w-full flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
 
     <!-- Start content -->
     <div class="flex flex-col flex-grow">
-        <div class="container h-full bg-white">
+        
+        <div class="h-screen bg-white overflow-y-auto custom-scrollbar">
+            
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500 cursor-default">
                 {{-- Detail --}}
-                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">Detail Penerima Bansos {{$bansos->nama}}</h1>
-                <p class="pb-5 my-2 text-md text-gray-600">Bantuan Sosial {{$bansos->nama}} diberikan oleh <b>{{$bansos->pengirim}}</b> untuk {{$bansos->jumlah_penerima}} orang dalam bentuk {{ $bansos->bentuk_pemberian }}.</p>
+                @include('layout.breadcrumb2')
+                <h1 class=" my-2 text-xl font-extrabold text-gray-600">Penerima Bansos {{$bansos->nama}}</h1>
+                <p class="pb-5 my-2 text-md text-gray-600">Detail Penerima Bantuan Sosial {{$bansos->nama}} diberikan oleh <b>{{$bansos->pengirim}}</b> untuk {{$bansos->jumlah_penerima}} orang dalam bentuk {{ $bansos->bentuk_pemberian }}.</p>
 
                 <div class="flex justify-end">
                     @if ($detail_bansos->where('id_bansos', $bansos->id_bansos)->where('status', 'pending')->isNotEmpty())
-                    <a href="{{ url('admin/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
+                    <a href="{{ url('rt/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
                     @endif            
                 </div>
                 
@@ -75,10 +98,9 @@
                 <div id="pagination" class="flex justify-center mt-4 space-x-2">
                     <!-- Pagination buttons will be inserted here -->
                 </div>
-            </div>
-            
-            <a href="{{ url('admin/bansos/') }}" class="mx-7 p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
-                    
+                <a href="{{ url('rt/bansos/') }}" class="mx-7 p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+            </div>    
+
         </div>
     </div>
     <!-- End content -->
@@ -88,7 +110,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const rowsPerPage = 10;
+        const rowsPerPage = 5;
         let currentPage = 1;
 
         const tableBody = document.getElementById('table-body');

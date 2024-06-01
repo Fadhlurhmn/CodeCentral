@@ -8,7 +8,8 @@
     <div class="flex flex-col flex-grow p-6 cursor-default">
         <div class="container bg-white shadow-lg rounded-lg p-6">
             
-            <h1 class="text-2xl font-extrabold text-gray-700">{{$page->title}}</h1>
+            {{-- <h1 class="text-2xl font-extrabold text-gray-700">{{$page->title}}</h1> --}}
+            @include('layout.breadcrumb2')
 
             <div class="p-5 text-sm font-normal text-gray-800">
                 <div class="flex flex-row mb-4">
@@ -235,7 +236,7 @@
             </div>
 
             <div class="mt-6">
-                <a href="{{ url('admin/bansos/'. $detail[0]->id_bansos . '/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                <a href="{{ url('rt/bansos/'. $detail[0]->id_bansos . '/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
             </div>
         </div>
     </div>

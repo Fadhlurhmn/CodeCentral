@@ -87,7 +87,7 @@ class KriteriaController extends Controller
         // Menyimpan data kriteria ke dalam database
         KriteriaBansosModel::insert($kriteria);
 
-        return redirect('admin/bansos')
+        return redirect('rt/bansos')
             ->with('success', 'Data Kriteria Berhasil Ditambahkan');
     }
 
@@ -97,12 +97,16 @@ class KriteriaController extends Controller
         $kriteria = KriteriaBansosModel::all();
 
         if (!$kriteria) {
-            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect('rt/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
 
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria',
-            'list' => ['Home', 'Kriteria', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Show', 'url' => url('rt/kriteria/show')],
+            ]
         ];
 
         $page = (object) [
@@ -111,7 +115,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'kriteria';
 
-        return view('admin.kriteria.show', [
+        return view('rt.kriteria.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kriteria' => $kriteria,
@@ -121,18 +125,21 @@ class KriteriaController extends Controller
 
     public function update_kriteria_rt()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Tambah Kriteria',
-            'list' => ['Home', 'Kriteria', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('/rt/bansos')],
+                ['name' => 'Kriteria Create', 'url' => url('rt/kriteria/create')],
+            ]
         ];
-
         $page = (object)[
             'title' => 'Tambah Kriteria'
         ];
 
         $activeMenu = 'kriteria';
 
-        return view('admin.kriteria.update', [
+        return view('rt.kriteria.update', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -170,7 +177,7 @@ class KriteriaController extends Controller
         // Menyimpan data kriteria ke dalam database
         KriteriaBansosModel::insert($kriteria);
 
-        return redirect('admin/bansos')
+        return redirect('rt/bansos')
             ->with('success', 'Data Kriteria Berhasil Ditambahkan');
     }
 }

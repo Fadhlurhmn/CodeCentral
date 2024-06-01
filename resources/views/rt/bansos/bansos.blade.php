@@ -1,17 +1,17 @@
 @include('layout.start')
 
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 
 <!-- strat wrapper -->
 <div class="h-screen min-w-full flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
   
     
     <!-- strat content -->
     <div class="flex-col flex-grow">
-      @include('admin.bansos.index')
+      @include('rt.bansos.index')
     </div>
   <!-- end content -->
 

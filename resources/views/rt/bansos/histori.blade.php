@@ -1,25 +1,24 @@
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rt_navbar')
 
 <div class="h-screen w-full flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rt_sidebar')
 
     <!-- Start content -->
     <div class="flex flex-col flex-grow">
+
         <div class="container h-full bg-white">
+
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-b-2 border-teal-500">
                 {{-- Detail --}}
-                <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">{{ $page->title }}</h1>
+                {{-- <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">{{ $page->title }}</h1> --}}
+                @include('layout.breadcrumb2')
 
-                <!-- Filter Section -->
-                <div class="flex justify-between">
-                    <a href="{{ url('admin/bansos/') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
-                </div>
                 <div class="flex px-2 justify-between items-center text-xs mb-4 mt-7">
                     <div class="flex items-center">
-                        <label for="filter_bansos" class="mr-2 text-gray-700">Jenis Bantuan Sosial: </label>
-                        <select id="filter_bansos" name="filter_bansos" class="uppercase p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        <label for="filter_bansos" class="mr-2 text-base font-semibold text-gray-700 ">Jenis Bantuan Sosial: </label>
+                        <select id="filter_bansos" name="filter_bansos" class="uppercase p-2 border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                             <option value="" hidden>Pilih Jenis</option>
                             @foreach($bansos as $Bansos)
                             <option value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
@@ -64,7 +63,11 @@
                         {{-- Pagination --}}
                     </div>
                 </div>
+                <div class="flex justify-between">
+                    <a href="{{ url('rt/bansos/') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                </div>
             </div>
+            <!-- Filter Section -->
         </div>
     </div>
     <!-- End content -->
