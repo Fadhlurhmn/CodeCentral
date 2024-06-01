@@ -5,16 +5,6 @@
         <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600"> {{$page->title}}</h1>
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('rt/penduduk/create')}}">Tambah Data Warga</a>
-            <div class="flex">
-                <p class="py-1 mr-2">Filter Rt : </p>
-                <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
-                    <option value="all" selected>Semua RT</option>
-                    <option value="1">Rt. 1</option>
-                    <option value="2">Rt. 2</option>
-                    <option value="3">Rt. 3</option>
-                    <option value="4">Rt. 4</option>
-                </select>
-            </div>
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
                 <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
             </svg>
@@ -85,7 +75,7 @@
                     orderable: true,
                     searchable: true,
                     render: function(data, type, row) {
-                        if (data === 'Aktif') {
+                        if (data ==='aktif' || data === 'Aktif') {
                             return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
                         } else {
                             return '<div class="rounded-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
