@@ -42,6 +42,8 @@ Route::middleware(['cek_login:1'])->group(function () {
         Route::view('/bansos', 'admin.bansos.index');
         Route::view('/pengumuman', 'admin.pengumuman.index');
         Route::view('/keuangan', 'admin.keuangan.index');
+        Route::get('/profil', [UserController::class, 'profil']);
+        Route::post('/profil', [UserController::class, 'editProfil']);
 
         // Admin-specific routes
         Route::prefix('promosi')->group(function () {
@@ -107,9 +109,8 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/{id}/show', [UserController::class, 'show']);
             Route::get('/{id}/edit', [UserController::class, 'edit']);
             Route::put('/{id}', [UserController::class, 'update']);
-            // Route::delete('/{id}', [UserController::class, 'destroy']);
         });
-      
+
         Route::group(['prefix' => 'pengumuman'], function () {
             Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
             Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
@@ -121,7 +122,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
             // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
         });
-  
+
         Route::group(['prefix' => 'bansos'], function () {
             Route::get('/', [BansosController::class, 'index']); // Menampilkan daftar bansos
             Route::post('/list', [BansosController::class, 'list']); // Mengambil daftar bansos untuk DataTables
