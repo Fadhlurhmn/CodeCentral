@@ -6,7 +6,8 @@
         @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('rt/keluarga/create')}}">Tambah Data Keluarga</a>
-            {{-- <div class="flex">
+            {{-- 
+            <div class="flex">
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
@@ -15,7 +16,8 @@
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
                 </select>
-            </div> --}}
+            </div> 
+            --}}
         </div>
         @if (session('success'))
         <div id="successMessage" class="col-span-4">
@@ -29,19 +31,20 @@
         </div>
         @endif
         <div class="h-auto p-2">
-            <table id="table_keluarga" class="table-auto text-center  w-full min-w-max cursor-default">
+            <table id="table_keluarga" class="table-auto text-center w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">No</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">No KK</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
-                        {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th> --}}
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">No</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">No KK</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">Nama Kepala Keluarga</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">Alamat</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">Jumlah Anggota Keluarga</th>
+                        <th class="p-3 text-sm font-normal tracking-normal">Jumlah Kendaraan</th>
+                        {{-- <th class="p-3 text-sm font-normal tracking-normal">Rt</th> --}}
+                        <th class="p-3 text-sm font-normal tracking-normal">Aksi</th>
                     </tr>
                 </thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -51,73 +54,47 @@
 <script>
     $(document).ready(function() {
         var table = $('#table_keluarga').DataTable({
+            processing: true,
             serverSide: true,
             ajax: {
-                "url": "{{ url('rt/keluarga/list') }}",
-                "dataType": "json",
-                "type": "POST",
+                url: "{{ url('rt/keluarga/list') }}",
+                type: "POST",
+                dataType: "json",
+                data: function (d) {
+                    d._token = "{{ csrf_token() }}";
+                }
             },
-            columns: [{
-                    data: "DT_RowIndex",
-                    className: "text-center text-xs border-b",
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: "nomor_keluarga",
-                    className: "text-xs border-b",
-                    orderable: false,
-                    searchable: true
-                },
-                {
-                    data: "jumlah_orang_kerja",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
-                {
-                    data: "jumlah_tanggungan",
-                    className: "text-xs border-b",
-                    orderable: true,
-                },
-                {
-                    data: "jumlah_kendaraan",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
-                // {
-                //     data: "rt",
-                //     className: "text-xs border-b",
-                //     orderable: true,
-                //     searchable: false
-                // },
-                {
-                    data: "aksi",
-                    className: "flex justify-evenly text-xs border-b",
-                    orderable: false,
-                    searchable: false
-                },
+            columns: [
+                { data: "DT_RowIndex", className: "text-center text-xs border-b", orderable: false, searchable: false },
+                { data: "nomor_keluarga", className: "text-xs border-b", orderable: true, searchable: true },
+                { data: "nama_kepala_keluarga", className: "text-xs border-b", orderable: true, searchable: true },
+                { data: "alamat", className: "text-xs border-b", orderable: true, searchable: true },
+                { data: "jumlah_anggota_dalam_KK", className: "text-xs border-b", orderable: true, searchable: true },
+                { data: "jumlah_kendaraan", className: "text-xs border-b", orderable: true, searchable: true },
+                { data: "aksi", className: "flex justify-evenly text-xs border-b", orderable: false, searchable: false }
             ]
         });
+
+        // Uncomment this section if you want to add filtering by RT
         // $('#rt').on('change', function() {
-        //         var selectedRt = $(this).val();
-        //         if (selectedRt === 'all') {
-        //             // Jika dipilih "Semua", atur URL tanpa parameter rt
-        //             table.ajax.url("{{ url('rt/keluarga/list') }}").load();
-        //         } else {
-        //             // Jika dipilih nilai lain, atur URL dengan parameter rt
-        //             table.ajax.url("{{ url('rt/keluarga/list') }}?rt=" + selectedRt).load();
-        //         }
+        //     var selectedRt = $(this).val();
+        //     if (selectedRt === 'all') {
+        //         table.ajax.url("{{ url('rt/keluarga/list') }}").load();
+        //     } else {
+        //         table.ajax.url("{{ url('rt/keluarga/list') }}?rt=" + selectedRt).load();
+        //     }
         // });
+
+        $('#closeButton').click(function() {
+            $('#successMessage').fadeOut();
+        });
     });
 
-    document.getElementById('closeButton').addEventListener('click', function() {
-        document.getElementById('successMessage').style.display = 'none';
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 </script>
 @endpush
 {{-- @stack('js') --}}
-<script>
-    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-</script>

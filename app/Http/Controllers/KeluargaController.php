@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\detail_keluarga_model;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
+use App\Models\rangkuman_keluarga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class KeluargaController extends Controller
@@ -370,17 +372,26 @@ class KeluargaController extends Controller
 
     public function list_rt(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja');
-        
+        // Get logged in user
+        $user = Auth::user();
+
+        // Get id_penduduk from logged in user
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Find RT of logged in user
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
+        $keluarga = rangkuman_keluarga::where('rt', $rt_penduduk->rt);
+
         return DataTables::of($keluarga)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('rt/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
 
-                // Periksa apakah detail keluarga ada untuk keluarga saat ini
                 $detailKeluarga = detail_keluarga_model::where('id_keluarga', $keluarga->id_keluarga)->first();
 
-                // Jika detail keluarga ditemukan
                 if ($detailKeluarga) {
                     $btn .= '<a href="' . url('rt/keluarga/' . $keluarga->id_keluarga . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 } else {
