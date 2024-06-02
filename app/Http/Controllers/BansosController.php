@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ajuan_bansos_pending_per_rt;
 use App\Models\alternatif_per_rt;
 use App\Models\BansosModel;
 use App\Models\detail_pertimbangan_acc_bansos;
+use App\Models\detail_pertimbangan_bansos_per_rt;
 use App\Models\DetailBansosModel;
 use App\Models\histori_penerimaan_bansos;
 use App\Models\KriteriaBansosModel;
 use App\Models\list_rekomendasi_bansos;
 use App\Models\PendudukModel;
+use App\Models\rekomendasi_per_rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -362,7 +365,7 @@ class BansosController extends Controller
             ->where('id_penduduk', $id_penduduk_rt)
             ->first();
 
-        $keluarga_yang_mengajukan = alternatif_per_rt::where('rt', $rt_penduduk)
+        $keluarga_yang_mengajukan = alternatif_per_rt::where('rt', $rt_penduduk->rt)
             ->distinct()
             ->count('id_keluarga');
 
@@ -394,15 +397,31 @@ class BansosController extends Controller
 
     public function show_rt($id)
     {
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
         // Mengambil data Bansos
         $bansos = BansosModel::find($id);
 
         // Fetching histori_penerimaan_bansos records
-        $bansos_acc = histori_penerimaan_bansos::where('id_bansos', $id)->get();
+        $bansos_acc = histori_penerimaan_bansos::where('id_bansos', $id)
+            ->where('rt', $rt_penduduk->rt)
+            ->get();
         // dd($bansos_acc);
 
         // ambil data detail bansos
-        $detail_bansos = DetailBansosModel::where('id_bansos', $id)->get();
+        $detail_bansos = ajuan_bansos_pending_per_rt::where('id_bansos', $id)
+            ->where('rt', $rt_penduduk->rt)
+            ->get();
+        // dd($detail_bansos);
         if (!$bansos) {
             return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
@@ -434,7 +453,20 @@ class BansosController extends Controller
 
     public function daftar_rt($id)
     {
-        $bansos = list_rekomendasi_bansos::where('id_bansos', $id)->get();
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
+        $bansos = rekomendasi_per_rt::where('id_bansos', $id)
+            ->where('rt', $rt_penduduk->rt)
+            ->get();
 
         if ($bansos->isEmpty()) {
             return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
@@ -465,6 +497,9 @@ class BansosController extends Controller
 
     public function update_acc_bansos_rt(Request $request, $id)
     {
+        // Debugging: Tampilkan semua data yang diterima dalam request
+        // dd($request->all());
+
         // Validasi input
         $request->validate([
             'status.*' => 'required|in:acc,tolak'
@@ -482,10 +517,11 @@ class BansosController extends Controller
         return redirect('rt/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
     }
 
+
     // show detail isi jawaban form kriteria
     public function show_kriteria_rt($id_bansos, $id_keluarga)
     {
-        $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id_keluarga)
+        $detail = detail_pertimbangan_bansos_per_rt::where('id_keluarga', $id_keluarga)
             ->where('id_bansos', $id_bansos)
             ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
 
@@ -538,9 +574,22 @@ class BansosController extends Controller
 
     public function cek_histori_rt(Request $request)
     {
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
         // $histori_bansos = histori_penerimaan_bansos::all();
         if ($request->has('id_bansos')) {
-            $histori_bansos = histori_penerimaan_bansos::where('id_bansos', $request->id_bansos)->get();
+            $histori_bansos = histori_penerimaan_bansos::where('id_bansos', $request->id_bansos)
+                ->where('rt', $rt_penduduk)
+                ->get();
         } else {
             $histori_bansos = histori_penerimaan_bansos::all();
         }
