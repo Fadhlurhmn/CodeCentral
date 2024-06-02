@@ -325,7 +325,7 @@ class KeluargaController extends Controller
 
     public function list_rw(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'rt');
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'rt');
         if ($request->has('rt')) {
             $keluarga->where('rt', $request->rt);
         }

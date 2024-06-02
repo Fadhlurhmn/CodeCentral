@@ -90,23 +90,23 @@
                     </div>
                 </div>
                 {{-- Luas Tanah --}}
-                <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
+                {{-- <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
                         <label for="luas_tanah" class="block mb-2 text-xs font-bold text-gray-900">Luas Tanah<span class="text-red-500">*</span></label>
                         <input type="number" name="luas_tanah" id="luas_tanah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Luas Tanah" value="{{old('luas_tanah')}}" required />
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- Alamat --}}
-                <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
+                {{-- <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4">
                         <label for="alamat" class="block mb-2 text-xs font-bold text-gray-900">Alamat KK<span class="text-red-500">*</span></label>
                         <input type="text" name="alamat" id="alamat" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Alamat" value="{{old('alamat')}}" required />
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- Kelurahan, Kecamatan, Kota --}}
-                <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
+                {{-- <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
                     <div class="col-span-4 sm:col-span-2">
                         <label for="kelurahan" class="block mb-2 text-xs font-bold text-gray-900">Kelurahan<span class="text-red-500">*</span></label>
                         <input type="text" name="kelurahan" id="kelurahan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan Kelurahan" value="{{old('kelurahan')}}" required />
@@ -127,7 +127,7 @@
                         <label for="rw" class="block mb-2 text-xs font-bold text-gray-900">RW<span class="text-red-500">*</span></label>
                         <input type="hidden" value="1" name="rw" id="rw" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" placeholder="Masukkan RW" required />
                     </div>
-                </div>
+                </div> --}}
                 {{-- Submit Button --}}
                 <div class="flex col-span-1">
                     <a href="{{ url('rt/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
