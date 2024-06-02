@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PendudukController extends Controller
@@ -278,30 +279,45 @@ class PendudukController extends Controller
 
         return view('rt.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
+
     public function list_rt(Request $request)
     {
-        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk')
-            ->where('rt', 1)
-            ->get();
+        // Ambil data user yang login
+        $user = Auth::user();
 
-        // Filter berdasarkan RT 
-        // if ($request->has('rt')) {
-        //     $penduduk->where('rt', $request->rt);
-        // }
-        return DataTables::of($penduduk)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($penduduk) {
-                $btn = '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></i></a> ';
-                $btn .= '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
+        // Periksa apakah RT ditemukan
+        if ($rt_penduduk) {
+            // Dapatkan data penduduk berdasarkan RT
+            $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk')
+                ->where('rt', $rt_penduduk->rt)
+                ->get();
+
+            return DataTables::of($penduduk)
+                ->addIndexColumn()
+                ->addColumn('aksi', function ($penduduk) {
+                    $btn = '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                    $btn .= '<a href="' . url('rt/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                    return $btn;
+                })
+                ->rawColumns(['aksi'])
+                ->make(true);
+        }
+
+        // Jika RT tidak ditemukan, kembalikan response yang sesuai
+        return response()->json(['error' => 'RT not found'], 404);
     }
 
     public function create_rt()
     {
-        $breadcrumb = (object) [
+        $breadcrumb = (object)[
             'title' => 'Daftar Penduduk',
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
@@ -314,13 +330,23 @@ class PendudukController extends Controller
             'title' => 'Form Tambah penduduk baru'
         ];
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
-        $rt = 1;
+
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
 
         return view('rt.penduduk.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
-            'rt' => $rt // Pastikan key adalah 'rt' dan value adalah $rt
+            'rt' => $rt_penduduk->rt // Pastikan key adalah 'rt' dan value adalah $rt_penduduk->rt
         ]);
     }
 
