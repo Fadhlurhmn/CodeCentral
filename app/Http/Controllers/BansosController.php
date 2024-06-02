@@ -326,6 +326,7 @@ class BansosController extends Controller
         ]);
     }
 
+
     // controller untuk rt
     public function index_rt()
     {
@@ -465,120 +466,6 @@ class BansosController extends Controller
         // Redirect kembali ke halaman daftar dengan pesan sukses
         return redirect('rt/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
     }
-    public function create_bansos_rt()
-    {
-        
-        $breadcrumb = (object) [
-            'title' => 'Tambah Bantuan Sosial',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/rt')],
-                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
-                ['name' => 'Create', 'url' => url('rt/bansos/create')],
-            ]
-        ];
-
-        $page = (object)[
-            'title' => 'Tambah Bantuan Sosial'
-        ];
-
-        $activeMenu = 'bansos';
-        return view('rt.bansos.create', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function store_bansos_rt(Request $request)
-    {
-        $request->validate([
-            'nama_bansos' => 'required|string',
-            'tanggal_bansos' => 'required|date',
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
-            'jumlah_penerima' => 'required|integer'
-        ]);
-
-        $bansos = new BansosModel();
-        $bansos->nama = $request->nama_bansos;
-        $bansos->tanggal_pemberian = $request->tanggal_bansos;
-        $bansos->pengirim = $request->pengirim;
-        $bansos->bentuk_pemberian = $request->bentuk_pemberian;
-        $bansos->jumlah_penerima = $request->jumlah_penerima;
-        $bansos->save();
-
-        return redirect('rt/bansos/')
-            ->with('success', 'Data Bansos Berhasil Ditambahkan');
-    }
-
-    public function edit_bansos_rt($id)
-    {
-        $bansos = BansosModel::find($id);
-
-        if (!$bansos) {
-            return redirect('rt/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
-        }
-
-        $breadcrumb = (object) [
-            'title' => 'Edit Bantuan Sosial',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/rt')],
-                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
-                ['name' => 'Edit', 'url' => url('rt/bansos/edit')],
-            ]
-        ];
-
-        $page = (object)[
-            'title' => 'Bantuan Sosial'
-        ];
-
-        $activeMenu = 'bansos';
-        return view('rt.bansos.edit', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'bansos' => $bansos,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function update_bansos_rt(Request $request, string $id)
-    {
-        $request->validate([
-            'nama_bansos' => 'required|string',
-            'tanggal_bansos' => 'required|date',
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
-            'jumlah_penerima' => 'required|integer'
-        ]);
-
-        $bansos = BansosModel::find($id);
-
-        if ($bansos) {
-            $bansos->nama = $request->nama_bansos;
-            $bansos->tanggal_pemberian = $request->tanggal_bansos;
-            $bansos->pengirim = $request->pengirim;
-            $bansos->bentuk_pemberian = $request->bentuk_pemberian;
-            $bansos->jumlah_penerima = $request->jumlah_penerima;
-            $bansos->save();
-
-            return redirect('rt/bansos')->with('success', 'Data Bansos Berhasil diperbarui');
-        } else {
-            return redirect('rt/bansos')->with('error', 'Data Bansos tidak ditemukan');
-        }
-    }
-
-    public function delete_bansos_rt($id)
-    {
-        $bansos = BansosModel::find($id);
-
-        if ($bansos) {
-            $bansos->delete();
-
-            return redirect('rt/bansos')->with('success', 'Data Bansos Berhasil dihapus');
-        } else {
-            return redirect('rt/bansos')->with('error', 'Data Bansos tidak ditemukan');
-        }
-    }
 
     // show detail isi jawaban form kriteria
     public function show_kriteria_rt($id_bansos, $id_keluarga)
@@ -643,7 +530,7 @@ class BansosController extends Controller
             $histori_bansos = histori_penerimaan_bansos::all();
         }
         $bansos = BansosModel::all();
-        
+
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
             'list' => [

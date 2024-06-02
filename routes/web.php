@@ -208,12 +208,7 @@ Route::middleware(['cek_login:3'])->group(function () {
         Route::group(['prefix' => 'bansos'], function () {
             Route::get('/', [BansosController::class, 'index_rt']); // Menampilkan daftar bansos
             Route::post('/list', [BansosController::class, 'list_rt']); // Mengambil daftar bansos untuk DataTables
-            Route::get('/create', [BansosController::class, 'create_bansos_rt']); // Form tambah bansos
-            Route::post('/', [BansosController::class, 'store_bansos_rt']); // Menyimpan bansos baru
             Route::get('/{id}/show', [BansosController::class, 'show_rt']); // Menampilkan detail bansos
-            Route::get('/{id}/edit', [BansosController::class, 'edit_bansos_rt']); // Form edit bansos
-            Route::post('/{id}', [BansosController::class, 'update_bansos_rt']); // Mengupdate bansos
-            Route::delete('/{id}', [BansosController::class, 'delete_bansos_rt']); // Menghapus bansos
             Route::get('/histori', [BansosController::class, 'cek_histori_rt']); // Melihat histori penerimaan bansos
             Route::get('/histori/data', [BansosController::class, 'getHistoriData_rt'])->name('bansos.data');
 
@@ -225,13 +220,6 @@ Route::middleware(['cek_login:3'])->group(function () {
 
             // cek jawaban kriteria masing-masing keluarga
             Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria_rt']);
-        });
-
-
-        Route::group(['prefix' => 'kriteria'], function () {
-            Route::get('/update', [KriteriaController::class, 'update_kriteria_rt']); //menambahkan
-            Route::post('/', [KriteriaController::class, 'store_kriteria_rt']); // Menyimpan kriteria baru
-            Route::get('/show', [KriteriaController::class, 'show_kriteria_rt']); // melihat kriteria
         });
     });
 });
