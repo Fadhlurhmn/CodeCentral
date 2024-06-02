@@ -38,7 +38,7 @@
                 </button>
             </div>
             @else
-            <form id="form_penduduk" action="{{ url('admin/penduduk/' . $penduduk->id_penduduk) }}" method="POST" enctype="multipart/form-data">
+            <form id="form_penduduk" action="{{ url('rt/penduduk/' . $penduduk->id_penduduk) }}" method="POST" enctype="multipart/form-data">
                 <div class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl">
                     <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-4 ">
                         {{ $page->title }}
@@ -126,14 +126,14 @@
                     <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" value="{{ $penduduk->pekerjaan }}" required />
                     <div id="pekerjaError" class="hidden col-span-2 text-red-500 text-xs">Isi dengan "Tidak bekerja" jika belum bekerja</div>
                     {{-- status penduduk --}}
-                    <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
+                    <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Tinggal</label>
                     <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
                         {{-- <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option> --}}
                         <option value="Tetap">Tetap</option>
                         <option value="Sementara">Sementara</option>
                     </select>
                     {{-- status data --}}
-                    <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">status_data</label>
+                    <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
                     <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
                         {{-- <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                             --}}
                         <option value="Aktif">Aktif</option>

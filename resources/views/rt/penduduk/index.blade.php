@@ -30,7 +30,8 @@
                         <th class="p-3 text-sm font-normal">NIK</th>
                         <th class="p-3 text-sm font-normal">Nama</th>
                         <th class="p-3 text-sm font-normal">Alamat Domisili</th>
-                        <th class="p-3 text-sm font-normal">Status penduduk</th>
+                        <th class="p-3 text-sm font-normal">Status Tinggal</th>
+                        <th class="p-3 text-sm font-normal">Status Penduduk</th>
                         <th class="p-3 text-sm font-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -72,6 +73,19 @@
                  className: "text-xs border-b border-gray-500/40 text-center", 
                  orderable: true, 
                  searchable: true },
+                 { 
+                    data: "status_data",
+                    className: "text-xs text-center border border-gray-500/40",
+                    orderable: true,
+                    searchable: true,
+                    render: function(data, type, row) {
+                        if (data === 'aktif'|| data === 'Aktif') {
+                            return '<div class="rounded-full w-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
+                        } else {
+                            return '<div class="rounded-full w-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
+                        }
+                    }
+                },
                 { data: "aksi",
                  className: "flex text-xs border-b border-gray-500/40", 
                  orderable: false, 
