@@ -30,13 +30,19 @@ class PengumumanController extends Controller
 
         // Mendapatkan query pencarian jika ada
         $query = $request->input('query');
+        $status = $request->input('status');
+
+        $pengumuman = PengumumanModel::with('user');
+
         if ($query) {
-            // Jika ada query, cari pengumuman berdasarkan judul
-            $pengumuman = PengumumanModel::with('user')->where('judul_pengumuman', 'like', "%$query%")->get();
-        } else {
-            // Jika tidak ada query, ambil semua pengumuman
-            $pengumuman = PengumumanModel::with('user')->get();
+            $pengumuman->where('judul_pengumuman', 'like', "%$query%");
         }
+
+        if ($status) {
+            $pengumuman->where('status_pengumuman', $status);
+        }
+
+        $pengumuman = $pengumuman->get();
 
         // Menampilkan view dengan data yang telah dikumpulkan
         return view('admin.pengumuman.index', [
@@ -101,7 +107,8 @@ class PengumumanController extends Controller
         $request->validate([
             'judul_pengumuman' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'thumbnail' => 'required|image|max:2048'
+            'thumbnail' => 'required|image|max:2048',
+            'status_pengumuman' => 'required|string|in:Publikasi,Draf',
         ]);
 
         // Menyimpan file thumbnail yang diupload
@@ -115,7 +122,8 @@ class PengumumanController extends Controller
             'id_user' => Auth::user()->id_user,
             'judul_pengumuman' => $request->judul_pengumuman,
             'deskripsi' => $request->deskripsi,
-            'thumbnail' => $nama_file
+            'thumbnail' => $nama_file,
+            'status_pengumuman' => $request->status_pengumuman,
         ]);
 
         // Redirect ke halaman daftar pengumuman dengan pesan sukses
@@ -191,7 +199,8 @@ class PengumumanController extends Controller
         $request->validate([
             'judul_pengumuman' => 'required|string',
             'deskripsi' => 'required|string',
-            'thumbnail' => 'nullable|image|max:2048'
+            'thumbnail' => 'nullable|image|max:2048',
+            'status_pengumuman' => 'required|string',
         ]);
 
         $pengumuman = PengumumanModel::findOrFail($id);
@@ -207,19 +216,29 @@ class PengumumanController extends Controller
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
                 'deskripsi' => $request->deskripsi,
-                'thumbnail' => $nama_file
+                'thumbnail' => $nama_file,
+                'status_pengumuman' => $request->status_pengumuman,
             ]);
         } else {
             // Jika tidak ada file thumbnail yang diupload, update data tanpa mengubah thumbnail
             $pengumuman->update([
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
-                'deskripsi' => $request->deskripsi
+                'deskripsi' => $request->deskripsi,
+                'status_pengumuman' => $request->status_pengumuman,
             ]);
         }
 
         // Redirect ke halaman daftar pengumuman dengan pesan sukses
         return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil diubah');
+    }
+
+    // Menghapus pengumuman
+    public function destroy($id)
+    {
+        $pengumuman = PengumumanModel::findOrFail($id);
+        $pengumuman->delete();
+        return response()->json(['success' => true]);
     }
 
     // Mengupload file untuk pengumuman

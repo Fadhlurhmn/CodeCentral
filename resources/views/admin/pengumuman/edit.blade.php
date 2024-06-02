@@ -72,7 +72,7 @@
                         "/>
                     <div class="mt-3 mb-2 col-span-4">
                         <p class="block mt-2 text-xs font-bold text-gray-900 col-span-4">Thumbnail sebelumnya: </p>
-                        <img src="{{ asset('pengumuman_thumbnail/'. $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}"9844 class="img-thumbnail w-96" />
+                        <img src="{{ asset('pengumuman_thumbnail/'. $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" class="img-thumbnail w-96" />
                     </div>
 
                     <div class="flex col-span-2">
@@ -88,7 +88,7 @@
 
 @push('js')
 <script>
-        ClassicEditor
+    ClassicEditor
         .create(document.querySelector('#editor'), {
             ckfinder: {
                 uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
@@ -98,21 +98,48 @@
             const oldData = '{!! $pengumuman->deskripsi !!}';
             editor.setData(oldData);
             document.querySelector('form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const form = event.target;
                 document.querySelector('textarea[name="deskripsi"]').value = editor.getData();
+
+                Swal.fire({
+                    title: 'Publikasikan sekarang?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    showCloseButton: true,
+                    cancelButtonText: 'Tidak',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    confirmButtonColor: '#3085d6',
+                    reverseButtons: true,
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Ubah status pengumuman menjadi Publikasi
+                        form.insertAdjacentHTML('beforeend', '<input type="hidden" name="status_pengumuman" value="Publikasi">');
+                        form.submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Ubah status pengumuman menjadi Draf
+                        form.insertAdjacentHTML('beforeend', '<input type="hidden" name="status_pengumuman" value="Draf">');
+                        form.submit();
+                    }
+                });
             });
         })
         .catch(error => {
             console.error(error);
         });
-        const thumbnail = document.getElementById('thumbnail');
-        const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
-        thumbnail.addEventListener('change', function() {
-            if (thumbnail.files.length > 0) {
-                uploadIndicator_foto.classList.remove('hidden');
-            } else {
-                uploadIndicator_foto.classList.add('hidden');
-            }
-        });
+
+    const thumbnail = document.getElementById('thumbnail');
+    const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
+    thumbnail.addEventListener('change', function() {
+        if (thumbnail.files.length > 0) {
+            uploadIndicator_foto.classList.remove('hidden');
+        } else {
+            uploadIndicator_foto.classList.add('hidden');
+        }
+    });
 </script>
 @endpush
+
 @include('layout.end')

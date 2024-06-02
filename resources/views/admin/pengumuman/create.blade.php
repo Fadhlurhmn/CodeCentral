@@ -74,23 +74,48 @@
             }
         })
         .then(editor => {
-            // Pastikan data CKEditor tersinkronisasi dengan benar dengan textarea saat pengiriman formulir
             document.querySelector('form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const form = event.target;
                 document.querySelector('textarea[name="deskripsi"]').value = editor.getData();
+
+                Swal.fire({
+                    title: 'Publikasikan sekarang?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    showCloseButton: true,
+                    cancelButtonText: 'Tidak',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    confirmButtonColor: '#3085d6',
+                    reverseButtons: true,
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Ubah status pengumuman menjadi Publikasi
+                        form.insertAdjacentHTML('beforeend', '<input type="hidden" name="status_pengumuman" value="Publikasi">');
+                        form.submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Ubah status pengumuman menjadi Draf
+                        form.insertAdjacentHTML('beforeend', '<input type="hidden" name="status_pengumuman" value="Draf">');
+                        form.submit();
+                    }
+                });
             });
         })
         .catch(error => {
             console.error(error);
         });
-        const thumbnail = document.getElementById('thumbnail');
-        const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
-        thumbnail.addEventListener('change', function() {
-            if (thumbnail.files.length > 0) {
-                uploadIndicator_foto.classList.remove('hidden');
-            } else {
-                uploadIndicator_foto.classList.add('hidden');
-            }
-        });
+
+    const thumbnail = document.getElementById('thumbnail');
+    const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
+    thumbnail.addEventListener('change', function() {
+        if (thumbnail.files.length > 0) {
+            uploadIndicator_foto.classList.remove('hidden');
+        } else {
+            uploadIndicator_foto.classList.add('hidden');
+        }
+    });
 </script>
 @endpush
 
