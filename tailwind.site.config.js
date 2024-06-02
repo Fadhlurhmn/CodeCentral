@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 const theme = require("./resources/theme.json");
 
 let font_base = Number(theme.fonts.font_size.base.replace("px", ""));
