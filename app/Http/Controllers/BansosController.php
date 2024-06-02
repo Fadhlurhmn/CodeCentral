@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\alternatif_per_rt;
 use App\Models\BansosModel;
 use App\Models\detail_pertimbangan_acc_bansos;
 use App\Models\DetailBansosModel;
 use App\Models\histori_penerimaan_bansos;
 use App\Models\KriteriaBansosModel;
 use App\Models\list_rekomendasi_bansos;
+use App\Models\PendudukModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -347,7 +350,19 @@ class BansosController extends Controller
         $bansos = BansosModel::all();
 
         $totalBansos = $bansos->count('id_bansos');
-        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
+
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Cari RT dari penduduk yang login
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
+        $keluarga_yang_mengajukan = alternatif_per_rt::where('rt', $rt_penduduk)
             ->distinct()
             ->count('id_keluarga');
 
