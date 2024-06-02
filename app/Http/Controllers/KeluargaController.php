@@ -392,7 +392,7 @@ class KeluargaController extends Controller
 
     public function list_rt(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'rt');
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja');
         if ($request->has('rt')) {
             $keluarga->where('rt', $request->rt);
         }
@@ -445,13 +445,6 @@ class KeluargaController extends Controller
         $request->validate([
             'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
-            'alamat' => 'required|string',
-            'kelurahan' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kota' => 'required|string',
-            'rt' => 'required|integer',
-            'rw' => 'required|integer',
-            'luas_tanah' => 'required|integer',
             'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
@@ -470,13 +463,6 @@ class KeluargaController extends Controller
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
-            'alamat' => $request->alamat,
-            'kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'kota' => $request->kota,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'luas_tanah' => $request->luas_tanah,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
             'foto_kk' => $foto_kk,
@@ -560,7 +546,7 @@ class KeluargaController extends Controller
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
-        
+
         $breadcrumb = (object) [
             'title' => 'Detail Data Keluarga',
             'list' => [
@@ -619,13 +605,6 @@ class KeluargaController extends Controller
         $request->validate([
             'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
-            'alamat' => 'required|string',
-            'kelurahan' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kota' => 'required|string',
-            'rt' => 'required|integer',
-            'rw' => 'required|integer',
-            'luas_tanah' => 'required|integer',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
             // 'foto_kk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -648,13 +627,6 @@ class KeluargaController extends Controller
         $data = [
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
-            'alamat' => $request->alamat,
-            'kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'kota' => $request->kota,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'luas_tanah' => $request->luas_tanah,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
             // 'foto_kk' => $nama_file
