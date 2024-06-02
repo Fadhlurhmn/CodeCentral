@@ -329,4 +329,223 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
+
+
+    // controller untuk rw
+    public function index_rw()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Daftar Penerima Bantuan Sosial',
+            'list' => ['Home', 'Penerima Bantuan Sosial']
+        ];
+
+        $page = (object)[
+            'title' => 'Daftar Penerima Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        $bansos = BansosModel::all();
+
+        $totalBansos = $bansos->count('id_bansos');
+        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
+            ->distinct()
+            ->count('id_keluarga');
+
+        // Lakukan pengecekan apakah kriteria sudah ada atau belum
+        $kriteriaExists = KriteriaBansosModel::count() > 0;
+
+        return view('admin.bansos.bansos', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'bansos' => $bansos,
+            'totalBansos' => $totalBansos,
+            'keluarga_yang_mengajukan' => $keluarga_yang_mengajukan,
+        ])->with('kriteriaExists', $kriteriaExists);
+    }
+
+    public function list_rw(Request $request)
+    {
+        $bansos = BansosModel::all();
+
+        return DataTables::of($bansos)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($bansos) {
+                return '<a href="' . url('admin/bansos/' . $bansos->id_bansos . '/show') . '">Detail</a>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
+    public function show_rw($id)
+    {
+        // Mengambil data Bansos
+        $bansos = BansosModel::find($id);
+
+        // Fetching histori_penerimaan_bansos records
+        $bansos_acc = histori_penerimaan_bansos::where('id_bansos', $id)->get();
+        // dd($bansos_acc);
+
+        // ambil data detail bansos
+        $detail_bansos = DetailBansosModel::where('id_bansos', $id)->get();
+        if (!$bansos) {
+            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+        }
+
+        $breadcrumb = (object) [
+            'title' => 'Detail Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.detail', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'detail_bansos' => $detail_bansos,
+            'bansos' => $bansos,
+            'bansos_acc' => $bansos_acc,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    public function create_bansos_rw()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Tambah Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Tambah']
+        ];
+
+        $page = (object)[
+            'title' => 'Tambah Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+        return view('admin.bansos.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function store_bansos_rw(Request $request)
+    {
+        $request->validate([
+            'kode' => 'required|string',
+            'nama_bansos' => 'required|string',
+            'tanggal_bansos' => 'required|date',
+            'pengirim' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'jumlah_penerima' => 'required|integer'
+        ]);
+
+        $bansos = new BansosModel();
+        $bansos->kode = $request->kode;
+        $bansos->nama = $request->nama_bansos;
+        $bansos->tanggal_pemberian = $request->tanggal_bansos;
+        $bansos->pengirim = $request->pengirim;
+        $bansos->bentuk_pemberian = $request->bentuk_pemberian;
+        $bansos->jumlah_penerima = $request->jumlah_penerima;
+        $bansos->save();
+
+        return redirect('admin/bansos/')
+            ->with('success', 'Data Bansos Berhasil Ditambahkan');
+    }
+
+    public function edit_bansos_rw($id)
+    {
+        $bansos = BansosModel::find($id);
+
+        if (!$bansos) {
+            return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
+        }
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Edit']
+        ];
+
+        $page = (object)[
+            'title' => 'Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+        return view('admin.bansos.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'bansos' => $bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function update_bansos_rw(Request $request, string $id)
+    {
+        $request->validate([
+            'kode' => 'required|string',
+            'nama_bansos' => 'required|string',
+            'tanggal_bansos' => 'required|date',
+            'pengirim' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'jumlah_penerima' => 'required|integer'
+        ]);
+
+        $bansos = BansosModel::find($id);
+
+        if ($bansos) {
+            $bansos->kode = $request->kode;
+            $bansos->nama = $request->nama_bansos;
+            $bansos->tanggal_pemberian = $request->tanggal_bansos;
+            $bansos->pengirim = $request->pengirim;
+            $bansos->bentuk_pemberian = $request->bentuk_pemberian;
+            $bansos->jumlah_penerima = $request->jumlah_penerima;
+            $bansos->save();
+
+            return redirect('admin/bansos')->with('success', 'Data Bansos Berhasil diperbarui');
+        } else {
+            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
+        }
+    }
+
+    public function delete_bansos_rw($id)
+    {
+        $bansos = BansosModel::find($id);
+
+        if ($bansos) {
+            $bansos->delete();
+
+            return redirect('admin/bansos')->with('success', 'Data Bansos Berhasil dihapus');
+        } else {
+            return redirect('admin/bansos')->with('error', 'Data Bansos tidak ditemukan');
+        }
+    }
+
+    // show detail isi jawaban form kriteria
+    public function show_kriteria_rw($id_bansos, $id_keluarga)
+    {
+        $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id_keluarga)
+            ->where('id_bansos', $id_bansos)
+            ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
+
+        $breadcrumb = (object) [
+            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial',
+            'list' => ['Home', 'Bantuan Sosial', 'Detail Keluarga Penerimaan']
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+
+        return view('admin.bansos.detail_kriteria', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'detail' => $detail,
+            'activeMenu' => $activeMenu
+        ]);
+    }
 }
