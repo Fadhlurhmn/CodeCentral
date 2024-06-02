@@ -38,12 +38,12 @@
                         <input type="text" name="bentuk_pemberian" id="bentuk_pemberian" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                     </div>
 
-                    <div class="col-span-2">
+                    {{-- <div class="col-span-2">
                         <label for="kode" class="block text-sm font-bold text-gray-900">Kode</label>
                         <input type="text" name="kode" id="kode" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
-                    </div>
+                    </div> --}}
 
-                    <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
+                    <div class="flex py-2 px-3 mt-5 justify-start group col-span-full">
                         <a href="{{ url('rt/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                     </div>

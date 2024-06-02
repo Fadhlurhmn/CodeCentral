@@ -20,10 +20,13 @@
             </svg>
         </div>
         @if (session('success'))
-        <div class="col-span-4">
+        <div id="successMessage" class="col-span-4">
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Sukses!</strong>
                 <span class="block sm:inline">{{ session('success') }}</span>
+                <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                    <i class="fas fa-times-circle"></i>
+                </button>
             </div>
         </div>
         @endif
@@ -113,6 +116,11 @@
                 table.ajax.url("{{ url('admin/penduduk/list') }}?rt=" + selectedRt).load();
             }
         });
+    });
+
+    
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
     });
 </script>
 @endpush

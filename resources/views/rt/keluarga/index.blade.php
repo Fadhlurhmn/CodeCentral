@@ -18,10 +18,13 @@
             </div> --}}
         </div>
         @if (session('success'))
-        <div class="col-span-4">
+        <div id="successMessage" class="col-span-4">
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Sukses!</strong>
                 <span class="block sm:inline">{{ session('success') }}</span>
+                <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                    <i class="fas fa-times-circle"></i>
+                </button>
             </div>
         </div>
         @endif
@@ -84,12 +87,6 @@
                     searchable: false
                 },
                 // {
-                //     data: "luas_tanah",
-                //     className: "text-xs border-b",
-                //     orderable: true,
-                //     searchable: false
-                // },
-                // {
                 //     data: "rt",
                 //     className: "text-xs border-b",
                 //     orderable: true,
@@ -103,18 +100,21 @@
                 },
             ]
         });
-        $('#rt').on('change', function() {
-                var selectedRt = $(this).val();
-                if (selectedRt === 'all') {
-                    // Jika dipilih "Semua", atur URL tanpa parameter rt
-                    table.ajax.url("{{ url('rt/keluarga/list') }}").load();
-                } else {
-                    // Jika dipilih nilai lain, atur URL dengan parameter rt
-                    table.ajax.url("{{ url('rt/keluarga/list') }}?rt=" + selectedRt).load();
-                }
-        });
+        // $('#rt').on('change', function() {
+        //         var selectedRt = $(this).val();
+        //         if (selectedRt === 'all') {
+        //             // Jika dipilih "Semua", atur URL tanpa parameter rt
+        //             table.ajax.url("{{ url('rt/keluarga/list') }}").load();
+        //         } else {
+        //             // Jika dipilih nilai lain, atur URL dengan parameter rt
+        //             table.ajax.url("{{ url('rt/keluarga/list') }}?rt=" + selectedRt).load();
+        //         }
+        // });
     });
 
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
+    });
 </script>
 @endpush
 {{-- @stack('js') --}}

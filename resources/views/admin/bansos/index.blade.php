@@ -30,11 +30,15 @@
         {{-- Card Jumlah bansos & penerima --}}
         <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">
             @if (session('success'))
-                    <div class="col-span-2">
-                        <div class="bg-green-100 border border-green-400 text-green-700 shadow-md shadow-green-300/40 px-4 py-3 rounded relative" role="alert">
-                            <span class="block font-bold sm:inline">{{ session('success') }} !</span>
-                        </div>
-                    </div>
+            <div id="successMessage" class="col-span-4">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Sukses!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
             @endif
             {{-- Card Jumlah bansos --}}
             <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
@@ -152,6 +156,11 @@
                 noResults.classList.remove('hidden');
             }
         });
+    });
+
+    
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
     });
 </script>
 @endpush
