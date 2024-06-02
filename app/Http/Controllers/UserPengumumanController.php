@@ -7,62 +7,72 @@ use Illuminate\Http\Request;
 
 class UserPengumumanController extends Controller
 {
+    // Fungsi untuk menampilkan halaman utama pengumuman
     public function index(Request $request)
     {
-        $topPengumuman = PengumumanModel::orderBy('views', 'desc')->take(2)->get();
+        // Mendapatkan pengumuman teratas berdasarkan jumlah views, hanya menampilkan yang berstatus 'Publikasi'
+        $topPengumuman = PengumumanModel::where('status_pengumuman', 'Publikasi')
+            ->orderBy('views', 'desc')
+            ->take(2)
+            ->get()
+            ->map(function ($item) {
+                // Menghapus tag <p> dari deskripsi pengumuman
+                $item->deskripsi = strip_tags(preg_replace('#<p>(.*?)</p>#', '$1', $item->deskripsi), '<p>');
+                return $item;
+            });
 
-        foreach ($topPengumuman as $pengumuman) {
-            $pengumuman->deskripsi = $this->getPlainTextFromHtml($pengumuman->deskripsi);
-        }
-
-        // Mendapatkan query pencarian jika ada
+        // Mengambil query pencarian dari input pengguna
         $query = $request->input('query');
+
+        // Jika terdapat query pencarian, melakukan pencarian berdasarkan judul pengumuman
         if ($query) {
-            // Jika ada query, cari pengumuman berdasarkan judul
             $allPengumuman = PengumumanModel::with('user')
+                ->where('status_pengumuman', 'Publikasi')
                 ->where('judul_pengumuman', 'like', "%$query%")
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->get()
+                ->map(function ($item) {
+                    // Menghapus tag <p> dari deskripsi pengumuman
+                    $item->deskripsi = strip_tags(preg_replace('#<p>(.*?)</p>#', '$1', $item->deskripsi), '<p>');
+                    return $item;
+                });
 
-            // Cek apakah hasil pencarian kosong
+            // Jika tidak ada pengumuman yang ditemukan, menampilkan pesan error
             if ($allPengumuman->isEmpty()) {
                 return view('user.pengumuman.index')->with('error', 'Pengumuman tidak ditemukan');
             }
         } else {
-            // Jika tidak ada query, ambil semua pengumuman
+            // Jika tidak terdapat query pencarian, menampilkan semua pengumuman yang berstatus 'Publikasi'
             $allPengumuman = PengumumanModel::with('user')
+                ->where('status_pengumuman', 'Publikasi')
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->get()
+                ->map(function ($item) {
+                    // Menghapus tag <p> dari deskripsi pengumuman
+                    $item->deskripsi = strip_tags(preg_replace('#<p>(.*?)</p>#', '$1', $item->deskripsi), '<p>');
+                    return $item;
+                });
 
-            // Cek apakah tidak ada pengumuman
+            // Jika tidak ada pengumuman yang ditemukan, menampilkan pesan error
             if ($allPengumuman->isEmpty()) {
                 return view('user.pengumuman.index')->with('error', 'Tidak ada pengumuman tersedia');
             }
         }
 
-        foreach ($allPengumuman as $pengumuman) {
-            $pengumuman->deskripsi = $this->getPlainTextFromHtml($pengumuman->deskripsi);
-        }
-
+        // Mengembalikan tampilan halaman pengumuman dengan data yang diperoleh
         return view('user.pengumuman.index', compact('topPengumuman', 'allPengumuman'));
     }
 
+    // Fungsi untuk menampilkan detail pengumuman
     public function show($id)
     {
-        $pengumuman = PengumumanModel::findOrFail($id);
+        // Menemukan pengumuman berdasarkan ID, hanya menampilkan yang berstatus 'Publikasi'
+        $pengumuman = PengumumanModel::where('status_pengumuman', 'Publikasi')
+            ->findOrFail($id);
+        // Menambah jumlah views pengumuman
         $pengumuman->increment('views');
 
+        // Mengembalikan tampilan detail pengumuman
         return view('user.pengumuman.show', compact('pengumuman'));
-    }
-
-    private function getPlainTextFromHtml($htmlContent)
-    {
-        // Extract content within <p> tags
-        preg_match('/<p>(.*?)<\/p>/', $htmlContent, $matches);
-        $text = $matches[1] ?? $htmlContent;
-
-        // Allow certain HTML tags
-        $allowedTags = '<br><strong><i>';
-        return strip_tags($text, $allowedTags);
     }
 }
