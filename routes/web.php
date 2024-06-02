@@ -221,5 +221,11 @@ Route::middleware(['cek_login:3'])->group(function () {
             // cek jawaban kriteria masing-masing keluarga
             Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria_rt']);
         });
+
+        Route::group(['prefix' => 'kriteria'], function () {
+            Route::get('/update', [KriteriaController::class, 'update_kriteria_rt']); //menambahkan
+            Route::post('/', [KriteriaController::class, 'store_kriteria_rt']); // Menyimpan kriteria baru
+            Route::get('/show', [KriteriaController::class, 'show_kriteria_rt']); // melihat kriteria
+        });
     });
 });

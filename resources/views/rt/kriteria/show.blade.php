@@ -34,7 +34,7 @@
                 <div class="mt-7 flex justify-between">
                     <a href="{{ url('rt/bansos/')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
                     <div class="flex space-x-3">
-                        <a href="{{ url('rt/kriteria/update')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-yellow-400 hover:shadow-md hover:shadow-yellow-300 text-xs text-teal-700 hover:text-yellow-700 transition duration-300 ease-in-out rounded-lg">Ubah Kriteria</a>
+                        {{-- <a href="{{ url('rt/kriteria/update')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-yellow-400 hover:shadow-md hover:shadow-yellow-300 text-xs text-teal-700 hover:text-yellow-700 transition duration-300 ease-in-out rounded-lg">Ubah Kriteria</a> --}}
                         {{-- <a href="{{ url('rt/kriteria/cek_rekomendasi')}}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Cek Rekomendasi</a> --}}
                     </div>
                 </div>
