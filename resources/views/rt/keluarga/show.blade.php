@@ -63,7 +63,7 @@
                         <td class="pl-3 text-sm">{{ $keluarga->kota }}</td>
                     </tr> --}}
                     {{-- Sampai sini --}}
-                    <tr class="whitespace-nowrap col-span-3">
+                    <tr class="whitespace-nowrap col-span-3 border-t border-gray-400">
                         <th class="px-3 py-2 border-l border-r border-gray-400 w-36">Kepala Keluarga</th>
                         <td class="pl-3 text-sm">
                             @if($kepala_keluarga->isNotEmpty())

@@ -34,8 +34,8 @@
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th>
+                        {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th> --}}
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -83,18 +83,18 @@
                     orderable: true,
                     searchable: false
                 },
-                {
-                    data: "luas_tanah",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
-                {
-                    data: "rt",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
+                // {
+                //     data: "luas_tanah",
+                //     className: "text-xs border-b",
+                //     orderable: true,
+                //     searchable: false
+                // },
+                // {
+                //     data: "rt",
+                //     className: "text-xs border-b",
+                //     orderable: true,
+                //     searchable: false
+                // },
                 {
                     data: "aksi",
                     className: "flex justify-evenly text-xs border-b",
