@@ -30,8 +30,6 @@
                         <th class="p-3 text-sm font-normal">NIK</th>
                         <th class="p-3 text-sm font-normal">Nama</th>
                         <th class="p-3 text-sm font-normal">Alamat Domisili</th>
-                        <th class="p-3 text-sm font-normal">Rt</th>
-                        <th class="p-3 text-sm font-normal">Status data</th>
                         <th class="p-3 text-sm font-normal">Status penduduk</th>
                         <th class="p-3 text-sm font-normal">Aksi</th>
                     </tr>
@@ -70,23 +68,6 @@
                 { data: "alamat_domisili",
                  className: "text-xs border-b border-gray-500/40", 
                  orderable: true },
-                { data: "rt",
-                 className: "text-xs border-b border-gray-500/40", 
-                 orderable: true, 
-                 searchable: false },
-                { 
-                    data: "status_data",
-                    className: "text-xs border-b border-gray-500/40 text-center",
-                    orderable: true,
-                    searchable: true,
-                    render: function(data, type, row) {
-                        if (data ==='aktif' || data === 'Aktif') {
-                            return '<div class="rounded-full bg-emerald-500/60 text-emerald-800 py-1 px-2">' + data + '</div>';
-                        } else {
-                            return '<div class="rounded-full bg-red-500/60 text-red-900 py-1 px-2">' + data + '</div>';
-                        }
-                    }
-                },
                 { data: "status_penduduk",
                  className: "text-xs border-b border-gray-500/40 text-center", 
                  orderable: true, 
