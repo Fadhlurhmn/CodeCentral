@@ -37,11 +37,12 @@
                     <tr>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No KK</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Nama Kepala Keluarga</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Alamat</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">RT</th>
                         {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th> --}}
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Anggota Keluarga</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Kendaraan</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -73,30 +74,30 @@
                     searchable: true
                 },
                 {
-                    data: "jumlah_orang_kerja",
+                    data: "nama_kepala_keluarga",
                     className: "text-xs border",
                     orderable: true,
                     searchable: false
                 },
                 {
-                    data: "jumlah_tanggungan",
+                    data: "alamat",
                     className: "text-xs border",
                     orderable: true,
+                },
+                {
+                    data: "rt",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: false
+                },
+                {
+                    data: "jumlah_anggota_dalam_KK",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: false
                 },
                 {
                     data: "jumlah_kendaraan",
-                    className: "text-xs border",
-                    orderable: true,
-                    searchable: false
-                },
-                // {
-                //     data: "luas_tanah",
-                //     className: "text-xs border",
-                //     orderable: true,
-                //     searchable: false
-                // },
-                {
-                    data: "rt",
                     className: "text-xs border",
                     orderable: true,
                     searchable: false
