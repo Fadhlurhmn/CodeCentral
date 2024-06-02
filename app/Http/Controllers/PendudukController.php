@@ -280,12 +280,14 @@ class PendudukController extends Controller
     }
     public function list_rt(Request $request)
     {
-        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk');
+        $penduduk = PendudukModel::select('id_penduduk', 'nama', 'nik', 'alamat_ktp', 'alamat_domisili', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'status_data', 'rt', 'rw', 'status_penduduk')
+            ->where('rt', 1)
+            ->get();
 
         // Filter berdasarkan RT 
-        if ($request->has('rt')) {
-            $penduduk->where('rt', $request->rt);
-        }
+        // if ($request->has('rt')) {
+        //     $penduduk->where('rt', $request->rt);
+        // }
         return DataTables::of($penduduk)
             ->addIndexColumn()
             ->addColumn('aksi', function ($penduduk) {
@@ -302,9 +304,9 @@ class PendudukController extends Controller
         $breadcrumb = (object) [
             'title' => 'Daftar Penduduk',
             'list' => [
-                ['name' => 'Home', 'url' => url('/rw')],
-                ['name' => 'Penduduk', 'url' => url('rw/penduduk')],
-                ['name' => 'Create', 'url' => url('rw/penduduk/create')],
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Penduduk', 'url' => url('rt/penduduk')],
+                ['name' => 'Create', 'url' => url('rt/penduduk/create')],
             ]
         ];
 
@@ -312,9 +314,16 @@ class PendudukController extends Controller
             'title' => 'Form Tambah penduduk baru'
         ];
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
+        $rt = 1;
 
-        return view('rt.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rt.penduduk.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'rt' => $rt // Pastikan key adalah 'rt' dan value adalah $rt
+        ]);
     }
+
 
     public function store_rt(Request $request)
     {
