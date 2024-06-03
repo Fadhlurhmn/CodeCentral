@@ -349,7 +349,7 @@ class BansosController extends Controller
         $bansos = BansosModel::all();
 
         $totalBansos = $bansos->count('id_bansos');
-        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
+        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'acc_rt')
             ->distinct()
             ->count('id_keluarga');
 
