@@ -7,23 +7,18 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller {
     public function index() {
-        // Ambil 3 pengumuman terbaru berdasarkan tanggal publish
-        $pengumumanTerkini = PengumumanModel::orderBy('updated_at', 'desc')->take(9)->get();
+        // Ambil 9 pengumuman terbaru berdasarkan tanggal update yang berstatus 'Publikasi'
+        $pengumumanTerkini = PengumumanModel::where('status_pengumuman', 'Publikasi')
+            ->orderBy('updated_at', 'desc')
+            ->take(9)
+            ->get();
 
-        foreach ($pengumumanTerkini as $pengumuman) {
-            $pengumuman->deskripsi = $this->getPlainTextFromHtml($pengumuman->deskripsi);
-        }
+        // Menghapus tag <p> dari deskripsi pengumuman
+        $pengumumanTerkini = $pengumumanTerkini->map(function ($item) {
+            $item->deskripsi = strip_tags(preg_replace('#<p>(.*?)</p>#', '$1', $item->deskripsi), '<p>');
+            return $item;
+        });
 
         return view('index', compact('pengumumanTerkini'));
-    }
-
-    private function getPlainTextFromHtml($htmlContent) {
-        // Extract content within <p> tags
-        preg_match('/<p>(.*?)<\/p>/', $htmlContent, $matches);
-        $text = $matches[1] ?? $htmlContent;
-
-        // Allow certain HTML tags
-        $allowedTags = '<br><strong><i>';
-        return strip_tags($text, $allowedTags);
     }
 }
