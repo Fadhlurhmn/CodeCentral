@@ -619,9 +619,9 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-  
-//   CONTROLLER UNTUK RW
-  // controller untuk rw
+
+    //   CONTROLLER UNTUK RW
+    // controller untuk rw
     public function index_rw()
     {
         $breadcrumb = (object) [
@@ -687,7 +687,7 @@ class BansosController extends Controller
             return redirect('rw/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
-       $breadcrumb = (object) [
+        $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
             'list' => [
                 ['name' => 'Home', 'url' => url('/rw')],
@@ -787,7 +787,6 @@ class BansosController extends Controller
     public function store_bansos_rw(Request $request)
     {
         $request->validate([
-            'kode' => 'required|string',
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
             'pengirim' => 'required|string',
@@ -796,7 +795,6 @@ class BansosController extends Controller
         ]);
 
         $bansos = new BansosModel();
-        $bansos->kode = $request->kode;
         $bansos->nama = $request->nama_bansos;
         $bansos->tanggal_pemberian = $request->tanggal_bansos;
         $bansos->pengirim = $request->pengirim;
@@ -942,7 +940,7 @@ class BansosController extends Controller
             $histori_bansos = histori_penerimaan_bansos::all();
         }
         $bansos = BansosModel::all();
-      
+
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
             'list' => [
@@ -966,5 +964,4 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-  
 }
