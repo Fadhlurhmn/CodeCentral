@@ -71,7 +71,7 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a href="{{ route('user/surat') }}" class="nav-link">Surat</a>
+        <a href="{{ route('user.surat') }}" class="nav-link">Surat</a>
       </li>
       <li class="nav-item">
         <a href="{{ route('user/pengaduan') }}" class="nav-link">Pengaduan</a>

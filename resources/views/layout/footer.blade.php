@@ -64,7 +64,7 @@
             <a href="{{ route('user/bansos/list') }}">Bansos</a>
           </li>
           <li>
-            <a href="{{ route('user/surat') }}">Surat</a>
+            <a href="{{ route('user.surat') }}">Surat</a>
           </li>
           <li>
             <a href="{{ route('user/pengaduan') }}">Pengaduan</a>

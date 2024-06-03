@@ -107,7 +107,7 @@
                     @endforeach
                 </div>
             @else
-                <p class="text-center font-bold">Tidak ada pengumuman tersedia</p>
+                <p class="text-center font-bold">Tidak ada pengumuman yang tersedia</p>
             @endif
         @endif
         {{-- end Semua Pengumuman --}}

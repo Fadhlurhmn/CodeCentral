@@ -13,6 +13,7 @@ use App\Http\Controllers\UserBansosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserPengaduanController;
 use App\Http\Controllers\UserPengumumanController;
+use App\Http\Controllers\UserSuratController;
 
 // User Routes
 // Route::get('/', function () {
@@ -46,10 +47,10 @@ Route::group(['prefix' => 'bansos'], function () {
 Route::post('/verify-data-diri', [UserBansosController::class, 'verifyDataDiri'])->name('verifyDataDiri');
 Route::post('/submit-survey', [UserBansosController::class, 'submitSurvey'])->name('submitSurvey');
 
-Route::get('/surat', function () {
-    return view('user.surat.index');
-})->name('user/surat');
 
+// Route untuk halaman surat
+Route::get('/surat', [UserSuratController::class, 'index'])->name('user.surat');
+Route::get('/surat/download/{id}', [UserSuratController::class, 'download']);
 
 Route::group(['prefix' => 'bansos'], function () {
     Route::get('/list', [UserBansosController::class, 'list'])->name('user/bansos/list');
