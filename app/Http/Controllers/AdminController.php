@@ -11,6 +11,12 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+
+    public function index_rt()
+    {
+        return view('rt.index');
+    }
+
     public function index_rw(){
         return view('rw.index');
     }

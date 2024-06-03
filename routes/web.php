@@ -199,3 +199,61 @@ Route::middleware(['cek_login:2'])->group(function () {
         });
     });
 });
+
+
+// route untuk rt
+Route::middleware(['cek_login:3'])->group(function () {
+    Route::prefix('rt')->group(function () {
+        Route::get('/', [AdminController::class, 'index_rt']);
+        Route::view('/bansos', 'rt.bansos.index');
+        Route::view('/pengumuman', 'rt.pengumuman.index');
+        Route::view('/keuangan', 'rt.keuangan.index');
+
+        Route::prefix('penduduk')->group(function () {
+            Route::get('/', [PendudukController::class, 'index_rt']);
+            Route::post('/list', [PendudukController::class, 'list_rt']);
+            Route::get('/create', [PendudukController::class, 'create_rt']);
+            Route::post('/', [PendudukController::class, 'store_rt']);
+            Route::get('/{id}/show', [PendudukController::class, 'show_rt']);
+            Route::get('/{id}/edit', [PendudukController::class, 'edit_rt']);
+            Route::post('/{id}', [PendudukController::class, 'update_rt']);
+            Route::delete('/{id}', [PendudukController::class, 'destroy_rt']);
+        });
+
+        Route::prefix('keluarga')->group(function () {
+            Route::get('/', [KeluargaController::class, 'index_rt']);
+            Route::post('/list', [KeluargaController::class, 'list_rt']);
+            Route::get('/create', [KeluargaController::class, 'create_rt']);
+            Route::post('/', [KeluargaController::class, 'store_rt']);
+            Route::get('/{id}/show', [KeluargaController::class, 'show_rt']);
+            Route::get('/{id}/edit', [KeluargaController::class, 'edit_rt']);
+            Route::post('/{id}', [KeluargaController::class, 'update_rt']);
+            Route::delete('/{id}', [KeluargaController::class, 'destroy_rt']);
+            Route::get('/{id}/create_anggota', [KeluargaController::class, 'createAnggota_rt']);
+            Route::post('/{id}/anggota', [KeluargaController::class, 'storeAnggota_rt']);
+        });
+
+        Route::group(['prefix' => 'bansos'], function () {
+            Route::get('/', [BansosController::class, 'index_rt']); // Menampilkan daftar bansos
+            Route::post('/list', [BansosController::class, 'list_rt']); // Mengambil daftar bansos untuk DataTables
+            Route::get('/{id}/show', [BansosController::class, 'show_rt']); // Menampilkan detail bansos
+            Route::get('/histori', [BansosController::class, 'cek_histori_rt']); // Melihat histori penerimaan bansos
+            Route::get('/histori/data', [BansosController::class, 'getHistoriData_rt'])->name('bansos.data');
+
+            // Menambahkan route untuk menampilkan detail kriteria
+            Route::get('/detail_kriteria/{id}', [BansosController::class, 'show_kriteria_rt']); // Menampilkan detail kriteria penerimaan bansos
+
+            Route::get('/{id}/daftar', [BansosController::class, 'daftar_rt']); // Menampilkan daftar ajuan bansos
+            Route::post('/{id}/update_acc_bansos', [BansosController::class, 'update_acc_bansos_rt']); // Memperbarui status ACC bansos
+
+            // cek jawaban kriteria masing-masing keluarga
+            Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria_rt']);
+        });
+
+        Route::group(['prefix' => 'kriteria'], function () {
+            Route::get('/update', [KriteriaController::class, 'update_kriteria_rt']); //menambahkan
+            Route::post('/', [KriteriaController::class, 'store_kriteria_rt']); // Menyimpan kriteria baru
+            Route::get('/show', [KriteriaController::class, 'show_kriteria_rt']); // melihat kriteria
+        });
+    });
+});

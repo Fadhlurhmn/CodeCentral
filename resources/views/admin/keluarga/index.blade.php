@@ -5,7 +5,7 @@
         <h1 class="pb-5 mb-3 mt-2 text-2xl font-extrabold text-gray-600 "> {{$page->title}}</h1>
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
-            <div class="flex">
+            {{-- <div class="flex">
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
@@ -13,14 +13,18 @@
                     <option value="2">Rt. 2</option>
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
+                    <option value="4">Rt. 4</option>
                 </select>
-            </div>
+            </div> --}}
         </div>
         @if (session('success'))
-        <div class="col-span-4">
+        <div id="successMessage" class="col-span-4">
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Sukses!</strong>
                 <span class="block sm:inline">{{ session('success') }}</span>
+                <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                    <i class="fas fa-times-circle"></i>
+                </button>
             </div>
         </div>
         @endif
@@ -33,8 +37,7 @@
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th>
+                        {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th> --}}
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -82,18 +85,12 @@
                     orderable: true,
                     searchable: false
                 },
-                {
-                    data: "luas_tanah",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
-                {
-                    data: "rt",
-                    className: "text-xs border-b",
-                    orderable: true,
-                    searchable: false
-                },
+                // {
+                //     data: "rt",
+                //     className: "text-xs border-b",
+                //     orderable: true,
+                //     searchable: false
+                // },
                 {
                     data: "aksi",
                     className: "flex justify-evenly text-xs border-b",
@@ -102,16 +99,18 @@
                 },
             ]
         });
-        $('#rt').on('change', function() {
-                var selectedRt = $(this).val();
-                if (selectedRt === 'all') {
-                    // Jika dipilih "Semua", atur URL tanpa parameter rt
-                    table.ajax.url("{{ url('admin/keluarga/list') }}").load();
-                } else {
-                    // Jika dipilih nilai lain, atur URL dengan parameter rt
-                    table.ajax.url("{{ url('admin/keluarga/list') }}?rt=" + selectedRt).load();
-                }
-        });
+        // $('#rt').on('change', function() {
+        //         var selectedRt = $(this).val();
+        //         if (selectedRt === 'all') {
+        //             table.ajax.url("{{ url('admin/keluarga/list') }}").load();
+        //         } else {
+        //             table.ajax.url("{{ url('admin/keluarga/list') }}?rt=" + selectedRt).load();
+        //         }
+        // });
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
     });
 
 </script>
