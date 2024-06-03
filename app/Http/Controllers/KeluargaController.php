@@ -512,7 +512,18 @@ class KeluargaController extends Controller
         // Hitung total jumlah orang dari kedua kategori tersebut
         $totalOrang = $jumlahOrangBekerja + $jumlahTanggungan;
 
-        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
+        // Get logged in user
+        $user = Auth::user();
+
+        // Get id_penduduk from logged in user
+        $id_penduduk_rt = $user->id_penduduk;
+
+        // Find RT of logged in user
+        $rt_penduduk = PendudukModel::select('rt')
+            ->where('id_penduduk', $id_penduduk_rt)
+            ->first();
+
+        $penduduk = PendudukModel::where('rt', $rt_penduduk->rt)->get(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
 
         return view('rt.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
