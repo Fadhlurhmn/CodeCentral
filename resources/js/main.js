@@ -37,6 +37,40 @@
         },
       },
     });
+    
+    //pengumuman-carousel
+    new Swiper(".pengumuman-carousel", {
+      spaceBetween: 20,
+      pagination: {
+        el: ".pengumuman-carousel-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2.5,
+        },
+        992: {
+          slidesPerView: 3.5,
+        },
+      },
+    });
+    
+    //umkm-carousel
+    new Swiper(".umkm-carousel", {
+      spaceBetween: 20,
+      pagination: {
+        el: ".umkm-carousel-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2.5,
+        },
+        992: {
+          slidesPerView: 3.5,
+        },
+      },
+    });
   
     //auth-banner-carousel
     new Swiper(".auth-banner-carousel", {

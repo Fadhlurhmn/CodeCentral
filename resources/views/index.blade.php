@@ -17,7 +17,7 @@
         </div>
         <div class="row mt-10">
             <div class="col-12">
-                <div class="swiper reviews-carousel py-7">
+                <div class="swiper pengumuman-carousel py-7">
                     <div class="swiper-wrapper">
                         @foreach ($pengumumanTerkini as $pengumuman)
                             <div class="swiper-slide">
@@ -46,7 +46,7 @@
                         @endforeach
                     </div>
                     <!-- If we need pagination -->
-                    <div class="swiper-pagination reviews-carousel-pagination !bottom-0"></div>
+                    <div class="swiper-pagination pengumuman-carousel-pagination !bottom-0"></div>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
       </div>
       <div class="row mt-10">
           <div class="col-12">
-            <div class="swiper reviews-carousel py-7">
+            <div class="swiper umkm-carousel py-7">
               <div class="swiper-wrapper">
               {{-- max 5 ajah buat umkm di home --}}
               @for ($i = 0; $i < 3; $i++)
@@ -100,7 +100,7 @@
               </div>
               <!-- If we need pagination -->
               <div
-                class="swiper-pagination reviews-carousel-pagination !bottom-0"
+                class="swiper-pagination umkm-carousel-pagination !bottom-0"
               ></div>
             </div>
           </div>
