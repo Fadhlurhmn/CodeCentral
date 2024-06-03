@@ -52,12 +52,12 @@ class UserBansosController extends Controller
 
             // mengecek apabila no_kk tersebut sudah mengisi atau belum
             if($status_pengisian){
-                return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Anda telah mengisi form bansos');
+                return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Anda telah mengisi form bansos');
             } else {
-                return redirect()->route('user/bansos/pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
+                return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
             }
         } else {
-            return redirect()->route('user/bansos/pengajuan')->with('error_verifikasi', 'Data tidak anda ditemukan');
+            return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
         
     }
@@ -116,7 +116,7 @@ class UserBansosController extends Controller
             ]);
         }
 
-        return redirect()->route('user/bansos/pengajuan')->with('success_submit', 'Data formulir bansos berhasil disimpan');
+        return redirect()->route('user.bansos.pengajuan')->with('success_submit', 'Data formulir bansos berhasil disimpan');
     }
 
 }

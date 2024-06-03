@@ -29,9 +29,9 @@ class UserPengaduanController extends Controller
 
         // mengecek data penduduk ada atau tidak
         if($penduduk){
-            return redirect()->route('user/pengaduan')->with('success_verifikasi', 'Data ditemukan');
+            return redirect()->route('user.pengaduan')->with('success_verifikasi', 'Data ditemukan');
         } else {
-            return redirect()->route('user/pengaduan')->with('error_verifikasi', 'Data tidak anda ditemukan');
+            return redirect()->route('user.pengaduan')->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
     }
 

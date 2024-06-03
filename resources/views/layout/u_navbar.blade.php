@@ -59,12 +59,12 @@
           class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100"
         >
           <li class="nav-dropdown-item">
-            <a href="{{ route('user/bansos/pengajuan') }}" class="nav-dropdown-link"
+            <a href="{{ route('user.bansos.pengajuan') }}" class="nav-dropdown-link"
               >Pengajuan</a
             >
           </li>
           <li class="nav-dropdown-item">
-            <a href="{{ route('user/bansos/list') }}" class="nav-dropdown-link"
+            <a href="{{ route('user.bansos.list') }}" class="nav-dropdown-link"
               >Daftar Penerima</a
             >
           </li>
@@ -74,7 +74,7 @@
         <a href="{{ route('user.surat') }}" class="nav-link">Surat</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('user/pengaduan') }}" class="nav-link">Pengaduan</a>
+        <a href="{{ route('user.pengaduan') }}" class="nav-link">Pengaduan</a>
       </li>
     </ul>
     <div class="order-1 ml-auto hidden items-center opacity-0 md:order-2 md:ml-0 lg:flex">

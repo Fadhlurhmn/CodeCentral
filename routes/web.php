@@ -39,8 +39,8 @@ Route::group(['prefix' => 'umkm'], function () {
 });
 
 Route::group(['prefix' => 'bansos'], function () {
-    Route::get('/list', [UserBansosController::class, 'list'])->name('user/bansos/list');
-    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user/bansos/pengajuan');
+    Route::get('/list', [UserBansosController::class, 'list'])->name('user.bansos.list');
+    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user.bansos.pengajuan');
 });
 
 // bansos pengajuan form route
@@ -52,14 +52,9 @@ Route::post('/submit-survey', [UserBansosController::class, 'submitSurvey'])->na
 Route::get('/surat', [UserSuratController::class, 'index'])->name('user.surat');
 Route::get('/surat/download/{id}', [UserSuratController::class, 'download']);
 
-Route::group(['prefix' => 'bansos'], function () {
-    Route::get('/list', [UserBansosController::class, 'list'])->name('user/bansos/list');
-    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user/bansos/pengajuan');
-});
-
-Route::get('/pengaduan', [UserPengaduanController::class, 'index'])->name('user/pengaduan');
+Route::get('/pengaduan', [UserPengaduanController::class, 'index'])->name('user.pengaduan');
 Route::post('/pengaduanVerif', [UserPengaduanController::class, 'verifyDataDiri'])->name('verifyDataDiriPengaduan');
-Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user/pengaduan/store');
+Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user.pengaduan.store');
 
 // end User Routes
 

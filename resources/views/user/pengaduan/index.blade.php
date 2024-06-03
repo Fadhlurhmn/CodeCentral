@@ -111,7 +111,7 @@
       {{-- end verifikasi data diri --}}
 
       {{-- form Pengaduan --}}
-      <form class="hidden px-0 lg:px-60" action="{{ route('user/pengaduan/store') }}" method="POST" id="formPengaduan">
+      <form class="hidden px-0 lg:px-60" action="{{ route('user.pengaduan.store') }}" method="POST" id="formPengaduan">
         @error('pengaduan')
           <div class="alert alert-error mb-5">
             <span>{{ $message }}</span>
