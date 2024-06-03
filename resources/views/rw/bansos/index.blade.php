@@ -21,7 +21,7 @@
 {{-- End Styling tambahan manual--}}
 
 {{-- Pembatas luar halaman dan background --}}
-<div class="container h-full bg-white cursor-default">
+<div class="container h-screen bg-white cursor-default">
 
     {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
