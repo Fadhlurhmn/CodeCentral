@@ -14,7 +14,7 @@
                 <p class="pb-5 my-2 text-md text-gray-600">Bantuan Sosial {{$bansos->nama}} diberikan oleh <b>{{$bansos->pengirim}}</b> untuk {{$bansos->jumlah_penerima}} orang dalam bentuk {{ $bansos->bentuk_pemberian }}.</p>
 
                 <div class="flex justify-end">
-                    @if ($detail_bansos->where('id_bansos', $bansos->id_bansos)->where('status', 'pending')->isNotEmpty())
+                    @if ($detail_bansos->isNotEmpty())
                     <a href="{{ url('rw/bansos/'.$bansos->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek Daftar Permintaan</a>
                     @endif            
                 </div>

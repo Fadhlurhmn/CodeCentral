@@ -389,7 +389,8 @@ class BansosController extends Controller
         // dd($bansos_acc);
 
         // ambil data detail bansos
-        $detail_bansos = DetailBansosModel::where('id_bansos', $id)->get();
+        $detail_bansos = pengajuan_bansos_acc_rt::where('id_bansos', $id)->get();
+        // dd($detail_bansos);
         if (!$bansos) {
             return redirect('rw/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
