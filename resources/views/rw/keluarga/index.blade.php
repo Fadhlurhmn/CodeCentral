@@ -32,16 +32,17 @@
             </div>
         @endif
         <div class="h-auto p-2 bg-slate-100/50 rounded-xl">
-            <table id="table_keluarga_rw" class="table-auto text-center  w-full min-w-max cursor-default">
+            <table id="table_keluarga_rw" class="table-auto text-center w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No KK</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Nama Kepala Keluarga</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Alamat</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">RT</th>
                         {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Luas Tanah</th> --}}
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Anggota Keluarga</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Kendaraan</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -55,12 +56,17 @@
     $(document).ready(function() {
         var table = $('#table_keluarga_rw').DataTable({
             serverSide: true,
+            processing: true,
             ajax: {
                 "url": "{{ url('rw/keluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
+                "data": function(d) {
+                    d.rt = $('#rt').val();
+                }
             },
-            columns: [{
+            columns: [
+                {
                     data: "DT_RowIndex",
                     className: "text-center text-xs border",
                     orderable: false,
@@ -73,30 +79,31 @@
                     searchable: true
                 },
                 {
-                    data: "jumlah_orang_kerja",
+                    data: "nama_kepala_keluarga",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "alamat",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "rt",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "jumlah_anggota_dalam_KK",
                     className: "text-xs border",
                     orderable: true,
                     searchable: false
-                },
-                {
-                    data: "jumlah_tanggungan",
-                    className: "text-xs border",
-                    orderable: true,
                 },
                 {
                     data: "jumlah_kendaraan",
-                    className: "text-xs border",
-                    orderable: true,
-                    searchable: false
-                },
-                // {
-                //     data: "luas_tanah",
-                //     className: "text-xs border",
-                //     orderable: true,
-                //     searchable: false
-                // },
-                {
-                    data: "rt",
                     className: "text-xs border",
                     orderable: true,
                     searchable: false
@@ -107,17 +114,12 @@
                     orderable: false,
                     searchable: false
                 },
-            ]
+            ],
+            "order": [[4, 'asc']]
         });
+
         $('#rt').on('change', function() {
-                var selectedRt = $(this).val();
-                if (selectedRt === 'all') {
-                    // Jika dipilih "Semua", atur URL tanpa parameter rt
-                    table.ajax.url("{{ url('rw/keluarga/list') }}").load();
-                } else {
-                    // Jika dipilih nilai lain, atur URL dengan parameter rt
-                    table.ajax.url("{{ url('rw/keluarga/list') }}?rt=" + selectedRt).load();
-                }
+            table.ajax.reload();
         });
     });
 

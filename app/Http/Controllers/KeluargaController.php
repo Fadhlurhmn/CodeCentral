@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\detail_keluarga_model;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
+use App\Models\rangkuman_keluarga;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -328,11 +329,13 @@ class KeluargaController extends Controller
 
     public function list_rw(Request $request)
     {
-        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja', 'luas_tanah', 'rt');
-        if ($request->has('rt')) {
-            $keluarga->where('rt', $request->rt);
+        $query = rangkuman_keluarga::query();
+
+        if ($request->has('rt') && $request->rt !== 'all') {
+            $query->where('rt', $request->rt);
         }
-        return DataTables::of($keluarga)
+
+        return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('rw/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col ">Detail   <i class="fas fa-info-circle"></i></a> ';
