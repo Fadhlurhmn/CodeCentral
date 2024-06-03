@@ -503,7 +503,7 @@ class BansosController extends Controller
 
         // Validasi input
         $request->validate([
-            'status.*' => 'required|in:acc,tolak'
+            'status.*' => 'required|in:acc_rt,tolak'
         ]);
 
         // Perbarui status untuk setiap keluarga yang ada di request
