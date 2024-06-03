@@ -11,6 +11,7 @@ use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\UserBansosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserPengaduanController;
 use App\Http\Controllers\UserPengumumanController;
 
 // User Routes
@@ -49,9 +50,15 @@ Route::get('/surat', function () {
     return view('user.surat.index');
 })->name('user/surat');
 
-Route::get('/pengaduan', function () {
-    return view('user.pengaduan.index');
-})->name('user/pengaduan');
+
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/list', [UserBansosController::class, 'list'])->name('user/bansos/list');
+    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user/bansos/pengajuan');
+});
+
+Route::get('/pengaduan', [UserPengaduanController::class, 'index'])->name('user/pengaduan');
+Route::post('/pengaduanVerif', [UserPengaduanController::class, 'verifyDataDiri'])->name('verifyDataDiriPengaduan');
+Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user/pengaduan/store');
 
 // end User Routes
 
