@@ -118,8 +118,10 @@
           </div>
         @enderror
 
+        @csrf
+
         <div class="form-group mb-5">
-          <div class="form-group mb-5">
+          {{-- <div class="form-group mb-5">
             <label class="form-label" for="judul_pengaduan">Judul Pengaduan</label>
             <input
               class="form-control"
@@ -133,7 +135,9 @@
             @error('judul_pengaduan')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
-          </div>
+          </div> --}}
+
+          <input type="hidden" name="pengirim" value="{{ session('pengirim') }}">
 
           <div class="form-group mb-5">
             <label class="form-label" for="isi_pengaduan">Isi Pengaduan</label>
@@ -171,16 +175,16 @@
             <select name="penerima_aduan" id="penerima_aduan" class="form-select" required>
               <option value="">Pilih penerima aduan</option>
               <option value="RW">RW</option>
-              <option value="RT-1">RT 1</option>
-              <option value="RT-2">RT 2</option>
-              <option value="RT-3">RT 3</option>
-              <option value="RT-4">RT 4</option>
+              <option value="RT1">RT 1</option>
+              <option value="RT2">RT 2</option>
+              <option value="RT3">RT 3</option>
+              <option value="RT4">RT 4</option>
             </select>
             @error('penerima_aduan')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
-
+{{-- 
           <div class="form-group mb-5">
             <label class="form-label" for="berkas_pengaduan">Lampiran (MAX 2MB)</label>
             <input
@@ -192,7 +196,7 @@
             @error('berkas_pengaduan')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
-          </div>
+          </div> --}}
 
         <button
           class="btn btn-primary block w-full"
