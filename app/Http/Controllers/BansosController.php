@@ -366,7 +366,7 @@ class BansosController extends Controller
             ->where('id_penduduk', $id_penduduk_rt)
             ->first();
 
-        $keluarga_yang_mengajukan = alternatif_per_rt::where('rt', $rt_penduduk->rt)
+        $keluarga_yang_mengajukan = ajuan_bansos_pending_per_rt::where('rt', $rt_penduduk->rt)
             ->distinct()
             ->count('id_keluarga');
 
