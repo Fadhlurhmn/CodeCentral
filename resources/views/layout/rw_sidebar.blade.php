@@ -20,6 +20,10 @@
           <i class="fad fa-chart-pie text-xs mr-2"></i>
           Dashboard
       </a>
+      <a href="{{ url('/rw/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 {{ Request::is('rt/bansos') ? 'bg-teal-500/60 text-teal-800 shadow-lg pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+        <i class="fas fa-people-carry text-xs mr-2"></i>
+        Bansos
+      </a>
       <a href="{{ url('/rw/penduduk') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
           {{ Request::is('rw/penduduk') ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fad fa-users text-xs mr-2"></i>

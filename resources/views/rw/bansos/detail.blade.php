@@ -1,9 +1,9 @@
 @include('layout.start')
 
-@include('layout.a_navbar')
+@include('layout.rw_navbar')
 
 <div class="h-screen w-full flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rw_sidebar')
 
     <!-- Start content -->
     <div class="flex flex-col flex-grow">

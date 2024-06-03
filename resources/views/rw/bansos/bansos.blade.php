@@ -1,12 +1,12 @@
 @include('layout.start')
 
 
-@include('layout.a_navbar')
+@include('layout.rw_navbar')
 
 
 <!-- strat wrapper -->
 <div class="h-screen min-w-full flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rw_sidebar')
   
     
     <!-- strat content -->

@@ -1,8 +1,8 @@
 @include('layout.start')
-@include('layout.a_navbar')
+@include('layout.rw_navbar')
 
 <div class="h-screen flex flex-row flex-wrap">
-    @include('layout.a_sidebar')
+    @include('layout.rw_sidebar')
     <div class="flex-grow bg-white">
         <div class="w-full h-fit min-w-max p-5">
             <form id="form" action="{{ url('rw/bansos') }}" method="POST">
