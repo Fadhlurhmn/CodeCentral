@@ -216,9 +216,12 @@ class PendudukController extends Controller
     // controller rw
     public function index_rw()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Penduduk', 'url' => url('rw/penduduk')]
+            ]
         ];
 
         $page = (object)[
@@ -237,17 +240,28 @@ class PendudukController extends Controller
         if ($request->has('rt')) {
             $penduduk->where('rt', $request->rt);
         }
+
         return DataTables::of($penduduk)
             ->addIndexColumn()
+            ->addColumn('aksi', function ($penduduk) {
+                $btn = '<a href="' . url('rw/penduduk/' . $penduduk->id_penduduk . '/show') . '" class="btn btn-primary ml-1 flex-col ">Detail   <i class="fas fa-info-circle"></i></a> ';
+                // $btn .= '<a href="' . url('rw/penduduk/' . $penduduk->id_penduduk . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
             ->make(true);
     }
     public function show_rw(string $id)
     {
         $penduduk = PendudukModel::all()->find($id);
 
-        $breadcrumb = (object)[
-            'title' => 'Detail Penduduk',
-            'list' => ['Home', 'Penduduk', 'Detail']
+        $breadcrumb = (object) [
+            'title' => 'Detail data penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Penduduk', 'url' => url('rw/penduduk')],
+                ['name' => 'Detail', 'url' => url('rw/penduduk/show')]
+            ]
         ];
 
         $page = (object)[
