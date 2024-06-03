@@ -43,7 +43,7 @@
                                             <td class="p-3">
                                                 <select name="status[{{ $ban->id_keluarga }}]" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                                                     <option value="tolak" {{ $ban->status == 'tolak' ? 'selected' : '' }}>Tolak</option>
-                                                    <option value="acc" {{ $ban->status == 'acc' ? 'selected' : '' }}>Acc</option>
+                                                    <option value="acc_rt" {{ $ban->status == 'acc' ? 'selected' : '' }}>Acc</option>
                                                 </select>
                                             </td>
                                             <td class="p-3">
