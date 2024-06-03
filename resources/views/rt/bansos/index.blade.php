@@ -31,14 +31,24 @@
         <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">
             @if (session('success'))
             <div id="successMessage" class="col-span-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Sukses!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
-                <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
-                    <i class="fas fa-times-circle"></i>
-                </button>
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Sukses!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+            @elseif (session('error'))
+            <div id="successMessage" class="col-span-4">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
             @endif
             {{-- Card Jumlah bansos --}}
             <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
