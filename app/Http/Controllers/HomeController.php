@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PengumumanModel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\JadwalController;
 
 class HomeController extends Controller {
     public function index() {
@@ -19,6 +20,11 @@ class HomeController extends Controller {
             return $item;
         });
 
-        return view('index', compact('pengumumanTerkini'));
+        // Mengambil jadwal keamanan dan kebersihan
+        $jadwalController = new JadwalController();
+        $jadwal_keamanan = $jadwalController->getJadwalKeamanan();
+        $jadwal_kebersihan = $jadwalController->getJadwalKebersihan();
+
+        return view('index', compact('pengumumanTerkini', 'jadwal_keamanan', 'jadwal_kebersihan'));
     }
 }

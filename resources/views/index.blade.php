@@ -112,89 +112,82 @@
 <!-- Jadwal -->
 <section class="section key-feature relative">
     <div class="container">
-      <div class="row justify-between text-center lg:text-start">
-        <div class="lg:col-5">
-          <h2>Jadwal Petugas</h2>
-        </div>
-      </div>
-    <!-- Jadwal Petugas -->
-    <div class="mt-10" id="jadwal">
-        <div class="grid grid-cols-1 text-black">
-            <div class="grid grid-cols-2 gap-4 text-lg text-center font-bold border-gray-200 shadow mb-4 rounded-full">
-                <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('btn-keamanan')">Jadwal Keamanan</button>
-                <button id="btn-kebersihan" class="p-2  rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('btn-kebersihan')">Jadwal Kebersihan</button>
-            </div>
-            <div class="block duration-300 ease-in-out" id="jadwal-keamanan">
-                <table class="table-auto border-collapse border w-full">
-                    <thead>
-                        <tr class="bg-primary border-b md:text-sm">
-                            <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
-                            <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
-                            <th class="px-4 py-2 md:px-2 md:py-1">Nama</th>
-                            <th class="px-4 py-2 md:px-2 md:py-1">Telepon</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr class="bg-white border-b md:text-sm">
-                            <td class="px-4 py-2 md:px-2 md:py-1">Senin</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Pagi</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Pak Fadhlu</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">0812345678</td>
-                        </tr>
-                        <tr class="bg-white border-b md:text-sm">
-                            <td class="px-4 py-2 md:px-2 md:py-1">Selasa</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Malam</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Pak Wahyudi</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">0812345678</td>
-                        </tr>
-                        <tr class="bg-white border-b md:text-sm">
-                            <td class="px-4 py-2 md:px-2 md:py-1">Rabu</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Siang</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">Pak Rakha</td>
-                            <td class="px-4 py-2 md:px-2 md:py-1">0812345678</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="hidden duration-300 ease-in-out" id="jadwal-kebersihan">
-                <table class="table-auto border-collapse border w-full">
-                    <thead>
-                    <tr class="bg-primary border-b md:text-sm">
-                        <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
-                        <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    <tr class="bg-white border-b md:text-sm">
-                        <td class="px-4 py-2 md:px-2 md:py-1">Senin</td>
-                        <td class="px-4 py-2 md:px-2 md:py-1">13.00</td>
-                    </tr>
-                    <tr class="bg-white border-b md:text-sm">
-                        <td class="px-4 py-2 md:px-2 md:py-1">Selasa</td>
-                        <td class="px-4 py-2 md:px-2 md:py-1">13.00</td>
-                    </tr>
-                    <tr class="bg-white border-b md:text-sm">
-                        <td class="px-4 py-2 md:px-2 md:py-1">Minggu</td>
-                        <td class="px-4 py-2 md:px-2 md:py-1">09.00</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="row justify-between text-center lg:text-start">
+            <div class="lg:col-5">
+                <h2>Jadwal Petugas</h2>
             </div>
         </div>
-    </div>
+        <!-- Jadwal Petugas -->
+        <div class="mt-10" id="jadwal">
+            <div class="grid grid-cols-1 text-black">
+                <div class="grid grid-cols-2 gap-4 text-lg text-center font-bold border-gray-200 shadow mb-4 rounded-full">
+                    <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('keamanan')">Jadwal Keamanan</button>
+                    <button id="btn-kebersihan" class="p-2 rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('kebersihan')">Jadwal Kebersihan</button>
+                </div>
+                <div class="block duration-300 ease-in-out" id="jadwal_keamanan">
+                    @if(isset($jadwal_keamanan))
+                        <table class="table-auto border-collapse border w-full">
+                            <thead>
+                                <tr class="bg-primary border-b md:text-sm">
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Nama</th>
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Telepon</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach ($jadwal_keamanan->hari as $indexHari => $hari)
+                                    @foreach ($jadwal_keamanan->waktu as $indexWaktu => $waktu)
+                                        <tr class="bg-white border-b md:text-sm">
+                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $hari }}</td>
+                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $waktu }}</td>
+                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_keamanan->nama[$indexHari][$indexWaktu] }}</td>
+                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_keamanan->telepon[$indexHari][$indexWaktu] }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center">Tidak ada jadwal keamanan yang tersedia</p>
+                    @endif
+                </div>
+                <div class="hidden duration-300 ease-in-out" id="jadwal_kebersihan">
+                    @if(isset($jadwal_kebersihan))
+                        <table class="table-auto border-collapse border w-full">
+                            <thead>
+                                <tr class="bg-primary border-b md:text-sm">
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
+                                    <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach ($jadwal_kebersihan->hari as $index => $hari)
+                                    <tr class="bg-white border-b md:text-sm">
+                                        <td class="px-4 py-2 md:px-2 md:py-1">{{ $hari }}</td>
+                                        <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_kebersihan->waktu[$index % count($jadwal_kebersihan->waktu)] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center">Tidak ada jadwal kebersihan yang tersedia</p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <!-- end Jadwal -->
 
 @push('js')
     <script>
-        // change jadwal petugas
-        function changeJadwal(btnId){
-            const jadwalKeamanan = document.getElementById('jadwal-keamanan');
-            const jadwalKebersihan = document.getElementById('jadwal-kebersihan');
+        function changeJadwal(type) {
+            const jadwalKeamanan = document.getElementById('jadwal_keamanan');
+            const jadwalKebersihan = document.getElementById('jadwal_kebersihan');
             const btnKeamanan = document.getElementById('btn-keamanan');
             const btnKebersihan = document.getElementById('btn-kebersihan');
-            if (btnId == 'btn-keamanan') {
+            if (type === 'keamanan') {
                 jadwalKeamanan.classList.remove('hidden');
                 jadwalKeamanan.classList.add('block');
                 jadwalKebersihan.classList.remove('block');
@@ -210,9 +203,7 @@
                 btnKebersihan.classList.add('bg-primary');
             }
         }
-        // end of change jadwal petugas
     </script>
 @endpush
 
 @include('layout.footer')
-
