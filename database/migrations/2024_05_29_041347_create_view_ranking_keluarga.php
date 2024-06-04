@@ -14,7 +14,6 @@ return new class extends Migration
     {
         DB::statement("CREATE VIEW `ranking_keluarga`  AS SELECT `na`.`id_bansos` AS `id_bansos`, `na`.`id_keluarga` AS `id_keluarga`, `na`.`nilai_akhir` AS `nilai_akhir`, rank() over ( partition by `na`.`id_bansos` order by `na`.`nilai_akhir` desc) AS `rank` FROM `nilai_akhir_keluarga` AS `na` ;");
     }
-
     /**
      * Reverse the migrations.
      */
