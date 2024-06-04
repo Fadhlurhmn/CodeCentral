@@ -49,7 +49,7 @@ class UserPengaduanController extends Controller
         $nomor_wa = '0';
         switch($request->penerima_aduan){
             case 'RW': 
-                $nomor_wa = '6281234567890';
+                $nomor_wa = '6285850210097';
             case 'RT1': 
                 $nomor_wa = '6281234567890';
             case 'RT2': 
