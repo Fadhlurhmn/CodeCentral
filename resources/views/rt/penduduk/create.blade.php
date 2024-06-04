@@ -116,6 +116,7 @@
                     <span class="text-gray-800 mr-2 pt-2">+62</span>
                     <input type="number" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " value="{{old ('no_telp')}}" placeholder="Masukkan nomor telepon"/>
                 </div>
+                <div id="no_telpError" class="hidden col-span-4 text-red-500 text-xs">Nomor Telpon diisi dengan 11 karakter setlah +62</div>
                 {{-- Pekerjaan --}}
                 {{-- Tidak required untuk yg belum berkja --}}
                 <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan <span class="text-red-500">*</span></label>
@@ -152,6 +153,17 @@
             nikError.classList.remove('hidden');
         } else {
             nikError.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('no_telp').addEventListener('input', function() {
+        var no_telpInput = this.value;
+        var no_telpError = document.getElementById('no_telpError');
+        
+        if (no_telpInput.length !== 11) {
+            no_telpError.classList.remove('hidden');
+        } else {
+            no_telpError.classList.add('hidden');
         }
     });
     
