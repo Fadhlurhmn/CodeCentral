@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\detail_jadwal_keamanan;
 use App\Models\jadwal_kebersihan;
+use App\Models\jadwal_keamanan;
 use App\Models\rangkuman_jadwal_keamanan;
 use App\Models\satpam;
 use Illuminate\Http\Request;
@@ -11,29 +12,53 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JadwalController extends Controller
 {
-
+    
     public function index()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Jadwal Keamanan & Kebersihan',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
-            ]
-        ];
+    {   
+        $satpam = satpam::all(); // data satpam
+    
+        $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
+    
+        $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
 
-        $page = (object)[
-            'title' => 'Daftar Jadwal Keamanan & Kebersihan'
-        ];
+    $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+    $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
 
-        $activeMenu = 'jadwal';
-
-        return view('admin.jadwal.jadwal', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu
-        ]);
+    $schedule = [];
+    foreach ($days as $day) {
+        foreach ($shifts as $shift) {
+            $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
+                return $item->hari == $day && $item->waktu == $shift;
+            });
+        }
     }
+
+    $breadcrumb = (object) [
+        'title' => 'Jadwal Keamanan & Kebersihan',
+        'list' => [
+            ['name' => 'Home', 'url' => url('/admin')],
+            ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+        ]
+    ];
+
+    $page = (object)[
+        'title' => 'Daftar Jadwal Keamanan & Kebersihan'
+    ];
+
+    $activeMenu = 'jadwal';
+
+    return view('admin.jadwal.jadwal', [
+        'breadcrumb' => $breadcrumb,
+        'page' => $page,
+        'activeMenu' => $activeMenu,
+        'schedule' => $schedule,
+        'days' => $days,
+        'shifts' => $shifts,
+        'jadwal_kebersihan'=>$jadwal_kebersihan,
+        'satpam'=>$satpam,
+    ]);
+    }
+
 
     public function list_satpam(Request $request)
     {
