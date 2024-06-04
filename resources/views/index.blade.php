@@ -25,7 +25,7 @@
                                     <img class="card-img" width="235" height="304" src="{{ asset('pengumuman_thumbnail/' . $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" />
                                     <div class="card-content">
                                         <h3 class="h4 card-title ease-in-out duration-300 hover:text-primary">
-                                            <a href="{{ route('user.pengumuman.show', ['id' => $pengumuman->id_pengumuman]) }}">{{ $pengumuman->judul_pengumuman }}</a>
+                                            <a href="{{ route('user.pengumuman.show', ['id' => $pengumuman->id_pengumuman]) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                         </h3>
                                         <p>{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
                                         <div class="card-footer mt-6 flex space-x-4">
