@@ -324,4 +324,29 @@ class JadwalController extends Controller
             return redirect('admin/jadwal/')->with('error', 'Data Jadwal kebersihan tidak ditemukan');
         }
     }
+
+    public function form_kebersihan()
+    {
+        $jadwal_kebersihan = jadwal_kebersihan::all();
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Jadwal Kebersihan',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+                ['name' => 'Edit Data', 'url' => url('admin/jadwal/kebersihan/edit')],
+            ]
+        ];
+
+        $page = (object)[
+            'title' => 'Edit Jadwal Kebersihan'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.kebersihan.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'jadwal_kebersihan' => $jadwal_kebersihan,
+        ]);
+    }
 }
