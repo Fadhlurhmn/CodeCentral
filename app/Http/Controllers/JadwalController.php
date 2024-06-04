@@ -26,9 +26,12 @@ class JadwalController extends Controller
 
     public function index()
     {
-        $breadcrumb = (object)[
-            'title' => 'Daftar Jadwal Petugas',
-            'list' => ['Home', 'Jadwal Petugas']
+        $breadcrumb = (object) [
+            'title' => 'Jadwal Petugas',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+            ]
         ];
 
         $page = (object)[
@@ -49,9 +52,13 @@ class JadwalController extends Controller
 
     public function form_kebersihan()
     {
-        $breadcrumb = (object)[
-            'title' => 'Update Jadwal Kebersihan',
-            'list' => ['Home', 'Jadwal Kebersihan', 'Update']
+        $breadcrumb = (object) [
+            'title' => 'Update Jadwal Pengangkutan Sampah',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+                ['name' => 'Update Angkutan Sampah', 'url' => url('admin/jadwal/update_kebersihan')],
+            ]
         ];
 
         $page = (object)[
@@ -72,11 +79,17 @@ class JadwalController extends Controller
     
         return redirect('admin/jadwal');
     }
+
     public function form_keamanan()
     {
-        $breadcrumb = (object)[
-            'title' => 'Update Jadwal Keamanan',
-            'list' => ['Home', 'Jadwal Keamanan', 'Update']
+        
+        $breadcrumb = (object) [
+            'title' => 'Update Jadwal Petugas Satpam',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+                ['name' => 'Update Petugas Satpam', 'url' => url('admin/jadwal/update_keamanan')],
+            ]
         ];
 
         $page = (object)[

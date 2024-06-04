@@ -25,7 +25,8 @@
 
     {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
+        {{-- <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1> --}}
+        @include('layout.breadcrumb2')
         
         {{-- Card Jumlah bansos & penerima --}}
         <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">

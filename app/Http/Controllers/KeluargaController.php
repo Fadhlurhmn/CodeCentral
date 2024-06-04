@@ -14,9 +14,12 @@ class KeluargaController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object)[
-            'title' => 'Daftar Keluarga Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Keluarga Penduduk']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Keluarga Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/keluarga')],
+            ]
         ];
 
         $page = (object)[
@@ -58,7 +61,11 @@ class KeluargaController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Tambah Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/keluarga')],
+                ['name' => 'Tambah Data', 'url' => url('admin/keluarga/create')],
+            ]
         ];
 
         $page = (object)[
@@ -115,9 +122,17 @@ class KeluargaController extends Controller
     public function createAnggota($id)
     {
         $keluarga = $id; // ambil id keluarga
-        $breadcrumb = (object)[
+        // $breadcrumb = (object)[
+        //     'title' => 'Anggota Keluarga',
+        //     'list' => ['Home', 'Anggota Keluarga', 'Tambah']
+        // ];
+        $breadcrumb = (object) [
             'title' => 'Anggota Keluarga',
-            'list' => ['Home', 'Anggota Keluarga', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/keluarga')],
+                ['name' => 'Tambah Anggota Keluarga', 'url' => url('admin/keluarga/create_anggota')],
+            ]
         ];
 
         $page = (object)[
@@ -178,9 +193,14 @@ class KeluargaController extends Controller
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
-        $breadcrumb = (object) [
+        
+        $breadcrumb = (object)[
             'title' => 'Detail Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/keluarga')],
+                ['name' => 'Detail', 'url' => url('admin/keluarga/show')],
+            ]
         ];
 
         $page = (object) [
@@ -209,9 +229,13 @@ class KeluargaController extends Controller
             return redirect('admin/keluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
-        $breadcrumb = (object) [
-            'title' => 'Edit Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Edit']
+        $breadcrumb = (object)[
+            'title' => 'Tambah Keluarga Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/keluarga')],
+                ['name' => 'Edit', 'url' => url('admin/keluarga/edit')],
+            ]
         ];
 
         $page = (object) [
@@ -308,11 +332,11 @@ class KeluargaController extends Controller
 
     public function list_rw(Request $request)
     {
-        //$keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja');
-        // if ($request->has('rt')) {
-        //     $keluarga->where('rt', $request->rt);
-        // }
-        //return DataTables::of($keluarga)
+        $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja');
+        if ($request->has('rt')) {
+            $keluarga->where('rt', $request->rt);
+        }
+        // return DataTables::of($keluarga)
 
         $query = rangkuman_keluarga::query();
 
@@ -329,6 +353,7 @@ class KeluargaController extends Controller
             ->rawColumns(['aksi'])
             ->make(true);
     }
+
     public function show_rw(string $id)
     {
         $keluarga = KeluargaModel::find($id);
@@ -343,11 +368,6 @@ class KeluargaController extends Controller
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
 
-
-        $breadcrumb = (object) [
-            'title' => 'Detail Keluarga Penduduk',
-            'list' => ['Home', 'Keluarga Penduduk', 'Detail']
-        ];
         $breadcrumb = (object) [
             'title' => 'Daftar Keluarga Penduduk',
             'list' => [
@@ -380,7 +400,7 @@ class KeluargaController extends Controller
     public function index_rt()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Keluarga Penduduk Terdaftar',
+            'title' => 'Daftar Keluarga Penduduk',
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
@@ -438,7 +458,7 @@ class KeluargaController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
-                ['name' => 'Create', 'url' => url('rt/keluarga/create')],
+                ['name' => 'Tambah', 'url' => url('rt/keluarga/create')],
             ]
         ];
 
@@ -497,7 +517,7 @@ class KeluargaController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
-                ['name' => 'Create Anggota', 'url' => url('rt/keluarga/create_anggota')],
+                ['name' => 'Tambah Anggota', 'url' => url('rt/keluarga/create_anggota')],
             ]
         ];
 
@@ -565,7 +585,7 @@ class KeluargaController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Keluarga', 'url' => url('rt/keluarga')],
-                ['name' => 'Show', 'url' => url('rt/keluarga/show')],
+                ['name' => 'Detail', 'url' => url('rt/keluarga/show')],
             ]
         ];
 

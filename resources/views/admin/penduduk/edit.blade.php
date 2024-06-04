@@ -5,11 +5,9 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
-        </div>
-        <div class="w-full h-fit min-w-max p-5">
 
+        <div class="w-full h-fit min-w-max p-5">
+            @include('layout.breadcrumb2')
             @if(!$penduduk)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
@@ -83,8 +81,16 @@
                     <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
                     {{-- gol_darah --}}
-                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Gologan Darah</label>
-                    <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->gol_darah }}" />
+                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah</label>
+                    <div class="col-span-4">
+                        @foreach(['A', 'B', 'AB', 'O'] as $gol_darah)
+                            <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                                <input type="radio" name="gol_darah" value="{{ $gol_darah }}" class="form-radio h-4 w-4 text-gray-600" 
+                                    {{ (old('gol_darah') ?? $penduduk->gol_darah) == $gol_darah ? 'checked' : '' }}>
+                                <span class="ml-2 text-gray-700">{{ $gol_darah }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                     {{-- agama --}}
                     <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama</label>
                     <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{ $penduduk->agama }}" required />

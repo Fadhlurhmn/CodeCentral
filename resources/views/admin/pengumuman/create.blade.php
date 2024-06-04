@@ -2,14 +2,14 @@
 
 @include('layout.a_navbar')
 
-<div class="h-screen flex flex-row">
+<div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        {{-- start breadcrumb --}}
-        @include('layout.breadcrumb')
-        {{-- end breadcrumb --}}
-
+        
         <div class="w-full h-fit p-5">
+            {{-- Start Breadcrumb --}}
+            @include('layout.breadcrumb2')
+            {{-- end breadcrumb --}}
             <form id="form_pengumuman" action="{{ url('admin/pengumuman') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl">

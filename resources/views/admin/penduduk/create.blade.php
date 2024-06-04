@@ -1,3 +1,22 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
 @include('layout.a_navbar')
@@ -5,10 +24,13 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-3xl">{{$page->title}}</h1>
+        
+        <div class="p-5 flex flex-col">
+            @include('layout.breadcrumb2')
         </div>
-        <div class="w-full h-fit min-w-max p-5">
+
+        <div class="w-full h-screen min-w-max p-5 overflow-y-auto custom-scrollbar">
+
             <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/penduduk') }}" method="POST" enctype="multipart/form-data">
                 <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-4">
                     Isi data penduduk
@@ -70,9 +92,15 @@
                 <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama <span class="text-red-500">*</span></label>
                 <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{old('agama')}}" required />
                 {{-- Golongan Darah --}}
-                {{-- Tidak required incase warganya lupa/tdk pernah cek --}}
                 <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah <span class="text-red-500">*</span></label>
-                <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " value="{{old ('gol_darah')}}" placeholder="Golongan Darah Warga"/>
+                <div class="col-span-4">
+                    @foreach(['A', 'B', 'AB', 'O'] as $gol_darah)
+                        <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                            <input type="radio" name="gol_darah" value="{{ $gol_darah }}" class="form-radio h-4 w-4 text-gray-600" {{ old('gol_darah') == $gol_darah ? 'checked' : '' }}>
+                            <span class="ml-2 text-gray-700">{{ $gol_darah }}</span>
+                        </label>
+                    @endforeach
+                </div>
                 {{-- No telpon --}}
                 <label for="no_telp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Nomor telepon <span class="text-red-500">*</span></label>
                 <div class="flex col-span-4">

@@ -12,9 +12,12 @@ class PendudukController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Penduduk', 'url' => url('admin/penduduk')]
+            ]
         ];
 
         $page = (object)[
@@ -46,9 +49,13 @@ class PendudukController extends Controller
 
     public function create()
     {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Penduduk',
-            'list' => ['Home', 'Penduduk', 'Tambah']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Penduduk', 'url' => url('admin/penduduk')],
+                ['name' => 'Tambah', 'url' => url('admin/penduduk/create')],
+            ]
         ];
 
         $page = (object)[
@@ -114,9 +121,13 @@ class PendudukController extends Controller
     {
         $penduduk = PendudukModel::all()->find($id);
 
-        $breadcrumb = (object)[
-            'title' => 'Detail Penduduk',
-            'list' => ['Home', 'Penduduk', 'Detail']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Penduduk',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Penduduk', 'url' => url('admin/penduduk')],
+                ['name' => 'Detail', 'url' => url('admin/penduduk/show')],
+            ]
         ];
 
         $page = (object)[
@@ -131,9 +142,18 @@ class PendudukController extends Controller
     {
         $penduduk = PendudukModel::find($id);
 
+        // $breadcrumb = (object) [
+        //     'title' => 'Edit Penduduk',
+        //     'list' => ['Home', 'Penduduk', 'Edit']
+        // ];
+
         $breadcrumb = (object) [
             'title' => 'Edit Penduduk',
-            'list' => ['Home', 'Penduduk', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Penduduk', 'url' => url('admin/penduduk')],
+                ['name' => 'Edit', 'url' => url('admin/penduduk/edit')],
+            ]
         ];
 
         $page = (object) [
@@ -336,7 +356,7 @@ class PendudukController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Penduduk', 'url' => url('rt/penduduk')],
-                ['name' => 'Create', 'url' => url('rt/penduduk/create')],
+                ['name' => 'Tambah', 'url' => url('rt/penduduk/create')],
             ]
         ];
 
@@ -425,7 +445,7 @@ class PendudukController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Penduduk', 'url' => url('rt/penduduk')],
-                ['name' => 'Show', 'url' => url('rt/penduduk/show')],
+                ['name' => 'Detail', 'url' => url('rt/penduduk/show')],
             ]
         ];
 

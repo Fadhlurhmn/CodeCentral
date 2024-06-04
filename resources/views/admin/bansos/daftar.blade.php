@@ -9,6 +9,7 @@
     <div class="flex flex-col flex-grow p-6">
         <div class="container h-full bg-white shadow-md rounded-lg p-6">
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white">
+                @include('layout.breadcrumb2')
                 <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-800">Daftar Permintaan</h1>
                 <p class="pb-5 my-2 text-md text-gray-600">Daftar Permintaan Bantuan Sosial dan Rekomendasi Sistem Penerima.</p>
                 

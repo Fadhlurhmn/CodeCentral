@@ -4,7 +4,7 @@
     {{-- <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1> --}}
     {{-- Start Isi --}}
     <div class="p-5 text-sm font-normal rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-      <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
+      @include('layout.breadcrumb2')
   
   
       <!-- Tabel Jadwal Keamanan -->
@@ -14,7 +14,7 @@
       </div>
       {{-- Tabel --}}
       <div class="h-auto p-2 mb-10 border-2 border-teal-400 rounded-lg">
-        <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Keamanan</h2>
+        <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Petugas Satpam</h2>
         <table id="table_keamanan" class="w-full min-w-max cursor-default border-collapse">
           <thead class="bg-teal-400 text-center">
             <tr>
@@ -47,7 +47,7 @@
       </div>
       {{-- Tabel --}}
       <div class="h-auto p-2 mb-10 border-2 border-teal-400 rounded-lg">
-        <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Kebersihan</h2>
+        <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Pengangkutan Sampah</h2>
         <!-- Debugging -->
         {{-- <pre>{{ print_r($jadwal_kebersihan, true) }}</pre> --}}
         <!-- End Debugging -->

@@ -2,18 +2,20 @@
     {{-- <h1 class="py-5 ml-5 text-3xl font-bold text-gray-900 ">{{$breadcrumb->title}}</h1> --}}
     
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        <h1 class="pb-5 mb-3 mt-2 text-2xl font-extrabold text-gray-600 "> {{$page->title}}</h1>
+        @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">
-            <a class="p-2 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
+            <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
             {{-- <div class="flex">
                 <p class="py-1 mr-2">Filter Rt : </p>
-                <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
+                <select name="rt" id="rt" class="pl-2 py-1 font-semibold block appearance-none w-52 bg-transparent border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
                     <option value="1">Rt. 1</option>
                     <option value="2">Rt. 2</option>
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
-                    <option value="4">Rt. 4</option>
+                    <option value="5">Rt. 5</option>
+                    <option value="6">Rt. 6</option>
+                    <option value="7">Rt. 7</option>
                 </select>
             </div> --}}
         </div>
@@ -28,7 +30,7 @@
             </div>
         </div>
         @endif
-        <div class="h-auto p-2">
+        <div class="h-auto p-2 bg-slate-100/50 rounded-xl">
             <table id="table_keluarga" class="table-auto text-center  w-full min-w-max cursor-default">
                 <thead class="bg-teal-400">
                     <tr>

@@ -7,14 +7,12 @@
     @include('layout.a_sidebar') <!-- Menyertakan sidebar -->
 
     <!-- Bagian konten utama -->
-    <div class="flex-grow bg-slate-100">
-        <div class="flex flex-col">
-            <!-- Menampilkan breadcrumb -->
-            @include('layout.breadcrumb')
-        </div>
-
+    <div class="flex-grow bg-white">
+        
         <!-- Container untuk konten utama halaman -->
-        <div class="w-full min-w-max p-5 shadow border border-gray-400 rounded-lg bg-white">
+        <div class="w-full min-w-max p-5 bg-white">
+            <!-- Menampilkan breadcrumb -->
+            @include('layout.breadcrumb2')
             @if(!$user)
                 <!-- Menampilkan pesan error jika data user tidak ditemukan -->
                 <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
@@ -26,8 +24,8 @@
                 </div>
             @else
                 <!-- Tabel untuk menampilkan detail user -->
-                <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
-                    <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 border-b-2 border-black">
+                <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-teal-400 rounded-xl">
+                    <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 border-b-2 border-black rounded-t-xl">
                         {{ $page->title }}
                     </caption>
                     <tbody class="bg-white">
@@ -57,7 +55,7 @@
                 </table>
 
                 <!-- Tombol untuk kembali ke halaman daftar akun -->
-                <a href="{{ url('admin/akun') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center py-2 px-4">
+                <a href="{{ url('admin/akun') }}" class="shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                     <i class="fas fa-caret-left"></i> Kembali
                 </a>
             @endif

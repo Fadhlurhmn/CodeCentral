@@ -5,10 +5,11 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.rw_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
+        {{-- <div class="flex flex-col">
             <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
-        </div>
+        </div> --}}
         <div class="w-full h-fit min-w-max p-5 shadow">
+            @include('layout.breadcrumb2')
 
             @if(!$keluarga)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
