@@ -31,51 +31,55 @@
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Foto KTP</th>
                             <td class="pl-3 py-2"><img src="{{ asset('storage/'. $penduduk->foto_ktp) }}" class="img-thumbnail w-96" /></td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1 border-t border-gray-400">
+                        <tr class="bg-gray-200/50 col-span-2 border-t border-gray-400">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">NIK</th>
                             <td class="pl-3 text-sm">{{ $penduduk->nik }}</td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1 border-t border-gray-400">
+                        <tr class="bg-gray-200/50 col-span-1 border-t border-gray-400">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Nama</th>
                             <td class="pl-3 text-sm">{{ $penduduk->nama }}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="bg-gray-200/50 col-span-1 border-t border-gray-400">
+                            <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Jenis Kelamin</th>
+                            <td class="pl-3 text-sm">{{ $penduduk->jenis_kelamin }}</td>
+                        </tr>
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Alamat KTP</th>
                             <td class="pl-3 text-sm">{{ $penduduk->alamat_ktp}}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Alamat Domisili</th>
                             <td class="pl-3 text-sm">{{ $penduduk->alamat_domisili }}</td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1">
+                        <tr class="bg-gray-200/50 col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Rt</th>
                             <td class="pl-3 text-sm">{{ $penduduk->rt }}</td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1">
+                        <tr class="bg-gray-200/50 col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">RW</th>
                             <td class="pl-3 text-sm">{{ $penduduk->rw }}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">No Telp</th>
                             <td class="pl-3 text-sm">{{ $penduduk->no_telp }}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Tempat lahir</th>
                             <td class="pl-3 text-sm">{{ $penduduk->tempat_lahir }}</td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1">
+                        <tr class="bg-gray-200/50 col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Tanggal lahir</th>
                             <td class="pl-3 text-sm">{{ $penduduk->tanggal_lahir }}</td>
                         </tr>
-                        <tr class="bg-gray-200/50 grid-cols-1">
+                        <tr class="bg-gray-200/50 col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Agama</th>
                             <td class="pl-3 text-sm">{{ $penduduk->agama }}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Pekerjaan</th>
                             <td class="pl-3 text-sm">{{ $penduduk->pekerjaan }}</td>
                         </tr>
-                        <tr class="whitespace-nowrap grid-cols-1">
+                        <tr class="whitespace-nowrap col-span-1">
                             <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Golongan Darah</th>
                             <td class="pl-3 text-sm">{{ $penduduk->gol_darah }}</td>
                         </tr>
