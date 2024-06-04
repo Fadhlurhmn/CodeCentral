@@ -124,48 +124,48 @@
                     <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('keamanan')">Jadwal Keamanan</button>
                     <button id="btn-kebersihan" class="p-2 rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('kebersihan')">Jadwal Kebersihan</button>
                 </div>
-                <div class="block duration-300 ease-in-out" id="jadwal_keamanan">
-                    @if(isset($jadwal_keamanan))
-                        <table class="table-auto border-collapse border w-full">
-                            <thead>
-                                <tr class="bg-primary border-b md:text-sm">
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Nama</th>
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Telepon</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach ($jadwal_keamanan->hari as $indexHari => $hari)
-                                    @foreach ($jadwal_keamanan->waktu as $indexWaktu => $waktu)
-                                        <tr class="bg-white border-b md:text-sm">
-                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $hari }}</td>
-                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $waktu }}</td>
-                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_keamanan->nama[$indexHari][$indexWaktu] }}</td>
-                                            <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_keamanan->telepon[$indexHari][$indexWaktu] }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p class="text-center">Tidak ada jadwal keamanan yang tersedia</p>
-                    @endif
+                {{-- jadwal keamanan --}}
+                <div class="h-auto p-2 mb-10" id="jadwal_keamanan">
+                    <table class="w-full min-w-max cursor-default border-collapse">
+                      <thead class="bg-teal-400 text-center">
+                        <tr>
+                          <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
+                          @foreach ($jadwal_keamanan->hari as $hari)
+                            <th class="p-3 text-sm font-normal border border-teal-300">{{ $hari }}</th>
+                          @endforeach
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($jadwal_keamanan->waktu as $index => $waktu)
+                          <tr>
+                            <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $waktu }}</td>
+                            @foreach ($jadwal_keamanan->hari as $hariIndex => $hari)
+                              <td class="p-3 text-sm text-center border border-teal-300">
+                                {{ $jadwal_keamanan->nama[$hariIndex][$index] }}<br>
+                                <span class="text-xs text-gray-500">({{ $jadwal_keamanan->telepon[$hariIndex][$index] }})</span>
+                              </td>
+                            @endforeach
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
                 </div>
-                <div class="hidden duration-300 ease-in-out" id="jadwal_kebersihan">
+
+                {{-- jadwal kebersihan --}}
+                <div class="hidden duration-300 ease-in-out px-0 lg:px-60" id="jadwal_kebersihan">
                     @if(isset($jadwal_kebersihan))
                         <table class="table-auto border-collapse border w-full">
                             <thead>
-                                <tr class="bg-primary border-b md:text-sm">
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Hari</th>
-                                    <th class="px-4 py-2 md:px-2 md:py-1">Waktu</th>
+                                <tr class="bg-teal-400 border-b md:text-sm">
+                                    <th class="p-3 border border-primary">Hari</th>
+                                    <th class="p-3 border border-primary">Waktu</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 @foreach ($jadwal_kebersihan->hari as $index => $hari)
                                     <tr class="bg-white border-b md:text-sm">
-                                        <td class="px-4 py-2 md:px-2 md:py-1">{{ $hari }}</td>
-                                        <td class="px-4 py-2 md:px-2 md:py-1">{{ $jadwal_kebersihan->waktu[$index % count($jadwal_kebersihan->waktu)] }}</td>
+                                        <td class="p-3 border border-primary">{{ $hari }}</td>
+                                        <td class="p-3 border border-primary">{{ $jadwal_kebersihan->waktu[$index % count($jadwal_kebersihan->waktu)] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
