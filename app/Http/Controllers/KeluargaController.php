@@ -193,7 +193,7 @@ class KeluargaController extends Controller
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
         $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
-        
+
         $breadcrumb = (object)[
             'title' => 'Detail Keluarga Penduduk',
             'list' => [
@@ -543,7 +543,9 @@ class KeluargaController extends Controller
             ->where('id_penduduk', $id_penduduk_rt)
             ->first();
 
-        $penduduk = PendudukModel::where('rt', $rt_penduduk->rt)->get(); // ambil data penduduk untuk ditampilkan di form
+        $penduduk = PendudukModel::where('rt', $rt_penduduk->rt)
+            ->whereDoesntHave('detail_keluarga')
+            ->get();
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
 
         return view('rt.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
@@ -699,6 +701,7 @@ class KeluargaController extends Controller
         }
 
         $keluarga->update($data);
+        detail_keluarga_model::where('id_keluarga', $id)->delete();
 
         return redirect('rt/keluarga/' . $keluarga->id_keluarga . '/create_anggota')->with('success', 'Data keluarga berhasil disimpan');
     }

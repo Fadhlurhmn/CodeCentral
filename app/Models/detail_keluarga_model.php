@@ -13,7 +13,7 @@ class detail_keluarga_model extends Model
     protected $table = 'detail_keluarga';
     protected $fillable = ['id_keluarga', 'id_penduduk', 'peran_keluarga'];
 
-    public function penduduk(): BelongsTo
+    public function penduduk()
     {
         return $this->belongsTo(PendudukModel::class, 'id_penduduk', 'id_penduduk');
     }
