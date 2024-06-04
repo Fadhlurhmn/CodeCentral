@@ -113,7 +113,7 @@
           {{-- Button --}}
           <div class="mb-5 text-xs">
             <h2 class="mb-5 text-xl font-bold text-gray-600">Jadwal Petugas Satpam</h2>
-            <a class="p-2 font-normal text-center shadow-md hover:shadow-teal-300 bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{ url('admin/jadwal/update_keamanan') }}">Ubah Jadwal Keamanan</a>
+            <a class="p-2 font-normal text-center shadow-md hover:shadow-teal-300 bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{ url('admin/jadwal/keamanan/edit') }}">Ubah Jadwal Keamanan</a>
           </div>
 
           <div class="h-auto p-2 mb-10">

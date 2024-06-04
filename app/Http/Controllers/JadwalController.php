@@ -12,51 +12,51 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JadwalController extends Controller
 {
-    
+
     public function index()
-    {   
+    {
         $satpam = satpam::all(); // data satpam
-    
+
         $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
-    
+
         $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
 
-    $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-    $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
+        $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
 
-    $schedule = [];
-    foreach ($days as $day) {
-        foreach ($shifts as $shift) {
-            $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
-                return $item->hari == $day && $item->waktu == $shift;
-            });
+        $schedule = [];
+        foreach ($days as $day) {
+            foreach ($shifts as $shift) {
+                $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
+                    return $item->hari == $day && $item->waktu == $shift;
+                });
+            }
         }
-    }
 
-    $breadcrumb = (object) [
-        'title' => 'Jadwal Keamanan & Kebersihan',
-        'list' => [
-            ['name' => 'Home', 'url' => url('/admin')],
-            ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
-        ]
-    ];
+        $breadcrumb = (object) [
+            'title' => 'Jadwal Keamanan & Kebersihan',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
+            ]
+        ];
 
-    $page = (object)[
-        'title' => 'Daftar Jadwal Keamanan & Kebersihan'
-    ];
+        $page = (object)[
+            'title' => 'Daftar Jadwal Keamanan & Kebersihan'
+        ];
 
-    $activeMenu = 'jadwal';
+        $activeMenu = 'jadwal';
 
-    return view('admin.jadwal.jadwal', [
-        'breadcrumb' => $breadcrumb,
-        'page' => $page,
-        'activeMenu' => $activeMenu,
-        'schedule' => $schedule,
-        'days' => $days,
-        'shifts' => $shifts,
-        'jadwal_kebersihan'=>$jadwal_kebersihan,
-        'satpam'=>$satpam,
-    ]);
+        return view('admin.jadwal.jadwal', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'schedule' => $schedule,
+            'days' => $days,
+            'shifts' => $shifts,
+            'jadwal_kebersihan' => $jadwal_kebersihan,
+            'satpam' => $satpam,
+        ]);
     }
 
 
@@ -109,7 +109,7 @@ class JadwalController extends Controller
             'title' => 'Tambah Satpam',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
                 ['name' => 'Tambah Data', 'url' => url('admin/jadwal/satpam/create')],
             ]
         ];
@@ -117,9 +117,16 @@ class JadwalController extends Controller
         $page = (object)[
             'title' => 'Tambah Data Satpam'
         ];
+
+        $satpam = satpam::all();
         $activeMenu = 'jadwal';
 
-        return view('admin.jadwal.satpam.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.jadwal.satpam.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'satpam' => $satpam,
+        ]);
     }
     // store data satpam
     public function store_satpam(Request $request)
@@ -147,7 +154,7 @@ class JadwalController extends Controller
             'title' => 'Edit Satpam',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
                 ['name' => 'Edit Data', 'url' => url('admin/jadwal/satpam/create')],
             ]
         ];
@@ -201,11 +208,26 @@ class JadwalController extends Controller
         }
     }
     // form update jadwal keamanan
-    public function edit_jadwal_keamanan(string $id)
+    public function edit_jadwal_keamanan()
     {
-        $jadwal_keamanan = detail_jadwal_keamanan::find($id);
+        $satpam = satpam::all();
+        $detail_jadwal_keamanan = detail_jadwal_keamanan::all();
 
-        if (!$jadwal_keamanan) {
+        $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
+
+        $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
+
+        $schedule = [];
+        foreach ($days as $day) {
+            foreach ($shifts as $shift) {
+                $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
+                    return $item->hari == $day && $item->waktu == $shift;
+                });
+            }
+        }
+
+        if (!$detail_jadwal_keamanan) {
             return redirect('admin/jadwal')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
         }
 
@@ -213,7 +235,7 @@ class JadwalController extends Controller
             'title' => 'Edit Jadwal Keamanan',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
                 ['name' => 'Edit Data', 'url' => url('admin/jadwal/keamanan/edit')],
             ]
         ];
@@ -222,7 +244,16 @@ class JadwalController extends Controller
             'title' => 'Edit Jadwal Keamanan'
         ];
         $activeMenu = 'jadwal';
-        return view('admin.jadwal.keamanan.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_keamanan' => $jadwal_keamanan, 'activeMenu' => $activeMenu]);
+        return view('admin.jadwal.keamanan.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'schedule' => $schedule,
+            'days' => $days,
+            'shifts' => $shifts,
+            'satpam' => $satpam,
+            'detail_jadwal_keamanan' => $detail_jadwal_keamanan,
+            'activeMenu' => $activeMenu
+        ]);
     }
     // update jadwal keamanan
     public function update_jadwal_keamanan(Request $request, $id)
@@ -259,7 +290,7 @@ class JadwalController extends Controller
             'title' => 'Edit Jadwal kebersihan',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
                 ['name' => 'Edit Data', 'url' => url('admin/jadwal/kebersihan/edit')],
             ]
         ];
