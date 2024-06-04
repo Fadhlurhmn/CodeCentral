@@ -150,6 +150,20 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::post('/', [KriteriaController::class, 'store_kriteria']); // Menyimpan kriteria baru
             Route::get('/show', [KriteriaController::class, 'show_kriteria']); // melihat kriteria
         });
+
+        Route::group(['prefix' => 'jadwal'], function () {
+            Route::get('/', [JadwalController::class, 'index']);          // menampilkan halaman awal level
+
+            // route satpam
+            Route::group(['prefix' => 'satpam'], function () {
+                Route::post('/list', [JadwalController::class, 'list_satpam']);      //menampilkan data level dalam bentuk json untuk datatables
+                Route::get('/create', [JadwalController::class, 'create_satpam']);   // menampilkan halaman form tambah level
+                Route::post('/', [JadwalController::class, 'store_satpam']);         // menyimpan data level baru
+                Route::get('/{id}/edit', [JadwalController::class, 'edit_satpam']);  // menampilkan halaman form edit level
+                Route::post('/{id}', [JadwalController::class, 'update_satpam']);     // menyimpan perubahan data level
+                Route::delete('/{id}', [JadwalController::class, 'destroy_satpam']);
+            });
+        });
     });
 });
 

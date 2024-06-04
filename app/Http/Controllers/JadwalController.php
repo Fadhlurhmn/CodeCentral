@@ -2,32 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\jadwal_kebersihan;
+use App\Models\rangkuman_jadwal_keamanan;
+use App\Models\satpam;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class JadwalController extends Controller
 {
-    public function __construct()
-    {
-        if (!session()->has('jadwal_kebersihan')) {
-            session(['jadwal_kebersihan' => (object)[
-                'hari' => ['Senin', 'Kamis', 'Sabtu'],
-                'waktu' => ['08:00-12:00', '12:00-16:00'],
-            ]]);
-        }
-        if (!session()->has('jadwal_keamanan')) {
-            session(['jadwal_keamanan' => (object)[
-                'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-                'waktu' => ['Pagi', 'Sore', 'Malam'],
-                'nama' => [['Budi', 'Adi', 'Dedi'], ['Charli', 'Fahmi', 'Ahmadi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Budi', 'Adi', 'Dedi'], ['Dedi', 'Adi', 'Budi']],
-                'telepon' => [['08123456789', '082122222222', '08211111111'], ['11111111111', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111'], ['08123456789', '082122222222', '08211111111']],
-            ]]);
-        }
-    }
 
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Jadwal Petugas',
+            'title' => 'Jadwal Keamanan & Kebersihan',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
                 ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
@@ -35,7 +22,7 @@ class JadwalController extends Controller
         ];
 
         $page = (object)[
-            'title' => 'Daftar Jadwal Petugas'
+            'title' => 'Daftar Jadwal Keamanan & Kebersihan'
         ];
 
         $activeMenu = 'jadwal';
@@ -43,84 +30,148 @@ class JadwalController extends Controller
         return view('admin.jadwal.jadwal', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'activeMenu' => $activeMenu,
-            'jadwal_kebersihan' => session('jadwal_kebersihan'),
-            'jadwal_keamanan' => session('jadwal_keamanan')
+            'activeMenu' => $activeMenu
         ]);
     }
 
-
-    public function form_kebersihan()
+    public function list_satpam(Request $request)
     {
-        $breadcrumb = (object) [
-            'title' => 'Update Jadwal Pengangkutan Sampah',
+        $satpam = satpam::all(); // data satpam
+
+        return DataTables::of($satpam)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($satpam) {
+                $btn = '<a href="' . url('admin/jadwal/satpam' . $satpam->id_satpam . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn .= '<a href="' . url('admin/jadwal/satpam/' . $satpam->id_satpam . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+    public function list_jadwal_kebersihan(Request $request)
+    {
+        $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
+
+        return DataTables::of($jadwal_kebersihan)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($jadwal_kebersihan) {
+                $btn = '<a href="' . url('admin/jadwal/kebersihan' . $jadwal_kebersihan->id_jadwal_kebersihan . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn .= '<a href="' . url('admin/jadwal/kebersihan/' . $jadwal_kebersihan->id_jadwal_kebersihan . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+    public function list_jadwal_keamanan(Request $request)
+    {
+        $jadwal_keamanan = rangkuman_jadwal_keamanan::all(); // data jadwal keamanan
+
+        return DataTables::of($jadwal_keamanan)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($jadwal_keamanan) {
+                $btn = '<a href="' . url('admin/jadwal/keamanan' . $jadwal_keamanan->id_jadwal_keamanan . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
+                $btn .= '<a href="' . url('admin/jadwal/keamanan/' . $jadwal_keamanan->id_jadwal_keamanan . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+    // form untuk create satpam
+    public function create_satpam()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Tambah Satpam',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
-                ['name' => 'Update Angkutan Sampah', 'url' => url('admin/jadwal/update_kebersihan')],
+                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Tambah Data', 'url' => url('admin/jadwal/satpam/create')],
             ]
         ];
 
         $page = (object)[
-            'title' => 'Form Update Jadwal Kebersihan'
+            'title' => 'Tambah Data Satpam'
         ];
         $activeMenu = 'jadwal';
-        return view('admin.jadwal.update_kebersihan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_kebersihan' => session('jadwal_kebersihan')]);
+
+        return view('admin.jadwal.satpam.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
-
-    public function update_kebersihan(Request $request)
+    // store data satpam
+    public function store_satpam(Request $request)
     {
-        $data = $request->all();
-        $jadwal_kebersihan = (object)[
-            'hari' => $data['hari'],
-            'waktu' => $data['waktu'],
-        ];
-        session(['jadwal_kebersihan' => $jadwal_kebersihan]);
-    
-        return redirect('admin/jadwal');
+        $request->validate([
+            'nama' => 'required|string',
+            'nomor_telepon' => 'required|string|digits:15'
+        ]);
+        satpam::create([
+            'nama' => $request->nama,
+            'nomor_telepon' => $request->nomor_telepon
+        ]);
+        return redirect('admin/jadwal/')->with('success', 'Data Satpam berhasil disimpan');
     }
-
-    public function form_keamanan()
+    // show data satpam
+    public function edit_satpam(string $id)
     {
-        
-        $breadcrumb = (object) [
-            'title' => 'Update Jadwal Petugas Satpam',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Jadwal', 'url' => url('admin/jadwal')],
-                ['name' => 'Update Petugas Satpam', 'url' => url('admin/jadwal/update_keamanan')],
-            ]
-        ];
+        $satpam = satpam::find($id);
 
-        $page = (object)[
-            'title' => 'Form Update Jadwal Keamanan'
-        ];
-        $activeMenu = 'jadwal';
-        return view('admin.jadwal.update_keamanan', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'jadwal_keamanan' => session('jadwal_keamanan')]);
-    }
-
-    public function update_keamanan(Request $request)
-    {
-        $changes = $request->input('changes');
-        $jadwal_keamanan = session('jadwal_keamanan');
-
-        foreach ($changes as $change) {
-            $field = $change['field'];
-            $row = $change['row'];
-            $col = $change['col'];
-            $value = $change['value'];
-
-            if ($field === 'nama') {
-                $jadwal_keamanan->nama[$row][$col] = $value;
-            }
-
-            if ($field === 'telepon') {
-                $jadwal_keamanan->telepon[$row][$col] = $value;
-            }
+        if (!$satpam) {
+            return redirect('admin/jadwal')->with('error', 'Data Satpam tidak ditemukan');
         }
 
-        session(['jadwal_keamanan' => $jadwal_keamanan]);
+        $breadcrumb = (object)[
+            'title' => 'Edit Satpam',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Edit Data', 'url' => url('admin/jadwal/satpam/create')],
+            ]
+        ];
 
-        return response()->json(['success' => true]);
+        $page = (object)[
+            'title' => 'Edit Data Satpam'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.satpam.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'satpam' => $satpam, 'activeMenu' => $activeMenu]);
+    }
+    // update data satpam
+    public function update_satpam(Request $request, string $id)
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'nomor_telepon' => 'required|string|digits:15'
+        ]);
+
+        // Temukan data satpam berdasarkan id
+        $satpam = Satpam::find($id);
+
+        // Periksa jika data satpam ditemukan
+        if ($satpam) {
+            // Perbarui data satpam
+            $satpam->update([
+                'nama' => $request->nama,
+                'nomor_telepon' => $request->nomor_telepon
+            ]);
+
+            return redirect('admin/jadwal/')->with('success', 'Data Satpam berhasil diupdate');
+        } else {
+            // Jika data satpam tidak ditemukan, kembalikan dengan pesan kesalahan
+            return redirect('admin/jadwal/')->with('error', 'Data Satpam tidak ditemukan');
+        }
+    }
+    // delete satpam
+    public function destroy_satpam(string $id)
+    {
+        // Temukan data satpam berdasarkan id
+        $satpam = Satpam::find($id);
+
+        // Periksa jika data satpam ditemukan
+        if ($satpam) {
+            // Hapus data satpam
+            $satpam->delete();
+
+            return redirect('admin/jadwal/')->with('success', 'Data Satpam berhasil dihapus');
+        } else {
+            // Jika data satpam tidak ditemukan, kembalikan dengan pesan kesalahan
+            return redirect('admin/jadwal/')->with('error', 'Data Satpam tidak ditemukan');
+        }
     }
 }
