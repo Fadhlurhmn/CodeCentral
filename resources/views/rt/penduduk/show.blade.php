@@ -4,14 +4,12 @@
     
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.rt_sidebar')
+
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <?php
-            // @dd($page);
-            ?>
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{$page->title}}</h1>
-        </div>
+    
         <div class="w-full min-w-max p-5">
+
+            @include('layout.breadcrumb2')
             @if(!$penduduk)
                 <div class="my-5 bg-red-200/30 border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                     <h5 class="font-semibold text-xl text-center"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
@@ -92,7 +90,7 @@
                     </tbody>
                 </table>
                 
-            <a href="{{ url('rt/penduduk') }}" class=" shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i>  Halaman data penduduk</a>      
+            <a href="{{ url('rt/penduduk') }}" class="shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i>  Halaman data penduduk</a>      
             @endif
         </div>
     </div>

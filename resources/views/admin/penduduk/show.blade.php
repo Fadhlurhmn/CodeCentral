@@ -5,13 +5,10 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <?php
-            // @dd($page);
-            ?>
-            <h1 class="py-5 ml-5 text-3xl font-bold">{{$page->title}}</h1>
-        </div>
+
         <div class="w-full min-w-max p-5">
+
+            @include('layout.breadcrumb2')
             @if(!$penduduk)
                 <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
@@ -21,8 +18,8 @@
                     </button>
                 </div>
                 @else
-                <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-gray-700">
-                    <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 border-b-2 border-black">
+                <table class="mt-2 mb-5 table-auto w-full min-w-max cursor-default text-left border outline-none outline-teal-400 rounded-xl">
+                    <caption class="p-5 text-2xl font-semibold text-left rtl:text-right text-gray-900 bg-teal-400 border-b-2 border-black rounded-t-xl">
                         {{ $page->title }}
                         <p class="mt-1 text-lg font-normal text-slate-100"> {{ $page->title }} dalam sistem</p>
                     </caption>
@@ -90,7 +87,7 @@
                     </tbody>
                 </table>
                 
-            <a href="{{ url('admin/penduduk') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i>  Halaman data penduduk</a>      
+            <a href="{{ url('admin/penduduk') }}" class="shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center"><i class="fas fa-caret-left"></i>  Halaman data penduduk</a>      
             @endif
         </div>
     </div>

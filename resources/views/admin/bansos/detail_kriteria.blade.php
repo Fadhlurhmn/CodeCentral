@@ -7,8 +7,7 @@
 
     <div class="flex flex-col flex-grow p-6 cursor-default">
         <div class="container bg-white shadow-lg rounded-lg p-6">
-            
-            <h1 class="text-2xl font-extrabold text-gray-700">{{$page->title}}</h1>
+            @include('layout.breadcrumb2')
 
             <div class="p-5 text-sm font-normal text-gray-800">
                 <div class="flex flex-row mb-4">

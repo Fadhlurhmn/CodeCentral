@@ -16,22 +16,22 @@
       <p class="uppercase font-semibold text-sm text-teal-800 mb-2 tracking-wider">FITUR SI RW</p>
 
       <a href="{{ url('/rw') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
-          {{ Request::is('rw') ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+          {{ $activeMenu === 'dashboard' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fad fa-chart-pie text-xs mr-2"></i>
           Dashboard
       </a>
       <a href="{{ url('/rw/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
-          {{ Request::is('rw/bansos') ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+          {{ $activeMenu === 'bansos' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-people-carry text-xs mr-2"></i>
           Bansos
       </a>
       <a href="{{ url('/rw/penduduk') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
-          {{ Request::is('rw/penduduk') ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+          {{ $activeMenu === 'penduduk' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fad fa-users text-xs mr-2"></i>
           Penduduk
       </a>
       <a href="{{ url('/rw/keluarga') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
-          {{ Request::is('rw/keluarga') ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+          {{ $activeMenu === 'keluarga' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fad fa-home text-xs mr-2"></i>
           Keluarga
       </a>

@@ -16,24 +16,28 @@
       <p class="uppercase font-semibold text-sm text-teal-800 mb-2 tracking-wider">FITUR SI RW</p>
 
 
-      <a href="{{ url('/rt') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 {{ Request::is('rt') ? 'bg-teal-500/60 text-teal-800 shadow-lg pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+      <a href="{{ url('/rt') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
+          {{ $activeMenu === 'dashboard' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fad fa-chart-pie text-xs mr-2"></i>
           Dashboard
       </a>
 
-      <a href="{{ url('/rt/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 {{ Request::is('rt/bansos') ? 'bg-teal-500/60 text-teal-800 shadow-lg pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+      <a href="{{ url('/rt/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
+          {{ $activeMenu === 'bansos' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-people-carry text-xs mr-2"></i>
           Bansos
       </a>
 
-      <a href="{{url('/rt/penduduk')}}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 {{ Request::is('rt/penduduk') ? 'bg-teal-500/60 text-teal-800 shadow-lg pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+      <a href="{{url('/rt/penduduk')}}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
+        {{ $activeMenu === 'penduduk' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
         <i class="fas fa-users text-xs mr-2"></i>
-        Data Penduduk
+        Penduduk
       </a>
 
-      <a href="{{url('/rt/keluarga')}}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 {{ Request::is('rt/keluarga') ? 'bg-teal-500/60 text-teal-800 shadow-lg pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
-        <i class="fas fa-user-friends text-xs mr-2"></i>
-        Data Keluarga
+      <a href="{{url('/rt/keluarga')}}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
+        {{ $activeMenu === 'keluarga' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+        <i class="fad fa-home text-xs mr-2"></i>
+        Keluarga
       </a>
 
       {{-- <a href="{{ url('/rt/promosi') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300">

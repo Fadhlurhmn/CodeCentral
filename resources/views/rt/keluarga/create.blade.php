@@ -25,7 +25,6 @@
     @include('layout.rt_sidebar')
     <div class="flex-grow bg-white">
         <div class="p-5 flex flex-col">
-            {{-- <h1 class="py-5 ml-5 text-2xl font-bold">{{$page->title}}</h1> --}}
             @include('layout.breadcrumb2')
         </div>
         <div class="w-full h-screen min-w-max p-5 overflow-y-auto custom-scrollbar">

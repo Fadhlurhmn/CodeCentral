@@ -23,9 +23,12 @@ class BansosController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Penerima Bantuan Sosial',
-            'list' => ['Home', 'Penerima Bantuan Sosial']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+            ]
         ];
 
         $page = (object)[
@@ -84,7 +87,11 @@ class BansosController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+                ['name' => 'Detail', 'url' => url('admin/bansos/detail')],
+            ]
         ];
 
         $page = (object) [
@@ -112,8 +119,12 @@ class BansosController extends Controller
         }
 
         $breadcrumb = (object) [
-            'title' => 'Detail Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail']
+            'title' => 'Daftar Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+                ['name' => 'Daftar Bantuan Sosial', 'url' => url('admin/bansos/daftar')],
+            ]
         ];
 
         $page = (object) [
@@ -150,9 +161,13 @@ class BansosController extends Controller
     }
     public function create_bansos()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Tambah Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+                ['name' => 'Tambah Bantuan Sosial', 'url' => url('admin/bansos/create')],
+            ]
         ];
 
         $page = (object)[
@@ -197,9 +212,13 @@ class BansosController extends Controller
             return redirect('admin/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Edit Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+                ['name' => 'Edit Bantuan Sosial', 'url' => url('admin/bansos/edit')],
+            ]
         ];
 
         $page = (object)[
@@ -262,8 +281,12 @@ class BansosController extends Controller
             ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
 
         $breadcrumb = (object) [
-            'title' => 'Detail Keluarga Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Detail Keluarga Penerimaan']
+            'title' => 'Detail Keluarga Penerima Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('admin/bansos')],
+                ['name' => 'Detail Bantuan Sosial', 'url' => url('admin/bansos/detail_kriteria')],
+            ]
         ];
 
         $page = (object) [
@@ -315,7 +338,11 @@ class BansosController extends Controller
         $bansos = BansosModel::all();
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
-            'list' => ['Home', 'Bantuan Sosial', 'Histori Penerimaan']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rt')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
+                ['name' => 'Histori', 'url' => url('rt/bansos/histori')],
+            ]
         ];
 
         $page = (object) [

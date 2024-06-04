@@ -5,10 +5,11 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.rw_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
+        {{-- <div class="flex flex-col">
             <h1 class="py-5 ml-5 text-2xl font-bold">{{$page->title}}</h1>
-        </div>
+        </div> --}}
         <div class="w-full h-fit min-w-max p-5">
+            @include('layout.breadcrumb2')
             <form id="form" class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/keluarga') }}" method="POST" enctype="multipart/form-data">
                 <h1 class="pb-5 mb-10 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2">
                     Isi data keluarga

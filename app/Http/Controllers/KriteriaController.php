@@ -19,14 +19,17 @@ class KriteriaController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria',
-            'list' => ['Home', 'Kriteria', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Detail Kriteria', 'url' => url('admin/bansos')],
+            ]
         ];
 
         $page = (object) [
             'title' => 'Detail Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('admin.kriteria.show', [
             'breadcrumb' => $breadcrumb,
@@ -38,16 +41,20 @@ class KriteriaController extends Controller
 
     public function update_kriteria()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Tambah Kriteria',
-            'list' => ['Home', 'Kriteria', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Bantuan Sosial', 'url' => url('/admin/bansos')],
+                ['name' => 'Kriteria Create', 'url' => url('admin/kriteria/create')],
+            ]
         ];
 
         $page = (object)[
             'title' => 'Tambah Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('admin.kriteria.update', [
             'breadcrumb' => $breadcrumb,
@@ -105,7 +112,7 @@ class KriteriaController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/rt')],
                 ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
-                ['name' => 'Show', 'url' => url('rt/kriteria/show')],
+                ['name' => 'Detail Kriteria', 'url' => url('rt/kriteria/show')],
             ]
         ];
 
@@ -113,7 +120,7 @@ class KriteriaController extends Controller
             'title' => 'Detail Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('rt.kriteria.show', [
             'breadcrumb' => $breadcrumb,
@@ -137,7 +144,7 @@ class KriteriaController extends Controller
             'title' => 'Tambah Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('rt.kriteria.update', [
             'breadcrumb' => $breadcrumb,
@@ -191,14 +198,18 @@ class KriteriaController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria',
-            'list' => ['Home', 'Kriteria', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/rw')],
+                ['name' => 'Bantuan Sosial', 'url' => url('rw/bansos')],
+                ['name' => 'Detail Kriteria', 'url' => url('rw/kriteria/show')],
+            ]
         ];
 
         $page = (object) [
             'title' => 'Detail Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('rw.kriteria.show', [
             'breadcrumb' => $breadcrumb,
@@ -219,7 +230,7 @@ class KriteriaController extends Controller
             'title' => 'Tambah Kriteria'
         ];
 
-        $activeMenu = 'kriteria';
+        $activeMenu = 'bansos';
 
         return view('rw.kriteria.update', [
             'breadcrumb' => $breadcrumb,

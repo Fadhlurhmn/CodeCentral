@@ -12,11 +12,12 @@
   <!-- start content -->
   <div class="bg-white flex-1 md:mt-16 cursor-default"> 
     {{-- Kotak atas & judul --}}
-    <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col items-start">
-      <h1 class="py-5 text-2xl text-gray-600 font-extrabold">{{$breadcrumb->title}}</h1>
-        {{-- <p class="mb-3 text-xl">{{$page->title}}</p> --}}
+    <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col">
+        
+        @include('layout.breadcrumb2')
+
         <div class="flex justify-between w-full">
-          <a href="{{ url('admin/promosi/') }}" class="p-2 mb-5 bg-teal-300 text-teal-900 text-center shadow-md font-medium rounded-lg transition duration-300 ease-in-out hover:bg-teal-500">Kembali</a>
+          <a href="{{ url('admin/promosi/') }}" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg">Kembali</a>
           
           {{-- Search form --}}
           <form action="{{ url()->current() }}" method="GET" class="text-sm font-medium ">
@@ -28,7 +29,7 @@
     </div>
     {{-- End kotak atas & judul --}}
     {{-- Bagian Daftar Promosi Usaha Warga --}}
-    <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
+    <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-2 border-teal-400 cursor-default">
         @foreach ($promosi as $umkm)
           <div class="rounded-lg shadow-md flex flex-col">
               <div class="relative">

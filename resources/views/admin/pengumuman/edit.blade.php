@@ -2,14 +2,14 @@
 
 @include('layout.a_navbar')
 
-<div class="h-screen flex flex-row">
+<div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        {{-- start breadcrumb --}}
-        @include('layout.breadcrumb')
-        {{-- end breadcrumb --}}
-
+        
         <div class="w-full h-fit p-5">
+            {{-- start breadcrumb --}}
+            @include('layout.breadcrumb2')
+            {{-- end breadcrumb --}}
 
             <!-- Display errors -->
             @if(!$pengumuman)

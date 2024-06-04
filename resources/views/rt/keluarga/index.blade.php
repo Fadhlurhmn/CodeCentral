@@ -6,18 +6,6 @@
         @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('rt/keluarga/create')}}">Tambah Data Keluarga</a>
-            {{-- 
-            <div class="flex">
-                <p class="py-1 mr-2">Filter Rt : </p>
-                <select name="rt" id="rt" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
-                    <option value="all" selected>Semua RT</option>
-                    <option value="1">Rt. 1</option>
-                    <option value="2">Rt. 2</option>
-                    <option value="3">Rt. 3</option>
-                    <option value="4">Rt. 4</option>
-                </select>
-            </div> 
-            --}}
         </div>
         @if (session('success'))
         <div id="successMessage" class="col-span-4">
