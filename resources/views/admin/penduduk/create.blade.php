@@ -73,11 +73,17 @@
                 <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir <span class="text-red-500">*</span></label>
                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tanggal Lahir" value="{{old('tanggal_lahir')}}" required />
                 {{-- Jenis Kelamin --}}
-                {{-- <label for="jenis_kelamin" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
-                <select name="jenis_kelamin" id="jenis_kelamin" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
-                    <option value="laki_laki">Laki-laki</option>
-                    <option value="perempuan">Perempuan</option>
-                </select> --}}
+                <label for="jenis_kelamin" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
+                <div class="col-span-4">
+                    <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                        <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="pria" required>
+                        <span class="ml-2 text-xs text-gray-900">Pria</span>
+                    </label>
+                    <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                        <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="wanita" required>
+                        <span class="ml-2 text-xs text-gray-900">Wanita</span>
+                    </label>
+                </div>
                 {{-- Alamat KTP --}}
                 <label for="alamat_ktp" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Alamat KTP <span class="text-red-500">*</span></label>
                 <input type="text" name="alamat_ktp" id="alamat_ktp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Alamat KTP" value="{{old('alamat_ktp')}}" required></input>

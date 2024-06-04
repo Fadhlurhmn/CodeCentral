@@ -80,6 +80,18 @@
                     {{-- tanggal_lahir --}}
                     <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
+                    {{-- Jenis Kelamin --}}
+                    <label for="jenis_kelamin" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
+                    <div class="col-span-4">
+                        <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                            <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="pria" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == 'pria' ? 'checked' : '' }} required>
+                            <span class="ml-2 text-xs text-gray-900">Pria</span>
+                        </label>
+                        <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                            <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="wanita" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == 'wanita' ? 'checked' : '' }} required>
+                            <span class="ml-2 text-xs text-gray-900">Wanita</span>
+                        </label>
+                    </div>
                     {{-- gol_darah --}}
                     <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah</label>
                     <div class="col-span-4">
@@ -107,14 +119,14 @@
                     {{-- status penduduk --}}
                     <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
                     <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option>
+                        {{-- <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option> --}}
                         <option value="Tetap">Tetap</option>
                         <option value="Sementara">Sementara</option>
                     </select>
                     {{-- status data --}}
                     <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">status_data</label>
                     <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                            
+                        {{-- <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                             --}}
                         <option value="Aktif">Aktif</option>
                         <option value="Tidak aktif">Tidak aktif</option>
                     </select>

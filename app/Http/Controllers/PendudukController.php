@@ -71,6 +71,7 @@ class PendudukController extends Controller
         $request->validate([
             'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
             'no_telp' => 'required|string',
             'tempat_lahir' => 'required|string',
@@ -99,6 +100,7 @@ class PendudukController extends Controller
         PendudukModel::create([
             'nik' => $request->nik,
             'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat_ktp' => $request->alamat_ktp,
             'alamat_domisili' => $request->alamat_domisili,
             'no_telp' => $request->no_telp,
@@ -170,6 +172,7 @@ class PendudukController extends Controller
         $request->validate([
             'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
             'alamat_domisili' => 'required|string',
             'no_telp' => 'required|string',
@@ -196,6 +199,7 @@ class PendudukController extends Controller
             $penduduk->update([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat_ktp' => $request->alamat_ktp,
                 'alamat_domisili' => $request->alamat_domisili,
                 'no_telp' => $request->no_telp,
@@ -215,6 +219,7 @@ class PendudukController extends Controller
             $penduduk->update([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat_ktp' => $request->alamat_ktp,
                 'alamat_domisili' => $request->alamat_domisili,
                 'no_telp' => $request->no_telp,
@@ -390,6 +395,7 @@ class PendudukController extends Controller
         $request->validate([
             'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
             'no_telp' => 'required|string',
             'tempat_lahir' => 'required|string',
@@ -418,6 +424,7 @@ class PendudukController extends Controller
         PendudukModel::create([
             'nik' => $request->nik,
             'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat_ktp' => $request->alamat_ktp,
             'alamat_domisili' => $request->alamat_domisili,
             'no_telp' => $request->no_telp,
@@ -484,6 +491,7 @@ class PendudukController extends Controller
         $request->validate([
             'nik' => 'required|string|digits:16',
             'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
             'alamat_domisili' => 'required|string',
             'no_telp' => 'required|string',
@@ -510,6 +518,7 @@ class PendudukController extends Controller
             $penduduk->update([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat_ktp' => $request->alamat_ktp,
                 'alamat_domisili' => $request->alamat_domisili,
                 'no_telp' => $request->no_telp,
@@ -529,6 +538,7 @@ class PendudukController extends Controller
             $penduduk->update([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat_ktp' => $request->alamat_ktp,
                 'alamat_domisili' => $request->alamat_domisili,
                 'no_telp' => $request->no_telp,

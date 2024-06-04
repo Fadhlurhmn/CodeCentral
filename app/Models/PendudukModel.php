@@ -12,7 +12,7 @@ class PendudukModel extends Model
 
     protected $table = 'penduduk';
     protected $primaryKey = 'id_penduduk';
-    protected $fillable = ['nama', 'nik', 'alamat_ktp', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'foto_ktp', 'status_data', 'rt', 'rw', 'status_penduduk', 'alamat_domisili'];
+    protected $fillable = ['nama', 'nik', 'alamat_ktp','jenis_kelamin', 'no_telp', 'tempat_lahir', 'tanggal_lahir', 'agama', 'pekerjaan', 'gol_darah', 'foto_ktp', 'status_data', 'rt', 'rw', 'status_penduduk', 'alamat_domisili'];
 
     public function detail_keluarga()
     {
