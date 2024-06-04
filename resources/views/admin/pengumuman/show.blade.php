@@ -22,7 +22,7 @@
                     Ditulis oleh {{ $pengumuman->user->username }}
                 </div>
                 <div class="text-base text-slate-400 font-light mb-4">
-                    {{ $pengumuman->created_at->format('d M Y, H:i:s') }}
+                    {{ $pengumuman->created_at->setTimezone('Asia/Jakarta')->format('d M Y, H:i:s') }}
                 </div>
             </div>
             {{-- tampilan content pengumuman --}}

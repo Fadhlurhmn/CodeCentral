@@ -112,15 +112,15 @@ Route::middleware(['cek_login:1'])->group(function () {
         });
 
         Route::group(['prefix' => 'pengumuman'], function () {
-            Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
-            Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
-            Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
-            Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
-            Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
-            Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
-            Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
+            Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal pengumuman
+            Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data pengumuman dalam bentuk json untuk datatables
+            Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah pengumuman
+            Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data pengumuman baru
+            Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail pengumuman
+            Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit pengumuman
+            Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data pengumuman
             Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
-            // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+            Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data pengumuman
         });
 
         Route::group(['prefix' => 'bansos'], function () {
