@@ -121,22 +121,6 @@
         @csrf
 
         <div class="form-group mb-5">
-          {{-- <div class="form-group mb-5">
-            <label class="form-label" for="judul_pengaduan">Judul Pengaduan</label>
-            <input
-              class="form-control"
-              type="text"
-              id="judul_pengaduan"
-              name="judul_pengaduan"
-              placeholder="Masukkan judul pengaduan anda"
-              value="{{ old('judul_pengaduan') }}"
-              required
-            />
-            @error('judul_pengaduan')
-                <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
-            @enderror
-          </div> --}}
-
           <input type="hidden" name="pengirim" value="{{ session('pengirim') }}">
 
           <div class="form-group mb-5">
@@ -174,29 +158,14 @@
             <label class="form-label" for="penerima_aduan">Sampaikan aduan ke:</label>
             <select name="penerima_aduan" id="penerima_aduan" class="form-select" required>
               <option value="">Pilih penerima aduan</option>
-              <option value="RW">RW</option>
-              <option value="RT1">RT 1</option>
-              <option value="RT2">RT 2</option>
-              <option value="RT3">RT 3</option>
-              <option value="RT4">RT 4</option>
+              @foreach ($list_pengurus as $pengurus)
+                <option value="{{ $pengurus->id_penduduk }}">{{ $pengurus->level->nama_level }}</option>
+              @endforeach
             </select>
             @error('penerima_aduan')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
           </div>
-{{-- 
-          <div class="form-group mb-5">
-            <label class="form-label" for="berkas_pengaduan">Lampiran (MAX 2MB)</label>
-            <input
-                    class="block h-[60px] w-full text-sm border border-gray-200 bg-white text-dark rounded-lg cursor-pointer focus:outline-none file:rounded-l-lg file:text-dark file:h-[60px] file:px-4 file:border-0"
-                    type="file"
-                    id="berkas_pengaduan"
-                    name="berkas_pengaduan"
-                    value="{{ old('berkas_pengaduan') }}">
-            @error('berkas_pengaduan')
-                <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
-            @enderror
-          </div> --}}
 
         <button
           class="btn btn-primary block w-full"

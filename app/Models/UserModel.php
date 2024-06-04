@@ -20,6 +20,6 @@ class UserModel extends Model implements Authenticatable
 
     public function level(): BelongsTo
     {
-        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+        return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
 }
