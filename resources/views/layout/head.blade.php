@@ -91,6 +91,9 @@
     <!-- Main Stylesheet -->
     @vite('resources/css/main.scss')
     {{-- <link href="css/main.css" rel="stylesheet" /> --}}
+
+    {{-- Flowbite --}}
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" /> --}}
   </head>
   
 </head>

@@ -355,7 +355,7 @@ select:invalid {
 
 //tag
 .tag {
-  @apply inline-block h-8 rounded-3xl border border-primary bg-[#FAEBE1] px-3.5 py-2 text-sm leading-none text-primary transition-all hover:bg-primary hover:text-white;
+  @apply inline-block h-8 rounded-3xl text-black border bg-white px-3.5 py-2 text-sm leading-none transition-all hover:bg-gray-300 hover:border-none;
 }
 
 //featured-posts

@@ -49,28 +49,28 @@
         </ul>
       </div>
       <div class="col-12 mt-12 md:col-4 lg:col-3">
-        <h6>LAYANAN</h6>
+        <h6>MENU</h6>
         <ul>
           <li>
-            <a href="{{ route('user.landing') }}">Home</a>
+            <a class="text-inherit" href="{{ route('user.landing') }}">Home</a>
           </li>
           <li>
-            <a href="{{ route('user.pengumuman') }}">Pengumuman</a>
+            <a class="text-inherit" href="{{ route('user.pengumuman') }}">Pengumuman</a>
           </li>
           <li>
-            <a href="{{ route('user/umkm') }}">UMKM</a>
+            <a class="text-inherit" href="{{ route('user/umkm') }}">UMKM</a>
           </li>
           <li>
-            <a href="{{ route('user.bansos.list') }}">Bansos</a>
+            <a class="text-inherit" href="{{ route('user.bansos.list') }}">Bansos</a>
           </li>
           <li>
-            <a href="{{ route('user.surat') }}">Surat</a>
+            <a class="text-inherit" href="{{ route('user.surat') }}">Surat</a>
           </li>
           <li>
-            <a href="{{ route('user.pengaduan') }}">Pengaduan</a>
+            <a class="text-inherit" href="{{ route('user.pengaduan') }}">Pengaduan</a>
           </li>
           <li>
-            <a href="/login">Login</a>
+            <a class="text-inherit" href="/login">Login</a>
           </li>
         </ul>
       </div>
@@ -84,6 +84,9 @@
     </div>
   </div> --}}
 </footer>
+
+{{-- Flowbite --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 <!-- jQuery -->
 <!-- <script src="plugins/jquery/jquery.min.js"></script> -->

@@ -44,3 +44,11 @@ h6,
 .h6 {
   @apply text-h6;
 }
+
+a {
+  @apply text-blue-600 hover:underline;
+}
+
+a[class] {
+  @apply hover:no-underline;
+}
