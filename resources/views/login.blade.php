@@ -1,5 +1,8 @@
 @include('layout.start')
 
+<!-- Add the viewport meta tag to prevent zooming -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <!-- start content -->
 <div class="bg-gradient-to-tl from-teal-600/70 via-gray-300 to-teal-500/70 min-h-screen flex items-center justify-center cursor-default">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -15,8 +18,9 @@
               @error('login_gagal')
               <div id="error-message" class="text-sm bg-red-500/20 border-2 border-red-400/40 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Login Gagal!</strong>
+                <br>
                 <span class="block sm:inline">{{ $message }}</span>
-                <button type="button" id="close-error" class="absolute bottom-7 right-0 py-3">
+                <button type="button" id="close-error" class="absolute top-0 right-0">
                   <svg class="fill-current h-6 w-6 text-red-700" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 00-1.415 0L10 8.585 7.067 5.652a1 1 0 10-1.415 1.415L8.585 10l-2.933 2.933a1 1 0 101.415 1.415L10 11.415l2.933 2.933a1 1 0 001.415-1.415L11.415 10l2.933-2.933a1 1 0 000-1.415z"/></svg>
                 </button>
               </div>
