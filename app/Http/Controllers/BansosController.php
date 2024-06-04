@@ -393,7 +393,7 @@ class BansosController extends Controller
             ->where('id_penduduk', $id_penduduk_rt)
             ->first();
 
-        $keluarga_yang_mengajukan = alternatif_per_rt::where('rt', $rt_penduduk->rt)
+        $keluarga_yang_mengajukan = ajuan_bansos_pending_per_rt::where('rt', $rt_penduduk->rt)
             ->distinct()
             ->count('id_keluarga');
 
@@ -530,7 +530,7 @@ class BansosController extends Controller
 
         // Validasi input
         $request->validate([
-            'status.*' => 'required|in:acc,tolak'
+            'status.*' => 'required|in:acc_rt,tolak'
         ]);
 
         // Perbarui status untuk setiap keluarga yang ada di request
@@ -646,9 +646,9 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-  
-//   CONTROLLER UNTUK RW
-  // controller untuk rw
+
+    //   CONTROLLER UNTUK RW
+    // controller untuk rw
     public function index_rw()
     {
         $breadcrumb = (object) [
@@ -714,7 +714,7 @@ class BansosController extends Controller
             return redirect('rw/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
 
-       $breadcrumb = (object) [
+        $breadcrumb = (object) [
             'title' => 'Detail Bantuan Sosial',
             'list' => [
                 ['name' => 'Home', 'url' => url('/rw')],
@@ -814,7 +814,6 @@ class BansosController extends Controller
     public function store_bansos_rw(Request $request)
     {
         $request->validate([
-            'kode' => 'required|string',
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
             'pengirim' => 'required|string',
@@ -823,7 +822,6 @@ class BansosController extends Controller
         ]);
 
         $bansos = new BansosModel();
-        $bansos->kode = $request->kode;
         $bansos->nama = $request->nama_bansos;
         $bansos->tanggal_pemberian = $request->tanggal_bansos;
         $bansos->pengirim = $request->pengirim;
@@ -969,7 +967,7 @@ class BansosController extends Controller
             $histori_bansos = histori_penerimaan_bansos::all();
         }
         $bansos = BansosModel::all();
-      
+
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
             'list' => [
@@ -993,5 +991,4 @@ class BansosController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-  
 }
