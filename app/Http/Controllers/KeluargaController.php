@@ -146,7 +146,7 @@ class KeluargaController extends Controller
         // Hitung total jumlah orang dari kedua kategori tersebut
         $totalOrang = $jumlahOrangBekerja + $jumlahTanggungan;
 
-        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
+        $penduduk = PendudukModel::whereDoesntHave('detail_keluarga')->get();
         $activeMenu = 'detail_keluarga'; // set menu yang sedang aktif
 
         return view('admin.keluarga.create_anggota', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu], compact('totalOrang'));
