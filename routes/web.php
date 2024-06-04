@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuratController;
@@ -9,11 +10,11 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\UserUmkmController;
+use App\Http\Controllers\UserSuratController;
 use App\Http\Controllers\UserBansosController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserPengaduanController;
 use App\Http\Controllers\UserPengumumanController;
-use App\Http\Controllers\UserSuratController;
 
 // User Routes
 // Route::get('/', function () {
@@ -29,13 +30,10 @@ Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name(
 
 
 Route::group(['prefix' => 'umkm'], function () {
-    Route::get('/', function () {
-        return view('user.umkm.index');
-    })->name('user/umkm');
-
-    Route::get('/promosi-umkm', function () {
-        return view('user.umkm.create');
-    })->name('user/umkm/create');
+    Route::get('/', [UserUmkmController::class, 'index'])->name('user.umkm');
+    Route::get('/promosi-umkm', [UserUmkmController::class, 'create'])->name('user.umkm.create');
+    Route::post('/promosi-umkm', [UserUmkmController::class, 'store'])->name('user.umkm.store');
+    Route::post('/umkmVerif', [UserUmkmController::class, 'verifyDataDiri'])->name('verifyDataDiriUmkm');
 });
 
 Route::group(['prefix' => 'bansos'], function () {

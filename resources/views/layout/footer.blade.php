@@ -58,7 +58,7 @@
             <a class="text-inherit" href="{{ route('user.pengumuman') }}">Pengumuman</a>
           </li>
           <li>
-            <a class="text-inherit" href="{{ route('user/umkm') }}">UMKM</a>
+            <a class="text-inherit" href="{{ route('user.umkm') }}">UMKM</a>
           </li>
           <li>
             <a class="text-inherit" href="{{ route('user.bansos.list') }}">Bansos</a>

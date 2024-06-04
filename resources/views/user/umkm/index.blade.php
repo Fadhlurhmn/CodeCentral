@@ -29,7 +29,41 @@
           Selamat datang di halaman UMKM <span class="font-bold">RW 3 Tlogomas.</span> 
           <br>Di sini, Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
         </p>
-        <a class="btn btn-primary mt-4" href="{{ route('user/umkm/create') }}">Promosikan Usaha Anda</a>
+        <a class="btn btn-primary mt-4" href="{{ route('user.umkm.create') }}">Promosikan Usaha Anda</a>
+        <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="btn btn-outline-primary mt-4" type="button">Periksa Status Pengajuan Promosi</button>
+
+        <!-- Main modal -->
+        <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden bg-black/30 fixed top-0 right-0 left-0 z-50 justify-center text-left items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                        <h4 class="text-xl font-semibold text-gray-900">
+                            Cek Status Pengajuan Promosi
+                        </h4>
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5">
+                        <form class="space-y-4" method="GET" action="{{ route('user.umkm') }}">
+                            <div>
+                                <label for="kode_umkm" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
+                                <input type="kode_umkm" name="kode_umkm" id="kode_umkm" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
+                            </div>
+                            
+                            <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
   </div>
 </section>
