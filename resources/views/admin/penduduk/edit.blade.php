@@ -112,6 +112,7 @@
                         <span class="text-gray-800 mr-2 pt-2">+62</span>
                         <input type="number" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
                     </div>
+                    <div id="no_telpError" class="hidden col-span-4 text-red-500 text-xs">Nomor Telpon diisi dengan 11 karakter setlah +62</div>
                     {{-- pekerjaan --}}
                     <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan</label>
                     <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" value="{{ $penduduk->pekerjaan }}" required />
@@ -179,6 +180,17 @@
         }
     });
 
+    document.getElementById('no_telp').addEventListener('input', function() {
+        var no_telpInput = this.value;
+        var no_telpError = document.getElementById('no_telpError');
+        
+        if (no_telpInput.length !== 11) {
+            no_telpError.classList.remove('hidden');
+        } else {
+            no_telpError.classList.add('hidden');
+        }
+    });
+
     const foto_ktp = document.getElementById('foto_ktp');
     
     const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
@@ -208,7 +220,7 @@
         var no_telp_value = no_telp_input.value;
 
         // Memastikan bahwa nomor telepon dimulai dengan +62
-        if (!no_telp_value.startsWith('+62')) {
+        if (!no_telp_value.startsWith('62')) {
             no_telp_input.value = '62' + no_telp_value;
         }
     });
