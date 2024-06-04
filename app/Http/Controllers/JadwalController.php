@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detail_jadwal_keamanan;
 use App\Models\jadwal_kebersihan;
 use App\Models\rangkuman_jadwal_keamanan;
 use App\Models\satpam;
@@ -172,6 +173,99 @@ class JadwalController extends Controller
         } else {
             // Jika data satpam tidak ditemukan, kembalikan dengan pesan kesalahan
             return redirect('admin/jadwal/')->with('error', 'Data Satpam tidak ditemukan');
+        }
+    }
+    // form update jadwal keamanan
+    public function edit_jadwal_keamanan(string $id)
+    {
+        $jadwal_keamanan = detail_jadwal_keamanan::find($id);
+
+        if (!$jadwal_keamanan) {
+            return redirect('admin/jadwal')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
+        }
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Jadwal Keamanan',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Edit Data', 'url' => url('admin/jadwal/keamanan/edit')],
+            ]
+        ];
+
+        $page = (object)[
+            'title' => 'Edit Jadwal Keamanan'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.keamanan.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_keamanan' => $jadwal_keamanan, 'activeMenu' => $activeMenu]);
+    }
+    // update jadwal keamanan
+    public function update_jadwal_keamanan(Request $request, $id)
+    {
+        $request->validate([
+            'id_satpam' => 'required|string'
+        ]);
+
+        // Temukan data jadwal_keamanan berdasarkan id
+        $jadwal_keamanan = detail_jadwal_keamanan::find($id);
+
+        // Periksa jika data jadwal_keamanan ditemukan
+        if ($jadwal_keamanan) {
+            // Perbarui data jadwal_keamanan
+            $jadwal_keamanan->update([
+                'id_satpam' => $request->id_satpam
+            ]);
+
+            return redirect('admin/jadwal/')->with('success', 'Data Jadwal Keamanan berhasil diupdate');
+        } else {
+            // Jika data jadwal_keamanan tidak ditemukan, kembalikan dengan pesan kesalahan
+            return redirect('admin/jadwal/')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
+        }
+    }
+    public function edit_jadwal_kebersihan(string $id)
+    {
+        $jadwal_kebersihan = jadwal_kebersihan::find($id);
+
+        if (!$jadwal_kebersihan) {
+            return redirect('admin/jadwal')->with('error', 'Data Jadwal Kebersihan tidak ditemukan');
+        }
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Jadwal kebersihan',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Keluarga', 'url' => url('admin/jadwal')],
+                ['name' => 'Edit Data', 'url' => url('admin/jadwal/kebersihan/edit')],
+            ]
+        ];
+
+        $page = (object)[
+            'title' => 'Edit Jadwal kebersihan'
+        ];
+        $activeMenu = 'jadwal';
+        return view('admin.jadwal.kebersihan.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_kebersihan' => $jadwal_kebersihan, 'activeMenu' => $activeMenu]);
+    }
+    // update jadwal kebersihan
+    public function update_jadwal_kebersihan(Request $request, $id)
+    {
+        $request->validate([
+            'waktu' => 'required'
+        ]);
+
+        // Temukan data jadwal_kebersihan berdasarkan id
+        $jadwal_kebersihan = jadwal_kebersihan::find($id);
+
+        // Periksa jika data jadwal_kebersihan ditemukan
+        if ($jadwal_kebersihan) {
+            // Perbarui data jadwal_kebersihan
+            $jadwal_kebersihan->update([
+                'waktu' => $request->waktu
+            ]);
+
+            return redirect('admin/jadwal/')->with('success', 'Data Jadwal kebersihan berhasil diupdate');
+        } else {
+            // Jika data jadwal_kebersihan tidak ditemukan, kembalikan dengan pesan kesalahan
+            return redirect('admin/jadwal/')->with('error', 'Data Jadwal kebersihan tidak ditemukan');
         }
     }
 }

@@ -163,6 +163,19 @@ Route::middleware(['cek_login:1'])->group(function () {
                 Route::post('/{id}', [JadwalController::class, 'update_satpam']);     // menyimpan perubahan data level
                 Route::delete('/{id}', [JadwalController::class, 'destroy_satpam']);
             });
+
+            // route jadwal keamanan
+            Route::group(['prefix' => 'keamanan'], function () {
+                Route::post('/list', [JadwalController::class, 'list_jadwal_keamanan']);
+                Route::get('/{id}/edit', [JadwalController::class, 'edit_jadwal_keamanan']);  // menampilkan halaman form edit level
+                Route::post('/{id}', [JadwalController::class, 'update_jadwal_keamanan']);
+            });
+            // route jadwal kebersihan
+            Route::group(['prefix' => 'kebersihan'], function () {
+                Route::post('/list', [JadwalController::class, 'list_jadwal_kebersihan']);
+                Route::get('/{id}/edit', [JadwalController::class, 'edit_jadwal_kebersihan']);  // menampilkan halaman form edit level
+                Route::post('/{id}', [JadwalController::class, 'update_jadwal_kebersihan']);
+            });
         });
     });
 });
