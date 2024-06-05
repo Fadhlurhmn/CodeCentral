@@ -9,7 +9,8 @@ class satpam extends Model
 {
     use HasFactory;
     protected $table = 'satpam';
-    protected $fillable = ['id_satpam', 'nama', 'nomor_telepon'];
+    protected $primaryKey = 'id_satpam';
+    protected $fillable = ['nama', 'nomor_telepon'];
 
     public function jadwal_keamanan()
     {

@@ -8,7 +8,7 @@
 
         <div class="w-full h-fit min-w-max p-5 ">
             @include('layout.breadcrumb2')
-            <form id="satpamForm" method="post" action="{{ url('admin/jadwal/satpam') }}">
+            <form id="kebersihanForm" method="post" action="{{ url('admin/jadwal/kebersihan') }}">
                 @csrf
                 <div class="grid grid-cols-4 gap-4 text-sm">
                     <div class="col-span-full">

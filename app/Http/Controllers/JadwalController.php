@@ -131,36 +131,36 @@ class JadwalController extends Controller
     // store data satpam
     public function store_satpam(Request $request)
     {
+        // Validasi data
         $request->validate([
-            'id_satpam.*' => 'required|string',
             'nama.*' => 'required|string',
-            'nomor_telepon.*' => 'required|string|digits:15'
+            'nomor_telepon.*' => 'required|numeric',
         ]);
 
+        // Ambil data dari form
         $data = $request->all();
 
-        // Iterasi setiap data yang diinputkan
-        foreach ($data['nama'] as $index => $nama) {
-            // Jika ID satpam sudah ada, update data tersebut
-            if (!empty($data['id'][$index])) {
-                $satpam = Satpam::find($data['id'][$index]);
+        // Loop melalui data dan simpan setiap satpam
+        foreach ($data['id'] as $index => $id) {
+            if ($id) {
+                // Update existing record
+                $satpam = Satpam::find($id);
                 if ($satpam) {
-                    $satpam->update([
-                        'nama' => $nama,
-                        'nomor_telepon' => $data['nomor_telepon'][$index]
-                    ]);
+                    $satpam->nama = $data['nama'][$index];
+                    $satpam->nomor_telepon = $data['nomor_telepon'][$index];
+                    $satpam->save();
                 }
             } else {
-                // Jika ID tidak ada, buat data baru
+                // Create new record
                 Satpam::create([
-                    'id_satpam' => $index,
-                    'nama' => $nama,
-                    'nomor_telepon' => $data['nomor_telepon'][$index]
+                    'nama' => $data['nama'][$index],
+                    'nomor_telepon' => $data['nomor_telepon'][$index],
                 ]);
             }
         }
 
-        return redirect('admin/jadwal')->with('success', 'Data Satpam berhasil disimpan');
+        // Redirect ke halaman edit dengan pesan sukses
+        return redirect('admin/jadwal/')->with('success', 'Data satpam berhasil disimpan.');
     }
 
     // show data satpam

@@ -42,7 +42,7 @@
                       <tr>
                           <th class="p-3 text-sm font-normal border border-teal-300">Nama</th>
                           <th class="p-3 text-sm font-normal border border-teal-300">Nomer Telfon</th>
-                          <th class="p-3 text-sm font-normal border border-teal-300">Aksi</th>
+                          {{-- <th class="p-3 text-sm font-normal border border-teal-300">Aksi</th> --}}
                       </tr>
                   </thead>
                   <tbody>
@@ -50,7 +50,7 @@
                     <tr>
                         <td class="p-3 text-sm text-center border border-teal-300">{{ $petugas->nama }}</td>
                         <td class="p-3 text-sm text-center border border-teal-300">{{ $petugas->nomor_telepon }}</td>
-                        <td class="p-3 text-sm text-center border border-teal-300"><a href="url('admin/jadwal/satpam/' . $satpam->id_satpam . '/edit')" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a></td>
+                        {{-- <td class="p-3 text-sm text-center border border-teal-300"><a href="url('admin/jadwal/satpam/' . $satpam->id_satpam . '/edit')" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a></td> --}}
                     </tr>
                     @endforeach
                   </tbody>
