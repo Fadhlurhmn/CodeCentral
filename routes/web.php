@@ -10,6 +10,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Route;
 
@@ -109,6 +110,15 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/{id}/show', [UserController::class, 'show']);
             Route::get('/{id}/edit', [UserController::class, 'edit']);
             Route::put('/{id}', [UserController::class, 'update']);
+        });
+
+        Route::prefix('jabatan')->group(function () {
+            Route::get('/', [JabatanController::class, 'index']);
+            Route::post('/list', [JabatanController::class, 'list']);
+            Route::get('/create', [JabatanController::class, 'create']);
+            Route::post('/', [JabatanController::class, 'store']);
+            Route::get('/{id}/edit', [JabatanController::class, 'edit']);
+            Route::put('/{id}', [JabatanController::class, 'update']);
         });
 
         Route::group(['prefix' => 'pengumuman'], function () {

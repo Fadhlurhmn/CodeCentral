@@ -26,6 +26,11 @@
         Akun
     </a>
 
+    <a href="{{ url('/admin/jabatan') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300">
+        <i class="fas fa-briefcase text-xs mr-2"></i>
+        Jabatan
+    </a>
+
     <a href="{{ url('/admin/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300">
         <i class="fas fa-people-carry text-xs mr-2"></i>
         Bansos
