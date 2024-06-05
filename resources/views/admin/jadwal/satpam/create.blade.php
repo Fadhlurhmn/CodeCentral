@@ -77,3 +77,24 @@
         });
     });
 </script>
+<script>
+    document.getElementById('satpamForm').addEventListener('submit', function(event) {
+        let isValid = true;
+        let phoneInputs = document.querySelectorAll('input[name="nomor_telepon[]"]');
+    
+        phoneInputs.forEach(function(input) {
+            if (input.value.length !== 12) {
+                isValid = false;
+                input.classList.add('border-red-500');
+                alert('Nomor telepon harus terdiri dari 12 digit');
+            } else {
+                input.classList.remove('border-red-500');
+            }
+        });
+    
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+    </script>
+    

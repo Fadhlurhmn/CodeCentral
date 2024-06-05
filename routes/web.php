@@ -168,7 +168,8 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::group(['prefix' => 'keamanan'], function () {
                 Route::post('/list', [JadwalController::class, 'list_jadwal_keamanan']);
                 Route::get('/edit', [JadwalController::class, 'edit_jadwal_keamanan']);  // menampilkan halaman form edit level
-                Route::post('/{id}', [JadwalController::class, 'update_jadwal_keamanan']);
+                Route::post('/update', [JadwalController::class, 'update_jadwal_keamanan']);
+                Route::post('/', [JadwalController::class, 'store_jadwal_keamanan']);
             });
             // route jadwal kebersihan
             Route::group(['prefix' => 'kebersihan'], function () {

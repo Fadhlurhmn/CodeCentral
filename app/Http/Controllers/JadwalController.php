@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\detail_jadwal_keamanan;
 use App\Models\jadwal_kebersihan;
 use App\Models\jadwal_keamanan;
+use Illuminate\Support\Facades\DB;
 use App\Models\rangkuman_jadwal_keamanan;
 use App\Models\satpam;
 use Illuminate\Http\Request;
@@ -134,7 +135,7 @@ class JadwalController extends Controller
         // Validasi data
         $request->validate([
             'nama.*' => 'required|string',
-            'nomor_telepon.*' => 'required|numeric',
+            'nomor_telepon.*' => 'required|digits:12',
         ]);
 
         // Ambil data dari form
@@ -234,7 +235,6 @@ class JadwalController extends Controller
     {
         $satpam = satpam::all();
         $detail_jadwal = detail_jadwal_keamanan::all();
-
         $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
 
         $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
@@ -265,7 +265,9 @@ class JadwalController extends Controller
         $page = (object)[
             'title' => 'Edit Jadwal Keamanan'
         ];
+
         $activeMenu = 'jadwal';
+
         return view('admin.jadwal.keamanan.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -273,33 +275,47 @@ class JadwalController extends Controller
             'days' => $days,
             'shifts' => $shifts,
             'satpam' => $satpam,
-            'detail_jadwal_keamanan' => $detail_jadwal,
+            'detail_jadwal' => $detail_jadwal,
+            'jadwal_keamanan' => $jadwal_keamanan,
             'activeMenu' => $activeMenu
         ]);
     }
+
     // update jadwal keamanan
-    public function update_jadwal_keamanan(Request $request, $id)
+    public function update_jadwal_keamanan(Request $request)
     {
-        $request->validate([
-            'id_satpam' => 'required|string'
-        ]);
+        $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
 
-        // Temukan data jadwal_keamanan berdasarkan id
-        $jadwal_keamanan = detail_jadwal_keamanan::find($id);
+        foreach ($days as $day) {
+            foreach ($shifts as $shift) {
+                if (isset($request->schedule[$day][$shift])) {
+                    $satpam_ids = $request->schedule[$day][$shift];
 
-        // Periksa jika data jadwal_keamanan ditemukan
-        if ($jadwal_keamanan) {
-            // Perbarui data jadwal_keamanan
-            $jadwal_keamanan->update([
-                'id_satpam' => $request->id_satpam
-            ]);
+                    foreach ($satpam_ids as $id_satpam) {
+                        $satpam = satpam::find($id_satpam);
+                        $day_index = array_search($day, $days) + 1;
 
-            return redirect('admin/jadwal/')->with('success', 'Data Jadwal Keamanan berhasil diupdate');
-        } else {
-            // Jika data jadwal_keamanan tidak ditemukan, kembalikan dengan pesan kesalahan
-            return redirect('admin/jadwal/')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
+                        // Update existing record in detail_jadwal_keamanan
+                        // detail_jadwal_keamanan::where('id_satpam', $id_satpam)
+                        //     ->where('waktu', $shift)
+                        //     ->where('id_jadwal_keamanan', $day_index)
+                        //     ->update(['id_satpam' => $id_satpam]);
+
+                        DB::statement('UPDATE detail_jadwal_keamanan SET id_satpam = ' . $id_satpam . ' WHERE id_jadwal_keamanan = ' . $day_index . ' AND waktu = "' . $shift . '";');
+                    }
+                }
+            }
         }
+
+        return redirect('admin/jadwal/')->with('success', 'Jadwal keamanan berhasil diperbarui');
     }
+
+
+
+
+
+
     public function edit_jadwal_kebersihan()
     {
         $jadwal_kebersihan = jadwal_kebersihan::all();
