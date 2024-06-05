@@ -3,17 +3,17 @@
 <!-- floating assets -->
 <img
   class="floating-bubble-1 absolute right-0 top-0 -z-[1]"
-  src="images/floating-bubble-1.svg"
+  src="{{ asset('images/floating-bubble-1.svg') }}"
   alt=""
 />
 <img
   class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]"
-  src="images/floating-bubble-2.svg"
+  src="{{ asset('images/floating-bubble-2.svg') }}"
   alt=""
 />
 <img
   class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]"
-  src="images/floating-bubble-3.svg"
+  src="{{ asset('images/floating-bubble-3.svg') }}"
   alt=""
 />
 <!-- ./end floating assets -->
@@ -26,8 +26,7 @@
             Bansos
         </h1>
         <p>
-            Selamat datang di halaman Bantuan Sosial <span class="font-bold">RW 3 Tlogomas.</span>  
-            <br>Di sini Anda dapat menemukan informasi terkini mengenai program bantuan sosial yang tersedia bagi warga. Temukan detail tentang berbagai jenis bantuan, syarat dan cara pengajuan, serta jadwal distribusi bantuan sosial.
+            Anda dapat menemukan informasi terkini mengenai program bantuan sosial yang tersedia bagi warga. Temukan detail tentang berbagai jenis bantuan, syarat dan cara pengajuan, serta jadwal distribusi bantuan sosial.
         </p>
     </div>
   </div>

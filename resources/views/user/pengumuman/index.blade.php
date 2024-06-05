@@ -6,8 +6,7 @@
         <div class="page-hero-content mx-auto max-w-[768px] text-center">
             <h1 class="mb-5 mt-8">Berita & Pengumuman</h1>
             <p>
-                Selamat datang di halaman Berita dan Pengumuman <span class="font-bold">RW 3 Tlogomas.</span>
-                <br>Temukan informasi terbaru tentang kegiatan dan layanan di lingkungan kami. Pantau terus untuk berita terbaru, kegiatan terbaru, dan pengumuman penting lainnya.
+                Temukan informasi terbaru tentang kegiatan dan layanan di lingkungan kami. Pantau terus untuk berita terbaru, kegiatan terbaru, dan pengumuman penting lainnya.
             </p>
         </div>
     </div>

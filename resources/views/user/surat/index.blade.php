@@ -2,9 +2,9 @@
 @include('layout.u_navbar')
 
 <!-- floating assets -->
-<img class="floating-bubble-1 absolute right-0 top-0 -z-[1]" src="{{ asset('images/floating-bubble-1.svg') }}" alt="Bubble 1" />
-<img class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="{{ asset('images/floating-bubble-2.svg') }}" alt="Bubble 2" />
-<img class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="{{ asset('images/floating-bubble-3.svg') }}" alt="Bubble 3" />
+<img class="floating-bubble-1 absolute right-0 top-0 -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-1.svg') }}') }}" alt="Bubble 1" />
+<img class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-2.svg') }}') }}" alt="Bubble 2" />
+<img class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-3.svg') }}') }}" alt="Bubble 3" />
 <!-- ./end floating assets -->
 
 <!-- Common hero -->
@@ -13,8 +13,7 @@
     <div class="page-hero-content mx-auto max-w-[768px] text-center">
       <h1 class="mb-5 mt-8">Surat</h1>
       <p>
-        Selamat datang di halaman Surat <span class="font-bold">RW 3 Tlogomas</span>
-        <br>Di sini Anda dapat menemukan berbagai jenis surat yang umum dibutuhkan di tingkat RW dan RT. Untuk kemudahan Anda, kami telah menyediakan file surat yang bisa langsung diunduh. Silakan pilih dan unduh surat yang Anda butuhkan.
+        Anda dapat menemukan berbagai jenis surat yang umum dibutuhkan di tingkat RW dan RT. Untuk kemudahan Anda, kami telah menyediakan file surat yang bisa langsung diunduh. Silakan pilih dan unduh surat yang Anda butuhkan.
       </p>
     </div>
   </div>

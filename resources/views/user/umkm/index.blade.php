@@ -3,17 +3,17 @@
 <!-- floating assets -->
 <img
   class="floating-bubble-1 absolute right-0 top-0 -z-[1]"
-  src="images/floating-bubble-1.svg"
+  src="{{ asset('images/floating-bubble-1.svg') }}"
   alt=""
 />
 <img
   class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]"
-  src="images/floating-bubble-2.svg"
+  src="{{ asset('images/floating-bubble-2.svg') }}"
   alt=""
 />
 <img
   class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]"
-  src="images/floating-bubble-3.svg"
+  src="{{ asset('images/floating-bubble-3.svg') }}"
   alt=""
 />
 <!-- ./end floating assets -->
@@ -26,8 +26,7 @@
             UMKM
         </h1>
         <p>
-          Selamat datang di halaman UMKM <span class="font-bold">RW 3 Tlogomas.</span> 
-          <br>Di sini, Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
+          Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
         </p>
         <a class="btn btn-primary mt-4" href="{{ route('user.umkm.create') }}">Promosikan Usaha Anda</a>
         <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="btn btn-outline-primary mt-4" type="button">Periksa Status Pengajuan Promosi</button>
