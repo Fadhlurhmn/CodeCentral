@@ -132,15 +132,37 @@ class JadwalController extends Controller
     public function store_satpam(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'nomor_telepon' => 'required|string|digits:15'
+            'id_satpam.*' => 'required|string',
+            'nama.*' => 'required|string',
+            'nomor_telepon.*' => 'required|string|digits:15'
         ]);
-        satpam::create([
-            'nama' => $request->nama,
-            'nomor_telepon' => $request->nomor_telepon
-        ]);
-        return redirect('admin/jadwal/')->with('success', 'Data Satpam berhasil disimpan');
+
+        $data = $request->all();
+
+        // Iterasi setiap data yang diinputkan
+        foreach ($data['nama'] as $index => $nama) {
+            // Jika ID satpam sudah ada, update data tersebut
+            if (!empty($data['id'][$index])) {
+                $satpam = Satpam::find($data['id'][$index]);
+                if ($satpam) {
+                    $satpam->update([
+                        'nama' => $nama,
+                        'nomor_telepon' => $data['nomor_telepon'][$index]
+                    ]);
+                }
+            } else {
+                // Jika ID tidak ada, buat data baru
+                Satpam::create([
+                    'id_satpam' => $index,
+                    'nama' => $nama,
+                    'nomor_telepon' => $data['nomor_telepon'][$index]
+                ]);
+            }
+        }
+
+        return redirect('admin/jadwal')->with('success', 'Data Satpam berhasil disimpan');
     }
+
     // show data satpam
     public function edit_satpam(string $id)
     {
@@ -278,9 +300,9 @@ class JadwalController extends Controller
             return redirect('admin/jadwal/')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
         }
     }
-    public function edit_jadwal_kebersihan(string $id)
+    public function edit_jadwal_kebersihan()
     {
-        $jadwal_kebersihan = jadwal_kebersihan::find($id);
+        $jadwal_kebersihan = jadwal_kebersihan::all();
 
         if (!$jadwal_kebersihan) {
             return redirect('admin/jadwal')->with('error', 'Data Jadwal Kebersihan tidak ditemukan');
