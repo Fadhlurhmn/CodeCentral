@@ -28,15 +28,25 @@ class PengumumanController extends Controller
 
         $activeMenu = 'pengumuman';
 
-        // Mendapatkan query pencarian jika ada
+        // Mendapatkan query pencarian dan status jika ada
         $query = $request->input('query');
+        $status = $request->input('status');
+
+        // Mengambil data pengumuman dari database
+        $pengumuman = PengumumanModel::with('user');
+
+        // Menambahkan kondisi pencarian berdasarkan judul pengumuman
         if ($query) {
-            // Jika ada query, cari pengumuman berdasarkan judul
-            $pengumuman = PengumumanModel::with('user')->where('judul_pengumuman', 'like', "%$query%")->get();
-        } else {
-            // Jika tidak ada query, ambil semua pengumuman
-            $pengumuman = PengumumanModel::with('user')->get();
+            $pengumuman->where('judul_pengumuman', 'like', "%$query%");
         }
+
+        // Menambahkan kondisi filter berdasarkan status pengumuman
+        if ($status) {
+            $pengumuman->where('status_pengumuman', $status);
+        }
+
+        // Mendapatkan data pengumuman dari database
+        $pengumuman = $pengumuman->get();
 
         // Menampilkan view dengan data yang telah dikumpulkan
         return view('admin.pengumuman.index', [
@@ -50,11 +60,14 @@ class PengumumanController extends Controller
     // Menampilkan daftar pengumuman dalam bentuk DataTables
     public function list()
     {
+        // Mengambil data pengumuman dari database
         $pengumuman = PengumumanModel::select(['id_pengumuman', 'judul_pengumuman', 'created_at']);
 
+        // Mengembalikan data dalam bentuk DataTables
         return DataTables::of($pengumuman)
             ->addIndexColumn()
             ->addColumn('aksi', function ($pengumuman) {
+                // Membuat tombol aksi untuk melihat dan mengedit pengumuman
                 $btn = '<a href="' . url('admin/pengumuman/' . $pengumuman->id_pengumuman . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
                 $btn .= '<a href="' . url('admin/pengumuman/' . $pengumuman->id_pengumuman . '/edit') . '" class="btn btn-info ml-2 mr-2 flex-col"><i class="fas fa-edit"></i></a> ';
                 return $btn;
@@ -99,9 +112,10 @@ class PengumumanController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'judul_pengumuman' => 'required|string|max:255',
+            'judul_pengumuman' => 'required|string|max:100',
             'deskripsi' => 'required|string',
-            'thumbnail' => 'required|image|max:2048'
+            'thumbnail' => 'required|image|max:2048',
+            'status_pengumuman' => 'required|string',
         ]);
 
         // Menyimpan file thumbnail yang diupload
@@ -115,7 +129,8 @@ class PengumumanController extends Controller
             'id_user' => Auth::user()->id_user,
             'judul_pengumuman' => $request->judul_pengumuman,
             'deskripsi' => $request->deskripsi,
-            'thumbnail' => $nama_file
+            'thumbnail' => $nama_file,
+            'status_pengumuman' => $request->status_pengumuman,
         ]);
 
         // Redirect ke halaman daftar pengumuman dengan pesan sukses
@@ -125,6 +140,7 @@ class PengumumanController extends Controller
     // Menampilkan detail pengumuman
     public function show($id)
     {
+        // Mengambil data pengumuman dari database berdasarkan ID
         $pengumuman = PengumumanModel::findOrFail($id);
 
         // Membuat breadcrumb untuk navigasi
@@ -133,7 +149,7 @@ class PengumumanController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
                 ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
-                ['name' => 'Preview', 'url' => url('admin/pengumuman//{id}/show')]
+                ['name' => 'Preview', 'url' => url('admin/pengumuman/' . $id . '/show')]
             ]
         ];
 
@@ -156,6 +172,7 @@ class PengumumanController extends Controller
     // Menampilkan form untuk mengedit pengumuman
     public function edit($id)
     {
+        // Mengambil data pengumuman dari database berdasarkan ID
         $pengumuman = PengumumanModel::findOrFail($id);
 
         // Membuat breadcrumb untuk navigasi
@@ -164,7 +181,7 @@ class PengumumanController extends Controller
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
                 ['name' => 'Pengumuman', 'url' => url('admin/pengumuman')],
-                ['name' => 'Edit', 'url' => url('admin/pengumuman//{id}/edit')]
+                ['name' => 'Edit', 'url' => url('admin/pengumuman/' . $id . '/edit')]
             ]
         ];
 
@@ -189,11 +206,13 @@ class PengumumanController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'judul_pengumuman' => 'required|string',
+            'judul_pengumuman' => 'required|string|max:100',
             'deskripsi' => 'required|string',
-            'thumbnail' => 'nullable|image|max:2048'
+            'thumbnail' => 'nullable|image|max:2048',
+            'status_pengumuman' => 'required|string',
         ]);
 
+        // Mengambil data pengumuman dari database berdasarkan ID
         $pengumuman = PengumumanModel::findOrFail($id);
 
         // Jika ada file thumbnail yang diupload, simpan dan update data
@@ -207,14 +226,16 @@ class PengumumanController extends Controller
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
                 'deskripsi' => $request->deskripsi,
-                'thumbnail' => $nama_file
+                'thumbnail' => $nama_file,
+                'status_pengumuman' => $request->status_pengumuman,
             ]);
         } else {
             // Jika tidak ada file thumbnail yang diupload, update data tanpa mengubah thumbnail
             $pengumuman->update([
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
-                'deskripsi' => $request->deskripsi
+                'deskripsi' => $request->deskripsi,
+                'status_pengumuman' => $request->status_pengumuman,
             ]);
         }
 
@@ -222,9 +243,23 @@ class PengumumanController extends Controller
         return redirect('admin/pengumuman/')->with('success', 'Pengumuman berhasil diubah');
     }
 
+    // Menghapus pengumuman
+    public function destroy($id)
+    {
+        // Mengambil data pengumuman dari database berdasarkan ID
+        $pengumuman = PengumumanModel::findOrFail($id);
+
+        // Menghapus pengumuman dari database
+        $pengumuman->delete();
+
+        // Mengembalikan respon sukses
+        return response()->json(['success' => true]);
+    }
+
     // Mengupload file untuk pengumuman
     public function upload(Request $request)
     {
+        // Jika ada file yang diupload
         if ($request->hasFile('upload')) {
             $originName = $request->file('upload')->getClientOriginalName();
             $extension = $request->file('upload')->getClientOriginalExtension();
@@ -233,7 +268,10 @@ class PengumumanController extends Controller
             // Menyimpan file yang diupload ke direktori yang ditentukan
             $path = $request->file('upload')->storeAs('public/pengumuman_gambar', $fileName);
 
+            // Mendapatkan URL file yang diupload
             $url = asset('storage/pengumuman_gambar/' . $fileName);
+
+            // Mengembalikan respon dengan URL file yang diupload
             return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
         }
     }

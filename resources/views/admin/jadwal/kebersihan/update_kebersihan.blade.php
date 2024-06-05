@@ -5,19 +5,15 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $page->title }}</h1>
-        </div>
+        
         <div class="w-full h-fit min-w-max p-5">
+        @include('layout.breadcrumb2')
             <form id="form-kebersihan" class="px-10 py-10 bg-white outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/jadwal/kebersihan') }}" method="POST">
-                <h1 class="pb-5 mb-10 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2">
-                    Update Jadwal Kebersihan
-                </h1>
                 @csrf
 
                 <!-- Tabel Jadwal Kebersihan -->
                 <div class="h-auto p-2 mb-10 border-2 border-teal-400 rounded-lg">
-                    <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Kebersihan</h2>
+                    <h2 class="pb-5 my-2 text-xl font-bold text-gray-600">Jadwal Pengankutan Sampah</h2>
                     <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
                         <thead class="bg-teal-400 text-center">
                             <tr>

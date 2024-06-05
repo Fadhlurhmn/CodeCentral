@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PromosiModel extends Model
 {
     use HasFactory;
-    protected $table = 'umkm';
-    protected $primaryKey = 'id_umkm';
-    protected $fillable = ['nama_usaha', 'gambar', 'deskripsi', 'status_pengajuan', 'alamat', 'countdown', 'id_keluarga'];
+    protected $table = 'promosi';
+    protected $primaryKey = 'id_promosi';
+    protected $fillable = ['nama_usaha', 'gambar', 'deskripsi','kategori', 'status_pengajuan', 'alamat', 'countdown', 'id_penduduk'];
 
-    public function keluarga(): BelongsTo
+    public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(KeluargaModel::class, 'id_keluarga', 'id_keluarga');
+        return $this->belongsTo(PendudukModel::class, 'id_penduduk', 'id_penduduk');
     }
 }

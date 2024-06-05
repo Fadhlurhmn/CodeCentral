@@ -26,14 +26,17 @@
 
   {{-- Kotak konten atas (Judul,Card & Search) --}}
 <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-  <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1>
+
+  @include('layout.breadcrumb2')
   @if (session('success'))
-        <div class="col-span-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 shadow-md shadow-green-300/40 px-4 py-3 rounded relative" role="alert">
-                {{-- <strong class="font-bold">Sukses, Surat Berhasil Ditambahkan!</strong> --}}
-                <span class="block font-bold sm:inline">{{ session('success') }} !</span>
-            </div>
-        </div>
+  <div id="successMessage" class="col-span-4">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ session('success') }}</span>
+        <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+            <i class="fas fa-times-circle"></i>
+        </button>
+    </div>
+  </div>
   @endif
   {{-- Card Jumlah bansos & penerima --}}
   <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5">
@@ -54,7 +57,7 @@
 
   {{-- Search --}}
   <div class="flex mb-5 text-xs">
-      <button id="addSuratBtn" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400  text-teal-700 hover:text-teal-900 hover:shadow-teal-500 hover:shadow-lg transition duration-300 ease-in-out rounded-lg">
+      <button id="addSuratBtn" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg">
         Tambah Surat
       </button>
       <form action="javascript:void(0);" method="GET" class="text-sm font-medium ml-auto rounded-md hover:shadow-md hover:shadow-teal-300/50 transition duration-300 ease-in-out" id="searchForm">
@@ -90,7 +93,7 @@
             
             <div class="mb-4 text-sm">
               <label class="block text-gray-700 text-sm mb-2" for="namaSurat">Deskripsi Surat</label>
-              <input type="text" id="deskripsi" name="deskripsi" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Deskripsi Surat..." required>
+              <textarea id="deskripsi" name="deskripsi" class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Deskripsi Surat..." required></textarea>
             </div>
           
             <div class="mb-4 text-sm">
@@ -109,20 +112,8 @@
 
 
 
-{{-- Start Macam bantuan sosial --}}
+{{-- Start Macam Surat --}}
 <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
-  {{-- @foreach($surat as $item)
-  <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-lg rounded-md" data-title="Surat {{ $item->nama_surat }}" id="suratList{{$item->id_surat}}">
-      <div class="flex-col">
-          <h1 class="nama_surat">{{$item->nama_surat}}</h1> <!-- Tambahkan kelas nama_surat -->
-          <p class="deskripsi text-xs">{{$item->deskripsi}}</p> <!-- Tambahkan kelas deskripsi -->
-      </div>
-      <div class="flex space-x-2">
-          <button class="px-4 py-3 text-sm text-white rounded-lg bg-yellow-500 hover:text-white hover:bg-yellow-600 hover:shadow-md hover:shadow-yellow-400 transition duration-200 ease-in-out" onclick="openEditModal({{$item->id_surat}})" id="editSuratBtn{{$item->id_surat}}"><i class="fas fa-edit"></i>Edit</button> <!-- Tambahkan fungsi onclick untuk membuka modal edit -->
-          <button class="px-4 py-3 text-sm text-white rounded-lg bg-red-600 hover:text-white hover:bg-red-700 transition hover:shadow-md hover:shadow-red-400 duration-200 ease-in-out"><i class="fas fa-trash"></i></button>
-      </div>
-  </div>
-  @endforeach --}}
   @foreach($surat as $item)
 <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-lg rounded-md" data-title="Surat {{ $item->nama_surat }}" id="suratList{{$item->id_surat}}">
     <div class="flex-col">
@@ -189,58 +180,6 @@
   });
 </script>
 
-
-{{-- <script>
-  // Function to open the add surat modal
-  const openModal = () => {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('opacity-0');
-    modal.classList.add('opacity-100');
-    modal.classList.remove('pointer-events-none');
-    document.body.classList.add('modal-active');
-  }
-
-  // Function to open the edit surat modal
-  const openEditModal = (id) => {
-    const modal = document.getElementById('modal');
-    const form = document.getElementById('formSurat');
-    const surat = document.getElementById('suratList' + id);
-
-    document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
-    document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
-    // Set form action for editing
-    form.action = "{{url('admin/surat')}}" + '/' + id;
-    
-    modal.classList.remove('opacity-0');
-    modal.classList.add('opacity-100');
-    modal.classList.remove('pointer-events-none');
-    document.body.classList.add('modal-active');
-  }
-
-  // Function to close the modal
-  const closeModal = () => {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('opacity-100');
-    modal.classList.add('opacity-0');
-    modal.classList.add('pointer-events-none');
-    document.body.classList.remove('modal-active');
-  }
-
-  // Event listener to open the add surat modal
-  document.getElementById('addSuratBtn').addEventListener('click', openModal);
-  document.getElementById('editSuratBtn').addEventListener('click', openEditModal);
-
-  // Event listener to close the modal when clicking on close buttons
-  document.querySelectorAll('.modal-close').forEach(el => {
-    el.addEventListener('click', closeModal);
-  });
-
-  // Event listener to close the modal when clicking outside the modal
-  document.getElementById('modal').addEventListener('click', e => {
-    if (e.target == e.currentTarget) closeModal();
-  });
-</script> --}}
-
 <script>
   // Function to open the add surat modal
   const openModal = () => {
@@ -303,9 +242,7 @@
   document.getElementById('modal').addEventListener('click', e => {
     if (e.target == e.currentTarget) closeModal();
   });
-</script>
 
-<script>
   // Script Delete
 document.querySelectorAll('.delete-surat').forEach(btn => {
     btn.addEventListener('click', async (e) => {
@@ -330,6 +267,10 @@ document.querySelectorAll('.delete-surat').forEach(btn => {
         }
     });
 });
+// Script close button session message
+document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
+    });
 </script>
 
 

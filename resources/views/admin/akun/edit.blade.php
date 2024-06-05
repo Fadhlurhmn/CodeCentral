@@ -1,3 +1,23 @@
+{{-- Style Untuk Custom Scrollbar --}}
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
 @include('layout.a_navbar')
@@ -8,12 +28,17 @@
 
     <!-- Bagian konten utama -->
     <div class="flex-grow bg-white">
-        {{-- start breadcrumb --}}
-        @include('layout.breadcrumb')
-        {{-- end breadcrumb --}}
 
-        <div class="w-full h-fit p-5">
-            <form id="form_akun_edit" action="{{ url('admin/akun/' . $user->id_user) }}" method="POST">
+        <!-- Container untuk form edit data akun -->
+        <div class="w-full h-screen min-w-max p-5 shadow overflow-y-auto custom-scrollbar">
+            <!-- Menampilkan breadcrumb -->
+            @include('layout.breadcrumb2')
+
+            <form class="px-10 py-10 min-w-full bg-white grid grid-cols-4 gap-x-20 gap-y-2 outline-none outline-4 outline-gray-700 rounded-xl" action="{{ url('admin/akun/' . $user->id_user) }}" method="POST">
+                <h1 class="px-5 pb-5 pt-10 mb-5 font-semibold text-center text-xl rtl:text-right text-gray-900 border-b-2 col-span-4">
+                    {{ $page->title }}
+                </h1>
+
                 @csrf <!-- Token CSRF untuk keamanan -->
                 @method('PUT') <!-- Metode PUT untuk update data -->
 

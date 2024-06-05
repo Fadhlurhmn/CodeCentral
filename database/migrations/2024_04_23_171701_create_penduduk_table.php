@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('agama', 200);
             $table->string('pekerjaan', 200);
             $table->string('gol_darah', 3);
+            $table->enum('jenis_kelamin', ['pria', 'wanita']);
             $table->string('status_data', 100);
             $table->string('rt', 3);
             $table->string('rw', 3);

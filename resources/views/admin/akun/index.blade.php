@@ -1,20 +1,20 @@
-<div class="container h-full bg-slate-100">
-    <!-- Bagian breadcrumb -->
-    @include('layout.breadcrumb')
-
+<div class="container h-full bg-white">
+    
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
+        <!-- Bagian breadcrumb -->
+        @include('layout.breadcrumb2')
         <!-- Menampilkan judul halaman -->
-        <h1 class="mb-3 text-xl"> {{$page->title}}</h1>
+        {{-- <h1 class="mb-3 text-xl"> {{$page->title}}</h1> --}}
 
         <!-- Bagian untuk tombol tambah data akun dan filter level akun -->
-        <div class="mb-5 text-sm flex justify-between">
-            <a class="p-2 mr-5 font-normal text-center text-sm shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/akun/create')}}">Tambah Data Akun</a>
+        <div class="mb-5 text-xs flex justify-between">
+            <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/akun/create')}}">Tambah Data Akun</a>
 
             <!-- Filter Level Akun -->
             <div class="flex items-center space-x-3">
                 <div class="flex items-center">
                     <p class="py-1 mr-2">Filter Jabatan: </p>
-                    <select name="id_level" id="id_level" class="pl-2 py-1 font-normal block appearance-none w-52 bg-gray-100 border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:border-teal-600 rounded-lg cursor-pointer">
+                    <select name="id_level" id="id_level" class="pl-2 py-1 font-semibold block appearance-none w-52 bg-transparent border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                         <option value="">Semua</option>
                         @foreach ($level as $item)
                             <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
@@ -39,7 +39,7 @@
         </div>
         @endif
         <!-- Bagian tabel untuk menampilkan data akun -->
-        <div class="relatives mt-5 h-screen p-5 shadow-md">
+        <div class="h-auto p-2 bg-slate-100/50 rounded-xl">
             <table id="table_akun" class="border w-full min-w-max cursor-default">
                 <thead class="bg-teal-400 text-center">
                     <tr>
