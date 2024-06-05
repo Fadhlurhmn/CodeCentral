@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengumumanModel;
+use App\Models\jadwal_kebersihan;
+use App\Models\rangkuman_jadwal_keamanan;
+use App\Models\satpam;
 use Illuminate\Http\Request;
-use App\Http\Controllers\JadwalController;
 
 class HomeController extends Controller {
     public function index() {
@@ -20,11 +22,23 @@ class HomeController extends Controller {
             return $item;
         });
 
-        // Mengambil jadwal keamanan dan kebersihan
-        $jadwalController = new JadwalController();
-        $jadwal_keamanan = $jadwalController->getJadwalKeamanan();
-        $jadwal_kebersihan = $jadwalController->getJadwalKebersihan();
+        $satpam = satpam::all(); // data satpam
 
-        return view('index', compact('pengumumanTerkini', 'jadwal_keamanan', 'jadwal_kebersihan'));
+        $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
+
+        $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
+
+        $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
+
+        $schedule = [];
+        foreach ($days as $day) {
+            foreach ($shifts as $shift) {
+                $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
+                    return $item->hari == $day && $item->waktu == $shift;
+                });
+            }
+        }
+        return view('index', compact('pengumumanTerkini', 'schedule','days','shifts','jadwal_kebersihan','satpam'));
     }
 }

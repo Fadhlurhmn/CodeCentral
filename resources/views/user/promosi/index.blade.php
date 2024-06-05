@@ -23,7 +23,7 @@
   <div class="container">
     <div class="page-hero-content mx-auto max-w-[768px] text-center">
         <h1 class="mb-5 mt-8">
-            UMKM
+            Promosi
         </h1>
         <p>
           Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
@@ -55,14 +55,14 @@
                                 <label for="kode_promosi" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
                                 <input type="kode_promosi" name="kode_promosi" id="kode_promosi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
                             </div>
-                            
+
                             <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
   </div>
 </section>
@@ -80,16 +80,16 @@
           >
         </li>
         <li>
-          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">FnB</a>
+          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Kuliner</a>
         </li>
         <li>
           <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Fashion</a>
         </li>
-        <li> 
-          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Jasa</a>
+        <li>
+          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Retail</a>
         </li>
         <li>
-          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Kerajinan</a>
+          <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Jasa</a>
         </li>
         <li>
           <a class="filter-btn btn btn-sm hover:filter-btn-active" href="#">Lainnya</a>

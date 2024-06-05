@@ -17,6 +17,7 @@
         </div>
         <div class="row mt-10">
             <div class="col-12">
+                @if(isset($pengumumanTerkini) && count($pengumumanTerkini) > 0)
                 <div class="swiper pengumuman-carousel py-7">
                     <div class="swiper-wrapper">
                         @foreach ($pengumumanTerkini as $pengumuman)
@@ -48,6 +49,9 @@
                     <!-- If we need pagination -->
                     <div class="swiper-pagination pengumuman-carousel-pagination !bottom-0"></div>
                 </div>
+                @else
+                <p class="text-xl text-center font-bold text-gray-600">Tidak ada Pengumuman Terkini</p>
+                @endif
             </div>
         </div>
     </div>
@@ -124,56 +128,78 @@
                     <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('keamanan')">Jadwal Keamanan</button>
                     <button id="btn-kebersihan" class="p-2 rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('kebersihan')">Jadwal Kebersihan</button>
                 </div>
-                {{-- jadwal keamanan --}}
-                <div class="h-auto p-2 mb-10" id="jadwal_keamanan">
-                    <table class="w-full min-w-max cursor-default border-collapse">
-                      <thead class="bg-teal-400 text-center">
-                        <tr>
-                          <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
-                          @foreach ($jadwal_keamanan->hari as $hari)
-                            <th class="p-3 text-sm font-normal border border-teal-300">{{ $hari }}</th>
-                          @endforeach
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($jadwal_keamanan->waktu as $index => $waktu)
-                          <tr>
-                            <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $waktu }}</td>
-                            @foreach ($jadwal_keamanan->hari as $hariIndex => $hari)
-                              <td class="p-3 text-sm text-center border border-teal-300">
-                                {{ $jadwal_keamanan->nama[$hariIndex][$index] }}<br>
-                                <span class="text-xs text-gray-500">({{ $jadwal_keamanan->telepon[$hariIndex][$index] }})</span>
-                              </td>
-                            @endforeach
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                </div>
 
-                {{-- jadwal kebersihan --}}
-                <div class="hidden duration-300 ease-in-out px-0 lg:px-60" id="jadwal_kebersihan">
-                    @if(isset($jadwal_kebersihan))
-                        <table class="table-auto border-collapse border w-full">
-                            <thead>
-                                <tr class="bg-teal-400 border-b md:text-sm">
-                                    <th class="p-3 border border-primary">Hari</th>
-                                    <th class="p-3 border border-primary">Waktu</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach ($jadwal_kebersihan->hari as $index => $hari)
-                                    <tr class="bg-white border-b md:text-sm">
-                                        <td class="p-3 border border-primary">{{ $hari }}</td>
-                                        <td class="p-3 border border-primary">{{ $jadwal_kebersihan->waktu[$index % count($jadwal_kebersihan->waktu)] }}</td>
-                                    </tr>
+                <!-- Jadwal Keamanan -->
+                <div class="h-auto p-2 mb-10" id="jadwal_keamanan">
+                    @if(isset($schedule) && !empty($schedule))
+                    <table class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
+                                @foreach ($days as $day)
+                                    <th class="p-3 text-sm font-normal border border-teal-300">{{ ucfirst($day) }}</th>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($shifts as $shift)
+                                <tr>
+                                    <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $shift }}</td>
+                                    @foreach ($days as $day)
+                                        <td class="p-3 text-sm text-center border border-teal-300">
+                                            @if (isset($schedule[$day][$shift]) && count($schedule[$day][$shift]) > 0)
+                                                @foreach ($schedule[$day][$shift] as $entry)
+                                                    {{ $entry->nama }}<br>
+                                                    <span class="text-xs text-gray-500">({{ $entry->nomor_telepon }})</span><br>
+                                                @endforeach
+                                            @else
+                                                Tidak ada Jadwal Keamanan
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @else
-                        <p class="text-center">Tidak ada jadwal kebersihan yang tersedia</p>
+                    <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md">
+                        <div class="flex-col text-center">
+                            <h1 class="text-xl font-bold text-gray-600">Tidak ada Jadwal Keamanan</h1>
+                        </div>
+                    </div>
                     @endif
                 </div>
+
+                <!-- Jadwal Kebersihan -->
+                <div class="h-auto p-2 mb-10 hidden" id="jadwal_kebersihan">
+                    @if(isset($jadwal_kebersihan) && count($jadwal_kebersihan) > 0)
+                    <table class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Hari</th>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($jadwal_kebersihan as $jadwal)
+                                @if($jadwal->waktu !== 'Tidak ada')
+                                <tr>
+                                    <td class="p-3 text-sm text-center border border-teal-300">{{ $jadwal->hari }}</td>
+                                    <td class="p-3 text-sm text-center border border-teal-300">{{ $jadwal->waktu }}</td>
+                                </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                        <div class="flex-col text-center">
+                            <h1 class="text-xl font-bold text-gray-600">Tidak ada Jadwal Kebersihan</h1>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+
             </div>
         </div>
     </div>
@@ -190,19 +216,20 @@
             if (type === 'keamanan') {
                 jadwalKeamanan.classList.remove('hidden');
                 jadwalKeamanan.classList.add('block');
-                jadwalKebersihan.classList.remove('block');
                 jadwalKebersihan.classList.add('hidden');
                 btnKeamanan.classList.add('bg-primary');
                 btnKebersihan.classList.remove('bg-primary');
             } else {
                 jadwalKebersihan.classList.remove('hidden');
                 jadwalKebersihan.classList.add('block');
-                jadwalKeamanan.classList.remove('block');
                 jadwalKeamanan.classList.add('hidden');
                 btnKeamanan.classList.remove('bg-primary');
                 btnKebersihan.classList.add('bg-primary');
             }
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            changeJadwal('keamanan');
+        });
     </script>
 @endpush
 
