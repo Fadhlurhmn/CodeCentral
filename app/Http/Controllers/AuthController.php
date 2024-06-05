@@ -25,10 +25,10 @@ class AuthController extends Controller
             // jika user nya memiliki level manager
             else if ($user->id_level == '2') {
                 return redirect()->intended('rw');
-            } 
+            }
             else if ($user->id_level == '3') {
                 return redirect()->intended('rt');
-            } 
+            }
         }
         return view('login');
     }
@@ -49,19 +49,27 @@ class AuthController extends Controller
         if (Auth::attempt($credential)){
             $user = Auth::user();
 
+            // Cek status_akun
+            if ($user->status_akun == 'Nonaktif') {
+                Auth::logout();
+                return redirect('login')
+                    ->withInput()
+                    ->withErrors(['login_gagal' => 'Akun Anda tidak aktif. Silakan hubungi admin']);
+            }
+
             // cek level
             if ($user->id_level == '1'){
                 return redirect()->intended('admin');
             }
             else if ($user->id_level == '2') {
                 return redirect()->intended('rw');
-            } 
+            }
             else if ($user->id_level == '3') {
                 return redirect()->intended('rt');
-            } 
+            }
             // jika belum ada role maka ke /
             return redirect()->intended('/');
-        }   
+        }
         return redirect('login')
             ->withInput()
             ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
@@ -103,7 +111,7 @@ class AuthController extends Controller
     {
         // menghapus session saat logout
         $request->session()->flush();
-        
+
         Auth::logout();
         return redirect('login');
     }

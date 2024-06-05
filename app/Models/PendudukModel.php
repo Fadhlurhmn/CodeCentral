@@ -28,4 +28,9 @@ class PendudukModel extends Model
     {
         return $this->hasMany(UserModel::class);
     }
+
+    public function promosi(): HasMany
+    {
+        return $this->hasMany(PromosiModel::class);
+    }
 }

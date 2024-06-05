@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\KeluargaModel;
+use App\Models\PendudukModel;
 use App\Models\PromosiModel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,21 +22,35 @@ class PromosiController extends Controller
         $page = (object)[
             'title' => 'Daftar promosi yang terdaftar'
         ];
-        $promosi = PromosiModel::all();
-        $promosi = PromosiModel::where('status_pengajuan', '!=', 'pending')->get();
-        // Fitur search 
+
+        // Fitur search
         $promosiQuery = PromosiModel::query();
         if ($request->has('query')) {
             $promosiQuery->where('nama_usaha', 'like', '%' . $request->query('query') . '%');
         }
-        $promosiQuery->where('status_pengajuan', '!=', 'pending');
+
+        // Fitur filter kategori
+        if ($request->has('kategori') && $request->kategori != 'Semua') {
+            $promosiQuery->where('kategori', $request->kategori);
+        }
+
+        // Kecuali 'Menunggu' dan 'Tolak' status
+        $promosiQuery->whereNotIn('status_pengajuan', ['Menunggu', 'Tolak']);
+
         // Ambil data promosi setelah filter
         $promosi = $promosiQuery->get();
         $activeMenu = 'promosi';
 
-        $keluarga = KeluargaModel::all();
+        $penduduk = PendudukModel::all();
 
-        return view('admin.promosi.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.index', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'promosi' => $promosi,
+            'penduduk' => $penduduk,
+            'activeMenu' => $activeMenu,
+            'kategori' => $request->kategori ?? 'Semua'
+        ]);
     }
     public function daftar(Request $request)
     {
@@ -53,34 +67,47 @@ class PromosiController extends Controller
             'title' => 'Daftar permintaan promosi usaha warga'
         ];
 
-        $promosi = PromosiModel::all();
-        $promosi = PromosiModel::where('status_pengajuan', 'pending')->get();
-        $activeMenu = 'promosi';
-        // Fitur search
+        // Fitur search dan filter
         $promosiQuery = PromosiModel::query();
         if ($request->has('query')) {
             $promosiQuery->where('nama_usaha', 'like', '%' . $request->query('query') . '%');
         }
-        $promosiQuery->where('status_pengajuan', '=', 'pending');
+
+        // Fitur filter kategori
+        if ($request->has('kategori') && $request->kategori != 'Semua') {
+            $promosiQuery->where('kategori', $request->kategori);
+        }
+
+        $promosiQuery->where('status_pengajuan', '=', 'Menunggu');
+
         // Ambil data promosi setelah filter
         $promosi = $promosiQuery->get();
 
-        $keluarga = KeluargaModel::all();
+        $activeMenu = 'promosi';
+        $penduduk = PendudukModel::all();
 
-        return view('admin.promosi.daftar', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.daftar', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'promosi' => $promosi,
+            'penduduk' => $penduduk,
+            'activeMenu' => $activeMenu,
+            'kategori' => $request->kategori ?? 'Semua'
+        ]);
     }
+    
     public function list(Request $request)
     {
-        $promosi = PromosiModel::select('id_umkm', 'nama_usaha', 'gambar', 'deskripsi', 'status_pengajuan', 'alamat', 'countdown', 'id_keluarga')
-            ->with('keluarga');
+        $promosi = PromosiModel::select('id_umkm', 'nama_usaha', 'gambar', 'deskripsi', 'status_pengajuan', 'alamat', 'countdown', 'id_penduduk')
+            ->with('penduduk');
 
-        if ($request->keluarga_id) {
-            $promosi->where('id_keluarga', $request->keluarga_id);
+        if ($request->penduduk_id) {
+            $promosi->where('id_penduduk', $request->penduduk_id);
         }
 
-        // Filter berdasarkan usaha per keluarga 
-        if ($request->has('id_keluarga')) {
-            $promosi->where('id_keluarga', $request->id_keluarga);
+        // Filter berdasarkan usaha per penduduk
+        if ($request->has('id_penduduk')) {
+            $promosi->where('id_penduduk', $request->id_penduduk);
         }
         return DataTables::of($promosi)
             ->addIndexColumn()
@@ -108,10 +135,10 @@ class PromosiController extends Controller
             'title' => 'Tambah promosi baru'
         ];
 
-        $keluarga = KeluargaModel::all(); // ambil data keluar$keluarga untuk ditampilkan di form
+        $penduduk = PendudukModel::all(); // ambil data penduduk untuk ditampilkan di form
         $activeMenu = 'promosi'; // set menu yang sedang aktif
 
-        return view('admin.promosi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -122,7 +149,7 @@ class PromosiController extends Controller
             'status_pengajuan' => 'required|string',
             'alamat' => 'required|string',
             'countdown' => 'required|string',
-            'id_keluarga' => 'required|integer',
+            'id_penduduk' => 'required|integer',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -141,7 +168,7 @@ class PromosiController extends Controller
             'status_pengajuan' => $request->status_pengajuan,
             'alamat' => $request->alamat,
             'countdown' => $request->countdown,
-            'id_keluarga' => $request->id_keluarga,
+            'id_penduduk' => $request->id_penduduk,
             'gambar' => $nama_file // simpan nama file gambar ke dalam database
         ]);
 
@@ -150,8 +177,8 @@ class PromosiController extends Controller
     }
     public function show(string $id)
     {
-        $promosi = PromosiModel::with('keluarga')->find($id);
-        $nomor_kk = $promosi->keluarga->nomor_keluarga;
+        $promosi = PromosiModel::with('penduduk')->find($id);
+        $nik = $promosi->penduduk->nik;
 
         $breadcrumb = (object) [
             'title' => 'Detail Promosi',
@@ -168,12 +195,12 @@ class PromosiController extends Controller
 
         $activeMenu = 'promosi'; // set menu yang sedang aktif
 
-        return view('admin.promosi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'nomor_kk' => $nomor_kk, 'promosi' => $promosi, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'nik' => $nik, 'promosi' => $promosi, 'activeMenu' => $activeMenu]);
     }
     public function edit(string $id)
     {
         $promosi = PromosiModel::find($id);
-        $keluarga = KeluargaModel::all();
+        $penduduk = PendudukModel::all();
 
         $breadcrumb = (object) [
             'title' => 'Edit Promosi',
@@ -190,7 +217,7 @@ class PromosiController extends Controller
 
         $activeMenu = 'promosi'; // set menu yang sedang aktif
 
-        return view('admin.promosi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+        return view('admin.promosi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
     // menyimpan perubahan data barang
     public function update(Request $request, string $id)
@@ -201,7 +228,7 @@ class PromosiController extends Controller
             'status_pengajuan' => 'required|string',
             'alamat' => 'required|string',
             'countdown' => 'required|string',
-            'id_keluarga' => 'required|integer',
+            'id_penduduk' => 'required|integer',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -225,7 +252,7 @@ class PromosiController extends Controller
                 'status_pengajuan' => $request->status_pengajuan,
                 'alamat' => $request->alamat,
                 'countdown' => $request->countdown,
-                'id_keluarga' => $request->id_keluarga,
+                'id_penduduk' => $request->id_penduduk,
                 'gambar' => $nama_file_baru // Gunakan nama file baru
             ]);
         } else {
@@ -236,7 +263,7 @@ class PromosiController extends Controller
                 'status_pengajuan' => $request->status_pengajuan,
                 'alamat' => $request->alamat,
                 'countdown' => $request->countdown,
-                'id_keluarga' => $request->id_keluarga,
+                'id_penduduk' => $request->id_penduduk,
             ]);
         }
 
@@ -266,7 +293,7 @@ class PromosiController extends Controller
     public function updateStatus(Request $request, string $id)
     {
         $request->validate([
-            'status_pengajuan' => 'required|string|in:acc,tolak' // Validasi status_pengajuan
+            'status_pengajuan' => 'required|string|in:Terima,Tolak' // Validasi status_pengajuan
         ]);
 
         $promosi = PromosiModel::find($id);
@@ -275,7 +302,7 @@ class PromosiController extends Controller
             'status_pengajuan' => $request->status_pengajuan
         ]);
 
-        $message = $request->status_pengajuan === 'acc' ? 'Promosi berhasil di acc' : 'Promosi berhasil ditolak';
+        $message = $request->status_pengajuan === 'Terima' ? 'Promosi berhasil diterima' : 'Promosi berhasil ditolak';
 
         return redirect('admin/promosi/' . $id . '/show')->with('success', $message);
     }

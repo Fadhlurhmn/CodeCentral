@@ -6,6 +6,7 @@ use App\Models\LevelModel;
 use App\Models\UserModel;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -176,7 +177,7 @@ class UserController extends Controller
 
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
-            'title' => 'Edit User',
+            'title' => 'Edit Akun',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
                 ['name' => 'Akun', 'url' => url('admin/akun')],
@@ -231,5 +232,60 @@ class UserController extends Controller
 
         // Mengarahkan ke halaman detail user dengan pesan sukses
         return redirect('admin/akun/')->with('success', 'Data akun berhasil diubah');
+    }
+
+    // Menampilkan halaman profil pengguna
+    public function profil()
+    {
+        // Mengambil data pengguna yang sedang login
+        $user = Auth::user();
+
+        // Menyiapkan data breadcrumb untuk navigasi halaman
+        $breadcrumb = (object) [
+            'title' => 'Profil Akun',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Profil', 'url' => url('admin/profil')]
+            ]
+        ];
+
+        // Menyiapkan judul halaman
+        $page = (object) [
+            'title' => 'Ubah Profil Akun'
+        ];
+
+        // Menampilkan view dengan data yang sudah disiapkan
+        return view('layout.a_edit_profil', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'user' => $user
+        ]);
+    }
+
+    // Menyimpan perubahan data profil pengguna
+    public function editProfil(Request $request)
+    {
+        // Validasi input dari request
+        $request->validate([
+            'username' => 'required|string|min:3|unique:user,username,' . Auth::id() . ',id_user',
+            'password' => 'nullable|min:5',
+        ]);
+
+        // Mengambil data pengguna yang sedang login
+        $user = Auth::user();
+        $data = [
+            'username' => $request->username,
+        ];
+
+        // Jika password diisi, enkripsi password baru sebelum menyimpan
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        // Menggunakan metode update untuk memperbarui data pengguna
+        UserModel::where('id_user', $user->id_user)->update($data);
+
+        // Mengarahkan ke halaman profil dengan pesan sukses
+        return redirect('admin/')->with('success', 'Profil berhasil diubah');
     }
 }

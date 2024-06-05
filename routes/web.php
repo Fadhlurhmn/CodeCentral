@@ -10,6 +10,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,8 @@ Route::middleware(['cek_login:1'])->group(function () {
         Route::view('/bansos', 'admin.bansos.index');
         Route::view('/pengumuman', 'admin.pengumuman.index');
         Route::view('/keuangan', 'admin.keuangan.index');
+        Route::get('/profil', [UserController::class, 'profil']);
+        Route::post('/profil', [UserController::class, 'editProfil']);
 
         // Admin-specific routes
         Route::prefix('promosi')->group(function () {
@@ -107,19 +110,27 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/{id}/show', [UserController::class, 'show']);
             Route::get('/{id}/edit', [UserController::class, 'edit']);
             Route::put('/{id}', [UserController::class, 'update']);
-            // Route::delete('/{id}', [UserController::class, 'destroy']);
+        });
+
+        Route::prefix('jabatan')->group(function () {
+            Route::get('/', [JabatanController::class, 'index']);
+            Route::post('/list', [JabatanController::class, 'list']);
+            Route::get('/create', [JabatanController::class, 'create']);
+            Route::post('/', [JabatanController::class, 'store']);
+            Route::get('/{id}/edit', [JabatanController::class, 'edit']);
+            Route::put('/{id}', [JabatanController::class, 'update']);
         });
 
         Route::group(['prefix' => 'pengumuman'], function () {
-            Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal level
-            Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data level dalam bentuk json untuk datatables
-            Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah level
-            Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data level baru
-            Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail level
-            Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit level
-            Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data level
+            Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal pengumuman
+            Route::post('/list', [PengumumanController::class, 'list']);      //menampilkan data pengumuman dalam bentuk json untuk datatables
+            Route::get('/create', [PengumumanController::class, 'create']);   // menampilkan halaman form tambah pengumuman
+            Route::post('/', [PengumumanController::class, 'store']);         // menyimpan data pengumuman baru
+            Route::get('/{id}/show', [PengumumanController::class, 'show']);       // menampilkan detail pengumuman
+            Route::get('/{id}/edit', [PengumumanController::class, 'edit']);  // menampilkan halaman form edit pengumuman
+            Route::post('/{id}', [PengumumanController::class, 'update']);     // menyimpan perubahan data pengumuman
             Route::post('ckeditor/upload', [PengumumanController::class, 'upload'])->name('ckeditor.upload');
-            // Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data level
+            Route::delete('/{id}', [PengumumanController::class, 'destroy']); // menghapus data pengumuman
         });
 
         Route::group(['prefix' => 'bansos'], function () {
