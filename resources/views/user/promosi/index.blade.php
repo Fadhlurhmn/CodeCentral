@@ -28,7 +28,7 @@
         <p>
           Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
         </p>
-        <a class="btn btn-primary mt-4" href="{{ route('user.umkm.create') }}">Promosikan Usaha Anda</a>
+        <a class="btn btn-primary mt-4" href="{{ route('user.promosi.create') }}">Promosikan Usaha Anda</a>
         <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="btn btn-outline-primary mt-4" type="button">Periksa Status Pengajuan Promosi</button>
 
         <!-- Main modal -->
@@ -50,10 +50,10 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-4 md:p-5">
-                        <form class="space-y-4" method="GET" action="{{ route('user.umkm') }}">
+                        <form class="space-y-4" method="GET" action="{{ route('user.promosi') }}">
                             <div>
-                                <label for="kode_umkm" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
-                                <input type="kode_umkm" name="kode_umkm" id="kode_umkm" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
+                                <label for="kode_promosi" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
+                                <input type="kode_promosi" name="kode_promosi" id="kode_promosi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
                             </div>
                             
                             <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
@@ -119,7 +119,7 @@
     </form>
     {{-- end search bar --}}
 
-    {{-- Semua UMKM --}}
+    {{-- Semua promosi --}}
     <div class="row">
     @for ($i = 0; $i < 3; $i++)
       <div class="mb-8 md:col-6 lg:col-4">
@@ -153,7 +153,7 @@
         </div>
       </div>
 
-      <!-- UMKM Modal -->
+      <!-- promosi Modal -->
       <div id="large-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden bg-black/30 overflow-y-auto ease-in-out duration-300 md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-4xl max-h-full">
             <!-- Modal content -->
@@ -194,7 +194,7 @@
     @endfor
     </div>
   </div>
-  {{-- end Semua UMKM --}}
+  {{-- end Semua promosi --}}
 </section>
 {{-- end Main --}}
 

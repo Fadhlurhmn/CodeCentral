@@ -64,9 +64,9 @@
       </div>
       <div class="row mt-10">
           <div class="col-12">
-            <div class="swiper umkm-carousel py-7">
+            <div class="swiper promosi-carousel py-7">
               <div class="swiper-wrapper">
-              {{-- max 5 ajah buat umkm di home --}}
+              {{-- max 5 ajah buat promosi di home --}}
               @for ($i = 0; $i < 3; $i++)
                 <div class="swiper-slide">
                     <div class="card">
@@ -100,7 +100,7 @@
               </div>
               <!-- If we need pagination -->
               <div
-                class="swiper-pagination umkm-carousel-pagination !bottom-0"
+                class="swiper-pagination promosi-carousel-pagination !bottom-0"
               ></div>
             </div>
           </div>

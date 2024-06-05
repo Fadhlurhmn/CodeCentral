@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PendudukModel;
 
-class UserUmkmController extends Controller
+class UserPromosiController extends Controller
 {
     public function index()
     {
-        return view('user.umkm.index');
+        return view('user.promosi.index');
     }
 
     public function create()
     {
-        return view('user.umkm.create');
+        return view('user.promosi.create');
     }
     
     public function store(Request $request)
     {
         $request->validate([
-            'pengirim_umkm' => 'required',
+            'pengirim_promosi' => 'required',
             'nama_usaha' => 'required',
             'deskripsi_usaha' => 'required',
             'jenis_usaha' => 'required',
@@ -48,9 +48,9 @@ class UserUmkmController extends Controller
         // mengecek data penduduk ada atau tidak
         if($penduduk){
             $id_penduduk = $penduduk->id_penduduk;
-            return redirect()->route('user.umkm.create')->with(['success_verifikasi' => 'Data ditemukan', 'pengirim_umkm' => $id_penduduk]);
+            return redirect()->route('user.promosi.create')->with(['success_verifikasi' => 'Data ditemukan', 'pengirim_promosi' => $id_penduduk]);
         } else {
-            return redirect()->route('user.umkm.create')->with('error_verifikasi', 'Data tidak anda ditemukan');
+            return redirect()->route('user.promosi.create')->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
     }
 }

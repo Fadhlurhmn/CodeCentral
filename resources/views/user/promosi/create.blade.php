@@ -33,7 +33,7 @@
   </section>
   <!-- end Common hero -->
 
-{{-- Umkm Form --}}
+{{-- promosi Form --}}
 <section class="section pt-0">
   <div class="container">
     <div class="col-12 md:order-1">
@@ -60,7 +60,7 @@
       {{-- end navigasi form --}}
 
       {{-- Section 1: verifikasi data diri --}}
-      <form class="px-0 lg:px-60" action="{{ route('verifyDataDiriUmkm') }}" method="POST" id="verifikasiForm">
+      <form class="px-0 lg:px-60" action="{{ route('verifyDataDiriPromosi') }}" method="POST" id="verifikasiForm">
         @if (session('error_verifikasi'))
           <div class="alert alert-error">
               {{ session('error_verifikasi') }}
@@ -103,9 +103,9 @@
       </form>
       {{-- end verifikasi data diri --}}
 
-      {{-- form Umkm --}}
-      <form class="hidden px-0 lg:px-60" action="{{ route('user.umkm.store') }}" method="POST" id="formUmkm">
-        @error('umkm')
+      {{-- form promosi --}}
+      <form class="hidden px-0 lg:px-60" action="{{ route('user.promosi.store') }}" method="POST" id="formPromosi">
+        @error('promosi')
           <div class="alert alert-error mb-5">
             <span>{{ $message }}</span>
           </div>
@@ -114,7 +114,7 @@
         @csrf
 
         <div class="form-group mb-5">
-          <input type="hidden" name="pengirim" value="{{ session('pengirim_umkm') }}">
+          <input type="hidden" name="pengirim" value="{{ session('pengirim_promosi') }}">
 
           <div class="form-group mb-5">
             <label class="form-label" for="nama_usaha">Nama Usaha</label>
@@ -183,16 +183,16 @@
           Submit
         </button>
       </form>
-      {{-- end form Umkm --}}
+      {{-- end form promosi --}}
     </div>
   </div>
 </section>
-{{-- end Umkm Form --}}
+{{-- end promosi Form --}}
 
 @if (session('success_verifikasi'))
   <script>
     document.getElementById('verifikasiForm').style.display = 'none';
-    document.getElementById('formUmkm').style.display = 'block';
+    document.getElementById('formPromosi').style.display = 'block';
 
     document.getElementById('stepper-1').classList.remove('text-primary');
     document.getElementById('stepper-1').classList.add('text-gray-500');

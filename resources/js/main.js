@@ -55,11 +55,11 @@
       },
     });
     
-    //umkm-carousel
-    new Swiper(".umkm-carousel", {
+    //promosi-carousel
+    new Swiper(".promosi-carousel", {
       spaceBetween: 20,
       pagination: {
-        el: ".umkm-carousel-pagination",
+        el: ".promosi-carousel-pagination",
         clickable: true,
       },
       breakpoints: {

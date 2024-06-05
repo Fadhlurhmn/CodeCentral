@@ -10,7 +10,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PendudukController;
-use App\Http\Controllers\UserUmkmController;
+use App\Http\Controllers\UserPromosiController;
 use App\Http\Controllers\UserSuratController;
 use App\Http\Controllers\UserBansosController;
 use App\Http\Controllers\UserPengaduanController;
@@ -29,11 +29,11 @@ Route::get('/pengumuman', [UserPengumumanController::class, 'index'])->name('use
 Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name('user.pengumuman.show');
 
 
-Route::group(['prefix' => 'umkm'], function () {
-    Route::get('/', [UserUmkmController::class, 'index'])->name('user.umkm');
-    Route::get('/promosi-umkm', [UserUmkmController::class, 'create'])->name('user.umkm.create');
-    Route::post('/promosi-umkm', [UserUmkmController::class, 'store'])->name('user.umkm.store');
-    Route::post('/umkmVerif', [UserUmkmController::class, 'verifyDataDiri'])->name('verifyDataDiriUmkm');
+Route::group(['prefix' => 'promosi'], function () {
+    Route::get('/', [UserPromosiController::class, 'index'])->name('user.promosi');
+    Route::get('/promosi', [UserPromosiController::class, 'create'])->name('user.promosi.create');
+    Route::post('/promosi', [UserPromosiController::class, 'store'])->name('user.promosi.store');
+    Route::post('/promosiVerif', [UserPromosiController::class, 'verifyDataDiri'])->name('verifyDataDiriPromosi');
 });
 
 Route::group(['prefix' => 'bansos'], function () {
