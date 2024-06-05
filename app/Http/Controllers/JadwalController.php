@@ -346,6 +346,30 @@ class JadwalController extends Controller
             return redirect('admin/jadwal/')->with('error', 'Data Jadwal kebersihan tidak ditemukan');
         }
     }
+    public function store_jadwal_kebersihan(Request $request)
+    {
+        // Validasi data
+        $request->validate([
+            'hari.*' => 'required|string',
+            'waktu.*' => 'required|string',
+        ]);
+
+        // Ambil data dari form
+        $data = $request->all();
+
+        // Loop melalui data dan simpan setiap jadwal
+        foreach ($data['id'] as $index => $id) {
+            $jadwal = jadwal_kebersihan::find($id);
+            if ($jadwal) {
+                $jadwal->hari = $data['hari'][$index];
+                $jadwal->waktu = $data['waktu'][$index];
+                $jadwal->save();
+            }
+        }
+
+        // Redirect ke halaman jadwal dengan pesan sukses
+        return redirect('admin/jadwal/')->with('success', 'Jadwal kebersihan berhasil disimpan.');
+    }
 
     public function form_kebersihan()
     {

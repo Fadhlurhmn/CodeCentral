@@ -26,23 +26,24 @@
                               </tr>
                           </thead>
                           <tbody>
-                            @foreach ($jadwal_kebersihan as $jadwal_kebersihan)
-                              <tr>
+                            @foreach ($jadwal_kebersihan as $index => $jadwal)
+                                <tr>
                                     <td class="p-3 text-sm text-center border border-teal-300">
-                                        <input type="readonly" name="hari" value="{{ $jadwal_kebersihan->hari }}">
+                                        <input type="hidden" name="id[]" value="{{ $jadwal->id_jadwal_kebersihan }}">
+                                        <input type="text" name="hari[]" class="text-center" value="{{ $jadwal->hari }}">
                                     </td>
                                     <td class="p-3 text-sm text-center border border-teal-300">
-                                        {{-- <input type="text" name="waktu" value="{{ $jadwal_kebersihan->waktu }}"> --}}
-                                        <select name="waktu" id="waktu">
-                                            <option value="{{$jadwal_kebersihan->id}}" selected hidden>{{$jadwal_kebersihan->waktu}}</option>
-                                            <option value="Tidak ada">Tidak ada</option>
+                                        <select name="waktu[]" id="waktu">
+                                            <option value="{{ $jadwal->waktu }}" selected hidden>{{ $jadwal->waktu }}</option>
                                             <option value="08:00 - 12:00">08:00 - 12:00</option>
                                             <option value="12:00 - 16:00">12:00 - 16:00</option>
+                                            <option value="Tidak ada">Tidak ada</option>
                                         </select>
                                     </td>
-                              </tr>
-                              @endforeach
-                          </tbody>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        
                       </table>
                     </div>
                 </div>

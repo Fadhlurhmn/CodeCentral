@@ -175,6 +175,7 @@ Route::middleware(['cek_login:1'])->group(function () {
                 Route::post('/list', [JadwalController::class, 'list_jadwal_kebersihan']);
                 Route::get('/edit', [JadwalController::class, 'edit_jadwal_kebersihan']);  // menampilkan halaman form edit level
                 Route::post('/{id}', [JadwalController::class, 'update_jadwal_kebersihan']);
+                Route::post('/', [JadwalController::class, 'store_jadwal_kebersihan']);
             });
         });
     });
