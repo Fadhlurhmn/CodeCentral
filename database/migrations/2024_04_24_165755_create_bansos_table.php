@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bentuk_pemberian');
             $table->integer('jumlah_penerima');
             $table->string('nama');
+            $table->enum('status', ['open', 'closed']);
             $table->timestamps();
         });
     }
