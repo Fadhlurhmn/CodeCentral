@@ -54,6 +54,11 @@ Route::get('/pengaduan', [UserPengaduanController::class, 'index'])->name('user.
 Route::post('/pengaduanVerif', [UserPengaduanController::class, 'verifyDataDiri'])->name('verifyDataDiriPengaduan');
 Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user.pengaduan.store');
 
+// struktur rt rw
+Route::get('/struktur', function(){
+    return view('user.struktur.index');
+})->name('user.struktur');
+
 // end User Routes
 
 // Template Routes

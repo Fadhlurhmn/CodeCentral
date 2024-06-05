@@ -76,9 +76,12 @@
       <li class="nav-item">
         <a href="{{ route('user.pengaduan') }}" class="nav-link">Pengaduan</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ route('user.struktur') }}" class="nav-link">Struktur RW & RT</a>
+      </li>
     </ul>
-    <div class="order-1 ml-auto hidden items-center opacity-0 md:order-2 md:ml-0 lg:flex">
+    {{-- <div class="order-1 ml-auto hidden items-center opacity-0 md:order-2 md:ml-0 lg:flex">
       <div class="btn btn-white btn-sm">Sing Up Now</div>
-    </div>
+    </div> --}}
   </nav>
 </header>
