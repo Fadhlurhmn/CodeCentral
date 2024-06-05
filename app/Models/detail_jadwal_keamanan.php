@@ -9,5 +9,6 @@ class detail_jadwal_keamanan extends Model
 {
     use HasFactory;
     protected $table = 'detail_jadwal_keamanan';
+    protected $primaryKey = 'id_jadwal';
     protected $fillable = ['id_jadwal_keamanan', 'id_satpam', 'waktu'];
 }

@@ -144,7 +144,7 @@ class JadwalController extends Controller
         foreach ($data['id'] as $index => $id) {
             if ($id) {
                 // Update existing record
-                $satpam = Satpam::find($id);
+                $satpam = satpam::find($id);
                 if ($satpam) {
                     $satpam->nama = $data['nama'][$index];
                     $satpam->nomor_telepon = $data['nomor_telepon'][$index];
@@ -152,7 +152,7 @@ class JadwalController extends Controller
                 }
             } else {
                 // Create new record
-                Satpam::create([
+                satpam::create([
                     'nama' => $data['nama'][$index],
                     'nomor_telepon' => $data['nomor_telepon'][$index],
                 ]);
@@ -233,7 +233,7 @@ class JadwalController extends Controller
     public function edit_jadwal_keamanan()
     {
         $satpam = satpam::all();
-        $detail_jadwal_keamanan = detail_jadwal_keamanan::all();
+        $detail_jadwal = detail_jadwal_keamanan::all();
 
         $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
 
@@ -249,7 +249,7 @@ class JadwalController extends Controller
             }
         }
 
-        if (!$detail_jadwal_keamanan) {
+        if (!$detail_jadwal) {
             return redirect('admin/jadwal')->with('error', 'Data Jadwal Keamanan tidak ditemukan');
         }
 
@@ -273,7 +273,7 @@ class JadwalController extends Controller
             'days' => $days,
             'shifts' => $shifts,
             'satpam' => $satpam,
-            'detail_jadwal_keamanan' => $detail_jadwal_keamanan,
+            'detail_jadwal_keamanan' => $detail_jadwal,
             'activeMenu' => $activeMenu
         ]);
     }

@@ -31,7 +31,7 @@
             {{-- Button --}}
             <div class="mb-5 text-xs">
               <h2 class="mb-3 text-xl font-bold text-gray-600">Daftar Satpam Bertugas</h2>
-              <a class="p-2 font-normal text-center shadow-md hover:shadow-teal-300 bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{ url('admin/jadwal/satpam/create') }}">Ubah Daftar Satpam</a>
+              <a  href="{{ url('admin/jadwal/satpam/create') }}" class="p-2 font-normal text-center shadow-md hover:shadow-teal-300 bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Ubah Daftar Satpam</a>
             </div>
             {{-- Tabel --}}
             <div class="h-40 overflow-y-auto custom-scrollbar">
