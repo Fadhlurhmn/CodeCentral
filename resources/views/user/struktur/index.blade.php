@@ -23,9 +23,9 @@
     <div class="container">
       <div class="page-hero-content mx-auto max-w-[768px] text-center">
           <h1 class="mb-5 mt-8">
-              Struktur RW dan RT
+              Struktur Pengurus
           </h1>
-          <p> 
+          <p>
             Susunan Kepengurusan RW 4 dan RT Tlogomas.
           </p>
       </div>
@@ -44,7 +44,7 @@
           <li>
             <button type="button" onclick="show('rt1')" id="item-rt1" class="filter-btn btn btn-sm hover:filter-btn-active">RT 1</button>
           </li>
-          <li> 
+          <li>
             <button type="button" onclick="show('rt2')" id="item-rt2" class="filter-btn btn btn-sm hover:filter-btn-active">RT 2</button>
           </li>
           <li>
@@ -296,7 +296,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
   </div>
 </section>
