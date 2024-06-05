@@ -5,11 +5,9 @@
 <div class="h-screen flex flex-row flex-wrap">
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
-        <div class="flex flex-col">
-            <h1 class="py-5 ml-5 text-2xl font-bold">{{ $breadcrumb->title }}</h1>
-        </div>
-        <div class="w-full h-fit min-w-max p-5">
 
+        <div class="w-full h-fit min-w-max p-5">
+            @include('layout.breadcrumb2')
             @if(!$penduduk)
             <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
                 <h5 class="font-semibold"><i class="fas fa-ban mr-2"></i>Kesalahan!</h5>
@@ -82,9 +80,29 @@
                     {{-- tanggal_lahir --}}
                     <label for="tanggal_lahir" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->tanggal_lahir }}" required />
+                    {{-- Jenis Kelamin --}}
+                    <label for="jenis_kelamin" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Jenis Kelamin <span class="text-red-500">*</span></label>
+                    <div class="col-span-4">
+                        <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                            <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="pria" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == 'pria' ? 'checked' : '' }} required>
+                            <span class="ml-2 text-xs text-gray-900">Pria</span>
+                        </label>
+                        <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                            <input type="radio" class="form-radio text-teal-600" name="jenis_kelamin" value="wanita" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == 'wanita' ? 'checked' : '' }} required>
+                            <span class="ml-2 text-xs text-gray-900">Wanita</span>
+                        </label>
+                    </div>
                     {{-- gol_darah --}}
-                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Gologan Darah</label>
-                    <input type="text" name="gol_darah" id="gol_darah" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan Tempat Lahir" value="{{ $penduduk->gol_darah }}" />
+                    <label for="gol_darah" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Golongan Darah</label>
+                    <div class="col-span-4">
+                        @foreach(['A', 'B', 'AB', 'O'] as $gol_darah)
+                            <label class="text-xs bg-gray-50 border inline-flex items-center mr-3 p-3 rounded-lg">
+                                <input type="radio" name="gol_darah" value="{{ $gol_darah }}" class="form-radio h-4 w-4 text-gray-600" 
+                                    {{ (old('gol_darah') ?? $penduduk->gol_darah) == $gol_darah ? 'checked' : '' }}>
+                                <span class="ml-2 text-gray-700">{{ $gol_darah }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                     {{-- agama --}}
                     <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama</label>
                     <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{ $penduduk->agama }}" required />
@@ -94,6 +112,7 @@
                         <span class="text-gray-800 mr-2 pt-2">+62</span>
                         <input type="number" name="no_telp" id="no_telp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 w-full col-span-4 p-2.5 " placeholder="Masukkan nomor telepon" value="{{ $penduduk->no_telp }}"/>
                     </div>
+                    <div id="no_telpError" class="hidden col-span-4 text-red-500 text-xs">Nomor Telpon diisi dengan 11 karakter setlah +62</div>
                     {{-- pekerjaan --}}
                     <label for="pekerjaan" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Pekerjaan</label>
                     <input type="text" name="pekerjaan" id="pekerjaan" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Pekerjaan Warga" value="{{ $penduduk->pekerjaan }}" required />
@@ -101,14 +120,14 @@
                     {{-- status penduduk --}}
                     <label for="status_penduduk" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Status Penduduk</label>
                     <select name="status_penduduk" id="status_penduduk" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option>
+                        {{-- <option value="{{ $penduduk->status_penduduk }}">{{ $penduduk->status_penduduk }}</option> --}}
                         <option value="Tetap">Tetap</option>
                         <option value="Sementara">Sementara</option>
                     </select>
                     {{-- status data --}}
                     <label for="status_data" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">status_data</label>
                     <select name="status_data" id="status_data" class="block py-2.5 px-2.5 col-span-4 text-xs text-black bg-slate-300/30 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-600 peer rounded-full hover:bg-slate-100 focus:bg-slate-100">
-                        <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                            
+                        {{-- <option value="{{ $penduduk->status_data }}">{{ $penduduk->status_data }}</option>                             --}}
                         <option value="Aktif">Aktif</option>
                         <option value="Tidak aktif">Tidak aktif</option>
                     </select>
@@ -161,6 +180,17 @@
         }
     });
 
+    document.getElementById('no_telp').addEventListener('input', function() {
+        var no_telpInput = this.value;
+        var no_telpError = document.getElementById('no_telpError');
+        
+        if (no_telpInput.length !== 11) {
+            no_telpError.classList.remove('hidden');
+        } else {
+            no_telpError.classList.add('hidden');
+        }
+    });
+
     const foto_ktp = document.getElementById('foto_ktp');
     
     const uploadIndicator_foto = document.getElementById('uploadIndicator_foto');
@@ -190,7 +220,7 @@
         var no_telp_value = no_telp_input.value;
 
         // Memastikan bahwa nomor telepon dimulai dengan +62
-        if (!no_telp_value.startsWith('+62')) {
+        if (!no_telp_value.startsWith('62')) {
             no_telp_input.value = '62' + no_telp_value;
         }
     });

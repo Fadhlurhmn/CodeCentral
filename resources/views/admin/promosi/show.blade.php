@@ -9,7 +9,8 @@
 
   <!-- start content -->
   <div class="bg-white flex-1 p-5 md:mt-16 cursor-default border-t-2 border-teal-500">
-    <h1 class=" text-2xl text-gray-600 font-extrabold">{{ $breadcrumb->title }}</h1>
+    @include('layout.breadcrumb2')
+
     {{-- Alert ketika data tidak ditemukan --}}
     @if(!$promosi)
     <div class="my-5 bg-white border border-red-500 text-red-500 px-4 py-3 rounded-lg alert">
@@ -21,8 +22,11 @@
     </div>
     @else
     {{-- End bagian alert data --}}
+    
+    {{-- Start Show --}}
     <div class="flex my-5 bg-white rounded-lg border py-3 shadow-md ">
-      <div class="w-1/2 px-4 flex items-center justify-start">
+      {{-- Img Masih Statis --}}
+        <div class="w-1/2 px-4 flex items-center justify-start">
           <img src="https://images.unsplash.com/photo-1611520189922-f7b1ba7d801e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                alt="Gambar Usaha"
                class="w-full h-96 rounded-md object-cover">
@@ -92,10 +96,12 @@
           </div>
       </dl>
   </div>
-      @if($promosi->status_pengajuan === 'Menunggu')
+
+      @if($promosi->status_pengajuan === 'Menunggu'||($promosi->status_pengajuan === 'pending')
       <a href="{{ url('admin/promosi/daftar') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>
       @else
       <a href="{{ url('admin/promosi/') }}" class="text-white bg-teal-400 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Kembali</a>
+
       @endif
     @endif
 

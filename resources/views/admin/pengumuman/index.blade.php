@@ -9,7 +9,10 @@
 
     <!-- Start content -->
     <div class="bg-white flex-1 md:mt-16 cursor-default">
-        @include('layout.breadcrumb')
+        <div class="p-5 pb-0 flex flex-col">
+          @include('layout.breadcrumb2')
+        </div>
+        
         <div class="container p-5 mb-5 bg-white border-t-4 border-teal-500 text-lg flex flex-col items-start">
             <p class="mb-3 text-xl">{{$page->title}}</p>
             <div class="flex justify-between w-full">

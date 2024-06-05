@@ -12,7 +12,7 @@ class BansosModel extends Model
     protected $table = 'bansos';
     protected $primaryKey = 'id_bansos';
 
-    protected $fillable = ['tanggal_pemberian', 'pengirim', 'bentuk_pemberian', 'jumlah_penerima', 'nama', 'kode'];
+    protected $fillable = ['tanggal_pemberian', 'pengirim', 'bentuk_pemberian', 'jumlah_penerima', 'nama'];
 
     public function kriteria_bansos(): HasMany
     {

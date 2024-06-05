@@ -11,9 +11,12 @@ class PromosiController extends Controller
 {
     public function index(Request $request)
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Promosi',
-            'list' => ['Home', 'Promosi']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Promosi', 'url' => url('admin/promosi')],
+            ]
         ];
 
         $page = (object)[
@@ -51,9 +54,13 @@ class PromosiController extends Controller
     }
     public function daftar(Request $request)
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Permintaan Promosi',
-            'list' => ['Home', 'Promosi']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Promosi', 'url' => url('admin/promosi')],
+                ['name' => 'Daftar', 'url' => url('admin/daftar')],
+            ]
         ];
 
         $page = (object)[
@@ -115,9 +122,13 @@ class PromosiController extends Controller
 
     public function create()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Tambah Promosi',
-            'list' => ['Home', 'Promosi', 'Tambah']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Promosi', 'url' => url('admin/promosi')],
+                ['name' => 'Tambah', 'url' => url('admin/promosi/create')],
+            ]
         ];
 
         $page = (object)[
@@ -169,9 +180,13 @@ class PromosiController extends Controller
         $promosi = PromosiModel::with('penduduk')->find($id);
         $nik = $promosi->penduduk->nik;
 
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Detail Promosi',
-            'list' => ['Home', 'Promosi', 'Detail']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Promosi', 'url' => url('admin/promosi')],
+                ['name' => 'Detail', 'url' => url('admin/promosi/show')],
+            ]
         ];
 
         $page = (object)[
@@ -189,7 +204,11 @@ class PromosiController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Edit Promosi',
-            'list' => ['Home', 'Promosi', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Promosi', 'url' => url('admin/promosi')],
+                ['name' => 'Edit', 'url' => url('admin/promosi/edit')],
+            ]
         ];
 
         $page = (object) [

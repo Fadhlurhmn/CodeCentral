@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW `rekomendasi`  AS SELECT `r`.`id_bansos` AS `id_bansos`, `k`.`nomor_keluarga` AS `nomor_keluarga`, `r`.`id_keluarga` AS `id_keluarga`, `p`.`nama` AS `nama_kepala_keluarga`, `k`.`alamat` AS `alamat`, `r`.`rank` AS `rank` FROM (((`ranking_keluarga` `r` join `keluarga_penduduk` `k` on(`r`.`id_keluarga` = `k`.`id_keluarga`)) join `detail_keluarga` `d` on(`r`.`id_keluarga` = `d`.`id_keluarga`)) join `penduduk` `p` on(`d`.`id_penduduk` = `p`.`id_penduduk` and `d`.`peran_keluarga` = 'Kepala Keluarga')) GROUP BY `r`.`id_bansos`, `r`.`rank` ORDER BY `r`.`id_bansos` ASC, `r`.`rank` ASC ;");
+        DB::statement("CREATE VIEW `rekomendasi`  AS SELECT `r`.`id_bansos` AS `id_bansos`, `k`.`nomor_keluarga` AS `nomor_keluarga`, `r`.`id_keluarga` AS `id_keluarga`, `p`.`nama` AS `nama_kepala_keluarga`, `p`.`alamat_domisili` AS `alamat`, `p`.`rt` AS `rt`, `r`.`rank` AS `rank` FROM (((`ranking_keluarga` `r` join `keluarga_penduduk` `k` on(`r`.`id_keluarga` = `k`.`id_keluarga`)) join `detail_keluarga` `d` on(`r`.`id_keluarga` = `d`.`id_keluarga`)) join `penduduk` `p` on(`d`.`id_penduduk` = `p`.`id_penduduk` and `d`.`peran_keluarga` = 'Kepala Keluarga')) GROUP BY `r`.`id_bansos`, `r`.`rank` ORDER BY `r`.`id_bansos` ASC, `r`.`rank` ASC ;");
     }
 
     /**

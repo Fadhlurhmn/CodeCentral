@@ -6,7 +6,7 @@
     @include('layout.a_sidebar')
     <div class="flex-grow bg-white">
         <div class="w-full h-fit min-w-max p-5">
-            
+            @include('layout.breadcrumb2')
             <form id="form_kriteria" action="{{ url('admin/kriteria') }}" method="POST">
                 
                 @csrf

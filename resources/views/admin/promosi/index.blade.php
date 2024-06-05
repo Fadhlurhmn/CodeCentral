@@ -11,8 +11,8 @@
     <div class="bg-white flex-1 md:mt-16 cursor-default">
         {{-- Start Kotak Judul --}}
         <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col items-start">
-        <h1 class="pb-5 my-2 text-2xl text-gray-600 font-extrabold">{{$breadcrumb->title}}</h1>
-        {{-- <p class="mb-3 text-lg">{{$page->title}}</p> --}}
+        @include('layout.breadcrumb2')
+        
         <div class="flex justify-between w-full h-8">
             <a href="{{ url('admin/promosi/daftar') }}" class="flex justify-center items-center p-2 font-normal shadow-md bg-teal-300 hover:bg-teal-500 text-xs text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg">Daftar Permintaan</a>
             {{-- Search form --}}
@@ -34,7 +34,16 @@
 
       {{-- Bagian Promosi Usaha Warga --}}
       <div class="grid grid-cols-6 md:grid-cols-3 lg:grid-cols-5 gap-5 p-6 mx-auto bg-white/50 border-t-2 border-teal-400 cursor-default">
-        @foreach ($promosi as $promosi)
+       {{-- Pesan ketika tidak ada hasil pencarian --}}
+          @if ($promosi->isEmpty())
+            <div class="p-4 mb-5 bg-neutral-50 flex justify-center shadow-md rounded-md col-span-full">
+              <div class="flex-col text-center">
+                <h1 class="text-xl font-bold text-gray-600">No Results Found</h1>
+                <p class="text-xs text-gray-500">Tidak ada usaha yang sesuai dengan pencarian Anda.</p>
+              </div>
+            </div>
+          @endif
+       @foreach ($promosi as $promosi)
             <div class="rounded-lg shadow-md flex flex-col">
                 <div class="relative">
                     <img src="https://images.unsplash.com/photo-1611520189922-f7b1ba7d801e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -61,7 +70,6 @@
      {{-- End Bagian Promosi Usaha Warga --}}
 
   <!-- end content -->
-</div>
 </div>
 <!-- end wrapper -->
 @include('layout.end')

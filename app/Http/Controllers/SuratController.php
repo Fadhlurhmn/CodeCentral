@@ -11,9 +11,12 @@ class SuratController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Daftar Surat',
-            'list' => ['Home', 'Surat']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Surat', 'url' => url('admin/surat')],
+            ]
         ];
 
         $page = (object)[
@@ -46,9 +49,13 @@ class SuratController extends Controller
     }
     public function create()
     {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Surat',
-            'list' => ['Home', 'Surat', 'Tambah']
+        $breadcrumb = (object) [
+            'title' => 'Daftar Surat',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Surat', 'url' => url('admin/surat')],
+                ['name' => 'Tambah', 'url' => url('admin/surat/create')],
+            ]
         ];
         $page = (object)[
             'title' => 'Form Tambah Surat Baru'
@@ -91,9 +98,13 @@ class SuratController extends Controller
     {
         $surat = SuratModel::find($id);
 
-        $breadcrumb = (object)[
+        $breadcrumb = (object) [
             'title' => 'Edit Surat',
-            'list' => ['Home', 'Surat', 'Edit']
+            'list' => [
+                ['name' => 'Home', 'url' => url('/admin')],
+                ['name' => 'Surat', 'url' => url('admin/surat')],
+                ['name' => 'Edit', 'url' => url('admin/surat/edit')],
+            ]
         ];
 
         $page = (object)[
@@ -138,22 +149,6 @@ class SuratController extends Controller
 
         return redirect('admin/surat')->with('success', 'Data surat berhasil diperbarui');
     }
-
-    // public function delete($id)
-    // {
-    //     $surat = SuratModel::findOrFail($id);
-
-    //     // Hapus file terkait jika ada
-    //     if (!empty($surat->path_berkas)) {
-    //         Storage::disk('public')->delete($surat->path_berkas);
-    //     }
-
-    //     // Hapus data surat dari database
-    //     $surat->delete();
-
-    //     // Redirect kembali dengan pesan sukses
-    //     return redirect('admin/surat')->with('success', 'Data surat berhasil dihapus');
-    // }
 
     public function delete($id)
     {

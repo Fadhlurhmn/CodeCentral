@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('username', 100);
             $table->string('password');
-            $table->string('status_akun');
+            $table->string('status_akun', 20);
             $table->timestamps();
 
             $table->foreign('id_level')->references('id_level')->on('level');
