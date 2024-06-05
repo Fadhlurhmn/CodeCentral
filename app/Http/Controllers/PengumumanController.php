@@ -112,7 +112,7 @@ class PengumumanController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'judul_pengumuman' => 'required|string|max:255',
+            'judul_pengumuman' => 'required|string|max:100',
             'deskripsi' => 'required|string',
             'thumbnail' => 'required|image|max:2048',
             'status_pengumuman' => 'required|string',
@@ -206,7 +206,7 @@ class PengumumanController extends Controller
     {
         // Validasi input dari form
         $request->validate([
-            'judul_pengumuman' => 'required|string',
+            'judul_pengumuman' => 'required|string|max:100',
             'deskripsi' => 'required|string',
             'thumbnail' => 'nullable|image|max:2048',
             'status_pengumuman' => 'required|string',
