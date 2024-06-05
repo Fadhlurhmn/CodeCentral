@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwal_kebersihan', function (Blueprint $table) {
             $table->id('id_jadwal_kebersihan');
-            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu']);
+            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
             $table->enum('waktu', ['08:00 - 12:00', '12:00 - 16:00', 'Tidak ada']);
             $table->timestamps();
         });
