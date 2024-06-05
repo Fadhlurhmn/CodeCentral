@@ -3,7 +3,7 @@
     <!-- logo -->
     <div class="order-0">
       <a href="{{ route('user.landing') }}" class="text-black text-2xl font-semibold">
-          SI RW 3 TLOGOMAS
+          SI RW 4 TLOGOMAS
       </a>
     </div>
     <!-- navbar toggler -->

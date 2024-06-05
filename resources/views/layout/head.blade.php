@@ -30,7 +30,7 @@
     />
   
     <!-- title -->
-    <title>SI RW 3 Tlogomas</title>
+    <title>SI RW 4 Tlogomas</title>
   
     <!-- noindex robots -->
     <meta name="robots" content="" />
@@ -66,23 +66,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   
-    {{-- <link
-      href="https://fonts.googleapis.com/css2?family=<%= fontPrimary %>&display=swap"
-      rel="stylesheet"
-    /> --}}
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-    {{-- <link
-      href="https://fonts.googleapis.com/css2?family=<%= fontSecondary %>&display=swap"
-      rel="stylesheet"
-    /> --}}
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   
-    <!-- styles -->
-  
     <!-- Swiper slider -->
-    {{-- <link rel="stylesheet" href="./resources/plugins/swiper/swiper-bundle.css" /> --}}
     @vite('resources/plugins/swiper/swiper-bundle.css')
   
     <!-- Fontawesome -->
@@ -90,10 +77,7 @@
   
     <!-- Main Stylesheet -->
     @vite('resources/css/main.scss')
-    {{-- <link href="css/main.css" rel="stylesheet" /> --}}
 
-    {{-- Flowbite --}}
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" /> --}}
   </head>
   
 </head>
