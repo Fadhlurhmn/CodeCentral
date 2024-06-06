@@ -29,6 +29,7 @@ class KriteriaController extends Controller
             'title' => 'Detail Kriteria',
             'list' => [
                 ['name' => 'Home', 'url' => url('/' . $role)],
+                ['name' => 'Bantuan Sosial', 'url' => url($role . '/bansos')],
                 ['name' => 'Detail Kriteria', 'url' => url($role . '/bansos')],
             ]
         ];
@@ -57,11 +58,12 @@ class KriteriaController extends Controller
             $role = 'rw';
         }
         $breadcrumb = (object) [
-            'title' => 'Tambah Kriteria',
+            'title' => 'Ubah Kriteria',
             'list' => [
                 ['name' => 'Home', 'url' => url('/' . $role)],
                 ['name' => 'Bantuan Sosial', 'url' => url('/' . $role . '/bansos')],
-                ['name' => 'Kriteria Create', 'url' => url($role . '/kriteria/create')],
+                ['name' => 'Kriteria', 'url' => url($role . '/kriteria/show')],
+                ['name' => 'Ubah', 'url' => url($role . '/kriteria/update')],
             ]
         ];
 
@@ -69,13 +71,15 @@ class KriteriaController extends Controller
             'title' => 'Tambah Kriteria'
         ];
 
+        $kriteria = KriteriaBansosModel::all();
         $activeMenu = 'bansos';
 
-        return view($role . '.kriteria.update', [
+        return view($role . '.kriteria.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
+            'kriteria' => $kriteria,
             'activeMenu' => $activeMenu
-        ])->with('success', 'Kriteria Berhasil Dibuat');
+        ])->with('success', 'Kriteria Berhasil Diubah');
     }
 
     public function store_kriteria(Request $request)
@@ -117,7 +121,7 @@ class KriteriaController extends Controller
             }
         }
 
-        return redirect($role . '/bansos')
-            ->with('success', 'Data Kriteria Berhasil Ditambahkan');
+        return redirect($role . '/kriteria/show')
+            ->with('success', 'Data Kriteria Berhasil Diubah');
     }
 }
