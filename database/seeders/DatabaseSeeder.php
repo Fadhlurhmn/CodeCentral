@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             LevelSeeder::class,
             UserSeeder::class,
             PromosiSeeder::class,
+            JadwalSeeder::class
         ]);
     }
 }

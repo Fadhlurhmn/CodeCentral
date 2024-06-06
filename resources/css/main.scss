@@ -1,0 +1,21 @@
+@config "../../tailwind.site.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @import "pinwheel-component/base";
+}
+
+@layer components {
+  @import "pinwheel-component/components.scss";
+  @import "pinwheel-component/navigation";
+  @import "pinwheel-component/buttons";
+}
+
+@layer utilities {
+  @import "pinwheel-component/utilities";
+}
+
+

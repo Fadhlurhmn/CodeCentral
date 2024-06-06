@@ -189,10 +189,10 @@ class KeluargaController extends Controller
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
-        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anggota Keluarga'])->get();
+        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->get();
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
-        $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+        $anggota = $detail_keluarga->where('peran_keluarga', 'Anak');
 
         $breadcrumb = (object)[
             'title' => 'Detail Keluarga Penduduk',
@@ -363,10 +363,10 @@ class KeluargaController extends Controller
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
-        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anggota Keluarga'])->get();
+        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->get();
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
-        $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+        $anggota = $detail_keluarga->where('peran_keluarga', 'Anak');
 
         $breadcrumb = (object) [
             'title' => 'Daftar Keluarga Penduduk',
@@ -588,10 +588,10 @@ class KeluargaController extends Controller
         }
 
         // Anda bisa menambahkan logika untuk menampilkan detail anggota keluarga di sini
-        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anggota Keluarga'])->get();
+        $detail_keluarga = detail_keluarga_model::where('id_keluarga', $id)->whereIn('peran_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->get();
         $kepala_keluarga = $detail_keluarga->where('peran_keluarga', 'Kepala Keluarga');
         $istri = $detail_keluarga->where('peran_keluarga', 'Istri');
-        $anggota = $detail_keluarga->where('peran_keluarga', 'Anggota Keluarga');
+        $anggota = $detail_keluarga->where('peran_keluarga', 'Anak');
 
         $breadcrumb = (object) [
             'title' => 'Detail Data Keluarga',
