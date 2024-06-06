@@ -71,7 +71,7 @@
             <div class="swiper promosi-carousel py-7">
               <div class="swiper-wrapper">
               {{-- max 5 ajah buat promosi di home --}}
-              @for ($i = 0; $i < 3; $i++)
+              @for ($i = 0; $i < 4; $i++)
                 <div class="swiper-slide">
                     <div class="card">
                         <img
@@ -112,7 +112,110 @@
     </div>
 </section>
 <!-- end Promosi UMKM -->
+<!-- Jadwal -->
+<section class="section key-feature relative">
+    <div class="container">
+        <div class="row justify-between text-center lg:text-start">
+            <div class="lg:col-5">
+                <h2>Jadwal Petugas</h2>
+            </div>
+        </div>
+        <!-- Jadwal Petugas -->
+        <div class="mt-10" id="jadwal">
+            <div class="grid grid-cols-1 text-black">
+                <div class="grid grid-cols-2 gap-4 text-lg text-center font-bold border-gray-200 shadow mb-4 rounded-full">
+                    <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('keamanan')">Jadwal Keamanan</button>
+                    <button id="btn-kebersihan" class="p-2 rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('kebersihan')">Jadwal Kebersihan</button>
+                </div>
+                {{-- jadwal keamanan --}}
+                <div id="jadwal_keamanan" class="h-auto p-2 mb-10">
+                    <table class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
+                                @foreach ($days as $day)
+                                    <th class="p-3 text-sm font-normal border border-teal-300">{{ ucfirst($day) }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($shifts as $shift)
+                                <tr>
+                                    <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $shift }}</td>
+                                    @foreach ($days as $day)
+                                        <td class="p-3 text-sm text-center border border-teal-300">
+                                            @foreach ($schedule[$day][$shift] as $entry)
+                                                {{ $entry->nama }}<br>
+                                                <span class="text-xs text-gray-500">({{ $entry->nomor_telepon }})</span><br>
+                                            @endforeach
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
+                {{-- jadwal kebersihan --}}
+                <div id="jadwal_kebersihan" class="hidden h-auto">
+                    @if(isset($jadwal_kebersihan) && count($jadwal_kebersihan) > 0)
+                    <table class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Hari</th>
+                                <th class="p-3 text-sm font-normal border border-teal-300">Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($jadwal_kebersihan as $jadwal)
+                              @if($jadwal->waktu !== 'Tidak ada')
+                              <tr>
+                                  <td class="p-3 text-sm text-center border border-teal-300">{{ $jadwal->hari }}</td>
+                                  <td class="p-3 text-sm text-center border border-teal-300">{{ $jadwal->waktu }}</td>
+                              </tr>
+                              @endif
+                          @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                        <div class="flex-col text-center">
+                            <h1 class="text-xl font-bold text-gray-600">Tidak ada Jadwal Kebersihan</h1>
+                            <p class="text-xs text-gray-500">Jadwal Kebersihan Belum Dibuat.</p>
+                        </div>
+                    </div>
+                    @endif
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end Jadwal -->
 
+@push('js')
+    <script>
+        function changeJadwal(type) {
+            const jadwalKeamanan = document.getElementById('jadwal_keamanan');
+            const jadwalKebersihan = document.getElementById('jadwal_kebersihan');
+            const btnKeamanan = document.getElementById('btn-keamanan');
+            const btnKebersihan = document.getElementById('btn-kebersihan');
+            if (type === 'keamanan') {
+                jadwalKeamanan.classList.remove('hidden');
+                jadwalKeamanan.classList.add('block');
+                jadwalKebersihan.classList.remove('block');
+                jadwalKebersihan.classList.add('hidden');
+                btnKeamanan.classList.add('bg-primary');
+                btnKebersihan.classList.remove('bg-primary');
+            } else {
+                jadwalKebersihan.classList.remove('hidden');
+                jadwalKebersihan.classList.add('block');
+                jadwalKeamanan.classList.remove('block');
+                jadwalKeamanan.classList.add('hidden');
+                btnKeamanan.classList.remove('bg-primary');
+                btnKebersihan.classList.add('bg-primary');
+            }
+        }
+    </script>
+@endpush
 
 @include('layout.footer')

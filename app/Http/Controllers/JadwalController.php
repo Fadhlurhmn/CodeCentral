@@ -244,7 +244,7 @@ class JadwalController extends Controller
         foreach ($days as $day) {
             foreach ($shifts as $shift) {
                 $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
-                    return $item->hari == $day && $item->waktu == $shift;
+                    return strtolower($item->hari) == strtolower($day) && $item->waktu == $shift;
                 });
             }
         }
