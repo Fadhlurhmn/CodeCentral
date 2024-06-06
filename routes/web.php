@@ -1,23 +1,70 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuratController;
+use App\Http\Controllers\BansosController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\KeluargaController;
-use App\Http\Controllers\PendudukController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BansosController;
 use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\JadwalController;
-use App\Http\Controllers\SuratController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\UserSuratController;
 use App\Http\Controllers\PengumumanController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserBansosController;
+use App\Http\Controllers\UserPromosiController;
+use App\Http\Controllers\UserPengaduanController;
+use App\Http\Controllers\UserPengumumanController;
 
 
-Route::get('/', function () {
-    return redirect('/admin');
-})->name('public');
+// User Routes
+// Route::get('/', function () {
+//     return view('index');
+// })->name('user/landing');
+
+// Route untuk halaman landing
+Route::get('/', [HomeController::class, 'index'])->name('user.landing');
+
+// Route untuk halaman pengumuman
+Route::get('/pengumuman', [UserPengumumanController::class, 'index'])->name('user.pengumuman');
+Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name('user.pengumuman.show');
+
+
+Route::group(['prefix' => 'promosi'], function () {
+    Route::get('/', [UserPromosiController::class, 'index'])->name('user.promosi');
+    Route::get('/promosi', [UserPromosiController::class, 'create'])->name('user.promosi.create');
+    Route::post('/promosi', [UserPromosiController::class, 'store'])->name('user.promosi.store');
+    Route::post('/promosiVerif', [UserPromosiController::class, 'verifyDataDiri'])->name('verifyDataDiriPromosi');
+});
+
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/list', [UserBansosController::class, 'list'])->name('user.bansos.list');
+    Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user.bansos.pengajuan');
+});
+
+// bansos pengajuan form route
+Route::post('/verify-data-diri', [UserBansosController::class, 'verifyDataDiri'])->name('verifyDataDiri');
+Route::post('/submit-survey', [UserBansosController::class, 'submitSurvey'])->name('submitSurvey');
+
+
+// Route untuk halaman surat
+Route::get('/surat', [UserSuratController::class, 'index'])->name('user.surat');
+Route::get('/surat/download/{id}', [UserSuratController::class, 'download']);
+
+Route::get('/pengaduan', [UserPengaduanController::class, 'index'])->name('user.pengaduan');
+Route::post('/pengaduanVerif', [UserPengaduanController::class, 'verifyDataDiri'])->name('verifyDataDiriPengaduan');
+Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user.pengaduan.store');
+
+// struktur rt rw
+Route::get('/struktur', function(){
+    return view('user.struktur.index');
+})->name('user.struktur');
+
+// end User Routes
 
 // Template Routes
 Route::prefix('template')->group(function () {
