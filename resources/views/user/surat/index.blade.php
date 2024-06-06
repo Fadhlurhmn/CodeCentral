@@ -2,9 +2,9 @@
 @include('layout.u_navbar')
 
 <!-- floating assets -->
-<img class="floating-bubble-1 absolute right-0 top-0 -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-1.svg') }}') }}" alt="Bubble 1" />
-<img class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-2.svg') }}') }}" alt="Bubble 2" />
-<img class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="{{ asset('{{ asset('images/floating-bubble-3.svg') }}') }}" alt="Bubble 3" />
+<img class="floating-bubble-1 absolute right-0 top-0 -z-[1]" src="{{ asset('images/floating-bubble-1.svg') }}" alt="Bubble 1" />
+<img class="floating-bubble-2 absolute left-0 top-[387px] -z-[1]" src="{{ asset('images/floating-bubble-2.svg') }}" alt="Bubble 2" />
+<img class="floating-bubble-3 absolute right-0 top-[605px] -z-[1]" src="{{ asset('images/floating-bubble-3.svg') }}" alt="Bubble 3" />
 <!-- ./end floating assets -->
 
 <!-- Common hero -->

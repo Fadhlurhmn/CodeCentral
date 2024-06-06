@@ -59,7 +59,7 @@
     <div class="container">
       <div class="row justify-between text-center lg:text-start">
         <div class="lg:col-5">
-          <h2>UMKM Unggulan</h2>
+          <h2>UMKM Warga</h2>
         </div>
       </div>
       <div class="row mt-10">
@@ -109,101 +109,6 @@
 </section>
 <!-- end Promosi UMKM -->
 
-<!-- Jadwal -->
-<section class="section key-feature relative">
-    <div class="container">
-        <div class="row justify-between text-center lg:text-start">
-            <div class="lg:col-5">
-                <h2>Jadwal Petugas</h2>
-            </div>
-        </div>
-        <!-- Jadwal Petugas -->
-        <div class="mt-10" id="jadwal">
-            <div class="grid grid-cols-1 text-black">
-                <div class="grid grid-cols-2 gap-4 text-lg text-center font-bold border-gray-200 shadow mb-4 rounded-full">
-                    <button id="btn-keamanan" class="p-2 bg-primary rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('keamanan')">Jadwal Keamanan</button>
-                    <button id="btn-kebersihan" class="p-2 rounded-full duration-300 ease-in-out hover:bg-primary md:text-sm" onclick="changeJadwal('kebersihan')">Jadwal Kebersihan</button>
-                </div>
-                {{-- jadwal keamanan --}}
-                <div class="h-auto p-2 mb-10" id="jadwal_keamanan">
-                    <table class="w-full min-w-max cursor-default border-collapse">
-                      <thead class="bg-teal-400 text-center">
-                        <tr>
-                          <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
-                          @foreach ($jadwal_keamanan->hari as $hari)
-                            <th class="p-3 text-sm font-normal border border-teal-300">{{ $hari }}</th>
-                          @endforeach
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($jadwal_keamanan->waktu as $index => $waktu)
-                          <tr>
-                            <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $waktu }}</td>
-                            @foreach ($jadwal_keamanan->hari as $hariIndex => $hari)
-                              <td class="p-3 text-sm text-center border border-teal-300">
-                                {{ $jadwal_keamanan->nama[$hariIndex][$index] }}<br>
-                                <span class="text-xs text-gray-500">({{ $jadwal_keamanan->telepon[$hariIndex][$index] }})</span>
-                              </td>
-                            @endforeach
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                </div>
 
-                {{-- jadwal kebersihan --}}
-                <div class="hidden duration-300 ease-in-out px-0 lg:px-60" id="jadwal_kebersihan">
-                    @if(isset($jadwal_kebersihan))
-                        <table class="table-auto border-collapse border w-full">
-                            <thead>
-                                <tr class="bg-teal-400 border-b md:text-sm">
-                                    <th class="p-3 border border-primary">Hari</th>
-                                    <th class="p-3 border border-primary">Waktu</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach ($jadwal_kebersihan->hari as $index => $hari)
-                                    <tr class="bg-white border-b md:text-sm">
-                                        <td class="p-3 border border-primary">{{ $hari }}</td>
-                                        <td class="p-3 border border-primary">{{ $jadwal_kebersihan->waktu[$index % count($jadwal_kebersihan->waktu)] }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p class="text-center">Tidak ada jadwal kebersihan yang tersedia</p>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end Jadwal -->
-
-@push('js')
-    <script>
-        function changeJadwal(type) {
-            const jadwalKeamanan = document.getElementById('jadwal_keamanan');
-            const jadwalKebersihan = document.getElementById('jadwal_kebersihan');
-            const btnKeamanan = document.getElementById('btn-keamanan');
-            const btnKebersihan = document.getElementById('btn-kebersihan');
-            if (type === 'keamanan') {
-                jadwalKeamanan.classList.remove('hidden');
-                jadwalKeamanan.classList.add('block');
-                jadwalKebersihan.classList.remove('block');
-                jadwalKebersihan.classList.add('hidden');
-                btnKeamanan.classList.add('bg-primary');
-                btnKebersihan.classList.remove('bg-primary');
-            } else {
-                jadwalKebersihan.classList.remove('hidden');
-                jadwalKebersihan.classList.add('block');
-                jadwalKeamanan.classList.remove('block');
-                jadwalKeamanan.classList.add('hidden');
-                btnKeamanan.classList.remove('bg-primary');
-                btnKebersihan.classList.add('bg-primary');
-            }
-        }
-    </script>
-@endpush
 
 @include('layout.footer')

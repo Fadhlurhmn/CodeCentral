@@ -100,6 +100,7 @@
             placeholder="Masukkan NIK"
             value="{{ old('nik') }}"
           />
+          <div id="nikError" class="hidden col-span-4 text-red-500 text-xs mt-4">NIK harus diisi dengan 16 karakter</div>
           @error('nik')
             <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
@@ -134,6 +135,12 @@
                     maxlength="500"
                     required
                 ></textarea>
+                {{-- character counter --}}
+                <div id="character-counter" class="text-right w-full">
+                  <span id="typed-characters">0</span>
+                  <span>/</span>
+                  <span id="maximum-characters">500</span>
+                </div>
             @error('isi_pengaduan')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
@@ -196,7 +203,45 @@
 @endif
 
 @push('js')
-    
+<script>
+  // Script tulisan merah dibawah inputan
+  document.getElementById('nik').addEventListener('input', function() {
+        var nikInput = this.value;
+        var nikError = document.getElementById('nikError');
+        
+        if (nikInput.length !== 16) {
+            nikError.classList.remove('hidden');
+        } else {
+            nikError.classList.add('hidden');
+        }
+    });
+
+  // Character counter
+  const textAreaElement = document.querySelector("#isi_pengaduan");
+  
+  const characterCounterElement = document.querySelector("#character-counter");
+  
+  const typedCharactersElement = document.querySelector("#typed-characters");
+  
+  const maximumCharacters = 500;
+  
+  textAreaElement.addEventListener("keyup", (event) => {
+      const typedCharacters = textAreaElement.value.length;
+      
+      if (typedCharacters > maximumCharacters) {
+          return false;
+      }
+      
+      typedCharactersElement.textContent = typedCharacters;
+      if (typedCharacters >= 450 && typedCharacters < 500) {
+          characterCounterElement.classList = "text-yellow-400";
+      } else if (typedCharacters >= 500) {
+          characterCounterElement.classList = "text-red-400";
+      } else {
+          characterCounterElement.classList = "text-inherit";
+      }
+  });
+</script>
 @endpush
 
 @include('layout.footer')

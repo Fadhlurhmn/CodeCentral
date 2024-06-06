@@ -108,6 +108,7 @@
             placeholder="Masukkan Nomor Kartu Keluarga"
             value="{{ old('no_kk') }}"
           />
+          <div id="no_kkError" class="hidden col-span-4 text-red-500 text-xs mt-4">Nomor KK harus diisi dengan 16 karakter</div>
           @error('no_kk')
             <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
@@ -447,6 +448,18 @@
 @endif
 
 <script>
+  // Script tulisan merah dibawah inputan
+  document.getElementById('no_kk').addEventListener('input', function() {
+        var no_kkInput = this.value;
+        var no_kkError = document.getElementById('no_kkError');
+        
+        if (no_kkInput.length !== 16) {
+            no_kkError.classList.remove('hidden');
+        } else {
+            no_kkError.classList.add('hidden');
+        }
+    });
+
   // logic buat tombol selanjutnya
   function nextSection(section) {
       document.querySelector('.form-section:not([style*="display: none"])').style.display = 'none';

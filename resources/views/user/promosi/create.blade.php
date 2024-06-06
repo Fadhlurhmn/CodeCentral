@@ -94,6 +94,7 @@
             placeholder="Masukkan NIK"
             value="{{ old('nik') }}"
           />
+          <div id="nikError" class="hidden col-span-4 text-red-500 text-xs mt-4">NIK harus diisi dengan 16 karakter</div>
           @error('nik')
             <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
           @enderror
@@ -125,8 +126,15 @@
               name="nama_usaha"
               placeholder="Masukkan nama usaha anda"
               value="{{ old('nama_usaha') }}"
+              maxlength="100"
               required
             />
+            {{-- character counter --}}
+            <div id="character-counter" class="text-right w-full">
+              <span id="typed-characters">0</span>
+              <span>/</span>
+              <span id="maximum-characters">100</span>
+            </div>
             @error('nama_usaha')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
@@ -141,9 +149,15 @@
                     rows="10"
                     placeholder="Deskripsikan usaha anda"
                     value="{{ old('deskripsi_usaha') }}" 
-                    maxlength="200"
+                    maxlength="500"
                     required
                 ></textarea>
+                {{-- character counter --}}
+                <div id="character-counter2" class="text-right w-full">
+                  <span id="typed-characters2">0</span>
+                  <span>/</span>
+                  <span id="maximum-characters2">500</span>
+                </div>
             @error('deskripsi_usaha')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
@@ -153,11 +167,11 @@
             <label class="form-label" for="jenis_usaha">Jenis usaha</label>
             <select name="jenis_usaha" id="jenis_usaha" class="form-select" required>
               <option value="">Pilih jenis usaha</option>
-              <option value="fnb">FnB</option>
-              <option value="Fashion">Fashion</option>
-              <option value="Jasa">Jasa</option>
-              <option value="Kerajinan">Kerajinan</option>
-              <option value="Lainnya">Lainnya</option>
+              <option value="kuliner">Kuliner</option>
+              <option value="fashion">Fashion</option>
+              <option value="retail">Retail</option>
+              <option value="jasa">Jasa</option>
+              <option value="lainnya">Lainnya</option>
             </select>
             @error('jenis_usaha')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
@@ -205,6 +219,68 @@
     document.getElementById('number-2').classList.add('border-primary');
   </script>
 @endif
+
+@push('js')
+<script>
+  // Script tulisan merah dibawah inputan
+  document.getElementById('nik').addEventListener('input', function() {
+        var nikInput = this.value;
+        var nikError = document.getElementById('nikError');
+        
+        if (nikInput.length !== 16) {
+            nikError.classList.remove('hidden');
+        } else {
+            nikError.classList.add('hidden');
+        }
+    });
+
+  // Character counter
+  const textAreaElement = document.querySelector("#nama_usaha");
+  const characterCounterElement = document.querySelector("#character-counter");
+  const typedCharactersElement = document.querySelector("#typed-characters");
+  const maximumCharacters = 100;
+  
+  textAreaElement.addEventListener("keyup", (event) => {
+      const typedCharacters = textAreaElement.value.length;
+      
+      if (typedCharacters > maximumCharacters) {
+          return false;
+      }
+      
+      typedCharactersElement.textContent = typedCharacters;
+      if (typedCharacters >= 90 && typedCharacters < 100) {
+          characterCounterElement.classList = "text-yellow-400";
+      } else if (typedCharacters >= 100) {
+          characterCounterElement.classList = "text-red-400";
+      } else {
+          characterCounterElement.classList = "text-inherit";
+      }
+  });
+
+  // Character counter2
+  const textAreaElement2 = document.querySelector("#deskripsi_usaha");
+  const characterCounterElement2 = document.querySelector("#character-counter2");
+  const typedCharactersElement2 = document.querySelector("#typed-characters2");
+  const maximumCharacters2 = 500;
+  
+  textAreaElement2.addEventListener("keyup", (event) => {
+      const typedCharacters2 = textAreaElement2.value.length;
+      
+      if (typedCharacters2 > maximumCharacters2) {
+          return false;
+      }
+      
+      typedCharactersElement2.textContent = typedCharacters2;
+      if (typedCharacters2 >= 450 && typedCharacters2 < 500) {
+          characterCounterElement2.classList = "text-yellow-400";
+      } else if (typedCharacters2 >= 500) {
+          characterCounterElement2.classList = "text-red-400";
+      } else {
+          characterCounterElement2.classList = "text-inherit";
+      }
+  });
+</script>
+@endpush
 
 @include('layout.footer')
 
