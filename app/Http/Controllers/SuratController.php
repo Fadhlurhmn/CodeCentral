@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -11,6 +12,12 @@ class SuratController extends Controller
 {
     public function index()
     {
+        // Ambil data user yang login
+        $user = Auth::user();
+
+        // Ambil id_penduduk dari user yang login
+        $id_user = $user->id_user;
+
         $breadcrumb = (object) [
             'title' => 'Daftar Surat',
             'list' => [
@@ -26,7 +33,7 @@ class SuratController extends Controller
         $activeMenu = 'surat';
         $surat = SuratModel::all();
         $totalSurat = SuratModel::count();
-        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat' => $surat, 'totalSurat' => $totalSurat]);
+        return view('admin.surat.surat', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat' => $surat, 'totalSurat' => $totalSurat, 'id_user' => $id_user]);
     }
 
     public function list(Request $request)
@@ -86,7 +93,8 @@ class SuratController extends Controller
         $surat = SuratModel::create([
             'deskripsi' => $request->deskripsi,
             'nama_surat' => $request->nama_surat,
-            'path_berkas' => $berkasPath // Simpan path untuk referensi (opsional)
+            'path_berkas' => $berkasPath, // Simpan path untuk referensi (opsional)
+            'id_user' => $request->id_user
         ]);
 
         // Redirect ke halaman daftar surat dengan pesan sukses

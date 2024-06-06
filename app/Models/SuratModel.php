@@ -11,10 +11,10 @@ class SuratModel extends Model
     use HasFactory;
     protected $table = 'surat';
     protected $primaryKey = 'id_surat';
-    protected $fillable = ['id_penduduk', 'nama_surat', 'deskripsi', 'path_berkas'];
+    protected $fillable = ['id_user', 'nama_surat', 'deskripsi', 'path_berkas'];
 
     public function pengurus(): BelongsTo
     {
-        return $this->belongsTo(PendudukModel::class, 'id_penduduk', 'id_penduduk');
+        return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
     }
 }

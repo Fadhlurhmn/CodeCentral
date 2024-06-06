@@ -31,4 +31,8 @@ class UserModel extends Authenticatable
     {
         return $this->hasMany(PengumumanModel::class, 'id_pengumuman', 'id_pengumuman');
     }
+    public function surat()
+    {
+        return $this->hasMany(SuratModel::class, 'id_surat', 'id_surat');
+    }
 }

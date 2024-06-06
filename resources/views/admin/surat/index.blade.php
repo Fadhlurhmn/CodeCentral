@@ -101,6 +101,7 @@
               <input type="file" id="berkas" name="berkas" accept=".docx" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
             </div>
             
+            <input type="hidden" name="id_user" value="{{$id_user}}">
             <div class="flex justify-start pt-2">
               {{-- <button class="modal-close bg-red-600 hover:bg-red-700 rounded-full text-white py-2 px-4 mr-2">Batal</button> --}}
               <button type="submit" class="bg-teal-500 hover:bg-teal-600 hover:shadow-md text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs sm:w-auto text-center py-2 px-4 transition duration-200 ease-in-out"><i class="far fa-plus"></i>  Simpan</button>
