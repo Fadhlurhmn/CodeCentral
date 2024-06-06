@@ -30,7 +30,7 @@ Route::get('/logout', function () {
 
 // Route for admin (for template only, you can make your own controller with index inside and remove this)
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function () {return view('admin.index');});
+    Route::get('/', function () {return view('admin.dashboard.index');});
     Route::get('/akun', function () {return view('admin.akun.index');});
     Route::get('/bansos', function () {return view('admin.bansos.index');});
     Route::get('/penduduk', function () {return view('admin.penduduk.index');});
