@@ -92,7 +92,7 @@
                     <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="{{ $penduduk->alamat_domisili }}" required />
                     {{-- RT --}}
                     <label for="rt" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Rt</label>
-                    <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{ $penduduk->rt }}" required />
+                    <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{ $penduduk->rt }}" required readonly/>
                     {{-- RW hidden --}}
                     <input type="hidden" name="rw" value="{{ $penduduk->rw }}" required/>
                     {{-- tempat_lahir --}}
