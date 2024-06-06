@@ -16,6 +16,7 @@ use App\Models\rekomendasi_per_rt;
 use App\Models\pengajuan_bansos_acc_rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -470,7 +471,56 @@ class BansosController extends Controller
     }
 
     // Implementasi fitur lainnya
+    public function tampil_hitung($id)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $breadcrumb = (object) [
+            'title' => 'Perhitungan Rekomendasi Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url('/' . $role . '/')],
+                ['name' => 'Bantuan Sosial', 'url' => url('/' . $role . '/bansos')],
+                ['name' => 'Perhitungan', 'url' => url('/' . $role . '/bansos/histori')],
+            ]
+        ];
 
+        $page = (object) [
+            'title' => 'Perhitungan Rekomendasi Bantuan Sosial'
+        ];
 
+        $activeMenu = 'bansos';
 
+        $alternatif = DB::select("SELECT * FROM alternatif WHERE id_bansos = ?", [$id]); // alternatif
+        $normalisasi_bobot = DB::select('SELECT * FROM normalisasi_bobot_kriteria'); // normalisasi bobot
+        $max_min_criteria = DB::select("SELECT * FROM max_min_kriteria_perbansos WHERE id_bansos = ?", [$id]); // nilai maksimal dan minimal per bansos
+        $nilai_alternatif = DB::select("SELECT * FROM detail_pertimbangan_bansos WHERE id_bansos = ?", [$id]);  // mengambil nilai kriteria
+        $nilai_utility = DB::select("SELECT * FROM nilai_utility_kriteria WHERE id_bansos = ?", [$id]); // mengambil nilai utility
+        $nilai_akhir = DB::select("SELECT * FROM nilai_akhir_keluarga WHERE id_bansos = ?", [$id]); // mengambil nilai akhir keluarga
+        $ranking_keluarga = DB::select("SELECT * FROM ranking_keluarga WHERE id_bansos = ?", [$id]); // mengambil nilai ranking keluarga
+        $detail_kriteria = DB::select("SELECT * FROM detail_bansos WHERE id_bansos = ?", [$id]);
+
+        // dd($detail_kriteria);
+        // dd($alternatif);
+        // dd($max_min_criteria);
+        // dd($nilai_utility);
+        // dd($ranking_keluarga);
+        return view($role . '.bansos.tampil_hitung', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'alternatif' => $alternatif,
+            'normalisasi_bobot' => $normalisasi_bobot,
+            'max_min_criteria' => $max_min_criteria,
+            'nilai_alternatif' => $nilai_alternatif,
+            'nilai_utility' => $nilai_utility,
+            'nilai_akhir' => $nilai_akhir,
+            'ranking_keluarga' => $ranking_keluarga,
+            'detail_kriteria' => $detail_kriteria
+        ]);
+    }
 }
