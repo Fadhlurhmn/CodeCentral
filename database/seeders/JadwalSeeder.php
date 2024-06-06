@@ -183,7 +183,7 @@ class JadwalSeeder extends Seeder
             ],
             // selasa
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 4,
                 'id_jadwal_keamanan' => 2,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -191,7 +191,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 5,
                 'id_jadwal_keamanan' => 2,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -199,7 +199,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 6,
                 'id_jadwal_keamanan' => 2,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
@@ -208,7 +208,7 @@ class JadwalSeeder extends Seeder
             ],
             // rabu
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 7,
                 'id_jadwal_keamanan' => 3,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -216,7 +216,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 8,
                 'id_jadwal_keamanan' => 3,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -224,7 +224,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 9,
                 'id_jadwal_keamanan' => 3,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
@@ -233,7 +233,7 @@ class JadwalSeeder extends Seeder
             ],
             // kamis
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 10,
                 'id_jadwal_keamanan' => 4,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -241,7 +241,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 11,
                 'id_jadwal_keamanan' => 4,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -249,7 +249,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 12,
                 'id_jadwal_keamanan' => 4,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
@@ -258,7 +258,7 @@ class JadwalSeeder extends Seeder
             ],
             // jumat
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 13,
                 'id_jadwal_keamanan' => 5,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -266,7 +266,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 14,
                 'id_jadwal_keamanan' => 5,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -274,7 +274,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 15,
                 'id_jadwal_keamanan' => 5,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
@@ -283,7 +283,7 @@ class JadwalSeeder extends Seeder
             ],
             // sabtu
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 16,
                 'id_jadwal_keamanan' => 6,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -291,7 +291,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 17,
                 'id_jadwal_keamanan' => 6,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -299,7 +299,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 18,
                 'id_jadwal_keamanan' => 6,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
@@ -308,7 +308,7 @@ class JadwalSeeder extends Seeder
             ],
             // minggu
             [
-                'id_detail_jadwal_keamanan' => 1,
+                'id_detail_jadwal_keamanan' => 19,
                 'id_jadwal_keamanan' => 7,
                 'id_satpam' => 4,
                 'waktu' => 'Pagi',
@@ -316,7 +316,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 2,
+                'id_detail_jadwal_keamanan' => 20,
                 'id_jadwal_keamanan' => 7,
                 'id_satpam' => 3,
                 'waktu' => 'Siang - Sore',
@@ -324,7 +324,7 @@ class JadwalSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_detail_jadwal_keamanan' => 3,
+                'id_detail_jadwal_keamanan' => 21,
                 'id_jadwal_keamanan' => 7,
                 'id_satpam' => 1,
                 'waktu' => 'Malam',
