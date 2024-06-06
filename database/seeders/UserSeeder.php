@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id_user' => 3,
-                'id_level' => 3,
+                'id_level' => 6,
                 'id_penduduk' => 3,
                 'username' => 'rt',
                 'password' => Hash::make('12345'),
