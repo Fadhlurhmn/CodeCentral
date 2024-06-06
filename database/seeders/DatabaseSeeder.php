@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             DetailKeluargaSeeder::class,
             LevelSeeder::class,
             UserSeeder::class,
+            PromosiSeeder::class,
         ]);
     }
 }

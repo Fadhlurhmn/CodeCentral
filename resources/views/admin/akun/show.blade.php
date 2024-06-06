@@ -8,7 +8,7 @@
 
     <!-- Bagian konten utama -->
     <div class="flex-grow bg-white">
-        
+
         <!-- Container untuk konten utama halaman -->
         <div class="w-full min-w-max p-5 bg-white">
             <!-- Menampilkan breadcrumb -->
@@ -44,7 +44,7 @@
                             </td>
                         </tr>
                         <tr class="whitespace-nowrap bg-gray-100">
-                            <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Level Akun</th>
+                            <th class="px-3 py-2 border-l border-r border-gray-400 w-36 font-semibold text-sm">Jabatan</th>
                             <td class="pl-3 text-sm">{{ $user->level->nama_level }}</td>
                         </tr>
                         <tr class="whitespace-nowrap bg-gray-200">

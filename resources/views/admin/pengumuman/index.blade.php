@@ -9,13 +9,12 @@
 
     <!-- Start content -->
     <div class="bg-white flex-1 md:mt-16 cursor-default">
-        <div class="p-5 pb-0 flex flex-col">
-          @include('layout.breadcrumb2')
+        <div class="p-5 pb-0 flex flex-col border-t-2 border-teal-500">
+            @include('layout.breadcrumb2')
         </div>
-        
-        <div class="container p-5 mb-5 bg-white border-t-4 border-teal-500 text-lg flex flex-col items-start">
-            <p class="mb-3 text-xl">{{$page->title}}</p>
-            <div class="flex justify-between w-full">
+
+        <div class="container p-5 bg-white text-xs flex flex-col items-start">
+            <div class="flex justify-between w-full mb-4">
                 <a class="p-2 text-sm font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/pengumuman/create')}}">Tambah Pengumuman</a>
 
                 {{-- Search form --}}
@@ -33,6 +32,7 @@
                 </form>
             </div>
         </div>
+
         @if (session('success'))
         <!-- Menampilkan pesan sukses jika ada session 'success' -->
         <div class="col-span-4 mb-4 px-4">
@@ -44,7 +44,7 @@
         @endif
 
         {{-- Bagian pengumuman Warga --}}
-        <div class="h-fit grid grid-cols-1 gap-5 p-6 mx-auto bg-white/50 border-t-4 border-teal-400 cursor-default">
+        <div class="h-fit grid grid-cols-1 gap-5 p-6 mx-auto bg-white/50 border-t-2 border-teal-500 cursor-default">
             @if($pengumuman->isEmpty())
                 <p class="text-gray-600 text-center">Pengumuman tidak tersedia</p>
             @else

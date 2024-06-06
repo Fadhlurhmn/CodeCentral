@@ -235,7 +235,7 @@ class UserController extends Controller
     }
 
     // Menampilkan halaman profil pengguna
-    public function profil()
+        public function profil()
     {
         // Mengambil data pengguna yang sedang login
         $user = Auth::user();
@@ -254,11 +254,15 @@ class UserController extends Controller
             'title' => 'Ubah Profil Akun'
         ];
 
+        // Menentukan menu yang aktif
+        $activeMenu = 'profil';
+
         // Menampilkan view dengan data yang sudah disiapkan
         return view('layout.a_edit_profil', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'user' => $user
+            'user' => $user,
+            'activeMenu' => $activeMenu
         ]);
     }
 

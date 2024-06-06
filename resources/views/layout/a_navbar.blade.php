@@ -51,10 +51,15 @@
           <div class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
             <!-- item -->
 
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="{{url('/admin/profil')}}">
+                <i class="fad fa-user-edit text-xs mr-1"></i>
+                Edit Profil
+            </a>
+
             <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="{{url('/logout')}}">
-              <i class="fad fa-user-times text-xs mr-1"></i> 
+              <i class="fad fa-user-times text-xs mr-1"></i>
               log out
-            </a>     
+            </a>
 
             <!-- end item -->
 

@@ -16,7 +16,7 @@ class JabatanController extends Controller
             'title' => 'Daftar Jabatan',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Akun', 'url' => url('admin/jabatan')]
+                ['name' => 'Jabatan', 'url' => url('admin/jabatan')]
             ]
         ];
         $page = (object) [
@@ -52,7 +52,7 @@ class JabatanController extends Controller
     public function create()
     {
         $breadcrumb = (object) [
-            'title' => 'Form Tambah Akun Baru',
+            'title' => 'Form Tambah Jabatan Baru',
             'list' => [
                 ['name' => 'Home', 'url' => url('/admin')],
                 ['name' => 'Jabatan', 'url' => url('admin/jabatan')],

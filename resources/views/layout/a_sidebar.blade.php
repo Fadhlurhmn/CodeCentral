@@ -16,60 +16,66 @@
       <p class="uppercase font-semibold text-sm text-teal-600 mb-2 tracking-wider">FITUR SI RW</p>
 
 
-      <a href="{{ url('/admin') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+      <a href="{{ url('/admin') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'dashboard' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-chart-pie text-xs mr-2"></i>
           Dashboard
       </a>
-      
-      <a href="{{ url('/admin/akun') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/akun') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'user' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-user text-xs mr-2"></i>
           Akun
       </a>
-      
-      <a href="{{ url('/admin/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/jabatan') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
+        {{ $activeMenu === 'jabatan' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
+        <i class="fas fa-briefcase text-xs mr-2"></i>
+        Jabatan
+     </a>
+
+      <a href="{{ url('/admin/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'bansos' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-people-carry text-xs mr-2"></i>
           Bansos
       </a>
-      
-      <a href="{{ url('/admin/penduduk') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/penduduk') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'penduduk' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-users text-xs mr-2"></i>
           Penduduk
       </a>
-      
-      <a href="{{ url('/admin/keluarga') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/keluarga') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'keluarga' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-home text-xs mr-2"></i>
           Keluarga
       </a>
-      
-      <a href="{{ url('/admin/pengumuman') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/pengumuman') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'pengumuman' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-bullhorn text-xs mr-2"></i>
           Pengumuman
       </a>
-      
-      <a href="{{ url('/admin/promosi') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/promosi') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'promosi' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-ad text-xs mr-2"></i>
           Promosi
       </a>
-      
-      <a href="{{ url('/admin/surat') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/surat') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'surat' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-envelope text-xs mr-2"></i>
           Surat
       </a>
-      
-      <a href="{{ url('/admin/jadwal') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300 
+
+      <a href="{{ url('/admin/jadwal') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'jadwal' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-calendar-alt text-xs mr-2"></i>
           Jadwal
       </a>
-  
+
       {{-- <a href="{{ url('/admin/keuangan') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300">
           <i class="fas fa-coins text-xs mr-2"></i>
           Keuangan
