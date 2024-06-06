@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_jadwal_keamanan', function (Blueprint $table) {
+            $table->id('id_detail_jadwal_keamanan');
             $table->unsignedBigInteger('id_jadwal_keamanan')->index();
             $table->unsignedBigInteger('id_satpam')->index();
             $table->enum('waktu', ['Pagi', 'Siang - Sore', 'Malam']);
