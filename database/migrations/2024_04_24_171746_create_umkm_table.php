@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('umkm', function (Blueprint $table) {
-            $table->id('id_umkm');
-            $table->unsignedBigInteger('id_keluarga')->index();
+        Schema::create('promosi', function (Blueprint $table) {
+            $table->id('id_promosi');
+            $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('nama_usaha', 100);
             $table->string('gambar', 255);
             $table->text('deskripsi');
-            $table->string('status_pengajuan', 100);
+            $table->string('kategori', 20);
+            $table->string('status_pengajuan', 20);
             $table->text('alamat');
             $table->dateTime('countdown');
             $table->timestamps();
 
-            $table->foreign('id_keluarga')->references('id_keluarga')->on('keluarga_penduduk');
+            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('umkm');
+        Schema::dropIfExists('promosi');
     }
 };

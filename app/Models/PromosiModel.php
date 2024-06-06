@@ -11,7 +11,7 @@ class PromosiModel extends Model
     use HasFactory;
     protected $table = 'promosi';
     protected $primaryKey = 'id_promosi';
-    protected $fillable = ['nama_usaha', 'gambar', 'deskripsi', 'status_pengajuan', 'alamat', 'countdown', 'id_penduduk'];
+    protected $fillable = ['nama_usaha', 'gambar', 'deskripsi','kategori', 'status_pengajuan', 'alamat', 'countdown', 'id_penduduk'];
 
     public function penduduk(): BelongsTo
     {

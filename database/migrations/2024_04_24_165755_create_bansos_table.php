@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id('id_bansos');
             $table->dateTime('tanggal_pemberian');
             $table->string('pengirim', 100);
+            $table->string('bentuk_pemberian');
+            $table->integer('jumlah_penerima');
+            $table->string('nama');
+            $table->enum('status', ['open', 'closed']);
             $table->timestamps();
         });
     }

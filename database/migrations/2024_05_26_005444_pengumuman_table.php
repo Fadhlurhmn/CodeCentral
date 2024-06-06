@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('judul_pengumuman', 100);
             $table->Longtext('deskripsi');
             $table->string('thumbnail');
+            $table->string('status_pengumuman', 20);
             $table->integer('views')->default(0);
             $table->timestamps();
 

@@ -39,7 +39,6 @@ jobs:
             envsubst > ${DOCROOT}/.env < ${DOCROOT}/.env.example
             composer install --working-dir $DOCROOT
             php -f ${DOCROOT}/artisan migrate --force
-
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:

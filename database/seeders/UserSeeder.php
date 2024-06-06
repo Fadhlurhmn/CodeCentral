@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 'id_penduduk' => 1,
                 'username' => 'admin',
                 'password' => Hash::make('12345'),
+                'status_akun' => 'Aktif',
             ],
             [
                 'id_user' => 2,
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
                 'id_penduduk' => 2,
                 'username' => 'rw',
                 'password' => Hash::make('12345'),
+                'status_akun' => 'Aktif',
             ],
             [
                 'id_user' => 3,
@@ -35,6 +37,7 @@ class UserSeeder extends Seeder
                 'id_penduduk' => 3,
                 'username' => 'rt',
                 'password' => Hash::make('12345'),
+                'status_akun' => 'Aktif',
             ],
         ];
         DB::table('user')->insert($data);
