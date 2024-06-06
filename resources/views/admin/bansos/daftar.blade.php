@@ -18,6 +18,13 @@
                     <div class="flex justify-between">
                         <h2 class="text-xl font-bold text-gray-700">Rekomendasi Penerima</h2>
                     </div>
+                    @if(session('error'))
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">Terjadi Kesalahan!</strong>
+    <span class="block sm:inline">{{ session('error') }}</span>
+</div>
+@endif
+
                     <form action="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/update_acc_bansos') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id_bansos" value="{{ $bansos[0]->id_bansos }}">
@@ -63,6 +70,7 @@
                     </form>
                                         
                 </div>
+
 
                 <!-- Pagination -->
                 <div id="pagination" class="flex justify-center mt-4 space-x-2">
