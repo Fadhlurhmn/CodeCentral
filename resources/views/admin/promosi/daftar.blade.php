@@ -10,14 +10,14 @@
   <!-- start content -->
   <div class="bg-white flex-1 md:mt-16 cursor-default">
     {{-- Kotak atas & judul --}}
-    
+
     <div class="container p-5 bg-white border-t-2 border-teal-500 text-xs flex flex-col">
-        
+
         @include('layout.breadcrumb2')
 
         <div class="flex justify-between w-full">
-          <a href="{{ url('admin/promosi/') }}" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg">Kembali</a>
-          
+          <a href="{{ url('admin/promosi/') }}" class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg">Daftar Promosi</a>
+
 
           {{-- Search form --}}
           <form action="{{ url()->current() }}" method="GET" class="flex text-sm font-medium">
