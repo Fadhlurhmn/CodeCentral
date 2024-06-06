@@ -22,11 +22,11 @@
           Dashboard
       </a>
 
-      <a href="{{ url('/rt/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
+      {{-- <a href="{{ url('/rt/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
           {{ $activeMenu === 'bansos' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
           <i class="fas fa-people-carry text-xs mr-2"></i>
           Bansos
-      </a>
+      </a> --}}
 
       <a href="{{url('/rt/penduduk')}}" class="mb-1 p-2 capitalize font-medium text-sm hover:bg-teal-400/40 hover:text-teal-700 rounded-full transition ease-in-out duration-300 
         {{ $activeMenu === 'penduduk' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
