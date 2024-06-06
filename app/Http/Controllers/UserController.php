@@ -235,10 +235,13 @@ class UserController extends Controller
     }
 
     // Menampilkan halaman profil pengguna
-        public function profil()
+    public function profil()
     {
         // Mengambil data pengguna yang sedang login
         $user = Auth::user();
+
+        // Mengambil data nomor telepon dari penduduk yang terkait dengan pengguna yang sedang login
+        $penduduk = PendudukModel::where('id_penduduk', $user->id_penduduk)->first();
 
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
@@ -262,6 +265,7 @@ class UserController extends Controller
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'user' => $user,
+            'penduduk' => $penduduk,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -272,6 +276,7 @@ class UserController extends Controller
         // Validasi input dari request
         $request->validate([
             'username' => 'required|string|min:3|unique:user,username,' . Auth::id() . ',id_user',
+            'no_telp' => 'required|string|max:15',
             'password' => 'nullable|min:5',
         ]);
 
@@ -289,7 +294,10 @@ class UserController extends Controller
         // Menggunakan metode update untuk memperbarui data pengguna
         UserModel::where('id_user', $user->id_user)->update($data);
 
+        // Memperbarui nomor telepon penduduk
+        PendudukModel::where('id_penduduk', $user->id_penduduk)->update(['no_telp' => $request->no_telp]);
+
         // Mengarahkan ke halaman profil dengan pesan sukses
-        return redirect('admin/')->with('success', 'Profil berhasil diubah');
+        return redirect()->back()->with('success', 'Profil berhasil diubah');
     }
 }
