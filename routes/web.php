@@ -60,7 +60,7 @@ Route::post('/pengaduanVerif', [UserPengaduanController::class, 'verifyDataDiri'
 Route::post('/pengaduanStore', [UserPengaduanController::class, 'pengaduan'])->name('user.pengaduan.store');
 
 // struktur rt rw
-Route::get('/struktur', function(){
+Route::get('/struktur', function () {
     return view('user.struktur.index');
 })->name('user.struktur');
 
@@ -147,6 +147,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/update_keamanan', [JadwalController::class, 'form_keamanan']);
             Route::post('/kebersihan', [JadwalController::class, 'update_kebersihan']);
             Route::post('/keamanan', [JadwalController::class, 'update_keamanan']);
+            Route::get('/satpam/{id}/delete', [JadwalController::class, 'destroy_satpam']);
         });
 
         Route::prefix('akun')->group(function () {

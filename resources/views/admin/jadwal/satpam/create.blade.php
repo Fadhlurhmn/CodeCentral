@@ -32,7 +32,7 @@
                                             <input type="number" name="nomor_telepon[]" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs" value="{{ $item->nomor_telepon }}" required>
                                         </td>
                                         <td class="border px-4 py-2 text-center">
-                                            <button type="button" class="removeRow bg-red-600 text-white px-3 py-1 rounded-md shadow hover:bg-red-700">Hapus</button>
+                                            <a href="{{ url('admin/jadwal/satpam/' . $item->id_satpam . '/delete') }}" class="btn btn-danger ml-2 mr-2 flex-col" onclick="return confirm('Apakah Anda yakin ingin menghapus data satpam ini?')"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

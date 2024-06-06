@@ -22,14 +22,14 @@ class JadwalController extends Controller
 
         $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
 
-        $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
 
         $schedule = [];
         foreach ($days as $day) {
             foreach ($shifts as $shift) {
                 $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
-                    return $item->hari == $day && $item->waktu == $shift;
+                    return strtolower($item->hari) == strtolower($day) && $item->waktu == $shift;
                 });
             }
         }

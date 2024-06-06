@@ -110,7 +110,7 @@
                                     @endswitch
                                     @break
                                 
-                                @case('PENGELUARAN SATU JIWA DALAM KELUARGA PERBULAN')
+                                @case('TOTAL PENGELUARAN KELUARGA PERBULAN')
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> < 400 ribu</td>
@@ -129,7 +129,7 @@
                                     @endswitch
                                     @break
                                 
-                                @case('PENGHASILAN SATU JIWA DALAM KELUARGA PERBULAN')
+                                @case('TOTAL PENGHASILAN  KELUARGA PERBULAN')
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> < 400 ribu</td>
