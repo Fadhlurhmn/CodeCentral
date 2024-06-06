@@ -249,11 +249,11 @@
       
       typedCharactersElement.textContent = typedCharacters;
       if (typedCharacters >= 90 && typedCharacters < 100) {
-          characterCounterElement.classList = "text-yellow-400";
+          characterCounterElement.classList = "text-right w-full text-yellow-400";
       } else if (typedCharacters >= 100) {
-          characterCounterElement.classList = "text-red-400";
+          characterCounterElement.classList = "text-right w-full text-red-400";
       } else {
-          characterCounterElement.classList = "text-inherit";
+          characterCounterElement.classList = "text-right w-full text-inherit";
       }
   });
 
@@ -272,11 +272,11 @@
       
       typedCharactersElement2.textContent = typedCharacters2;
       if (typedCharacters2 >= 450 && typedCharacters2 < 500) {
-          characterCounterElement2.classList = "text-yellow-400";
+          characterCounterElement2.classList = "text-right w-full text-yellow-400";
       } else if (typedCharacters2 >= 500) {
-          characterCounterElement2.classList = "text-red-400";
+          characterCounterElement2.classList = "text-right w-full text-red-400";
       } else {
-          characterCounterElement2.classList = "text-inherit";
+          characterCounterElement2.classList = "text-right w-full text-inherit";
       }
   });
 </script>

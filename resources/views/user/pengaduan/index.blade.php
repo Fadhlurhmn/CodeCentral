@@ -234,11 +234,11 @@
       
       typedCharactersElement.textContent = typedCharacters;
       if (typedCharacters >= 450 && typedCharacters < 500) {
-          characterCounterElement.classList = "text-yellow-400";
+          characterCounterElement.classList = "text-right w-full text-yellow-400";
       } else if (typedCharacters >= 500) {
-          characterCounterElement.classList = "text-red-400";
+          characterCounterElement.classList = "text-right w-full text-red-400";
       } else {
-          characterCounterElement.classList = "text-inherit";
+          characterCounterElement.classList = "text-right w-full text-inherit";
       }
   });
 </script>
