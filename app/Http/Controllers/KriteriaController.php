@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KriteriaBansosModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDO;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -11,17 +12,24 @@ class KriteriaController extends Controller
 {
     public function show_kriteria()
     {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
         $kriteria = KriteriaBansosModel::all();
 
         if (!$kriteria) {
-            return redirect('admin/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
+            return redirect($role . '/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
         }
 
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria',
             'list' => [
-                ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Detail Kriteria', 'url' => url('admin/bansos')],
+                ['name' => 'Home', 'url' => url('/' . $role)],
+                ['name' => 'Detail Kriteria', 'url' => url($role . '/bansos')],
             ]
         ];
 
@@ -31,7 +39,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.kriteria.show', [
+        return view($role . '.kriteria.show', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kriteria' => $kriteria,
@@ -41,12 +49,19 @@ class KriteriaController extends Controller
 
     public function update_kriteria()
     {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
         $breadcrumb = (object) [
             'title' => 'Tambah Kriteria',
             'list' => [
-                ['name' => 'Home', 'url' => url('/admin')],
-                ['name' => 'Bantuan Sosial', 'url' => url('/admin/bansos')],
-                ['name' => 'Kriteria Create', 'url' => url('admin/kriteria/create')],
+                ['name' => 'Home', 'url' => url('/' . $role)],
+                ['name' => 'Bantuan Sosial', 'url' => url('/' . $role . '/bansos')],
+                ['name' => 'Kriteria Create', 'url' => url($role . '/kriteria/create')],
             ]
         ];
 
@@ -56,7 +71,7 @@ class KriteriaController extends Controller
 
         $activeMenu = 'bansos';
 
-        return view('admin.kriteria.update', [
+        return view($role . '.kriteria.update', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
@@ -65,9 +80,13 @@ class KriteriaController extends Controller
 
     public function store_kriteria(Request $request)
     {
-        // dd($request->all());
-        // Menghapus semua data jika sudah ada sebelumnya
-        KriteriaBansosModel::query()->delete();
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
 
         $request->validate([
             'kriteria.*' => 'required|string',
@@ -78,199 +97,27 @@ class KriteriaController extends Controller
         // Mengambil semua data yang dikirimkan melalui form
         $kriteriaData = $request->only('kriteria', 'bobot', 'jenis');
 
-        // Inisialisasi array untuk menyimpan data kriteria
-        $kriteria = [];
-
-        // Melakukan iterasi untuk setiap elemen dalam array nama_kriteria dan bobot
+        // Melakukan iterasi untuk setiap elemen dalam array kriteria
         foreach ($kriteriaData['kriteria'] as $key => $value) {
-            // Menambahkan data kriteria ke dalam array kriteria
-            $kriteria[] = [
-                'nama_kriteria' => $kriteriaData['kriteria'][$key],
-                'bobot' => $kriteriaData['bobot'][$key],
-                'jenis' => $kriteriaData['jenis'][$key]
-            ];
+            // Menemukan kriteria berdasarkan nama_kriteria
+            $kriteria = KriteriaBansosModel::where('nama_kriteria', $value)->first();
+
+            if ($kriteria) {
+                // Mengupdate kriteria yang ditemukan
+                $kriteria->bobot = $kriteriaData['bobot'][$key];
+                $kriteria->jenis = $kriteriaData['jenis'][$key];
+                $kriteria->save();
+            } else {
+                // Jika tidak ditemukan, membuat kriteria baru
+                KriteriaBansosModel::create([
+                    'nama_kriteria' => $value,
+                    'bobot' => $kriteriaData['bobot'][$key],
+                    'jenis' => $kriteriaData['jenis'][$key]
+                ]);
+            }
         }
 
-        // Menyimpan data kriteria ke dalam database
-        KriteriaBansosModel::insert($kriteria);
-
-        return redirect('rt/bansos')
-            ->with('success', 'Data Kriteria Berhasil Ditambahkan');
-    }
-
-    // controller untuk rt
-    public function show_kriteria_rt()
-    {
-        $kriteria = KriteriaBansosModel::all();
-
-        if (!$kriteria) {
-            return redirect('rt/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
-        }
-
-        $breadcrumb = (object) [
-            'title' => 'Detail Kriteria',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/rt')],
-                ['name' => 'Bantuan Sosial', 'url' => url('rt/bansos')],
-                ['name' => 'Detail Kriteria', 'url' => url('rt/kriteria/show')],
-            ]
-        ];
-
-        $page = (object) [
-            'title' => 'Detail Kriteria'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('rt.kriteria.show', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'kriteria' => $kriteria,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function update_kriteria_rt()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Kriteria',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/rt')],
-                ['name' => 'Bantuan Sosial', 'url' => url('/rt/bansos')],
-                ['name' => 'Kriteria Create', 'url' => url('rt/kriteria/create')],
-            ]
-        ];
-        $page = (object)[
-            'title' => 'Tambah Kriteria'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('rt.kriteria.update', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu
-        ])->with('success', 'Kriteria Berhasil Dibuat');
-    }
-
-    public function store_kriteria_rt(Request $request)
-    {
-        // dd($request->all());
-        // Menghapus semua data jika sudah ada sebelumnya
-        KriteriaBansosModel::query()->delete();
-
-        $request->validate([
-            'kriteria.*' => 'required|string',
-            'bobot.*' => 'required|numeric',
-            'jenis.*' => 'required|string'
-        ]);
-
-        // Mengambil semua data yang dikirimkan melalui form
-        $kriteriaData = $request->only('kriteria', 'bobot', 'jenis');
-
-        // Inisialisasi array untuk menyimpan data kriteria
-        $kriteria = [];
-
-        // Melakukan iterasi untuk setiap elemen dalam array nama_kriteria dan bobot
-        foreach ($kriteriaData['kriteria'] as $key => $value) {
-            // Menambahkan data kriteria ke dalam array kriteria
-            $kriteria[] = [
-                'nama_kriteria' => $kriteriaData['kriteria'][$key],
-                'bobot' => $kriteriaData['bobot'][$key],
-                'jenis' => $kriteriaData['jenis'][$key]
-            ];
-        }
-
-        // Menyimpan data kriteria ke dalam database
-        KriteriaBansosModel::insert($kriteria);
-
-        return redirect('rt/bansos')
-            ->with('success', 'Data Kriteria Berhasil Ditambahkan');
-    }
-
-    public function show_kriteria_rw()
-    {
-        $kriteria = KriteriaBansosModel::all();
-
-        if (!$kriteria) {
-            return redirect('rw/kriteria')->with('error', 'Data Kriteria tidak ditemukan');
-        }
-
-        $breadcrumb = (object) [
-            'title' => 'Detail Kriteria',
-            'list' => [
-                ['name' => 'Home', 'url' => url('/rw')],
-                ['name' => 'Bantuan Sosial', 'url' => url('rw/bansos')],
-                ['name' => 'Detail Kriteria', 'url' => url('rw/kriteria/show')],
-            ]
-        ];
-
-        $page = (object) [
-            'title' => 'Detail Kriteria'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('rw.kriteria.show', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'kriteria' => $kriteria,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function update_kriteria_rw()
-    {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Kriteria',
-            'list' => ['Home', 'Kriteria', 'Tambah']
-        ];
-
-        $page = (object)[
-            'title' => 'Tambah Kriteria'
-        ];
-
-        $activeMenu = 'bansos';
-
-        return view('rw.kriteria.update', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'activeMenu' => $activeMenu
-        ])->with('success','Kriteria Berhasil Dibuat');
-    }
-
-    public function store_kriteria_rw(Request $request)
-    {
-        // dd($request->all());
-        // Menghapus semua data jika sudah ada sebelumnya
-        KriteriaBansosModel::query()->delete();
-
-        $request->validate([
-            'kriteria.*' => 'required|string',
-            'bobot.*' => 'required|numeric',
-            'jenis.*' => 'required|string'
-        ]);
-
-        // Mengambil semua data yang dikirimkan melalui form
-        $kriteriaData = $request->only('kriteria', 'bobot', 'jenis');
-
-        // Inisialisasi array untuk menyimpan data kriteria
-        $kriteria = [];
-
-        // Melakukan iterasi untuk setiap elemen dalam array nama_kriteria dan bobot
-        foreach ($kriteriaData['kriteria'] as $key => $value) {
-            // Menambahkan data kriteria ke dalam array kriteria
-            $kriteria[] = [
-                'nama_kriteria' => $kriteriaData['kriteria'][$key],
-                'bobot' => $kriteriaData['bobot'][$key],
-                'jenis' => $kriteriaData['jenis'][$key]
-            ];
-        }
-
-        // Menyimpan data kriteria ke dalam database
-        KriteriaBansosModel::insert($kriteria);
-
-        return redirect('rw/bansos')
+        return redirect($role . '/bansos')
             ->with('success', 'Data Kriteria Berhasil Ditambahkan');
     }
 }
