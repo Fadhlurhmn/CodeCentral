@@ -33,9 +33,9 @@
                         @foreach ($detail as $data)
                         <tr>
                             <td class="px-6 py-4">{{$data->nama_kriteria}}</td>
-                            @switch($data->nama_kriteria)
+                            @switch($data->id_kriteria)
 
-                                @case('JUMLAH KK DALAM 1 RUMAH')
+                                @case(1)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> 1 KK</td>
@@ -54,7 +54,7 @@
                                     @endswitch
                                     @break
 
-                                @case('JUMLAH ANGGOTA KELUARGA DALAM 1 RUMAH')
+                                @case(2)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> 1-3 Orang</td>
@@ -73,7 +73,7 @@
                                     @endswitch
                                     @break
                                 
-                                @case('PENDIDIKAN KEPALA KELUARGA')
+                                @case(3)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> Tidak Sekolah/Tidak Tamat SD</td>
@@ -92,7 +92,7 @@
                                     @endswitch
                                     @break
                                 
-                                @case('JUMLAH ANGGOTA KELUARGA MASIH SEKOLAH')
+                                @case(4)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> ≥ 3 Orang</td>
@@ -111,7 +111,26 @@
                                     @endswitch
                                     @break
                                 
-                                @case('PENGELUARAN SATU JIWA DALAM KELUARGA PERBULAN')
+                                @case(5) {{-- Case untuk id_kriteria 5 --}}
+                                    @switch($data->nilai_kriteria)
+                                        @case(1)
+                                            <td class="px-6 py-4 text-left"> < 400 ribu</td>
+                                            @break
+                                            @case(2)
+                                            <td class="px-6 py-4 text-left"> 400 - 700 ribu</td>
+                                            @break
+                                        @case(3)
+                                            <td class="px-6 py-4 text-left"> 700 ribu - 1 juta</td>
+                                            @break
+                                        @case(4)
+                                            <td class="px-6 py-4 text-left"> > 1 juta</td>
+                                            @break
+                                        @default
+                                            <td class="px-6 py-4 text-left"> N/A</td>
+                                    @endswitch
+                                    @break
+                                
+                                @case(6) {{-- Case untuk id_kriteria 6 --}}
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> < 400 ribu</td>
@@ -130,26 +149,8 @@
                                     @endswitch
                                     @break
                                 
-                                @case('PENGHASILAN SATU JIWA DALAM KELUARGA PERBULAN')
-                                    @switch($data->nilai_kriteria)
-                                        @case(1)
-                                            <td class="px-6 py-4 text-left"> < 400 ribu</td>
-                                            @break
-                                        @case(2)
-                                            <td class="px-6 py-4 text-left"> 400 - 700 ribu</td>
-                                            @break
-                                        @case(3)
-                                            <td class="px-6 py-4 text-left"> 700 ribu - 1 juta</td>
-                                            @break
-                                        @case(4)
-                                            <td class="px-6 py-4 text-left"> > 1 juta</td>
-                                            @break
-                                        @default
-                                            <td class="px-6 py-4 text-left"> N/A</td>
-                                    @endswitch
-                                    @break
-                                
-                                @case('STATUS KEPEMILIKAN RUMAH')
+                                {{-- Tambahan case untuk id_kriteria 7 --}}
+                                @case(7)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> Magersari/Pakai Gratis</td>
@@ -168,7 +169,8 @@
                                     @endswitch
                                     @break
                                 
-                                @case('SUMBER AIR BERSIH')
+                                {{-- Tambahan case untuk id_kriteria 8 --}}
+                                @case(8)
                                     @switch($data->nilai_kriteria)
                                         @case(1)
                                             <td class="px-6 py-4 text-left"> Sumur Milik Tetangga</td>
@@ -186,45 +188,46 @@
                                             <td class="px-6 py-4 text-left"> N/A</td>
                                     @endswitch
                                     @break
-                                
-                                @case('PENERANGAN RUMAH')
-                                    @switch($data->nilai_kriteria)
-                                        @case(1)
-                                            <td class="px-6 py-4 text-left"> Listrik Numpang</td>
-                                            @break
-                                        @case(2)
-                                            <td class="px-6 py-4 text-left"> Listrik 450 watt</td>
-                                            @break
-                                        @case(3)
-                                            <td class="px-6 py-4 text-left"> Listrik 900 watt</td>
-                                            @break
-                                        @case(4)
-                                            <td class="px-6 py-4 text-left"> Listrik >900 watt</td>
-                                            @break
-                                        @default
-                                            <td class="px-6 py-4 text-left"> N/A</td>
-                                    @endswitch
-                                    @break
-                                
-                                @case('TRANSPORTASI')
-                                    @switch($data->nilai_kriteria)
-                                        @case(1)
-                                            <td class="px-6 py-4 text-left"> Jalan Kaki/Sepeda/Sepeda Motor Seadanya</td>
-                                            @break
-                                        @case(2)
-                                            <td class="px-6 py-4 text-left"> Sepeda Motor 1 Buah, Kondisi Baik</td>
-                                            @break
-                                        @case(3)
-                                            <td class="px-6 py-4 text-left"> Sepeda Motor >1 Buah, Kondisi Baik</td>
-                                            @break
-                                        @case(4)
-                                            <td class="px-6 py-4 text-left"> Mobil</td>
-                                            @break
-                                        @default
-                                            <td class="px-6 py-4 text-left"> N/A</td>
-                                    @endswitch
-                                    @break
-                                {{-- DEFAULT SWITCH --}}
+                                                                {{-- Case untuk id_kriteria 9 --}}
+                                                                @case(9)
+                                                                @switch($data->nilai_kriteria)
+                                                                    @case(1)
+                                                                        <td class="px-6 py-4 text-left"> Listrik Numpang</td>
+                                                                        @break
+                                                                    @case(2)
+                                                                        <td class="px-6 py-4 text-left"> Listrik 450 watt</td>
+                                                                        @break
+                                                                    @case(3)
+                                                                        <td class="px-6 py-4 text-left"> Listrik 900 watt</td>
+                                                                        @break
+                                                                    @case(4)
+                                                                        <td class="px-6 py-4 text-left"> Listrik >900 watt</td>
+                                                                        @break
+                                                                    @default
+                                                                        <td class="px-6 py-4 text-left"> N/A</td>
+                                                                @endswitch
+                                                                @break
+                                                            
+                                                            {{-- Case untuk id_kriteria 10 --}}
+                                                            @case(10)
+                                                                @switch($data->nilai_kriteria)
+                                                                    @case(1)
+                                                                        <td class="px-6 py-4 text-left"> Jalan Kaki/Sepeda/Sepeda Motor Seadanya</td>
+                                                                        @break
+                                                                    @case(2)
+                                                                        <td class="px-6 py-4 text-left"> Sepeda Motor 1 Buah, Kondisi Baik</td>
+                                                                        @break
+                                                                    @case(3)
+                                                                        <td class="px-6 py-4 text-left"> Sepeda Motor >1 Buah, Kondisi Baik</td>
+                                                                        @break
+                                                                    @case(4)
+                                                                        <td class="px-6 py-4 text-left"> Mobil</td>
+                                                                        @break
+                                                                    @default
+                                                                        <td class="px-6 py-4 text-left"> N/A</td>
+                                                                @endswitch
+                                                                @break
+                            
                                 @default
                                     <td class="px-6 py-4 text-left">N/A</td>
                             @endswitch

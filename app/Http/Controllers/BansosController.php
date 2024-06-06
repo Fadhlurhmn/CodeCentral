@@ -144,7 +144,6 @@ class BansosController extends Controller
             $role = 'rw';
         }
         $bansos = list_rekomendasi_bansos::where('id_bansos', $id)->get();
-
         if ($bansos->isEmpty()) {
             return redirect('/' . $role . '/bansos')->with('error', 'Data Bantuan Sosial tidak ditemukan');
         }
@@ -182,10 +181,25 @@ class BansosController extends Controller
             $role = 'rw';
         }
 
+        // Mendapatkan jumlah penerima bansos
+        $jumlah_penerima = BansosModel::select('jumlah_penerima')->where('id_bansos', $id)->first();
+
+        // Memastikan setiap status yang dikirim sesuai dengan aturan validasi
         $request->validate([
             'status.*' => 'required|in:acc,tolak'
         ]);
 
+        // Menghitung jumlah status "acc" yang dikirimkan
+        $jumlah_acc = count(array_filter($request->status, function ($value) {
+            return $value === 'acc';
+        }));
+
+        // Memeriksa apakah jumlah status "acc" sesuai dengan jumlah penerima bansos
+        if ($jumlah_acc != $jumlah_penerima->jumlah_penerima) {
+            return redirect()->back()->with('error', 'Jumlah pengajuan yang diterima harus sesuai dengan jumlah penerima bansos sebanyak ' . $jumlah_penerima->jumlah_penerima);
+        }
+
+        // Memperbarui status berdasarkan id_bansos dan id_keluarga
         foreach ($request->status as $id_keluarga => $status) {
             DetailBansosModel::where('id_bansos', $id)
                 ->where('id_keluarga', $id_keluarga)
@@ -194,6 +208,7 @@ class BansosController extends Controller
 
         return redirect('/' . $role . '/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
     }
+
 
     public function create_bansos()
     {
@@ -363,7 +378,7 @@ class BansosController extends Controller
         $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id_keluarga)
             ->where('id_bansos', $id_bansos)
             ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
-
+        // dd($detail);
         $breadcrumb = (object) [
             'title' => 'Detail Keluarga Penerima Bantuan Sosial',
             'list' => [
