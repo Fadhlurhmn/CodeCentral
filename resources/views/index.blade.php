@@ -17,6 +17,7 @@
         </div>
         <div class="row mt-10">
             <div class="col-12">
+                @if(isset($pengumumanTerkini) && count($pengumumanTerkini) > 0)
                 <div class="swiper pengumuman-carousel py-7">
                     <div class="swiper-wrapper">
                         @foreach ($pengumumanTerkini as $pengumuman)
@@ -48,6 +49,9 @@
                     <!-- If we need pagination -->
                     <div class="swiper-pagination pengumuman-carousel-pagination !bottom-0"></div>
                 </div>
+                @else
+                <p class="text-xl text-center font-bold text-gray-600">Tidak ada Pengumuman Terkini</p>
+                @endif
             </div>
         </div>
     </div>

@@ -43,7 +43,7 @@
         <a href="{{ route('user.pengumuman') }}" class="nav-link">Pengumuman</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('user.promosi') }}" class="nav-link">UMKM</a>
+        <a href="{{ route('user.promosi') }}" class="nav-link">Promosi</a>
       </li>
 
       <li class="nav-item nav-dropdown group relative">

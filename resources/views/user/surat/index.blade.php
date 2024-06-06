@@ -62,7 +62,7 @@
           </div>
         </div>
       @empty
-        <p class="text-center font-bold">Tidak ada surat yang tersedia</p>
+        <p class="text-xl text-center font-bold text-gray-600">Tidak ada Surat yang Tersedia</p>
       @endforelse
     </div>
   </div>
