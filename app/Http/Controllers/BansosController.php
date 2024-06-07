@@ -9,6 +9,7 @@ use App\Models\detail_pertimbangan_acc_bansos;
 use App\Models\detail_pertimbangan_bansos_per_rt;
 use App\Models\DetailBansosModel;
 use App\Models\histori_penerimaan_bansos;
+use App\Models\kategori_bansos;
 use App\Models\KriteriaBansosModel;
 use App\Models\list_rekomendasi_bansos;
 use App\Models\PendudukModel;
@@ -241,10 +242,6 @@ class BansosController extends Controller
         ]);
     }
 
-    // Implementasi fungsi-fungsi lainnya
-
-    // Lanjutan BansosController
-
     public function store_bansos(Request $request)
     {
         $user = Auth::user();
@@ -257,16 +254,14 @@ class BansosController extends Controller
         $request->validate([
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
+            'id_kategori_bansos' => 'required|integer',
             'jumlah_penerima' => 'required|integer'
         ]);
 
         $bansos = new BansosModel();
         $bansos->nama = $request->nama_bansos;
         $bansos->tanggal_pemberian = $request->tanggal_bansos;
-        $bansos->pengirim = $request->pengirim;
-        $bansos->bentuk_pemberian = $request->bentuk_pemberian;
+        $bansos->id_kategori_bansos = $request->id_kategori_bansos;
         $bansos->jumlah_penerima = $request->jumlah_penerima;
         $bansos->save();
 
@@ -323,8 +318,7 @@ class BansosController extends Controller
         $request->validate([
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
+            'id_kategori_bansos' => 'required|integer',
             'jumlah_penerima' => 'required|integer'
         ]);
 
@@ -333,8 +327,7 @@ class BansosController extends Controller
         if ($bansos) {
             $bansos->nama = $request->nama_bansos;
             $bansos->tanggal_pemberian = $request->tanggal_bansos;
-            $bansos->pengirim = $request->pengirim;
-            $bansos->bentuk_pemberian = $request->bentuk_pemberian;
+            $bansos->id_kategori_bansos = $request->id_kategori_bansos;
             $bansos->jumlah_penerima = $request->jumlah_penerima;
             $bansos->save();
 
@@ -525,5 +518,204 @@ class BansosController extends Controller
             'detail_kriteria' => $detail_kriteria,
             'rekomendasi' => $rekomendasi
         ]);
+    }
+
+    // kategori bansos
+    public function list_kategori(Request $request)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+
+        $kategori_bansos = kategori_bansos::all();
+
+        return DataTables::of($kategori_bansos)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($kategori_bansos) use ($role) {
+                return '<a href="' . url($role . '/kategori_bansos/' . $kategori_bansos->id_kategori_bansos . '/show') . '">Detail</a>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+    public function show_kategori($id)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $kategori_bansos = kategori_bansos::find($id);
+
+        if (!$kategori_bansos) {
+            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+        }
+
+        $breadcrumb = (object) [
+            'title' => 'Detail Kategori Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url($role . '/')],
+                ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos')],
+                ['name' => 'Detail', 'url' => url($role . '/kategori_bansos/detail')],
+            ]
+        ];
+
+        $page = (object) [
+            'title' => 'Detail Kategori Bantuan Sosial'
+        ];
+
+        $activeMenu = 'kategori_bansos';
+
+        return view($role . '.bansos.kategori.detail', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'kategori_bansos' => $kategori_bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    public function create_kategori()
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $breadcrumb = (object) [
+            'title' => 'Tambah Kategori Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url($role . '/')],
+                ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos')],
+                ['name' => 'Tambah Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos/create')],
+            ]
+        ];
+
+        $page = (object)[
+            'title' => 'Tambah Kategori Bantuan Sosial'
+        ];
+
+        $activeMenu = 'kategori_bansos';
+        return view($role . '.bansos.kategori.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function store_kategori(Request $request)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $request->validate([
+            'pengirim' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'nama_kategori' => 'required|string',
+        ]);
+
+        $kategori_bansos = new BansosModel();
+        $kategori_bansos->nama = $request->nama_kategori;
+        $kategori_bansos->pengirim = $request->pengirim;
+        $kategori_bansos->bentuk_pemberian = $request->bentuk_pemberian;
+        $kategori_bansos->save();
+
+        return redirect('/' . $role . '/bansos/')
+            ->with('success', 'Data Kategori Bansos Berhasil Ditambahkan');
+    }
+
+    public function edit_kategori($id)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $kategori_bansos = kategori_bansos::find($id);
+
+        if (!$kategori_bansos) {
+            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+        }
+
+        $breadcrumb = (object) [
+            'title' => 'Edit Kategori Bantuan Sosial',
+            'list' => [
+                ['name' => 'Home', 'url' => url($role . '/')],
+                ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/bansos')],
+                ['name' => 'Edit Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos/edit')],
+            ]
+        ];
+
+        $page = (object)[
+            'title' => 'Kategori Bantuan Sosial'
+        ];
+
+        $activeMenu = 'bansos';
+        return view($role . '.bansos.kategori.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'kategori_bansos' => $kategori_bansos,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function update_kategori(Request $request, string $id)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $request->validate([
+            'pengirim' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'nama_kategori' => 'required|string',
+        ]);
+
+        $kategori_bansos = kategori_bansos::find($id);
+
+        if ($kategori_bansos) {
+            $kategori_bansos->nama_kategori = $request->nama_kategori;
+            $kategori_bansos->pengirim = $request->pengirim;
+            $kategori_bansos->bentuk_pemberian = $request->bentuk_pemberian;
+            $kategori_bansos->save();
+
+            return redirect('/' . $role . '/bansos')->with('success', 'Data Kategori Bansos Berhasil diperbarui');
+        } else {
+            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bansos tidak ditemukan');
+        }
+    }
+
+    public function delete_kategori($id)
+    {
+        $user = Auth::user();
+        $role = '';
+        if ($user->id_level == 1) {
+            $role = 'admin';
+        } else if ($user->id_level == 2) {
+            $role = 'rw';
+        }
+        $kategori_bansos = kategori_bansos::find($id);
+
+        if ($kategori_bansos) {
+            $kategori_bansos->delete();
+
+            return redirect('/' . $role . '/bansos')->with('success', 'Data Kategori Bansos Berhasil dihapus');
+        } else {
+            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bansos tidak ditemukan');
+        }
     }
 }
