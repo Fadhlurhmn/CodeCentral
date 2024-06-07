@@ -27,9 +27,9 @@
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         @include('layout.breadcrumb2')
         {{-- Card Jumlah bansos & penerima --}}
-        <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">
+        <div class="w-full h-auto grid grid-cols-6 gap-6 mb-5 mt-6">
             @if (session('success'))
-            <div id="successMessage" class="col-span-4">
+            <div id="successMessage" class="col-span-full">
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Sukses!</strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
@@ -39,29 +39,74 @@
                 </div>
             </div>
             @endif
-            {{-- Card Jumlah bansos --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
-                <div class="card-body flex items-center">
-                    <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
-                        <i class="fad fa-people-carry"></i>
+
+                {{-- Tabel Untuk Daftar Kategori  --}}
+                <div class="col-span-3 p-3 border-2 border-teal-500 rounded-md shadow-md">
+                  {{-- Button --}}
+                  <div class="mb-5 text-xs flex justify-between">
+                    <h2 class="text-xl font-bold">Daftar Kategori</h2>
+                    <a  href="{{ url('#') }}" class="p-2 font-normal text-center shadow-md hover:shadow-yellow-300 bg-teal-300 hover:bg-yellow-400 text-teal-700 hover:text-yellow-700 transition duration-300 ease-in-out rounded-lg">Ubah Kategori</a>
+                  </div>
+                  {{-- Tabel --}}
+                  <div class="h-40 overflow-y-auto custom-scrollbar">
+                    
+                    @if(isset($bansos)>0)
+                    <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($bansos as $petugas)
+                            <tr>
+                              <td class="p-3 text-sm text-center border border-teal-500">{{ $petugas->nama }}</td>
+                              <td class="p-3 text-sm text-center border border-teal-500">{{ $petugas->pengirim }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                        <div class="flex-col text-center">
+                            <h1 class="text-xl font-bold text-gray-600">Tidak ada Kategori Bansos</h1>
+                            <p class="text-xs text-gray-500">Daftar Kategori Tidak Ditemukan/Belum Dibuat</p>
+                        </div>
                     </div>
-                    <div class="flex flex-col">
-                        <h1 class="font-semibold">{{$totalBansos}} Total Bantuan Sosial</h1>
+                    @endif
+                  </div>
+                </div>
+              {{-- End Tabel Jadwal Satpam --}}
+
+            <div class="grid grid-rows-2 col-span-3 gap-5">
+
+                {{-- Card Jumlah bansos --}}
+                <div class="card py-3 row-span-1 border-2 border-teal-500 bg-teal-400/20 shadow-md">
+                    <div class="card-body flex items-center">
+                        <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
+                            <i class="fad fa-people-carry"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h1 class="font-semibold">{{$totalBansos}} Total Bantuan Sosial</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            {{-- Card jumlah warga penerima --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
-                <div class="card-body flex items-center">
-                    <div class="px-3 py-2 rounded bg-teal-600 text-white mr-3">
-                        <i class="fad fa-file-alt"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Permintaan Ajuan</h1>
+                
+                {{-- Card jumlah warga penerima --}}
+                <div class="card py-3 row-span-1 border-2 border-teal-500 bg-teal-400/20 shadow-md">
+                    <div class="card-body flex items-center">
+                        <div class="px-3 py-2 rounded bg-teal-600 text-white mr-3">
+                            <i class="fad fa-file-alt"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Total Permintaan Ajuan</h1>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
         {{-- End Card Jumlah bansos & penerima--}}
 
@@ -94,6 +139,11 @@
 
             {{-- Button detail bansos --}}
             <div class="flex justify-end gap-3">
+                <div>
+                    <p class="p-2 text-xs text-gray-700 rounded-lg bg-yellow-400/30 border border-yellow-500">
+                        Total Permintaan: {{ $total_ajuan_per_bansos[$Bansos->id_bansos] ?? 0 }}
+                    </p>
+                </div>
                 <a href={{ url('admin/bansos/'.$Bansos->id_bansos.'/show') }}>
                     <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
                 </a>

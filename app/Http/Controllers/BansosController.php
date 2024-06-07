@@ -55,6 +55,14 @@ class BansosController extends Controller
 
         $kriteriaExists = KriteriaBansosModel::count() > 0;
 
+        $total_ajuan_per_bansos = [];
+        foreach ($bansos as $bansos2) {
+            $total_ajuan_per_bansos[$bansos2->id_bansos] = DetailBansosModel::where('status', 'pending')
+                ->where('id_bansos', $bansos2->id_bansos)
+                ->distinct()
+                ->count('id_keluarga');
+        }
+
         return view($role . '.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -62,6 +70,7 @@ class BansosController extends Controller
             'bansos' => $bansos,
             'totalBansos' => $totalBansos,
             'keluarga_yang_mengajukan' => $keluarga_yang_mengajukan,
+            'total_ajuan_per_bansos' => $total_ajuan_per_bansos,
         ])->with('kriteriaExists', $kriteriaExists);
     }
 

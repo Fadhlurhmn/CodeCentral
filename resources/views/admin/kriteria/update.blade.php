@@ -46,48 +46,19 @@
 
 @include('layout.end')
 <script>
-function addKriteria() {
-    const container = document.getElementById('kriteria-container');
-    const kriteriaDiv = document.createElement('div');
-    kriteriaDiv.className = 'flex items-center gap-x-4 mt-2';
-    kriteriaDiv.innerHTML = `
-        <input type="text" name="kriteria[]" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Kriteria" required>
-        <input type="number" name="bobot[]" class="bobot-input shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 " placeholder="Bobot" oninput="validateBobot(this)" required>
-        <select name="jenis[]" class="shadow-sm w-24 bg-gray-50 border border-gray-300 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5">
-            <option value="Benefit">Benefit</option>
-            <option value="Cost">Cost</option>
-        </select>
-        <button type="button" class="remove-kriteria p-2 bg-red-600 text-white hover:bg-red-700 focus:outline-none rounded-lg" onclick="removeKriteria(this)">Hapus</button>
-    `;
-    container.appendChild(kriteriaDiv);
-}
-
-function removeKriteria(button) {
-    button.parentElement.remove();
-}
-
-function validateBobot(input) {
-    const value = parseInt(input.value);
-    if (value < 1 || value > 100) {
-        input.setCustomValidity('Bobot harus di antara 1 dan 100');
-    } else {
-        input.setCustomValidity('');
-    }
-}
-
-function validateForm() {
-    const bobotInputs = document.querySelectorAll('.bobot-input');
-    let valid = true;
-    bobotInputs.forEach(input => {
-        const value = parseInt(input.value);
-        if (value < 1 || value > 100) {
-            input.setCustomValidity('Bobot harus di antara 1 dan 100');
-            valid = false;
-        } else {
-            input.setCustomValidity('');
-        }
-        input.reportValidity();
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input[name="bobot[]"]').forEach(function(input) {
+            input.addEventListener('input', function() {
+                if (parseFloat(this.value) > 100) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Peringatan',
+                        text: 'Nilai bobot tidak boleh lebih dari 100',
+                        confirmButtonText: 'OK'
+                    });
+                    this.value = 100; // Reset the value to 100 if it exceeds 100
+                }
+            });
+        });
     });
-    return valid;
-}
 </script>
