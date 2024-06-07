@@ -521,76 +521,63 @@ class BansosController extends Controller
     }
 
     // kategori bansos
-    public function list_kategori(Request $request)
+    public function indexKategori()
     {
         $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
-
-        $kategori_bansos = kategori_bansos::all();
-
-        return DataTables::of($kategori_bansos)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($kategori_bansos) use ($role) {
-                return '<a href="' . url($role . '/kategori_bansos/' . $kategori_bansos->id_kategori_bansos . '/show') . '">Detail</a>';
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
-    public function show_kategori($id)
-    {
-        $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
-        $kategori_bansos = kategori_bansos::find($id);
-
-        if (!$kategori_bansos) {
-            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
-        }
+        $role = ($user->id_level == 1) ? 'admin' : 'rw';
 
         $breadcrumb = (object) [
-            'title' => 'Detail Kategori Bantuan Sosial',
+            'title' => 'Daftar Kategori Bantuan Sosial',
             'list' => [
-                ['name' => 'Home', 'url' => url($role . '/')],
+                ['name' => 'Home', 'url' => url('/' . $role)],
                 ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos')],
-                ['name' => 'Detail', 'url' => url($role . '/kategori_bansos/detail')],
             ]
         ];
 
-        $page = (object) [
-            'title' => 'Detail Kategori Bantuan Sosial'
+        $page = (object)[
+            'title' => 'Daftar Kategori Bantuan Sosial'
         ];
 
         $activeMenu = 'kategori_bansos';
 
-        return view($role . '.bansos.kategori.detail', [
+        $kategori_bansos = kategori_bansos::all();
+
+        return view($role . '.kategori_bansos.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'kategori_bansos' => $kategori_bansos,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'kategori_bansos' => $kategori_bansos
         ]);
     }
-    public function create_kategori()
+
+    // Method untuk menampilkan data kategori bansos dalam DataTables
+    public function listKategori(Request $request)
+    {
+        $kategori_bansos = kategori_bansos::all();
+        return DataTables::of($kategori_bansos)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($kategori_bansos) {
+                return '<a href="' . url('admin/kategori_bansos/' . $kategori_bansos->id . '/edit') . '">Edit</a> | 
+                        <form method="POST" action="' . url('admin/kategori_bansos/' . $kategori_bansos->id) . '" style="display:inline">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" onclick="return confirm(\'Yakin ingin menghapus kategori ini?\')">Delete</button>
+                        </form>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
+    // Method untuk menampilkan form tambah kategori bansos
+    public function createKategori()
     {
         $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
+        $role = ($user->id_level == 1) ? 'admin' : 'rw';
+
         $breadcrumb = (object) [
             'title' => 'Tambah Kategori Bantuan Sosial',
             'list' => [
-                ['name' => 'Home', 'url' => url($role . '/')],
+                ['name' => 'Home', 'url' => url('/' . $role)],
                 ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos')],
                 ['name' => 'Tambah Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos/create')],
             ]
@@ -601,121 +588,101 @@ class BansosController extends Controller
         ];
 
         $activeMenu = 'kategori_bansos';
-        return view($role . '.bansos.kategori.create', [
+
+        return view($role . '.kategori_bansos.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu
         ]);
     }
 
-    public function store_kategori(Request $request)
+    // Method untuk menyimpan kategori bansos baru
+    public function storeKategori(Request $request)
     {
-        $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
         $request->validate([
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
             'nama_kategori' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'pengirim' => 'required|string'
         ]);
 
-        $kategori_bansos = new BansosModel();
-        $kategori_bansos->nama = $request->nama_kategori;
-        $kategori_bansos->pengirim = $request->pengirim;
-        $kategori_bansos->bentuk_pemberian = $request->bentuk_pemberian;
-        $kategori_bansos->save();
+        $kategori = new kategori_bansos();
+        $kategori->nama_kategori = $request->nama_kategori;
+        $kategori->bentuk_pemberian = $request->bentuk_pemberian;
+        $kategori->pengirim = $request->pengirim;
+        $kategori->save();
 
-        return redirect('/' . $role . '/bansos/')
-            ->with('success', 'Data Kategori Bansos Berhasil Ditambahkan');
+        return redirect('admin/kategori_bansos')
+            ->with('success', 'Kategori Bantuan Sosial Berhasil Ditambahkan');
     }
 
-    public function edit_kategori($id)
+    // Method untuk menampilkan form edit kategori bansos
+    public function editKategori($id)
     {
-        $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
-        $kategori_bansos = kategori_bansos::find($id);
+        $kategori = kategori_bansos::find($id);
 
-        if (!$kategori_bansos) {
-            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+        if (!$kategori) {
+            return redirect('admin/kategori_bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
+
+        $user = Auth::user();
+        $role = ($user->id_level == 1) ? 'admin' : 'rw';
 
         $breadcrumb = (object) [
             'title' => 'Edit Kategori Bantuan Sosial',
             'list' => [
-                ['name' => 'Home', 'url' => url($role . '/')],
-                ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/bansos')],
-                ['name' => 'Edit Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos/edit')],
+                ['name' => 'Home', 'url' => url('/' . $role)],
+                ['name' => 'Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos')],
+                ['name' => 'Edit Kategori Bantuan Sosial', 'url' => url($role . '/kategori_bansos/' . $id . '/edit')],
             ]
         ];
 
         $page = (object)[
-            'title' => 'Kategori Bantuan Sosial'
+            'title' => 'Edit Kategori Bantuan Sosial'
         ];
 
-        $activeMenu = 'bansos';
-        return view($role . '.bansos.kategori.edit', [
+        $activeMenu = 'kategori_bansos';
+
+        return view($role . '.kategori_bansos.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'kategori_bansos' => $kategori_bansos,
+            'kategori' => $kategori,
             'activeMenu' => $activeMenu
         ]);
     }
 
-    public function update_kategori(Request $request, string $id)
+    // Method untuk mengupdate kategori bansos
+    public function updateKategori(Request $request, $id)
     {
-        $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
         $request->validate([
-            'pengirim' => 'required|string',
-            'bentuk_pemberian' => 'required|string',
             'nama_kategori' => 'required|string',
+            'bentuk_pemberian' => 'required|string',
+            'pengirim' => 'required|string'
         ]);
 
-        $kategori_bansos = kategori_bansos::find($id);
+        $kategori = kategori_bansos::find($id);
 
-        if ($kategori_bansos) {
-            $kategori_bansos->nama_kategori = $request->nama_kategori;
-            $kategori_bansos->pengirim = $request->pengirim;
-            $kategori_bansos->bentuk_pemberian = $request->bentuk_pemberian;
-            $kategori_bansos->save();
+        if ($kategori) {
+            $kategori->nama_kategori = $request->nama_kategori;
+            $kategori->bentuk_pemberian = $request->bentuk_pemberian;
+            $kategori->pengirim = $request->pengirim;
+            $kategori->save();
 
-            return redirect('/' . $role . '/bansos')->with('success', 'Data Kategori Bansos Berhasil diperbarui');
+            return redirect('admin/kategori_bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Diperbarui');
         } else {
-            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bansos tidak ditemukan');
+            return redirect('admin/kategori_bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
     }
 
-    public function delete_kategori($id)
+    // Method untuk menghapus kategori bansos
+    public function deleteKategori($id)
     {
-        $user = Auth::user();
-        $role = '';
-        if ($user->id_level == 1) {
-            $role = 'admin';
-        } else if ($user->id_level == 2) {
-            $role = 'rw';
-        }
-        $kategori_bansos = kategori_bansos::find($id);
+        $kategori = kategori_bansos::find($id);
 
-        if ($kategori_bansos) {
-            $kategori_bansos->delete();
-
-            return redirect('/' . $role . '/bansos')->with('success', 'Data Kategori Bansos Berhasil dihapus');
+        if ($kategori) {
+            $kategori->delete();
+            return redirect('admin/kategori_bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
         } else {
-            return redirect('/' . $role . '/bansos')->with('error', 'Data Kategori Bansos tidak ditemukan');
+            return redirect('admin/kategori_bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
     }
 }
