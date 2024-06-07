@@ -294,6 +294,15 @@ Route::middleware(['cek_login:2'])->group(function () {
             Route::get('/{id}/tampil_hitung', [BansosController::class, 'tampil_hitung']);
         });
 
+        Route::group(['prefix' => 'kategori_bansos'], function () {
+            Route::get('/', [BansosController::class, 'indexKategori']); // Menampilkan daftar kategori bansos
+            Route::post('/list', [BansosController::class, 'listKategori']); // Mengambil daftar kategori bansos untuk DataTables
+            Route::get('/create', [BansosController::class, 'createKategori']); // Form tambah kategori bansos
+            Route::post('/', [BansosController::class, 'storeKategori']); // Menyimpan kategori bansos baru
+            Route::get('/{id}/edit', [BansosController::class, 'editKategori']); // Form edit kategori bansos
+            Route::post('/{id}', [BansosController::class, 'updateKategori']); // Mengupdate kategori bansos
+            Route::delete('/{id}', [BansosController::class, 'deleteKategori']); // Menghapus kategori bansos
+        });
 
         Route::group(['prefix' => 'kriteria'], function () {
             Route::get('/update', [KriteriaController::class, 'update_kriteria']); //menambahkan

@@ -23,10 +23,15 @@
                         <label for="tanggal_bansos" class="block text-sm font-bold text-gray-900">Tanggal Pemberian Bantuan</label>
                         <input type="date" name="tanggal_bansos" id="tanggal_bansos" value="{{ $bansos->tanggal_pemberian }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                     </div>
-
+                    
                     <div class="col-span-2">
-                        <label for="pengirim" class="block text-sm font-bold text-gray-900">Pengirim</label>
-                        <input type="text" name="pengirim" id="pengirim" value="{{ $bansos->pengirim }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
+                        <label for="id_kategori_bansos" class="block text-sm font-bold text-gray-900">Kategori</label>
+                        <select name="id_kategori_bansos" id="id_kategori_bansos" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
+                            <option value="" selected hidden>Pilih Kategori</option>
+                            @foreach($kategori as $Kategori)
+                                <option value="{{$Kategori->id_kategori_bansos}}">{{$Kategori->nama_kategori}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-span-2">
@@ -34,15 +39,6 @@
                         <input type="number" name="jumlah_penerima" id="jumlah_penerima" value="{{ $bansos->jumlah_penerima }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                     </div>
 
-                    <div class="col-span-2">
-                        <label for="bentuk_pemberian" class="block text-sm font-bold text-gray-900">Bentuk Pemberian</label>
-                        <input type="text" name="bentuk_pemberian" id="bentuk_pemberian" value="{{ $bansos->bentuk_pemberian }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
-                    </div>
-
-                    {{-- <div class="col-span-2">
-                        <label for="kode" class="block text-sm font-bold text-gray-900">Kode</label>
-                        <input type="text" name="kode" id="kode" value="{{ $bansos->kode }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
-                    </div> --}}
 
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-full">
                         <a href="{{ url('admin/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>

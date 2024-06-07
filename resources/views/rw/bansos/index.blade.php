@@ -21,17 +21,16 @@
 {{-- End Styling tambahan manual--}}
 
 {{-- Pembatas luar halaman dan background --}}
-<div class="container h-screen bg-white cursor-default">
+<div class="container h-full bg-white cursor-default">
 
     {{-- Kotak konten atas (Judul,Card & Search) --}}
     <div class="pt-5 px-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
-        {{-- <h1 class="my-2 text-2xl font-extrabold text-gray-600">{{$page->title}}</h1> --}}
         @include('layout.breadcrumb2')
         
         {{-- Card Jumlah bansos & penerima --}}
-        <div class="w-full h-auto grid grid-cols-2 gap-6 mb-5 mt-6">
+        <div class="w-full h-auto grid grid-cols-6 gap-6 mb-5 mt-6">
             @if (session('success'))
-            <div id="successMessage" class="col-span-4">
+            <div id="successMessage" class="col-span-full">
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Sukses!</strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
@@ -41,26 +40,70 @@
                 </div>
             </div>
             @endif
+
+            {{-- Tabel Untuk Daftar Kategori  --}}
+            <div class="col-span-3 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
+
+                <div class="mb-5 text-xs flex justify-between">
+                  <h2 class="text-xl font-bold">Kategori Bantuan Sosial</h2>
+                  <a  href="{{ url('rw/kategori_bansos/create') }}" class="p-2 font-normal text-center shadow-md hover:shadow-yellow-300 bg-teal-300 hover:bg-yellow-400 text-teal-700 hover:text-yellow-700 transition duration-300 ease-in-out rounded-lg">Ubah Kategori</a>
+                </div>
+
+                <div class="h-40 overflow-y-auto custom-scrollbar">                    
+                  @if(isset($kategori_bansos)>0)
+                  <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
+                      <thead class="bg-teal-400 text-center">
+                          <tr>
+                              <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
+                              <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
+                              <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($kategori_bansos as $kategori)
+                          <tr>
+                            <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->nama_kategori }}</td>
+                            <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->pengirim }}</td>
+                            <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->bentuk_pemberian }}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                  </table>
+                  @else
+                  <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
+                      <div class="flex-col text-center">
+                          <h1 class="text-xl font-bold text-gray-600">Tidak ada Kategori Bansos</h1>
+                          <p class="text-xs text-gray-500">Daftar Kategori Tidak Ditemukan/Belum Dibuat</p>
+                      </div>
+                  </div>
+                  @endif
+                </div>
+              </div>
+            {{-- End Tabel Jadwal Satpam --}}
+            
             {{-- Card Jumlah bansos --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
-                <div class="card-body flex items-center">
-                    <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
-                        <i class="fad fa-people-carry"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <h1 class="font-semibold">{{$totalBansos}} Total Bantuan Sosial</h1>
+            <div class="grid grid-rows-2 col-span-3 gap-5 text-md">
+                {{-- Card Jumlah bansos --}}
+                <div class="card py-3 row-span-1 border border-teal-500/20 shadow-md shadow-teal-500/30">
+                    <div class="card-body flex items-center">
+                        <div class="px-3 py-2 rounded bg-emerald-500 text-white mr-3">
+                            <i class="fad fa-people-carry"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h1 class="font-semibold">{{$totalBansos}} Total Bantuan Sosial</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            {{-- Card jumlah warga penerima --}}
-            <div class="card col-span-1 border-2 border-teal-500 bg-teal-400/20  shadow-md">
-                <div class="card-body flex items-center">
-                    <div class="px-3 py-2 rounded bg-teal-600 text-white mr-3">
-                        <i class="fad fa-file-alt"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Permintaan Ajuan</h1>
+                
+                {{-- Card jumlah warga penerima --}}
+                <div class="card py-3 row-span-1 border border-teal-500/20 shadow-md shadow-teal-500/30">
+                    <div class="card-body flex items-center">
+                        <div class="px-4 py-2 rounded bg-teal-600 text-white mr-3">
+                            <i class="fad fa-file-alt"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h1 class="font-semibold">{{$keluarga_yang_mengajukan}} Total Permintaan Ajuan</h1>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,7 +120,14 @@
                 <a class="p-2 mr-5 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg" href="{{url('rw/kriteria/update')}}">Tambah Kriteria</a>
             @endif
             <form action="javascript:void(0);" method="GET" class="text-sm font-medium ml-auto" id="searchForm">
-                <input type="text" id="searchInput" name="query" placeholder="Cari nama bansos..." class="px-4 py-2 border border-gray-500 rounded-md text-xs">
+                {{-- <input type="text" id="searchInput" name="query" placeholder="Cari nama bansos..." class="px-4 py-2 border border-gray-500 rounded-md text-xs"> --}}
+                <select name="query" id="searchInput" class="text-xs font-medium ml-auto p-2 border border-gray-500 rounded-md">
+                    <option value="" selected hidden>Filter Kategori Bantuan Sosial</option>
+                    <option value="" class="bg-white">Semua Bantuan Sosial</option>
+                    @foreach($bansos as $Bansos)
+                    <option class="bg-white" value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
+                    @endforeach
+                </select>
             </form>
         </div>
         {{-- End Search --}}
@@ -96,6 +146,11 @@
 
             {{-- Button detail bansos --}}
             <div class="flex justify-end gap-3">
+                <div>
+                    <p class="p-2 text-xs text-gray-700 rounded-lg bg-yellow-400/30 border border-yellow-500">
+                        Total Permintaan: {{ $total_ajuan_per_bansos[$Bansos->id_bansos] ?? 0 }}
+                    </p>
+                </div>
                 <a href={{ url('rw/bansos/'.$Bansos->id_bansos.'/show') }}>
                     <button class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-teal-900/80 hover:bg-teal-500/30 transition duration-200 ease-in-out">Lihat Detail <i class="fad fa-info-circle"></i></button>
                 </a>
