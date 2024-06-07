@@ -503,12 +503,14 @@ class BansosController extends Controller
         $nilai_akhir = DB::select("SELECT * FROM nilai_akhir_keluarga WHERE id_bansos = ?", [$id]); // mengambil nilai akhir keluarga
         $ranking_keluarga = DB::select("SELECT * FROM ranking_keluarga WHERE id_bansos = ?", [$id]); // mengambil nilai ranking keluarga
         $detail_kriteria = DB::select("SELECT * FROM detail_bansos WHERE id_bansos = ?", [$id]);
+        $rekomendasi = DB::select("SELECT * FROM rekomendasi WHERE id_bansos = ?", [$id]);
 
         // dd($detail_kriteria);
         // dd($alternatif);
         // dd($max_min_criteria);
         // dd($nilai_utility);
         // dd($ranking_keluarga);
+        // dd($rekomendasi);
         return view($role . '.bansos.tampil_hitung', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
@@ -520,7 +522,8 @@ class BansosController extends Controller
             'nilai_utility' => $nilai_utility,
             'nilai_akhir' => $nilai_akhir,
             'ranking_keluarga' => $ranking_keluarga,
-            'detail_kriteria' => $detail_kriteria
+            'detail_kriteria' => $detail_kriteria,
+            'rekomendasi' => $rekomendasi
         ]);
     }
 }

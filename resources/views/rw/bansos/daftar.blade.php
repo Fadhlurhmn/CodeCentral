@@ -16,7 +16,7 @@
                 <div class="mt-6">
                     <div class="flex justify-between items-center">
                         <h2 class="text-xl font-bold text-gray-700">Rekomendasi Penerima</h2>
-                        <a href="{{url('rw/bansos/'. $bansos[0]->id_bansos.'/tampil_hitung')}}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Link perhitungan</a>
+                        <a href="{{url('rw/bansos/'. $bansos[0]->id_bansos.'/tampil_hitung')}}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek perhitungan</a>
                     </div>
                     @if(session('error'))
 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
