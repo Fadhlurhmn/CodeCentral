@@ -150,11 +150,11 @@ class BansosController extends Controller
         }
 
         $breadcrumb = (object) [
-            'title' => 'Daftar Bantuan Sosial',
+            'title' => 'Daftar Permintaan Bantuan Sosial',
             'list' => [
                 ['name' => 'Home', 'url' => url($role . '/')],
                 ['name' => 'Bantuan Sosial', 'url' => url($role . '/bansos')],
-                ['name' => 'Daftar Bantuan Sosial', 'url' => url($role . '/bansos/daftar')],
+                ['name' => 'Daftar Permintaan', 'url' => url($role . '/bansos/daftar')],
             ]
         ];
 

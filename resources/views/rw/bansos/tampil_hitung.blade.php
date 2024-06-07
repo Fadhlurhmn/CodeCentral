@@ -1,13 +1,32 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
 @include('layout.rw_navbar')
 
-<div class="h-screen w-full flex flex-row flex-wrap bg-gray-100">
+<div class="h-screen w-full flex flex-row flex-wrap">
     @include('layout.rw_sidebar')
 
     <!-- Start content -->
-    <div class="flex flex-col flex-grow p-4">
-        <div class="container h-full bg-white shadow-md rounded-lg p-4">
+    <div class="flex flex-row flex-grow overflow-x-auto custom-scrollbar">
+        <div class="container h-screen bg-white overflow-auto custom-scrollbar">
             <div class="p-4 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white">
                 <h1 class="pb-4 my-2 text-xl font-extrabold text-gray-800">Proses perhitungan</h1>
                 <p class="pb-4 my-2 text-md text-gray-600">Proses Perhitungan Rekomendasi dengan Metode SMART.</p>

@@ -1,3 +1,22 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
+
 @include('layout.start')
 
 @include('layout.rw_navbar')
@@ -7,7 +26,7 @@
 
     <!-- Start content -->
     <div class="flex flex-col flex-grow">
-        <div class="container h-full bg-white">
+        <div class="container pb-10 h-full bg-white overflow-y-auto custom-scrollbar">
             <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500 cursor-default">
                 {{-- Detail --}}
                 @include('layout.breadcrumb2')
