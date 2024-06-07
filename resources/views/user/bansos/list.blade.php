@@ -37,6 +37,9 @@
 <section class="section pt-0">
     <div class="container">
       <div class="col-12 md:order-1">
+        @if ($histori->isEmpty())
+          <h2 class="h4 mb-4 px-0 lg:px-60">Data belum tersedia</h2>
+        @else
           <h2 class="h4 mb-4 px-0 lg:px-60">Daftar Penerima Bansos {{$histori[0]->nama_bansos}}</h2>
           <div class="relative overflow-x-auto px-0 lg:px-60">
               <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -70,11 +73,10 @@
                   </tbody>
               </table>
           </div>
+        @endif
       </div>
     </div>
-  </section>
-  
+</section>
 {{-- end Bansos Form --}}
 
 @include('layout.footer')
-
