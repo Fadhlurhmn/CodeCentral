@@ -201,6 +201,9 @@ Route::middleware(['cek_login:1'])->group(function () {
 
             // cek jawaban kriteria masing-masing keluarga
             Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria']);
+            
+            // cek perhitungan
+            Route::get('/{id}/tampil_hitung', [BansosController::class, 'tampil_hitung']);
         });
 
 

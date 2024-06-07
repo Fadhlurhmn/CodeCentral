@@ -19,10 +19,10 @@
 
 @include('layout.start')
 
-@include('layout.rw_navbar')
+@include('layout.a_navbar')
 
 <div class="h-screen w-full flex">
-    @include('layout.rw_sidebar')
+    @include('layout.a_sidebar')
 
     <!-- Start content -->
     <div class="flex flex-col flex-grow overflow-auto custom-scrollbar">
@@ -209,7 +209,7 @@
                 </div>
 
                 <div class="flex justify-between mt-4">
-                    <a href="{{ url('rw/bansos/'.$detail_kriteria[0]->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
+                    <a href="{{ url('admin/bansos/'.$detail_kriteria[0]->id_bansos.'/daftar') }}" class="p-2 font-normal text-center shadow-sm bg-teal-300 hover:bg-teal-400 hover:shadow-md hover:shadow-teal-300 text-xs text-teal-700 hover:text-teal-700 transition duration-300 ease-in-out rounded-lg">Kembali</a>
                 </div>
             </div>
         </div>
