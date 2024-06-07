@@ -46,7 +46,7 @@ class DetailBansosSeeder extends Seeder
             ['id_keluarga' => 30, 'nilai_kriteria' => [4, 2, 1, 1, 1, 2, 3, 1, 1, 1]],
         ];
 
-        $idBansos = 2;
+        $idBansos = 1;
         $status = 'pending';
 
         $seederData = [];
