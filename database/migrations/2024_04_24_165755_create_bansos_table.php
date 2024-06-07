@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('bansos', function (Blueprint $table) {
             $table->id('id_bansos');
+            $table->unsignedBigInteger('id_kategori_bansos')->index();
             $table->date('tanggal_pemberian');
-            $table->string('pengirim', 100);
-            $table->string('bentuk_pemberian');
             $table->integer('jumlah_penerima');
             $table->string('nama');
             $table->enum('status', ['open', 'closed']);
             $table->timestamps();
+
+            $table->foreign('id_kategori_bansos')->references('id_kategori_bansos')->on('kategori_bansos');
         });
     }
 

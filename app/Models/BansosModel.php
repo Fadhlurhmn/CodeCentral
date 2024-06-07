@@ -12,7 +12,7 @@ class BansosModel extends Model
     protected $table = 'bansos';
     protected $primaryKey = 'id_bansos';
 
-    protected $fillable = ['tanggal_pemberian', 'pengirim', 'bentuk_pemberian', 'jumlah_penerima', 'nama'];
+    protected $fillable = ['tanggal_pemberian', 'jumlah_penerima', 'nama', 'id_kategori_bansos'];
 
     public function kriteria_bansos(): HasMany
     {
@@ -22,5 +22,9 @@ class BansosModel extends Model
     public function detail_bansos(): HasMany
     {
         return $this->hasMany(DetailBansosModel::class, 'id_bansos', 'id_bansos');
+    }
+    public function kategori_bansos()
+    {
+        return $this->belongsTo(kategori_bansos::class, 'id_kategori_bansos', 'id_kategori_bansos');
     }
 }
