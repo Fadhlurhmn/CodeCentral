@@ -17,12 +17,21 @@ class BansosSeeder extends Seeder
             [
                 'id_bansos' => 1,
                 'tanggal_pemberian' => now(),
-                'pengirim' => 'pemerintah',
+                'pengirim' => 'pemerintah pusat',
                 'bentuk_pemberian' => 'tunai',
-                'jumlah_penerima' => 10,
+                'jumlah_penerima' => 2,
                 'nama' => 'BLT',
                 'status' => 'open'
-            ]
+            ],
+            [
+                'id_bansos' => 2,
+                'tanggal_pemberian' => now(),
+                'pengirim' => 'pemerintah kota',
+                'bentuk_pemberian' => 'sembako',
+                'jumlah_penerima' => 2,
+                'nama' => 'PKH',
+                'status' => 'open'
+            ],
         ];
         DB::table('bansos')->insert($data_bansos);
     }
