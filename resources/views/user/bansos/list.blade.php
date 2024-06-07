@@ -35,64 +35,45 @@
 
 {{-- Bansos Form --}}
 <section class="section pt-0">
-  <div class="container">
-    <div class="col-12 md:order-1">
-        <h2 class="h4 mb-4 px-0 lg:px-60">Daftar Penerima Bansos PKH 2024</h2>
-        <div class="relative overflow-x-auto px-0 lg:px-60">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-white bg-primary uppercase">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nama
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Alamat
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            1
-                        </th>
-                        <td class="px-6 py-4">
-                            Pak Ahmad Bambang
-                        </td>
-                        <td class="px-6 py-4">
-                            Jalan Sebelah Tetangga
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            2
-                        </th>
-                        <td class="px-6 py-4">
-                            Bu Parto
-                        </td>
-                        <td class="px-6 py-4">
-                            Jalan Sebelah Tetangga
-                        </td>
-                    </tr>
-                    <tr class="bg-white">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            3
-                        </th>
-                        <td class="px-6 py-4">
-                            Bu Alfiyyah
-                        </td>
-                        <td class="px-6 py-4">
-                            Jalan Sebelah Tetangga
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="container">
+      <div class="col-12 md:order-1">
+          <h2 class="h4 mb-4 px-0 lg:px-60">Daftar Penerima Bansos {{$histori[0]->nama_bansos}}</h2>
+          <div class="relative overflow-x-auto px-0 lg:px-60">
+              <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                  <thead class="text-xs text-white bg-primary uppercase">
+                      <tr>
+                          <th scope="col" class="px-6 py-3">
+                              No
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                              Nama
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                              Alamat
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($histori as $index => $penerimaan)
+                      <tr class="bg-white border-b">
+                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                              {{ $index + 1 }}
+                          </th>
+                          <td class="px-6 py-4">
+                              {{ $penerimaan->nama_kepala_keluarga }}
+                          </td>
+                          <td class="px-6 py-4">
+                              {{ $penerimaan->alamat }}
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+          </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+  
 {{-- end Bansos Form --}}
 
 @include('layout.footer')
