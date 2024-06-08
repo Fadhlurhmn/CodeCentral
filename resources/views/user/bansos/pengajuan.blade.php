@@ -405,12 +405,11 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-full">Submit</button>
+          <div class="row w-full justify-between">
+            <a href="{{ route('user.bansos.pengajuan') }}" class="ml-4 btn btn-outline-primary col-4">Kembali</a>
+            <button type="submit" class="btn btn-primary col-4">Submit</button>
+          </div>
 
-          {{-- <div class="row w-full justify-between">
-            <button type="button" class="ml-4 btn btn-outline-primary col-4" onclick="prevSection(2)">Sebelumnya</button>
-            
-          </div> --}}
         </div>
       </form>
       {{-- end Survey form --}}

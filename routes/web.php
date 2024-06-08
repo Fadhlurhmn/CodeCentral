@@ -42,7 +42,8 @@ Route::group(['prefix' => 'promosi'], function () {
 });
 
 Route::group(['prefix' => 'bansos'], function () {
-    Route::get('/list', [UserBansosController::class, 'list'])->name('user.bansos.list');
+    Route::get('/list', [UserBansosController::class, 'show'])->name('user.bansos.list');
+    Route::get('/list/{id}', [UserBansosController::class, 'list'])->name('user.bansos.list.detail');
     Route::get('/pengajuan', [UserBansosController::class, 'pengajuan'])->name('user.bansos.pengajuan');
 });
 
