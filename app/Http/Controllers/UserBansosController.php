@@ -3,20 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
-use App\Models\DetailBansosModel;
-use App\Models\histori_penerimaan_bansos;
 use Illuminate\Http\Request;
 use App\Models\KeluargaModel;
-use App\Models\KriteriaBansosModel;
+use App\Models\DetailBansosModel;
 use Illuminate\Support\Facades\DB;
+use App\Models\KriteriaBansosModel;
+use App\Models\histori_penerimaan_bansos;
+use App\Models\kategori_bansos;
+use Database\Seeders\kategoriBansos;
 
 class UserBansosController extends Controller
 {
-    public function list()
+    public function list($id)
     {
-        $histori = histori_penerimaan_bansos::all();
+        // $histori = histori_penerimaan_bansos::all();
         // dd($histori);
-        return view('user.bansos.list', ['histori' => $histori]);
+        // return view('user.bansos.list', ['histori' => $histori]);
+
+        $histori = histori_penerimaan_bansos::where('id', $id)->with('detail_bansos')->get();
+    
+        $data = $histori->map(function($bansos) {
+            return $bansos->penerimaans->map(function($penerimaan) {
+                return [
+                    'nama_kepala_keluarga' => $penerimaan->nama_kepala_keluarga,
+                    'alamat' => $penerimaan->alamat
+                ];
+            });
+        })->flatten()->toArray();
+
+        return response()->json($data);
+        
     }
 
     public function pengajuan()
@@ -32,10 +48,14 @@ class UserBansosController extends Controller
         $request->validate([
             'nama_kk' => 'required|string|max:255',
             'no_kk' => 'required|numeric|digits:16',
+            'jenis_bansos' => 'required'
         ]);
 
         $nama_kk = $request->nama_kk;
         $no_kk = $request->no_kk;
+        $id_keluarga = KeluargaModel::where('nomor_keluarga', $no_kk)->value('id_keluarga');
+        $jenis_bansos = $request->jenis_bansos;
+        $kategori = BansosModel::where('id_bansos', $jenis_bansos)->value('id_kategori_bansos'); 
 
         // mencari data penduduk di database
         $penduduk = KeluargaModel::where('nomor_keluarga', $no_kk)
@@ -45,22 +65,89 @@ class UserBansosController extends Controller
             })
             ->first();
 
-        // mengecek apabila no_kk tersebut sudah mengisi atau belum
-        $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
-            ->where('keluarga_penduduk.nomor_keluarga', $no_kk)
-            ->exists();
-
         // mengecek data penduduk ada atau tidak
         if ($penduduk) {
 
             // mengecek apabila no_kk tersebut sudah mengisi atau belum
+            $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
+            ->where('keluarga_penduduk.nomor_keluarga', $no_kk)
+            ->where('id_bansos', $jenis_bansos)
+            ->exists();
+
+            // mengecek apabila no_kk tersebut sudah mengisi atau belum
             if ($status_pengisian) {
-                return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Anda telah mengisi form bansos');
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Anda telah mengisi form pengajuan bansos ini');
             } else {
-                return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
+                // mengambil data kategori bansos yang telah diterima user
+                $cek_kesamaan_kategori = DetailBansosModel::join('bansos', 'detail_bansos.id_bansos', '=', 'bansos.id_bansos')
+                ->where('id_keluarga', $id_keluarga)->distinct()->pluck('id_kategori_bansos')->toArray();
+                
+                // mengecek apakah kategori bansos yang diambil user ada yang sama
+                if (in_array($kategori, array_values($cek_kesamaan_kategori))) {
+                    
+                    // mengambil semua tanggal input form yang telah dilakukan user
+                    $bulan_tahun_bansos = DetailBansosModel::join('bansos', 'detail_bansos.id_bansos', '=', 'bansos.id_bansos')
+                    ->where('id_keluarga', $id_keluarga)->distinct()->pluck('bansos.created_at')->toArray();
+
+                    // konversi menjadi nilai month dan year
+                    $month_in_bansos = [];
+                    $years_in_bansos = [];
+                    foreach ($bulan_tahun_bansos as $tanggal) {
+                        $years_in_bansos[] = date('Y', strtotime($tanggal));
+                        $month_in_bansos[] = date('M', strtotime($tanggal));
+                    }
+
+                    // konversi menjadi nilai month dan year untuk bansos yang dipilih user
+                    $tanggal_bansos_dibuat = BansosModel::where('id_bansos', $jenis_bansos)->value('updated_at'); 
+                    $bansos_month = date('M', strtotime($tanggal_bansos_dibuat));
+                    $bansos_years = date('Y', strtotime($tanggal_bansos_dibuat));
+
+                    // mengecek apabila bansos yang dipilih user sama Bulannya dengan bansos yang telah diterima user
+                    if(in_array($bansos_month, $month_in_bansos)){
+
+                        // mengecek apabila bansos yang dipilih user sama Tahunnya dengan bansos yang telah diterima user
+                        if(in_array($bansos_years, $years_in_bansos)){
+                            return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Anda telah mangajukan bansos, silahkan tunggu jadwal pengajuan selanjutnya');
+                        } else {
+                            return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Silahkan mengisi survey kriteria', 'data_pengaju' => $penduduk->id_keluarga, 'jenis_bansos' => $request->jenis_bansos]);
+                        }
+                    } else {
+                        return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Silahkan mengisi survey kriteria', 'data_pengaju' => $penduduk->id_keluarga, 'jenis_bansos' => $request->jenis_bansos]);
+                    }
+                } else {
+                    // mengambil semua tanggal input form yang telah dilakukan user
+                    $bulan_tahun_bansos = DetailBansosModel::join('bansos', 'detail_bansos.id_bansos', '=', 'bansos.id_bansos')
+                    ->where('id_keluarga', $id_keluarga)->distinct()->pluck('bansos.created_at')->toArray();
+
+                    // konversi menjadi nilai month dan year
+                    $month_in_bansos = [];
+                    $years_in_bansos = [];
+                    foreach ($bulan_tahun_bansos as $tanggal) {
+                        $years_in_bansos[] = date('Y', strtotime($tanggal));
+                        $month_in_bansos[] = date('M', strtotime($tanggal));
+                    }
+
+                    // konversi menjadi nilai month dan year untuk bansos yang dipilih user
+                    $tanggal_bansos_dibuat = BansosModel::where('id_bansos', $jenis_bansos)->value('updated_at'); 
+                    $bansos_month = date('M', strtotime($tanggal_bansos_dibuat));
+                    $bansos_years = date('Y', strtotime($tanggal_bansos_dibuat));
+
+                    // mengecek apabila bansos yang dipilih user sama Bulannya dengan bansos yang telah diterima user
+                    if(in_array($bansos_month, $month_in_bansos)){
+                        // mengecek apabila bansos yang dipilih user sama Tahunnya dengan bansos yang telah diterima user
+                        if(in_array($bansos_years, $years_in_bansos)){
+                            return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Anda telah mangajukan bansos lain, silahkan tunggu jadwal pengajuan selanjutnya');
+                        } else {
+                            return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Silahkan mengisi survey kriteria', 'data_pengaju' => $penduduk->id_keluarga, 'jenis_bansos' => $request->jenis_bansos]);
+                        }
+                        
+                    } else {
+                        return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Silahkan mengisi survey kriteria', 'data_pengaju' => $penduduk->id_keluarga, 'jenis_bansos' => $request->jenis_bansos]);
+                    }
+                }
             }
         } else {
-            return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Data tidak anda ditemukan');
+            return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
     }
 
@@ -92,9 +179,6 @@ class UserBansosController extends Controller
             9 => 'penerangan',
             10 => 'transportasi',
         ];
-
-        // opsi dinamis, saran ditambahkan nama kode kriteria
-        // $kriteria = KriteriaBansosModel::pluck('nama_kriteria', 'id_kriteria');
 
         // mengambil jenis bansos
         $id_bansos = $request->jenis_bansos;
