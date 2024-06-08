@@ -42,7 +42,7 @@
             @endif
 
             {{-- Tabel Untuk Daftar Kategori  --}}
-            <div class="col-span-3 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
+            <div class="col-span-4 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
 
                 <div class="mb-5 text-xs flex justify-between">
                   <h2 class="text-xl font-bold">Kategori Bantuan Sosial</h2>
@@ -51,24 +51,32 @@
 
                 <div class="h-40 overflow-y-auto custom-scrollbar">                    
                   @if(isset($kategori_bansos)>0)
-                  <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
-                      <thead class="bg-teal-400 text-center">
-                          <tr>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
-                          </tr>
-                      </thead>
-                      <tbody>
+                    <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @foreach ($kategori_bansos as $kategori)
-                          <tr>
+                            <tr>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->nama_kategori }}</td>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->pengirim }}</td>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->bentuk_pemberian }}</td>
-                          </tr>
+                            <td class="p-3 text-sm text-center border border-teal-500">
+                                <form action="{{ url('rw/kategori_bansos/'.$kategori->id_kategori_bansos) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="p-2 text-xs text-red-800 rounded-lg bg-red-400/30 hover:text-white hover:bg-red-600 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
+                                </form>
+                            </td>
+                            </tr>
                         @endforeach
-                      </tbody>
-                  </table>
+                        </tbody>
+                    </table>
                   @else
                   <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
                       <div class="flex-col text-center">
@@ -82,7 +90,7 @@
             {{-- End Tabel Jadwal Satpam --}}
             
             {{-- Card Jumlah bansos --}}
-            <div class="grid grid-rows-2 col-span-3 gap-5 text-md">
+            <div class="grid grid-rows-2 col-span-2 gap-5 text-md">
                 {{-- Card Jumlah bansos --}}
                 <div class="card py-3 row-span-1 border border-teal-500/20 shadow-md shadow-teal-500/30">
                     <div class="card-body flex items-center">
@@ -164,7 +172,7 @@
                     <form action="{{ url('rw/bansos/'.$Bansos->id_bansos) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus <i class="fad fa-trash"></i></button>
+                        <button type="button" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
                     </form>
 
                 @endif
@@ -218,4 +226,30 @@
         document.getElementById('successMessage').style.display = 'none';
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const form = this.closest('.delete-form');
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                })
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush

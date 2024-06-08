@@ -42,7 +42,7 @@
             @endif
 
                 {{-- Tabel Untuk Daftar Kategori  --}}
-                <div class="col-span-3 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
+                <div class="col-span-4 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
 
                   <div class="mb-5 text-xs flex justify-between">
                     <h2 class="text-xl font-bold">Kategori Bantuan Sosial</h2>
@@ -57,6 +57,7 @@
                                 <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
                                 <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
                                 <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,6 +66,13 @@
                               <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->nama_kategori }}</td>
                               <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->pengirim }}</td>
                               <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->bentuk_pemberian }}</td>
+                              <td class="p-3 text-sm text-center border border-teal-500">
+                                <form action="{{ url('admin/kategori_bansos/'.$kategori->id_kategori_bansos) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="p-2 text-xs text-red-800 rounded-lg bg-red-400/30 hover:text-white hover:bg-red-600 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
+                                </form>
+                              </td>
                             </tr>
                           @endforeach
                         </tbody>
@@ -81,7 +89,7 @@
                 </div>
               {{-- End Tabel Jadwal Satpam --}}
 
-            <div class="grid grid-rows-2 col-span-3 gap-5 text-md">
+            <div class="grid grid-rows-2 col-span-2 gap-5 text-md">
                 {{-- Card Jumlah bansos --}}
                 <div class="card py-3 row-span-1 border border-teal-500/20 shadow-md shadow-teal-500/30">
                     <div class="card-body flex items-center">
@@ -165,7 +173,7 @@
                     <form action="{{ url('admin/bansos/'.$Bansos->id_bansos) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus <i class="fad fa-trash"></i></button>
+                        <button type="button" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
                     </form>
 
                 @endif
@@ -187,17 +195,17 @@
 
 @push('js')
 <script>
-    // Script searching
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        // Script searching
         const searchInput = document.getElementById('searchInput');
         const noResults = document.getElementById('noResults');
 
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             const query = searchInput.value.toLowerCase();
             const bansosItems = document.querySelectorAll('.bansos-item');
             let hasResults = false;
 
-            bansosItems.forEach(function(item) {
+            bansosItems.forEach(function (item) {
                 const title = item.getAttribute('data-title').toLowerCase();
                 if (title.includes(query)) {
                     item.style.display = 'flex';
@@ -213,11 +221,36 @@
                 noResults.classList.remove('hidden');
             }
         });
-    });
-
-    
-    document.getElementById('closeButton').addEventListener('click', function() {
-        document.getElementById('successMessage').style.display = 'none';
+        // Script menutup halaman
+        document.getElementById('closeButton').addEventListener('click', function () {
+            document.getElementById('successMessage').style.display = 'none';
+        });
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const form = this.closest('.delete-form');
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                })
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush

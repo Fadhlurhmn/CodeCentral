@@ -736,9 +736,9 @@ class BansosController extends Controller
 
         if ($kategori) {
             $kategori->delete();
-            return redirect($role.'/kategori_bansos/create')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
+            return redirect($role.'/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
         } else {
-            return redirect($role.'/kategori_bansos/create')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+            return redirect($role.'/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
     }
 }
