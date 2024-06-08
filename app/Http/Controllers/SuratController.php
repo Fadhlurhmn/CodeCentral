@@ -73,8 +73,9 @@ class SuratController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
-            'berkas' => 'required|file|mimes:docx',
+            'berkas' => 'required|file|mimes:pdf',
             'deskripsi' => 'required|string|max:255',
             'nama_surat' => 'required|string|max:255'
         ]);
@@ -126,7 +127,7 @@ class SuratController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'berkas' => 'nullable|file|mimes:docx',
+            'berkas' => 'nullable|file|mimes:pdf',
             'deskripsi' => 'required|string|max:255',
             'nama_surat' => 'required|string|max:255'
         ]);
@@ -171,5 +172,19 @@ class SuratController extends Controller
         } else {
             return response()->json(['error' => 'Surat tidak ditemukan.'], 404);
         }
+    }
+    public function preview_surat($id)
+    {
+        $surat = SuratModel::find($id);
+        if (!$surat) {
+            return redirect()->back()->with('error', 'Surat tidak ditemukan');
+        }
+
+        $path = storage_path('app/public/' . $surat->path_berkas);
+        if (!file_exists($path)) {
+            return redirect()->back()->with('error', 'File surat tidak ditemukan');
+        }
+
+        return response()->file($path);
     }
 }

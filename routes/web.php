@@ -139,6 +139,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/{id}/edit', [SuratController::class, 'edit']);
             Route::post('/{id}', [SuratController::class, 'update']);
             Route::delete('/{id}', [SuratController::class, 'delete']);
+            Route::get('/{id}/preview', [SuratController::class, 'preview_surat']);
         });
 
         Route::prefix('jadwal')->group(function () {
