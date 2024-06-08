@@ -221,6 +221,11 @@ class BansosController extends Controller
                 ->update(['status' => $status]);
         }
 
+        // Update BansosModel status to 'closed'
+        $bansos = BansosModel::find($id);
+        $bansos->status = 'closed';
+        $bansos->save();
+
         return redirect('/' . $role . '/bansos/' . $id . '/show')->with('success', 'Data Penerima Bantuan Sosial Berhasil diperbarui');
     }
 
