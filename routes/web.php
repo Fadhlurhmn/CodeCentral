@@ -47,8 +47,7 @@ Route::group(['prefix' => 'rt'], function () {
 
 Route::group(['prefix' => 'rw'], function () {
     Route::get('/', function () {return view('rw.dashboard.index');});
-    Route::get('/statistikbansos', function () {return view('rw.dashboard.statistik_bansos');});
-    
+    Route::get('/chartbansos', function () {return view('rw.dashboard.chart-bansos');});
 });
 
 

@@ -98,9 +98,10 @@
            padding: 25px;
            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
            border-radius: 10px;
-           text-align: center;
            background-color: #fff;
            text-align: center;
+           margin-right: 2000px;
+
        }
    </style>
 
