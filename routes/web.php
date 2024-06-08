@@ -41,4 +41,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/keuangan', function () {return view('admin.keuangan.index');});
 });
 
+Route::group(['prefix' => 'rt'], function () {
+    Route::get('/', function () {return view('rt.dashboard.index');});
+});
+
+Route::group(['prefix' => 'rw'], function () {
+    Route::get('/', function () {return view('rw.dashboard.index');});
+    Route::get('/statistikbansos', function () {return view('rw.dashboard.statistik_bansos');});
+    
+});
+
+
 

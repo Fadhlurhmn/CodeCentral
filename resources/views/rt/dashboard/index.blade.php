@@ -13,7 +13,7 @@
   <div class="bg-gray-100 flex-1 p-6 md:mt-16"> 
 
     
-    <h1 class="pb-5 my-2 text-2xl font-extrabold text-black-600">Dashboard Admin</h1>
+    <h1 class="pb-5 my-2 text-2xl font-extrabold text-black-600">Dashboard RT</h1>
         
 
     <div class="grid grid-cols-3 gap-6 xl:grid-cols-1">

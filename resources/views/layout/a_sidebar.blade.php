@@ -70,44 +70,6 @@
         <i class="fas fa-sign-out-alt text-xs mr-2"></i>
         Logout
       </a>
-      
-      <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">Template Example</p>
-
-      <a href="/template" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-chart-pie text-xs mr-2"></i>                
-        Analytics dashboard
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/shop" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-shopping-cart text-xs mr-2"></i>
-        ecommerce dashboard
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/typography" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-text text-xs mr-2"></i>
-        typography
-      </a>
-      <!-- end link -->
-
-      <!-- link -->
-      <a href="/template/alert" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-whistle text-xs mr-2"></i>
-        alerts
-      </a>
-      <!-- end link -->
-      
-
-      <!-- link -->
-      <a href="/template/buttons" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-        <i class="fad fa-cricket text-xs mr-2"></i>
-        buttons
-      </a>
-      <!-- end link -->
-
     </div>
     <!-- end sidebar content -->
 
