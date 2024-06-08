@@ -24,7 +24,6 @@
 <section class="section pt-0">
   <div class="container">
     {{-- Menampilkan search bar jika ada surat --}}
-    @if(!$surat->isEmpty())
       <form class="mb-4" method="GET" action="{{ route('user.surat') }}">
         <div class="row">
           <div class="bg-black opacity-0 lg:col-6"></div>
@@ -42,7 +41,6 @@
           </div>
         </div>
       </form>
-    @endif
     {{-- end search bar --}}
 
     {{-- Menampilkan semua surat --}}
@@ -62,7 +60,7 @@
           </div>
         </div>
       @empty
-        <p class="text-xl text-center font-bold text-gray-600">Tidak ada Surat yang Tersedia</p>
+        <p class="text-xl text-center font-bold text-gray-600">Surat Tidak Tersedia</p>
       @endforelse
     </div>
   </div>

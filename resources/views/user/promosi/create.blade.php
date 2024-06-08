@@ -23,10 +23,10 @@
     <div class="container">
       <div class="page-hero-content mx-auto max-w-[768px] text-center">
           <h1 class="mb-5 mt-8">
-              UMKM
+              Promosi
           </h1>
           <p>
-            Anda dapat menemukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian UMKM.
+            Daftarkan usaha Anda untuk mendapatkan kesempatan promosi produk dan layanan di komunitas kami. Bersama, kita bisa memperkuat perekonomian lokal.
           </p>
       </div>
     </div>
@@ -64,9 +64,9 @@
         @if (session('error_verifikasi'))
           <div class="alert alert-error">
               {{ session('error_verifikasi') }}
-          </div>  
+          </div>
         @endif
-        
+
         @csrf
 
         <div class="form-group mb-5">
@@ -76,7 +76,7 @@
             type="text"
             id="nama_penduduk"
             name="nama_penduduk"
-            placeholder="Masukkan Nama lengkap" 
+            placeholder="Masukkan Nama lengkap"
             value="{{ old('nama_penduduk') }}"
           />
           @error('nama_penduduk')
@@ -105,7 +105,14 @@
       {{-- end verifikasi data diri --}}
 
       {{-- form promosi --}}
-      <form class="hidden px-0 lg:px-60" action="{{ route('user.promosi.store') }}" method="POST" id="formPromosi">
+      @if (session('success'))
+      <!-- Menampilkan pesan sukses jika ada session 'success' -->
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-5" role="alert">
+          <strong class="font-bold">Sukses!</strong>
+          <span class="block sm:inline">{{ session('success') }}</span>
+      </div>
+      @elseif (session('success_verifikasi'))
+      <form class="px-0 lg:px-60" action="{{ route('user.promosi.store') }}" method="POST" id="formPromosi" enctype="multipart/form-data">
         @error('promosi')
           <div class="alert alert-error mb-5">
             <span>{{ $message }}</span>
@@ -115,10 +122,10 @@
         @csrf
 
         <div class="form-group mb-5">
-          <input type="hidden" name="pengirim" value="{{ session('pengirim_promosi') }}">
+          <input type="hidden" name="pengirim_promosi" value="{{ session('pengirim_promosi') }}">
 
           <div class="form-group mb-5">
-            <label class="form-label" for="nama_usaha">Nama Usaha</label>
+            <label class="form-label" for="nama_usaha">Nama Usaha<span class="text-red-500">*</span></label>
             <input
               class="form-control"
               type="text"
@@ -141,14 +148,14 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="deskripsi_usaha">Deskripsi Usaha</label>
+            <label class="form-label" for="deskripsi_usaha">Deskripsi Usaha<span class="text-red-500">*</span></label>
             <textarea
                     class="w-full rounded-lg border-border text-dark placeholder:text-[#B0B0B0] focus:border-primary focus:ring-transparent"
                     id="deskripsi_usaha"
                     name="deskripsi_usaha"
                     rows="10"
                     placeholder="Deskripsikan usaha anda"
-                    value="{{ old('deskripsi_usaha') }}" 
+                    value="{{ old('deskripsi_usaha') }}"
                     maxlength="500"
                     required
                 ></textarea>
@@ -164,7 +171,7 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="jenis_usaha">Jenis usaha</label>
+            <label class="form-label" for="jenis_usaha">Jenis Usaha<span class="text-red-500">*</span></label>
             <select name="jenis_usaha" id="jenis_usaha" class="form-select" required>
               <option value="">Pilih jenis usaha</option>
               <option value="kuliner">Kuliner</option>
@@ -179,24 +186,68 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="berkas_usaha">Foto Usaha (MAX 2MB)</label>
+            <label class="form-label" for="no_telp">Nomor Telepon<span class="text-red-500">*</span></label>
+            <input
+              class="form-control"
+              type="text"
+              id="no_telp"
+              name="no_telp"
+              placeholder="Masukkan nomor telepon anda"
+              value="{{ old('no_telp') }}"
+              maxlength="15"
+              required
+            />
+            <div id="character-counter-no-telp" class="text-right w-full">
+              <span id="typed-characters-no-telp">0</span>
+              <span>/</span>
+              <span id="maximum-characters-no-telp">15</span>
+            </div>
+            @error('no_telp')
+                <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
+            @enderror
+          </div>
+
+          <div class="form-group mb-5">
+            <label class="form-label" for="alamat">Alamat Usaha<span class="text-red-500">*</span></label>
+            <textarea
+              class="w-full rounded-lg border-border text-dark placeholder:text-[#B0B0B0] focus:border-primary focus:ring-transparent"
+              id="alamat"
+              name="alamat"
+              rows="3"
+              placeholder="Masukkan alamat usaha anda"
+              maxlength="100"
+              required
+            >{{ old('alamat') }}</textarea>
+            <div id="character-counter-alamat" class="text-right w-full">
+              <span id="typed-characters-alamat">0</span>
+              <span>/</span>
+              <span id="maximum-characters-alamat">100</span>
+            </div>
+            @error('alamat')
+                <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
+            @enderror
+          </div>
+
+          <div class="form-group mb-5">
+            <label class="form-label" for="gambar">Foto Usaha (MAX 2MB)<span class="text-red-500">*</span></label>
             <input
                 class="block h-[60px] w-full text-sm border border-gray-200 bg-white text-dark rounded-lg cursor-pointer focus:outline-none file:rounded-l-lg file:text-dark file:h-[60px] file:px-4 file:border-0"
                 type="file"
-                id="berkas_usaha"
-                name="berkas_usaha"
-                value="{{ old('berkas_usaha') }}">
-            @error('berkas_usaha')
+                id="gambar"
+                name="gambar"
+                value="{{ old('gambar') }}">
+            @error('gambar')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
             @enderror
-        </div>
+          </div>
 
         <button
           class="btn btn-primary block w-full"
           type="submit">
-          Submit
+          Kirim
         </button>
       </form>
+      @endif
       {{-- end form promosi --}}
     </div>
   </div>
@@ -226,7 +277,7 @@
   document.getElementById('nik').addEventListener('input', function() {
         var nikInput = this.value;
         var nikError = document.getElementById('nikError');
-        
+
         if (nikInput.length !== 16) {
             nikError.classList.remove('hidden');
         } else {
@@ -234,53 +285,75 @@
         }
     });
 
-  // Character counter
-  const textAreaElement = document.querySelector("#nama_usaha");
-  const characterCounterElement = document.querySelector("#character-counter");
-  const typedCharactersElement = document.querySelector("#typed-characters");
-  const maximumCharacters = 100;
-  
-  textAreaElement.addEventListener("keyup", (event) => {
-      const typedCharacters = textAreaElement.value.length;
-      
-      if (typedCharacters > maximumCharacters) {
+  // Character counter untuk nama usaha
+  const namaUsahaElement = document.querySelector("#nama_usaha");
+  const characterCounterNamaUsaha = document.querySelector("#character-counter");
+  const typedCharactersNamaUsaha = document.querySelector("#typed-characters");
+  const maximumCharactersNamaUsaha = 100;
+
+  namaUsahaElement.addEventListener("keyup", (event) => {
+      const typedCharacters = namaUsahaElement.value.length;
+
+      if (typedCharacters > maximumCharactersNamaUsaha) {
           return false;
       }
-      
-      typedCharactersElement.textContent = typedCharacters;
+
+      typedCharactersNamaUsaha.textContent = typedCharacters;
       if (typedCharacters >= 90 && typedCharacters < 100) {
-          characterCounterElement.classList = "text-right w-full text-yellow-400";
+          characterCounterNamaUsaha.classList = "text-right w-full text-yellow-400";
       } else if (typedCharacters >= 100) {
-          characterCounterElement.classList = "text-right w-full text-red-400";
+          characterCounterNamaUsaha.classList = "text-right w-full text-red-400";
       } else {
-          characterCounterElement.classList = "text-right w-full text-inherit";
+          characterCounterNamaUsaha.classList = "text-right w-full text-inherit";
       }
   });
 
-  // Character counter2
-  const textAreaElement2 = document.querySelector("#deskripsi_usaha");
-  const characterCounterElement2 = document.querySelector("#character-counter2");
-  const typedCharactersElement2 = document.querySelector("#typed-characters2");
-  const maximumCharacters2 = 500;
-  
-  textAreaElement2.addEventListener("keyup", (event) => {
-      const typedCharacters2 = textAreaElement2.value.length;
-      
-      if (typedCharacters2 > maximumCharacters2) {
+  // Character counter untuk deskripsi usaha
+  const deskripsiUsahaElement = document.querySelector("#deskripsi_usaha");
+  const characterCounterDeskripsiUsaha = document.querySelector("#character-counter2");
+  const typedCharactersDeskripsiUsaha = document.querySelector("#typed-characters2");
+  const maximumCharactersDeskripsiUsaha = 500;
+
+  deskripsiUsahaElement.addEventListener("keyup", (event) => {
+      const typedCharacters = deskripsiUsahaElement.value.length;
+
+      if (typedCharacters > maximumCharactersDeskripsiUsaha) {
           return false;
       }
-      
-      typedCharactersElement2.textContent = typedCharacters2;
-      if (typedCharacters2 >= 450 && typedCharacters2 < 500) {
-          characterCounterElement2.classList = "text-right w-full text-yellow-400";
-      } else if (typedCharacters2 >= 500) {
-          characterCounterElement2.classList = "text-right w-full text-red-400";
+
+      typedCharactersDeskripsiUsaha.textContent = typedCharacters;
+      if (typedCharacters >= 450 && typedCharacters < 500) {
+          characterCounterDeskripsiUsaha.classList = "text-right w-full text-yellow-400";
+      } else if (typedCharacters >= 500) {
+          characterCounterDeskripsiUsaha.classList = "text-right w-full text-red-400";
       } else {
-          characterCounterElement2.classList = "text-right w-full text-inherit";
+          characterCounterDeskripsiUsaha.classList = "text-right w-full text-inherit";
+      }
+  });
+
+  // Character counter untuk alamat usaha
+  const alamatElement = document.querySelector("#alamat");
+  const characterCounterAlamat = document.querySelector("#character-counter-alamat");
+  const typedCharactersAlamat = document.querySelector("#typed-characters-alamat");
+  const maximumCharactersAlamat = 100;
+
+  alamatElement.addEventListener("keyup", (event) => {
+      const typedCharacters = alamatElement.value.length;
+
+      if (typedCharacters > maximumCharactersAlamat) {
+          return false;
+      }
+
+      typedCharactersAlamat.textContent = typedCharacters;
+      if (typedCharacters >= 90 && typedCharacters < 100) {
+          characterCounterAlamat.classList = "text-right w-full text-yellow-400";
+      } else if (typedCharacters >= 100) {
+          characterCounterAlamat.classList = "text-right w-full text-red-400";
+      } else {
+          characterCounterAlamat.classList = "text-right w-full text-inherit";
       }
   });
 </script>
 @endpush
 
 @include('layout.footer')
-
