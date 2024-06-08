@@ -39,6 +39,16 @@
                     </button>
                 </div>
             </div>
+            @elseif(session('error'))
+            <div id="successMessage" class="col-span-full">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
             @endif
 
                 {{-- Tabel Untuk Daftar Kategori  --}}

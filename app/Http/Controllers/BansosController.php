@@ -739,11 +739,20 @@ class BansosController extends Controller
         $role = ($user->id_level == 1) ? 'admin' : 'rw';
         $kategori = kategori_bansos::find($id);
 
-        if ($kategori) {
-            $kategori->delete();
-            return redirect($role.'/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
-        } else {
+        if (!$kategori) {
             return redirect($role.'/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
+
+        // Check if there are related Bansos entries
+        $relatedBansosCount = $kategori->detail_kategori()->count();
+
+        if ($relatedBansosCount > 0) {
+            return redirect($role.'/bansos')->with('error', 'Kategori ini memiliki bantuan sosial terkait dan tidak dapat dihapus.');
+        }
+
+        // Proceed with deletion
+        $kategori->delete();
+        return redirect($role.'/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
     }
+
 }
