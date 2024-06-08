@@ -27,9 +27,10 @@
                     <div class="col-span-2">
                         <label for="id_kategori_bansos" class="block text-sm font-bold text-gray-900">Kategori</label>
                         <select name="id_kategori_bansos" id="id_kategori_bansos" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
-                            <option value="" selected hidden>Pilih Kategori</option>
                             @foreach($kategori as $Kategori)
-                                <option value="{{$Kategori->id_kategori_bansos}}">{{$Kategori->nama_kategori}}</option>
+                                <option value="{{$Kategori->id_kategori_bansos}}" {{ $Kategori->id_kategori_bansos == $bansos->id_kategori_bansos ? 'selected' : '' }}>
+                                    {{$Kategori->nama_kategori}}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -39,6 +40,14 @@
                         <input type="number" name="jumlah_penerima" id="jumlah_penerima" value="{{ $bansos->jumlah_penerima }}" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
                     </div>
 
+                    <div class="col-span-2">
+                        <label for="status" class="block text-sm font-bold text-gray-900">Status</label>
+                        <select name="status" id="status" class="shadow-sm w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5" required>
+                            <option value="{{$bansos->status}}" selected hidden>{{$bansos->status}}</option>
+                            <option value="open">open</option>
+                            <option value="closed">closed</option>
+                        </select>
+                    </div>
 
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-full">
                         <a href="{{ url('admin/bansos') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>

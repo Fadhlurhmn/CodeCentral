@@ -46,7 +46,7 @@ class BansosController extends Controller
 
         $activeMenu = 'bansos';
 
-        $bansos = BansosModel::all();
+        $bansos = BansosModel::with('kategori_bansos')->get();
 
         $totalBansos = $bansos->count('id_bansos');
         $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
@@ -338,7 +338,8 @@ class BansosController extends Controller
             'nama_bansos' => 'required|string',
             'tanggal_bansos' => 'required|date',
             'id_kategori_bansos' => 'required|integer',
-            'jumlah_penerima' => 'required|integer'
+            'jumlah_penerima' => 'required|integer',
+            'status' => 'required|string|in:open,closed',
         ]);
 
         $bansos = BansosModel::find($id);
@@ -348,6 +349,7 @@ class BansosController extends Controller
             $bansos->tanggal_pemberian = $request->tanggal_bansos;
             $bansos->id_kategori_bansos = $request->id_kategori_bansos;
             $bansos->jumlah_penerima = $request->jumlah_penerima;
+            $bansos->status = $request->status;
             $bansos->save();
 
             return redirect('/' . $role . '/bansos')->with('success', 'Data Bansos Berhasil diperbarui');
@@ -457,7 +459,9 @@ class BansosController extends Controller
         } else {
             $histori_bansos = histori_penerimaan_bansos::all();
         }
-        $bansos = BansosModel::all();
+
+        $bansos = BansosModel::with('kategori_bansos')->get();
+        $kategori_bansos = kategori_bansos::all();
         $breadcrumb = (object) [
             'title' => 'Histori Penerimaan Bantuan Sosial',
             'list' => [
@@ -478,6 +482,7 @@ class BansosController extends Controller
             'page' => $page,
             'histori_bansos' => $histori_bansos,
             'bansos' => $bansos,
+            'kategori_bansos'=>$kategori_bansos,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -734,11 +739,20 @@ class BansosController extends Controller
         $role = ($user->id_level == 1) ? 'admin' : 'rw';
         $kategori = kategori_bansos::find($id);
 
-        if ($kategori) {
-            $kategori->delete();
-            return redirect($role.'/kategori_bansos/create')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
-        } else {
-            return redirect($role.'/kategori_bansos/create')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+        if (!$kategori) {
+            return redirect($role.'/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
+
+        // Check if there are related Bansos entries
+        $relatedBansosCount = $kategori->detail_kategori()->count();
+
+        if ($relatedBansosCount > 0) {
+            return redirect($role.'/bansos')->with('error', 'Kategori ini memiliki bantuan sosial terkait dan tidak dapat dihapus.');
+        }
+
+        // Proceed with deletion
+        $kategori->delete();
+        return redirect($role.'/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
     }
+
 }

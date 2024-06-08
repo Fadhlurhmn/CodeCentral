@@ -21,8 +21,9 @@
                         <label for="filter_bansos" class="mr-2 text-gray-700">Jenis Bantuan Sosial: </label>
                         <select id="filter_bansos" name="filter_bansos" class="uppercase p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500">
                             <option value="" hidden>Pilih Jenis</option>
-                            @foreach($bansos as $Bansos)
-                            <option value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
+                            <option value="" >Semua Jenis</option>
+                            @foreach($kategori_bansos as $Bansos)
+                            <option class="bg-white" value="{{$Bansos->nama_kategori}}">{{$Bansos->nama_kategori}}</option>
                             @endforeach
                         </select>
                     </div>

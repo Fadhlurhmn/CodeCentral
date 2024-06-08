@@ -139,6 +139,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/{id}/edit', [SuratController::class, 'edit']);
             Route::post('/{id}', [SuratController::class, 'update']);
             Route::delete('/{id}', [SuratController::class, 'delete']);
+            Route::get('/{id}/preview', [SuratController::class, 'preview_surat']);
         });
 
         Route::prefix('jadwal')->group(function () {
@@ -213,7 +214,7 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::post('/', [BansosController::class, 'storeKategori']); // Menyimpan kategori bansos baru
             Route::get('/{id}/edit', [BansosController::class, 'editKategori']); // Form edit kategori bansos
             Route::post('/{id}', [BansosController::class, 'updateKategori']); // Mengupdate kategori bansos
-            Route::delete('/{id}', [BansosController::class, 'deleteKategori']); // Menghapus kategori bansos
+            Route::delete('/{id}', [BansosController::class, 'deleteKategori'])->name('kategori_bansos.destroy'); // Menghapus kategori bansos
         });
 
         Route::group(['prefix' => 'kriteria'], function () {

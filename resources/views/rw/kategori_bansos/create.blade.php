@@ -18,7 +18,6 @@
                                     <th class="py-2 px-4 font-normal border border-teal-300">Nama Kategori</th>
                                     <th class="py-2 px-4 font-normal border border-teal-300">Pengirim</th>
                                     <th class="py-2 px-4 font-normal border border-teal-300">Bentuk Pemberian</th>
-                                    <th class="py-2 px-4 font-normal border border-teal-300">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="kategoriTableBody">
@@ -33,9 +32,6 @@
                                         </td>
                                         <td class="border px-4 py-2">
                                             <input type="text" name="bentuk_pemberian[]" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs" value="{{ $item->bentuk_pemberian }}" required>
-                                        </td>
-                                        <td class="border px-4 py-2 text-center">
-                                            <a href="{{ url('rw/kategori_bansos/' . $item->id_bansos) }}" class="removeRow bg-red-600 text-white px-3 py-1 rounded-md shadow hover:bg-red-700" onclick="return confirm('Apakah Anda yakin ingin menghapus data kategori ini?')">Hapus</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -70,9 +66,6 @@
                     </td>
                     <td class="border px-4 py-2">
                         <input type="text" name="bentuk_pemberian[]" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-xs" required>
-                    </td>
-                    <td class="border px-4 py-2 text-center">
-                        <button type="button" class="removeRow bg-red-600 text-white px-3 py-1 rounded-md shadow hover:bg-red-700" onclick="return confirm('Apakah Anda yakin ingin menghapus data kategori ini?')">Hapus</button>
                     </td>
                 </tr>
             `);

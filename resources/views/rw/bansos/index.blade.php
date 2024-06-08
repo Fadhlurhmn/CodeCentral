@@ -39,10 +39,20 @@
                     </button>
                 </div>
             </div>
+            @elseif(session('error'))
+            <div id="successMessage" class="col-span-full">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <button id="closeButton" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
             @endif
 
             {{-- Tabel Untuk Daftar Kategori  --}}
-            <div class="col-span-3 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
+            <div class="col-span-4 p-3 border border-teal-500/20 rounded-md shadow-md shadow-teal-500/30">
 
                 <div class="mb-5 text-xs flex justify-between">
                   <h2 class="text-xl font-bold">Kategori Bantuan Sosial</h2>
@@ -51,24 +61,32 @@
 
                 <div class="h-40 overflow-y-auto custom-scrollbar">                    
                   @if(isset($kategori_bansos)>0)
-                  <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
-                      <thead class="bg-teal-400 text-center">
-                          <tr>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
-                              <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
-                          </tr>
-                      </thead>
-                      <tbody>
+                    <table id="table_kebersihan" class="w-full min-w-max cursor-default border-collapse">
+                        <thead class="bg-teal-400 text-center">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Kategori</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Pengirim</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Bentuk Pemberian</th>
+                                <th class="p-3 text-sm font-semibold border border-teal-500">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @foreach ($kategori_bansos as $kategori)
-                          <tr>
+                            <tr>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->nama_kategori }}</td>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->pengirim }}</td>
                             <td class="p-3 text-sm text-center border border-teal-500">{{ $kategori->bentuk_pemberian }}</td>
-                          </tr>
+                            <td class="p-3 text-sm text-center border border-teal-500">
+                                <form action="{{ url('rw/kategori_bansos/'.$kategori->id_kategori_bansos) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 text-xs text-red-800 rounded-lg bg-red-400/30 hover:text-white hover:bg-red-600 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
+                                </form>
+                            </td>
+                            </tr>
                         @endforeach
-                      </tbody>
-                  </table>
+                        </tbody>
+                    </table>
                   @else
                   <div class="p-4 mb-5 border-2 border-teal-400 bg-neutral-50 flex justify-center shadow-md rounded-md" id="noResults">
                       <div class="flex-col text-center">
@@ -82,7 +100,7 @@
             {{-- End Tabel Jadwal Satpam --}}
             
             {{-- Card Jumlah bansos --}}
-            <div class="grid grid-rows-2 col-span-3 gap-5 text-md">
+            <div class="grid grid-rows-2 col-span-2 gap-5 text-md">
                 {{-- Card Jumlah bansos --}}
                 <div class="card py-3 row-span-1 border border-teal-500/20 shadow-md shadow-teal-500/30">
                     <div class="card-body flex items-center">
@@ -124,8 +142,8 @@
                 <select name="query" id="searchInput" class="text-xs font-medium ml-auto p-2 border border-gray-500 rounded-md">
                     <option value="" selected hidden>Filter Kategori Bantuan Sosial</option>
                     <option value="" class="bg-white">Semua Bantuan Sosial</option>
-                    @foreach($bansos as $Bansos)
-                    <option class="bg-white" value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
+                    @foreach($kategori_bansos as $Bansos)
+                    <option class="bg-white" value="{{$Bansos->nama_kategori}}">{{$Bansos->nama_kategori}}</option>
                     @endforeach
                 </select>
             </form>
@@ -138,10 +156,25 @@
     <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
         
         @foreach ($bansos as $Bansos)
-        <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->nama }}">
+        <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->kategori_bansos->nama_kategori }}">
             <div class="flex-col">
-                <h1>Bantuan sosial {{$Bansos->nama}}</h1>
-                <p class="text-xs w-96 xl:w-56 md:w-64">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
+                <h1>Bantuan sosial {{$Bansos->nama}} ({{$Bansos->kategori_bansos->nama_kategori}})</h1>
+                <p class="text-xs w-96 xl:w-56 md:w-64">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->kategori_bansos->pengirim}} dengan bentuk {{$Bansos->kategori_bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
+                    <div class="flex mt-1">
+                        @if($Bansos->status == 'open')
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-teal-400/30 border border-teal-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @elseif($Bansos->status == 'closed')
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-red-400/30 border border-red-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @else
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-gray-400/30 border border-gray-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @endif
+                    </div>
             </div>
 
             {{-- Button detail bansos --}}
@@ -164,7 +197,7 @@
                     <form action="{{ url('rw/bansos/'.$Bansos->id_bansos) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus <i class="fad fa-trash"></i></button>
+                        <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
                     </form>
 
                 @endif
@@ -217,5 +250,28 @@
     document.getElementById('closeButton').addEventListener('click', function() {
         document.getElementById('successMessage').style.display = 'none';
     });
+
+    document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const form = this.closest('form');
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+    });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
