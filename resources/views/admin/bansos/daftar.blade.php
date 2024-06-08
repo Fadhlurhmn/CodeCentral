@@ -35,6 +35,7 @@
                 <div class="mt-6">
                     <div class="flex justify-between">
                         <h2 class="text-xl font-bold text-gray-700">Rekomendasi Penerima</h2>
+                        <a href="{{url('admin/bansos/'. $bansos[0]->id_bansos.'/tampil_hitung')}}" class="p-2 font-normal text-center shadow-sm bg-teal-500 hover:bg-teal-600 hover:shadow-md hover:shadow-teal-300 text-xs text-white transition duration-300 ease-in-out rounded-lg">Cek perhitungan</a>
                     </div>
                     @if(session('error'))
                     <div id="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -49,8 +50,8 @@
                     <form action="{{ url('admin/bansos/'.$bansos[0]->id_bansos.'/update_acc_bansos') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id_bansos" value="{{ $bansos[0]->id_bansos }}">
-                        <div class="overflow-x-auto mt-4 border-b-2 border-teal-500">
-                            <table class="table-auto w-full min-w-max text-center cursor-default">
+                        <div class="h-60 overflow-x-auto mt-4 border-b-2 border-teal-500">
+                            <table class="table-auto w-full min-w-max text-center text-sm cursor-default">
                                 <thead class="bg-teal-500 text-white">
                                     <tr>
                                         <th class="p-3 text-sm font-medium tracking-normal">No Keluarga</th>
@@ -61,7 +62,7 @@
                                         <th class="p-3 text-sm font-medium tracking-normal">Detail</th>
                                     </tr>
                                 </thead>
-                                <tbody id="table-body" class="text-gray-700">
+                                <tbody class="text-gray-700">
                                     @foreach ($bansos as $ban)
                                         <tr class="border-b">
                                             <td class="p-3">{{ $ban->nomor_keluarga }}</td>
@@ -94,11 +95,6 @@
                                         
                 </div>
 
-
-                <!-- Pagination -->
-                <div id="pagination" class="flex justify-center mt-4 space-x-2">
-                    {{-- {{ $requests->links() }} --}}
-                </div>
             </div>
         </div>
     </div>
@@ -109,64 +105,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const rowsPerPage = 10;
-        let currentPage = 1;
-
-        const tableBody = document.getElementById('table-body');
-        const pagination = document.getElementById('pagination');
-
-        const originalData = Array.from(tableBody.children);
-
-        function renderTable(data, page = 1) {
-            tableBody.innerHTML = '';
-
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = data.slice(start, end);
-
-            paginatedData.forEach((row) => {
-                tableBody.appendChild(row);
-            });
-
-            renderPagination(data.length);
-        }
-
-        function renderPagination(totalRows) {
-            pagination.innerHTML = '';
-
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-            const createButton = (label, page) => {
-                const button = document.createElement('button');
-                button.textContent = label;
-                button.classList.add('px-3', 'py-1', 'border', 'rounded', 'text-white', 'bg-teal-500', 'hover:bg-teal-600', 'hover:text-white', 'transition', 'duration-300', 'ease-in-out');
-                if (page === currentPage) {
-                    button.classList.add('bg-teal-600');
-                }
-                button.addEventListener('click', () => {
-                    currentPage = page;
-                    renderTable(originalData, currentPage);
-                });
-                return button;
-            };
-
-            if (currentPage > 1) {
-                pagination.appendChild(createButton('First', 1));
-                pagination.appendChild(createButton('Previous', currentPage - 1));
-            }
-
-            for (let i = 1; i <= totalPages; i++) {
-                pagination.appendChild(createButton(i, i));
-            }
-
-            if (currentPage < totalPages) {
-                pagination.appendChild(createButton('Next', currentPage + 1));
-                pagination.appendChild(createButton('Last', totalPages));
-            }
-        }
-
-        renderTable(originalData);
-        
         // Bagian untuk sweetAlert nya 
         const saveButton = document.getElementById('saveButton');
         saveButton.addEventListener('click', function() {
