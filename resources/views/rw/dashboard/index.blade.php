@@ -100,7 +100,6 @@
            border-radius: 10px;
            background-color: #fff;
            text-align: center;
-           margin-right: 2000px;
 
        }
    </style>
