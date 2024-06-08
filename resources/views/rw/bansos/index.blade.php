@@ -132,8 +132,8 @@
                 <select name="query" id="searchInput" class="text-xs font-medium ml-auto p-2 border border-gray-500 rounded-md">
                     <option value="" selected hidden>Filter Kategori Bantuan Sosial</option>
                     <option value="" class="bg-white">Semua Bantuan Sosial</option>
-                    @foreach($bansos as $Bansos)
-                    <option class="bg-white" value="{{$Bansos->nama}}">{{$Bansos->nama}}</option>
+                    @foreach($kategori_bansos as $Bansos)
+                    <option class="bg-white" value="{{$Bansos->nama_kategori}}">{{$Bansos->nama_kategori}}</option>
                     @endforeach
                 </select>
             </form>
@@ -146,10 +146,25 @@
     <div class="p-5 mx-auto h-screen bg-white/50 border-t-2 border-teal-400 cursor-default overflow-y-auto custom-scrollbar">
         
         @foreach ($bansos as $Bansos)
-        <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->nama }}">
+        <div class="p-4 mb-5 bg-neutral-50 flex justify-between shadow-md rounded-md bansos-item" data-title="Bantuan Sosial {{ $Bansos->kategori_bansos->nama_kategori }}">
             <div class="flex-col">
-                <h1>Bantuan sosial {{$Bansos->nama}}</h1>
-                <p class="text-xs w-96 xl:w-56 md:w-64">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->pengirim}} dengan bentuk {{$Bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
+                <h1>Bantuan sosial {{$Bansos->nama}} ({{$Bansos->kategori_bansos->nama_kategori}})</h1>
+                <p class="text-xs w-96 xl:w-56 md:w-64">Bantuan sosial {{ $Bansos->nama }} diberikan oleh {{$Bansos->kategori_bansos->pengirim}} dengan bentuk {{$Bansos->kategori_bansos->bentuk_pemberian}} untuk {{$Bansos->jumlah_penerima}} orang.</p>
+                    <div class="flex mt-1">
+                        @if($Bansos->status == 'open')
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-teal-400/30 border border-teal-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @elseif($Bansos->status == 'closed')
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-red-400/30 border border-red-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @else
+                        <p class="p-1 text-xs text-gray-700 rounded-xl bg-gray-400/30 border border-gray-500">
+                            Status: {{$Bansos->status}}
+                        </p>
+                        @endif
+                    </div>
             </div>
 
             {{-- Button detail bansos --}}
