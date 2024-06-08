@@ -70,7 +70,7 @@
                                 <form action="{{ url('rw/kategori_bansos/'.$kategori->id_kategori_bansos) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="p-2 text-xs text-red-800 rounded-lg bg-red-400/30 hover:text-white hover:bg-red-600 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
+                                    <button type="submit" class="p-2 text-xs text-red-800 rounded-lg bg-red-400/30 hover:text-white hover:bg-red-600 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
                                 </form>
                             </td>
                             </tr>
@@ -172,7 +172,7 @@
                     <form action="{{ url('rw/bansos/'.$Bansos->id_bansos) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
+                        <button type="submit" class="p-2 text-xs text-gray-700 rounded-lg bg-gray-400/30 hover:text-red-900/80 hover:bg-red-500/30 transition duration-200 ease-in-out delete-button">Hapus <i class="fad fa-trash"></i></button>
                     </form>
 
                 @endif
@@ -225,17 +225,15 @@
     document.getElementById('closeButton').addEventListener('click', function() {
         document.getElementById('successMessage').style.display = 'none';
     });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteButtons = document.querySelectorAll('.delete-button');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                const form = this.closest('.delete-form');
+
+    document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const form = this.closest('form');
+
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -246,9 +244,8 @@
                     if (result.isConfirmed) {
                         form.submit();
                     }
-                })
+                });
             });
-        });
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
