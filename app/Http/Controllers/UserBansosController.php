@@ -66,6 +66,29 @@ class UserBansosController extends Controller
 
         // mengecek data penduduk ada atau tidak
         if ($penduduk) {
+            // cek penduduk apakah aktif
+            $penduduk_aktif = KeluargaModel::where('nomor_keluarga', $no_kk)
+            ->whereHas('detail_keluarga', function ($query) use ($nama_kk) {
+                $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
+                    ->where('penduduk.nama', $nama_kk)
+                    ->where('penduduk.status_data', 'Aktif');
+            })->exists();
+
+            if ($penduduk_aktif == false){
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Data tidak valid. Mohon cek kembali informasi Anda.');
+            }
+            
+            // cek penduduk apakah penduduk tetap
+            $penduduk_tetap = KeluargaModel::where('nomor_keluarga', $no_kk)
+            ->whereHas('detail_keluarga', function ($query) use ($nama_kk) {
+                $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
+                    ->where('penduduk.nama', $nama_kk)
+                    ->where('penduduk.status_penduduk', 'Tetap');
+            })->exists();
+
+            if ($penduduk_tetap == false){
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Hanya penduduk yang berdomisili disini yang dapat mengajukan.');
+            }
 
             // mengecek apabila no_kk tersebut sudah mengisi atau belum
             $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
