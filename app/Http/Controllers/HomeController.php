@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PengumumanModel;
 use App\Models\jadwal_kebersihan;
+use App\Models\PromosiModel;
 use App\Models\rangkuman_jadwal_keamanan;
 use App\Models\satpam;
 use Illuminate\Http\Request;
@@ -22,6 +23,12 @@ class HomeController extends Controller {
             return $item;
         });
 
+        // Ambil 9 pengumuman terbaru berdasarkan tanggal update yang berstatus 'Publikasi'
+        $promosiTerkini = PromosiModel::where('status_pengajuan', 'Terima')
+            ->orderBy('updated_at', 'desc')
+            ->take(6)
+            ->get();
+
         $satpam = satpam::all(); // data satpam
 
         $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
@@ -39,6 +46,6 @@ class HomeController extends Controller {
                 });
             }
         }
-        return view('index', compact('pengumumanTerkini', 'schedule','days','shifts','jadwal_kebersihan','satpam'));
+        return view('index', compact('pengumumanTerkini', 'promosiTerkini', 'schedule','days','shifts','jadwal_kebersihan','satpam'));
     }
 }
