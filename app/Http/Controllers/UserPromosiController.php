@@ -118,7 +118,7 @@ class UserPromosiController extends Controller
         $penduduk = PendudukModel::where('nik', $nik)->first();
 
         if ($penduduk) {
-            $promosi = PromosiModel::where('id_penduduk', $penduduk->id_penduduk)->first();
+            $promosi = PromosiModel::where('id_penduduk', $penduduk->id_penduduk)->orderBy('created_at', 'desc')->first();
             if ($promosi) {
                 if ($promosi->status_pengajuan == 'Menunggu') {
                     $message = 'Promosi sedang diproses';
