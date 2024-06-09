@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\histori_penerimaan_bansos;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
 use App\Models\rangkuman_keluarga;
@@ -106,7 +107,9 @@ class AdminController extends Controller
             'jumlah_warga' => PendudukModel::count(),
             'jumlah_keluarga' => KeluargaModel::count(),
             'warga' => PendudukModel::all(),
-            'keluarga' => rangkuman_keluarga::all()
+            'keluarga' => rangkuman_keluarga::all(),
+            'histori_bansos' => histori_penerimaan_bansos::all(),
+            'bansos_acc' => histori_penerimaan_bansos::count(),
         ];
 
         // Prepare breadcrumb and active menu

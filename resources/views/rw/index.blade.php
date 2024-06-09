@@ -19,8 +19,8 @@
         </select>
     </div>
 
-    <!-- Cards for jumlah warga and jumlah keluarga -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
+    <!-- Cards for jumlah warga, jumlah keluarga, and jumlah bansos acc -->
+    <div class="grid grid-cols-3 gap-4 mb-4">
         <div class="p-4 bg-blue-500 text-white rounded shadow">
             <h2 class="text-xl">Jumlah Warga</h2>
             <p class="text-2xl" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
@@ -28,6 +28,10 @@
         <div class="p-4 bg-green-500 text-white rounded shadow">
             <h2 class="text-xl">Jumlah Keluarga</h2>
             <p class="text-2xl" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
+        </div>
+        <div class="p-4 bg-purple-500 text-white rounded shadow">
+            <h2 class="text-xl">Jumlah Bansos Acc</h2>
+            <p class="text-2xl" id="jumlahBansosAcc">{{ $data['bansos_acc'] }}</p>
         </div>
     </div>
 
@@ -63,6 +67,7 @@
     const allData = @json($data);
     const warga = allData.warga;
     const keluarga = allData.keluarga;
+    const historiBansos = allData.histori_bansos;
 
     const rtFilter = document.getElementById('rtFilter');
     rtFilter.addEventListener('change', updateData);
@@ -71,9 +76,11 @@
         const selectedRT = rtFilter.value;
         const filteredWarga = selectedRT === 'all' ? warga : warga.filter(w => w.rt == selectedRT);
         const filteredKeluarga = selectedRT === 'all' ? keluarga : keluarga.filter(k => k.rt == selectedRT);
+        const filteredBansos = selectedRT === 'all' ? historiBansos : historiBansos.filter(b => b.rt == selectedRT);
 
         document.getElementById('jumlahWarga').innerText = filteredWarga.length;
         document.getElementById('jumlahKeluarga').innerText = filteredKeluarga.length;
+        document.getElementById('jumlahBansosAcc').innerText = filteredBansos.length;
 
         const wargaPerRT = {};
         const golDarah = {};
