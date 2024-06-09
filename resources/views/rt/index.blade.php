@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-20">
+    <div class="grid grid-cols-3 gap-20">
         <div>
             <h2>Statistik Golongan Darah Seluruh Warga</h2>
             <canvas id="golDarahChart"></canvas>
@@ -32,12 +32,34 @@
             <canvas id="wargaTetapSementaraChart"></canvas>
         </div>
         <div>
+            <h2>Statistik Jenis Kelamin Seluruh Warga</h2>
+            <canvas id="jenisKelaminChart"></canvas>
+        </div>
+        <div>
             <h2>Statistik Warga Aktif dan Non-Aktif</h2>
             <canvas id="wargaAktifNonAktifChart"></canvas>
         </div>
-        <div>
-            <h2>Statistik Jenis Kelamin Seluruh Warga</h2>
-            <canvas id="jenisKelaminChart"></canvas>
+        <!-- Tabel Pengaduan -->
+        <div class="col-span-2 mt-4">
+            <h2>Daftar Pengaduan</h2>
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pengaduan as $data)
+                        <tr>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $data->nama }}</td>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $data->tanggal_pengaduan }}</td>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $data->deskripsi }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -49,6 +49,12 @@ class AdminController extends Controller
         // Ambil id_penduduk dari user yang login
         $id_penduduk_rt = $user->id_penduduk;
 
+        $pengaduan = PengaduanModel::select('penduduk.nama AS nama', 'pengaduan.tanggal_pengaduan AS tanggal_pengaduan')
+            ->selectRaw("REPLACE(pengaduan.deskripsi, '($id_penduduk_rt sebagai penerima aduan)', '') AS deskripsi")
+            ->join('penduduk', 'penduduk.id_penduduk', '=', 'pengaduan.id_penduduk')
+            ->where('pengaduan.deskripsi', 'LIKE', "%($id_penduduk_rt sebagai penerima aduan)%")
+            ->get();
+
         // Cari RT dari penduduk yang login
         $rt_penduduk = PendudukModel::select('rt')
             ->where('id_penduduk', $id_penduduk_rt)
@@ -97,7 +103,8 @@ class AdminController extends Controller
             'statistik_gol_darah_seluruh_warga' => $statistik_gol_darah_seluruh_warga,
             'statistik_warga_tetap_dan_sementara' => $statistik_warga_tetap_dan_sementara,
             'statistik_warga_aktif_dan_tidak_aktif' => $statistik_warga_aktif_dan_tidak_aktif,
-            'statistik_jenis_kelamin' => $statistik_jenis_kelamin
+            'statistik_jenis_kelamin' => $statistik_jenis_kelamin,
+            'pengaduan' => $pengaduan,
         ]);
     }
 
@@ -116,12 +123,14 @@ class AdminController extends Controller
                 'kategori_bansos.nama_kategori'
             )
             ->get();
-        $pengaduan = PengaduanModel::select('penduduk.nama AS nama', 'pengaduan.tanggal_pengaduan AS tanggal_pengaduan')
-            ->selectRaw("REPLACE(pengaduan.deskripsi, '(2 sebagai penerima aduan)', '') AS deskripsi")
-            ->join('penduduk', 'penduduk.id_penduduk', '=', 'pengaduan.id_penduduk')
-            ->where('pengaduan.deskripsi', 'LIKE', '%(2 sebagai penerima aduan)%')
-            ->get();
+        $user = Auth::user();
+        $id_penduduk = $user->id_penduduk;
 
+        $pengaduan = PengaduanModel::select('penduduk.nama AS nama', 'pengaduan.tanggal_pengaduan AS tanggal_pengaduan')
+            ->selectRaw("REPLACE(pengaduan.deskripsi, '($id_penduduk sebagai penerima aduan)', '') AS deskripsi")
+            ->join('penduduk', 'penduduk.id_penduduk', '=', 'pengaduan.id_penduduk')
+            ->where('pengaduan.deskripsi', 'LIKE', "%($id_penduduk sebagai penerima aduan)%")
+            ->get();
         $data = [
             'jumlah_warga' => PendudukModel::count(),
             'jumlah_keluarga' => KeluargaModel::count(),

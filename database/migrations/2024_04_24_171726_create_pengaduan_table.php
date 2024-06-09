@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
             $table->unsignedBigInteger('id_penduduk')->index();
-            $table->dateTime('tanggal_pengaduan');
+            $table->date('tanggal_pengaduan');
             $table->string('deskripsi');
             $table->timestamps();
 
