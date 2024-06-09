@@ -60,11 +60,19 @@
       {{-- end navigasi form --}}
 
       {{-- Section 1: verifikasi data diri --}}
-      <form class="px-0 lg:px-60" action="{{ route('verifyDataDiriPromosi') }}" method="POST" id="verifikasiForm">
+      <form class="px-0 lg:px-60 @if($errors->secondForm->any()) hidden @endif" action="{{ route('verifyDataDiriPromosi') }}" method="POST" id="verifikasiForm">
         @if (session('error_verifikasi'))
           <div class="alert alert-error">
               {{ session('error_verifikasi') }}
           </div>
+        @endif
+
+        @if (session('success'))
+          <!-- Menampilkan pesan sukses jika ada session 'success' -->
+          <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-5" role="alert">
+            <strong class="font-bold">Sukses!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div> 
         @endif
 
         @csrf
@@ -105,19 +113,15 @@
       {{-- end verifikasi data diri --}}
 
       {{-- form promosi --}}
-      @if (session('success'))
-      <!-- Menampilkan pesan sukses jika ada session 'success' -->
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-5" role="alert">
-          <strong class="font-bold">Sukses!</strong>
-          <span class="block sm:inline">{{ session('success') }}</span>
-      </div>
-      @elseif (session('success_verifikasi'))
+      @if (session('success_verifikasi') || $errors->secondForm->any())
       <form class="px-0 lg:px-60" action="{{ route('user.promosi.store') }}" method="POST" id="formPromosi" enctype="multipart/form-data">
-        @error('promosi')
+        @if($errors->secondForm->any())
           <div class="alert alert-error mb-5">
-            <span>{{ $message }}</span>
+            @foreach ($errors->secondForm->all() as $error)
+                <span>{{ $error }}</span><br>
+            @endforeach
           </div>
-        @enderror
+        @endif
 
         @csrf
 
@@ -158,7 +162,7 @@
                     value="{{ old('deskripsi_usaha') }}"
                     maxlength="500"
                     required
-                ></textarea>
+                >{{ old('deskripsi_usaha') }}</textarea>
                 {{-- character counter --}}
                 <div id="character-counter2" class="text-right w-full">
                   <span id="typed-characters2">0</span>

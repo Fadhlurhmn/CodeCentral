@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\PromosiModel;
-use App\Models\PendudukModel;
 use Carbon\Carbon;
+use App\Models\PromosiModel;
+use Illuminate\Http\Request;
+use App\Models\PendudukModel;
+use Illuminate\Validation\ValidationException;
 
 class UserPromosiController extends Controller
 {
@@ -38,35 +39,39 @@ class UserPromosiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'pengirim_promosi' => 'required',
-            'nama_usaha' => 'required|max:100',
-            'deskripsi' => 'required',
-            'kategori' => 'required',
-            'gambar' => 'required|image',
-            'alamat' => 'required|max:100',
-            'no_telp' => 'required|max:15',
-        ]);
+        try {
+            $request->validateWithBag('secondForm', [
+                'pengirim_promosi' => 'required',
+                'nama_usaha' => 'required|max:100',
+                'deskripsi_usaha' => 'required|max:500',
+                'jenis_usaha' => 'required',
+                'gambar' => 'required|image|max:2048',
+                'alamat' => 'required|max:100',
+                'no_telp' => 'required|max:15',
+            ]);
 
-        // Menyimpan file thumbnail yang diupload
-        $thumbnail = $request->file('thumbnail');
-        $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
-        $tujuan_upload = 'promosi_thumbnail';
-        $thumbnail->move($tujuan_upload, $nama_file);
+            // Menyimpan file gambar yang diupload
+            $gambar = $request->file('gambar');
+            $nama_file = time() . "_" . $gambar->getClientOriginalName();
+            $tujuan_upload = 'promosi_thumbnail';
+            $gambar->move($tujuan_upload, $nama_file);
 
-        PromosiModel::create([
-            'nama_usaha' => $request->nama_usaha,
-            'gambar' => $nama_file,
-            'deskripsi' => $request->deskripsi,
-            'kategori' => $request->kategori,
-            'status_pengajuan' => 'Menunggu',
-            'alamat' => $request->alamat,
-            'no_telp' => $request->no_telp,
-            'countdown' => Carbon::now(),
-            'id_penduduk' => $request->pengirim_promosi,
-        ]);
+            PromosiModel::create([
+                'nama_usaha' => $request->nama_usaha,
+                'gambar' => $nama_file,
+                'deskripsi' => $request->deskripsi_usaha,
+                'kategori' => $request->jenis_usaha,
+                'status_pengajuan' => 'Menunggu',
+                'alamat' => $request->alamat,
+                'no_telp' => $request->no_telp,
+                'countdown' => Carbon::now(),
+                'id_penduduk' => $request->pengirim_promosi,
+            ]);
 
-        return redirect()->route('user.promosi.create')->with('success', 'Promosi berhasil ditambahkan');
+            return redirect()->route('user.promosi.create')->with('success', 'Promosi berhasil diajukan');
+        } catch (ValidationException $e) {
+            return redirect()->route('user.promosi.create')->with('pengirim_promosi', $request->pengirim_promosi)->withErrors($e->errors(), 'secondForm')->withInput();
+        }
     }
 
     public function verifyDataDiri(Request $request)
