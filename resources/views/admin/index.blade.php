@@ -1,39 +1,40 @@
 @include('layout.start')
-
 @include('layout.a_navbar')
 
-<!-- strat wrapper -->
+<!-- start wrapper -->
 <div class="h-screen flex flex-row flex-wrap">
-  
   @include('layout.a_sidebar')
 
-  <!-- strat content -->
+  <!-- start content -->
   <div class="bg-white flex-1 p-6 md:mt-16"> 
+
+    <!-- Filter for RT -->
+    <div class="mb-4">
+        <label for="rtFilter" class="block text-gray-700">Filter by RT:</label>
+        <select id="rtFilter" class="form-select mt-1 block w-full">
+            <option value="all">All RT</option>
+            @for ($i = 1; $i <= 4; $i++)
+                <option value="{{ $i }}">RT {{ $i }}</option>
+            @endfor
+        </select>
+    </div>
 
     <!-- Cards for jumlah warga and jumlah keluarga -->
     <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="p-4 bg-blue-500 text-white rounded shadow">
             <h2 class="text-xl">Jumlah Warga</h2>
-            <p class="text-2xl">{{ $jumlah_warga }}</p>
+            <p class="text-2xl" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
         </div>
         <div class="p-4 bg-green-500 text-white rounded shadow">
             <h2 class="text-xl">Jumlah Keluarga</h2>
-            <p class="text-2xl">{{ $jumlah_keluarga }}</p>
+            <p class="text-2xl" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-20">
-        <div>
-            <h2>Statistik Warga Per RT</h2>
-            <canvas id="wargaPerRTChart"></canvas>
-        </div>
+    <div class="grid grid-cols-2 gap-20">
         <div>
             <h2>Statistik Golongan Darah Seluruh Warga</h2>
             <canvas id="golDarahChart"></canvas>
-        </div>
-        <div>
-            <h2>Statistik Keluarga Per RT</h2>
-            <canvas id="keluargaPerRTChart"></canvas>
         </div>
         <div>
             <h2>Statistik Warga Tetap dan Sementara</h2>
@@ -59,27 +60,57 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Data for the charts
-    const wargaPerRT = @json(array_values($statistik_warga_per_rt));
-    const golDarah = @json(array_values($statistik_gol_darah_seluruh_warga));
-    const keluargaPerRT = @json(array_values($statistik_keluarga_per_rt));
-    const wargaTetapSementara = @json(array_values($statistik_warga_tetap_dan_sementara));
-    const wargaAktifNonAktif = @json(array_values($statistik_warga_aktif_dan_tidak_aktif));
-    const jenisKelamin = @json(array_values($statistik_jenis_kelamin));
+    const allData = @json($data);
+    const warga = allData.warga;
+    const keluarga = allData.keluarga;
 
-    const wargaPerRTLabels = @json(array_keys($statistik_warga_per_rt));
-    const golDarahLabels = @json(array_keys($statistik_gol_darah_seluruh_warga));
-    const keluargaPerRTLabels = @json(array_keys($statistik_keluarga_per_rt));
-    const wargaTetapSementaraLabels = @json(array_keys($statistik_warga_tetap_dan_sementara));
-    const wargaAktifNonAktifLabels = @json(array_keys($statistik_warga_aktif_dan_tidak_aktif));
-    const jenisKelaminLabels = @json(array_keys($statistik_jenis_kelamin));
+    const rtFilter = document.getElementById('rtFilter');
+    rtFilter.addEventListener('change', updateData);
 
-    const config = (labels, data, label) => ({
+    function updateData() {
+        const selectedRT = rtFilter.value;
+        const filteredWarga = selectedRT === 'all' ? warga : warga.filter(w => w.rt == selectedRT);
+        const filteredKeluarga = selectedRT === 'all' ? keluarga : keluarga.filter(k => k.rt == selectedRT);
+
+        document.getElementById('jumlahWarga').innerText = filteredWarga.length;
+        document.getElementById('jumlahKeluarga').innerText = filteredKeluarga.length;
+
+        const wargaPerRT = {};
+        const golDarah = {};
+        const keluargaPerRT = {};
+        const wargaTetapSementara = {};
+        const wargaAktifNonAktif = {};
+        const jenisKelamin = {};
+
+        filteredWarga.forEach(w => {
+            wargaPerRT[w.rt] = (wargaPerRT[w.rt] || 0) + 1;
+            golDarah[w.gol_darah] = (golDarah[w.gol_darah] || 0) + 1;
+            wargaTetapSementara[w.status_penduduk] = (wargaTetapSementara[w.status_penduduk] || 0) + 1;
+            wargaAktifNonAktif[w.status_data] = (wargaAktifNonAktif[w.status_data] || 0) + 1;
+            jenisKelamin[w.jenis_kelamin] = (jenisKelamin[w.jenis_kelamin] || 0) + 1;
+        });
+
+        filteredKeluarga.forEach(k => {
+            keluargaPerRT[k.rt] = (keluargaPerRT[k.rt] || 0) + 1;
+        });
+
+        updateChart(golDarahChart, Object.keys(golDarah), Object.values(golDarah));
+        updateChart(wargaTetapSementaraChart, Object.keys(wargaTetapSementara), Object.values(wargaTetapSementara));
+        updateChart(wargaAktifNonAktifChart, Object.keys(wargaAktifNonAktif), Object.values(wargaAktifNonAktif));
+        updateChart(jenisKelaminChart, Object.keys(jenisKelamin), Object.values(jenisKelamin));
+    }
+
+    function updateChart(chart, labels, data) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.update();
+    }
+
+    const config = (labels, data) => ({
         type: 'pie',
         data: {
             labels: labels,
             datasets: [{
-                label: label,
                 data: data,
                 backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
                 borderColor: '#fff',
@@ -110,25 +141,15 @@
                     }
                 }
             },
-            // Set canvas width and height
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                }
-            },
-            responsive: false, // Disable responsiveness
-            maintainAspectRatio: false // Disable aspect ratio
+            responsive: false,
+            maintainAspectRatio: false
         }
     });
 
-    // Render charts
-    new Chart(document.getElementById('wargaPerRTChart').getContext('2d'), config(wargaPerRTLabels, wargaPerRT, 'Warga Per RT'));
-    new Chart(document.getElementById('golDarahChart').getContext('2d'), config(golDarahLabels, golDarah, 'Golongan Darah'));
-    new Chart(document.getElementById('keluargaPerRTChart').getContext('2d'), config(keluargaPerRTLabels, keluargaPerRT, 'Keluarga Per RT'));
-    new Chart(document.getElementById('wargaTetapSementaraChart').getContext('2d'), config(wargaTetapSementaraLabels, wargaTetapSementara, 'Warga Tetap dan Sementara'));
-    new Chart(document.getElementById('wargaAktifNonAktifChart').getContext('2d'), config(wargaAktifNonAktifLabels, wargaAktifNonAktif, 'Warga Aktif dan Non-Aktif'));
-    new Chart(document.getElementById('jenisKelaminChart').getContext('2d'), config(jenisKelaminLabels, jenisKelamin, 'Jenis Kelamin'));
+    const golDarahChart = new Chart(document.getElementById('golDarahChart').getContext('2d'), config([], []));
+    const wargaTetapSementaraChart = new Chart(document.getElementById('wargaTetapSementaraChart').getContext('2d'), config([], []));
+    const wargaAktifNonAktifChart = new Chart(document.getElementById('wargaAktifNonAktifChart').getContext('2d'), config([], []));
+    const jenisKelaminChart = new Chart(document.getElementById('jenisKelaminChart').getContext('2d'), config([], []));
+
+    updateData(); // Initial data load
 </script>
