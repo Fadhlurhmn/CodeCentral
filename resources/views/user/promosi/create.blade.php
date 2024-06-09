@@ -198,13 +198,13 @@
               name="no_telp"
               placeholder="Masukkan nomor telepon anda"
               value="{{ old('no_telp') }}"
-              maxlength="15"
+              maxlength="20"
               required
             />
             <div id="character-counter-no-telp" class="text-right w-full">
               <span id="typed-characters-no-telp">0</span>
               <span>/</span>
-              <span id="maximum-characters-no-telp">15</span>
+              <span id="maximum-characters-no-telp">20</span>
             </div>
             @error('no_telp')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>

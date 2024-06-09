@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('kategori', 20);
             $table->string('status_pengajuan', 20);
+            $table->string('no_telp', 20);
             $table->text('alamat');
             $table->dateTime('countdown');
             $table->timestamps();
