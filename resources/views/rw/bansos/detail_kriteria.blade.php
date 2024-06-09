@@ -235,6 +235,39 @@
                         @endforeach
                     </tbody>
                 </table>
+                <br>
+                <div class="flex flex-row mb-4">
+                    <div class="mr-8">
+                        <h2 class="font-semibold text-lg">Histori Menerima Bansos</h2>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full mx-auto bg-white border border-gray-200 rounded-lg shadow-md">
+                        <thead class="bg-teal-500 text-white">
+                            <tr>
+                                <th class="px-6 py-3 text-xs font-semibold uppercase">Nama</th>
+                                <th class="px-6 py-3 text-xs font-semibold uppercase">Tanggal Pemberian</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @if ($histori_menerima->isEmpty())
+                            <tr>
+                                <td class="px-6 py-4 text-xs text-center" colspan="2">Belum menerima bansos apapun</td>
+                            </tr>
+                            @else
+                            @foreach ($histori_menerima as $data)
+                            <tr>
+                                <td class="px-6 py-4 text-xs text-center">{{$data->nama_bansos}}</td>
+                                <td class="px-6 py-4 text-xs text-center">{{$data->tanggal_pemberian}}</td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                    
+                </div>
+                
+                
             </div>
 
             <div class="mt-6">

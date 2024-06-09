@@ -399,6 +399,8 @@ class BansosController extends Controller
         } else if ($user->id_level == 2) {
             $role = 'rw';
         }
+        $histori_menerima = histori_penerimaan_bansos::where('id_keluarga', $id_keluarga)->get();
+        // dd($histori_menerima);
         $detail = detail_pertimbangan_acc_bansos::where('id_keluarga', $id_keluarga)
             ->where('id_bansos', $id_bansos)
             ->get(); // Menggunakan get() untuk mengambil semua data yang cocok
@@ -419,6 +421,7 @@ class BansosController extends Controller
         $activeMenu = 'bansos';
 
         return view($role . '.bansos.detail_kriteria', [
+            'histori_menerima' => $histori_menerima,
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'detail' => $detail,
