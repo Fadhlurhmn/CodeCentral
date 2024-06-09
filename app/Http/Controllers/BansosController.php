@@ -49,22 +49,26 @@ class BansosController extends Controller
         $bansos = BansosModel::with('kategori_bansos')->get();
 
         $totalBansos = $bansos->count('id_bansos');
-        $keluarga_yang_mengajukan = DetailBansosModel::where('status', 'pending')
-            ->distinct()
-            ->count('id_keluarga');
 
         $kriteriaExists = KriteriaBansosModel::count() > 0;
 
-        
+
         $kategori_bansos = kategori_bansos::all();
 
         $total_ajuan_per_bansos = [];
+        $keluarga_yang_mengajukan = 0; // Variabel untuk menyimpan total keseluruhan
         foreach ($bansos as $bansos2) {
-            $total_ajuan_per_bansos[$bansos2->id_bansos] = DetailBansosModel::where('status', 'pending')
+            $jumlah_pending = DetailBansosModel::where('status', 'pending')
                 ->where('id_bansos', $bansos2->id_bansos)
                 ->distinct()
                 ->count('id_keluarga');
+
+            $total_ajuan_per_bansos[$bansos2->id_bansos] = $jumlah_pending;
+            $keluarga_yang_mengajukan += $jumlah_pending; // Tambahkan jumlah pending ke total keseluruhan
         }
+
+        // Sekarang $total_seluruhnya mengandung jumlah keseluruhan dari semua pending per bansos
+
 
         return view($role . '.bansos.bansos', [
             'breadcrumb' => $breadcrumb,
@@ -258,7 +262,7 @@ class BansosController extends Controller
         return view($role . '.bansos.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'kategori'=>$kategori,
+            'kategori' => $kategori,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -487,7 +491,7 @@ class BansosController extends Controller
             'page' => $page,
             'histori_bansos' => $histori_bansos,
             'bansos' => $bansos,
-            'kategori_bansos'=>$kategori_bansos,
+            'kategori_bansos' => $kategori_bansos,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -615,7 +619,7 @@ class BansosController extends Controller
         $page = (object)[
             'title' => 'Tambah Kategori Bantuan Sosial'
         ];
-        
+
         $bansos = BansosModel::all();
         $kategori = kategori_bansos::all();
 
@@ -624,8 +628,8 @@ class BansosController extends Controller
         return view($role . '.kategori_bansos.create', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'bansos'=>$bansos,
-            'kategori'=>$kategori,
+            'bansos' => $bansos,
+            'kategori' => $kategori,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -674,7 +678,7 @@ class BansosController extends Controller
 
         return redirect($role . '/bansos')
             ->with('success', 'Kategori Bantuan Sosial Berhasil Ditambahkan atau Diperbarui');
-}
+    }
 
 
     // Method untuk menampilkan form edit kategori bansos
@@ -708,7 +712,7 @@ class BansosController extends Controller
         return view($role . '.kategori_bansos.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
-            'bansos'=>$bansos,
+            'bansos' => $bansos,
             'kategori' => $kategori,
             'activeMenu' => $activeMenu
         ]);
@@ -745,19 +749,18 @@ class BansosController extends Controller
         $kategori = kategori_bansos::find($id);
 
         if (!$kategori) {
-            return redirect($role.'/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
+            return redirect($role . '/bansos')->with('error', 'Data Kategori Bantuan Sosial tidak ditemukan');
         }
 
         // Check if there are related Bansos entries
         $relatedBansosCount = $kategori->detail_kategori()->count();
 
         if ($relatedBansosCount > 0) {
-            return redirect($role.'/bansos')->with('error', 'Kategori ini memiliki bantuan sosial terkait dan tidak dapat dihapus.');
+            return redirect($role . '/bansos')->with('error', 'Kategori ini memiliki bantuan sosial terkait dan tidak dapat dihapus.');
         }
 
         // Proceed with deletion
         $kategori->delete();
-        return redirect($role.'/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
+        return redirect($role . '/bansos')->with('success', 'Kategori Bantuan Sosial Berhasil Dihapus');
     }
-
 }

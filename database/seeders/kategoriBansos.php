@@ -21,7 +21,15 @@ class kategoriBansos extends Seeder
                 'pengirim' => 'Pemerintah Daerah',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
+            [
+                'id_kategori_bansos' => 2,
+                'nama_kategori' => 'PKH',
+                'bentuk_pemberian' => 'Sembako',
+                'pengirim' => 'Pemerintah Kota',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
         DB::table('kategori_bansos')->insert($data_kategori_bansos);
     }

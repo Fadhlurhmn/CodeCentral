@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PromosiSeeder::class,
             JadwalSeeder::class,
             KriteriaBansos::class,
+            kategoriBansos::class,
             BansosSeeder::class,
             DetailBansosSeeder::class
         ]);

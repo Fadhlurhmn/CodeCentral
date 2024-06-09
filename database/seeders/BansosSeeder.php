@@ -30,6 +30,22 @@ class BansosSeeder extends Seeder
                 'nama' => 'BLT2',
                 'status' => 'open'
             ],
+            [
+                'id_bansos' => 3,
+                'id_kategori_bansos' => 2,
+                'tanggal_pemberian' => now(),
+                'jumlah_penerima' => 2,
+                'nama' => 'PKH1',
+                'status' => 'open'
+            ],
+            [
+                'id_bansos' => 4,
+                'id_kategori_bansos' => 2,
+                'tanggal_pemberian' => now(),
+                'jumlah_penerima' => 2,
+                'nama' => 'PKH2',
+                'status' => 'open'
+            ],
         ];
         DB::table('bansos')->insert($data_bansos);
     }
