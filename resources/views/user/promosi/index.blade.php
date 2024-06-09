@@ -83,24 +83,24 @@
     <div class="category-filter mb-10 mt-3 rounded-xl bg-[#EEEEEE] px-4">
         <form method="GET" action="{{ route('user.promosi') }}">
         <ul class="filter-list flex space-x-2">
-            <li>
-            <button type="submit" name="kategori" value="Semua" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Semua' ? 'filter-btn-active' : '' }}">Semua Kategori</button>
-            </li>
-            <li>
-            <button type="submit" name="kategori" value="Kuliner" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Kuliner' ? 'filter-btn-active' : '' }}">Kuliner</button>
-            </li>
-            <li>
-            <button type="submit" name="kategori" value="Fashion" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Fashion' ? 'filter-btn-active' : '' }}">Fashion</button>
-            </li>
-            <li>
-            <button type="submit" name="kategori" value="Retail" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Retail' ? 'filter-btn-active' : '' }}">Retail</button>
-            </li>
-            <li>
-            <button type="submit" name="kategori" value="Jasa" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Jasa' ? 'filter-btn-active' : '' }}">Jasa</button>
-            </li>
-            <li>
-            <button type="submit" name="kategori" value="Lainnya" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Lainnya' ? 'filter-btn-active' : '' }}">Lainnya</button>
-            </li>
+          <li>
+            <button type="submit" name="kategori" value="Semua" class="filter-btn @if($kategori == 'Semua') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Semua Kategori</button>
+          </li>
+          <li>
+            <button type="submit" name="kategori" value="Kuliner" class="filter-btn @if($kategori == 'Kuliner') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Kuliner</button>
+          </li>
+          <li>
+            <button type="submit" name="kategori" value="Fashion" class="filter-btn @if($kategori == 'Fashion') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Fashion</button>
+          </li>
+          <li>
+            <button type="submit" name="kategori" value="Retail" class="filter-btn @if($kategori == 'Retail') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Retail</button>
+          </li>
+          <li>
+            <button type="submit" name="kategori" value="Jasa" class="filter-btn @if($kategori == 'Jasa') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Jasa</button>
+          </li>
+          <li>
+            <button type="submit" name="kategori" value="Lainnya" class="filter-btn @if($kategori == 'Lainnya') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Lainnya</button>
+          </li>
         </ul>
         </form>
     </div>
@@ -137,11 +137,11 @@
         <div class="mb-8 md:col-6 lg:col-4">
           <div class="card">
             <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
-              <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+              <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
             </button>
             <div class="card-content">
               <div class="card-tags">
-                <button class="tag">{{ $promosi->kategori }}</button>
+                <div class="tag">{{ $promosi->kategori }}</div>
               </div>
               <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
               <p>{{ $promosi->deskripsi }}</p>
@@ -184,7 +184,7 @@
                   <div class="p-4 md:p-5 space-y-4">
                       <div class="row">
                       <div class="col-6">
-                          <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                       </div>
                       <div class="col-6">
                           <h3>{{ $promosi->nama_usaha }}</h3>
