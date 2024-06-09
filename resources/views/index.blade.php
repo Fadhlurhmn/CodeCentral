@@ -68,50 +68,93 @@
       </div>
       <div class="row mt-10">
           <div class="col-12">
+            @if(isset($promosiTerkini) && count($promosiTerkini) > 0)
             <div class="swiper promosi-carousel py-7">
               <div class="swiper-wrapper">
               {{-- max 5 ajah buat promosi di home --}}
-              @for ($i = 0; $i < 4; $i++)
+              @foreach($promosiTerkini as $promosi)
                 <div class="swiper-slide">
                     <div class="card">
-                        <img
-                        class="card-img"
-                        width="335"
-                        height="210"
-                        src="images/posts/post-5.png"
-                        alt=""
-                        />
+                        <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
+                          <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                        </button>
                         <div class="card-content">
-                        <div class="card-tags">
-                            <a class="tag" href="#">Kerajinan</a>
+                          <div class="card-tags">
+                            <div class="tag">{{ $promosi->kategori }}</div>
+                          </div>
+                          <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
+                          <p>{{ $promosi->deskripsi }}</p>
                         </div>
-                        <h3 class="h4 card-title">
-                            HP ODDO Pak Supri
-                        </h3>
-                        <p>
-                            HP ASLI, DIJAMIN BUKAN KW, KWALITAS TOP!!
-                        </p>
+                        <div class="card-footer mt-2">
+                          <div class="mb-2">
+                            <span class="inline-flex items-center text-[#666]">
+                              <i class="fas fa-phone-alt text-md mr-2"></i>
+                              <p class="text-xs">{{ $promosi->no_telp }}</p>
+                            </span>
+                          </div>
+                          <div>
+                            <span class="inline-flex items-center text-[#666]">
+                              <i class="fas fa-map-marker-alt text-md mr-2"></i>
+                              <p class="text-xs">{{ $promosi->alamat }}</p>
+                            </span>
+                          </div>
                         </div>
-                        <div class="card-footer mt-2 flex space-x-4">
-                        <span class="inline-flex items-center text-[#666]">
-                            <i class="fab fa-facebook text-md mr-2"></i>
-                            <p class="text-xs">hp.paksupri</p>
-                        </span>
-                        </div>
-                    </div>
+                      </div>
                 </div>
-              @endfor
+              @endforeach
               </div>
               <!-- If we need pagination -->
-              <div
-                class="swiper-pagination promosi-carousel-pagination !bottom-0"
-              ></div>
+              <div class="swiper-pagination promosi-carousel-pagination !bottom-0"></div>
             </div>
+            @else
+            <p class="text-xl text-center font-bold text-gray-600">Tidak ada Promosi Terkini</p>
+            @endif
           </div>
         </div>
     </div>
 </section>
+
+{{-- promosi Modal Only --}}
+<section>
+    @foreach ($promosiTerkini as $promosi)
+        <!-- Promosi Modal -->
+        <div id="large-modal-{{ $promosi->id_promosi }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden bg-black/30 overflow-y-auto ease-in-out duration-300 md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-4xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 lg:p-2 border-b rounded-t">
+                        <div class="flex items-center">
+                            <small class="text-black bg-gray-200 rounded-full px-3 py-1">{{ $promosi->kategori }}</small>
+                        </div>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="large-modal-{{ $promosi->id_promosi }}">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5 space-y-4">
+                        <div class="row">
+                        <div class="col-6">
+                            <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                        </div>
+                        <div class="col-6">
+                            <h3>{{ $promosi->nama_usaha }}</h3>
+                            <p>{{ $promosi->deskripsi }}</p>
+                            <p><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
+                            <p><i class="fas fa-map-marker-alt text-md mr-2"></i> {{ $promosi->alamat }}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</section>
 <!-- end Promosi UMKM -->
+
 <!-- Jadwal -->
 <section class="section key-feature relative">
     <div class="container">
