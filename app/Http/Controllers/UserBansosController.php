@@ -3,20 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
-use App\Models\DetailBansosModel;
-use App\Models\histori_penerimaan_bansos;
 use Illuminate\Http\Request;
 use App\Models\KeluargaModel;
-use App\Models\KriteriaBansosModel;
+use App\Models\DetailBansosModel;
 use Illuminate\Support\Facades\DB;
+use App\Models\KriteriaBansosModel;
+use App\Models\histori_penerimaan_bansos;
+use App\Models\kategori_bansos;
+use Database\Seeders\kategoriBansos;
 
 class UserBansosController extends Controller
 {
-    public function list()
+    public function show()
     {
-        $histori = histori_penerimaan_bansos::all();
+        $list_kategori = kategori_bansos::all();
+
+        return view('user.bansos.list', ['list_kategori' => $list_kategori]);
+    }
+
+    public function list($id)
+    {
+        $histori = histori_penerimaan_bansos::join('bansos', 'bansos.id_bansos', '=', 'histori_penerimaan_bansos.id_bansos')
+        ->join('kategori_bansos', 'bansos.id_kategori_bansos', '=', 'kategori_bansos.id_kategori_bansos')
+        ->where('kategori_bansos.id_kategori_bansos', $id)
+        ->select('histori_penerimaan_bansos.*')
+        ->orderBy('tanggal_pemberian', 'desc')
+        ->get()
+        ->groupBy('nama_bansos');
         // dd($histori);
-        return view('user.bansos.list', ['histori' => $histori]);
+        return view('user.bansos.list_detail', ['histori' => $histori]);
     }
 
     public function pengajuan()
@@ -32,10 +47,14 @@ class UserBansosController extends Controller
         $request->validate([
             'nama_kk' => 'required|string|max:255',
             'no_kk' => 'required|numeric|digits:16',
+            'jenis_bansos' => 'required'
         ]);
 
         $nama_kk = $request->nama_kk;
         $no_kk = $request->no_kk;
+        $id_keluarga = KeluargaModel::where('nomor_keluarga', $no_kk)->value('id_keluarga');
+        $jenis_bansos = $request->jenis_bansos;
+        $kategori = BansosModel::where('id_bansos', $jenis_bansos)->value('id_kategori_bansos'); 
 
         // mencari data penduduk di database
         $penduduk = KeluargaModel::where('nomor_keluarga', $no_kk)
@@ -45,22 +64,46 @@ class UserBansosController extends Controller
             })
             ->first();
 
-        // mengecek apabila no_kk tersebut sudah mengisi atau belum
-        $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
-            ->where('keluarga_penduduk.nomor_keluarga', $no_kk)
-            ->exists();
-
         // mengecek data penduduk ada atau tidak
         if ($penduduk) {
+            // cek penduduk apakah aktif
+            $penduduk_aktif = KeluargaModel::where('nomor_keluarga', $no_kk)
+            ->whereHas('detail_keluarga', function ($query) use ($nama_kk) {
+                $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
+                    ->where('penduduk.nama', $nama_kk)
+                    ->where('penduduk.status_data', 'Aktif');
+            })->exists();
+
+            if ($penduduk_aktif == false){
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Data tidak valid. Mohon cek kembali informasi Anda.');
+            }
+            
+            // cek penduduk apakah penduduk tetap
+            $penduduk_tetap = KeluargaModel::where('nomor_keluarga', $no_kk)
+            ->whereHas('detail_keluarga', function ($query) use ($nama_kk) {
+                $query->join('penduduk', 'detail_keluarga.id_penduduk', '=', 'penduduk.id_penduduk')
+                    ->where('penduduk.nama', $nama_kk)
+                    ->where('penduduk.status_penduduk', 'Tetap');
+            })->exists();
+
+            if ($penduduk_tetap == false){
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Hanya penduduk yang berdomisili disini yang dapat mengajukan.');
+            }
+
+            // mengecek apabila no_kk tersebut sudah mengisi atau belum
+            $status_pengisian = DetailBansosModel::join('keluarga_penduduk', 'detail_bansos.id_keluarga', '=', 'keluarga_penduduk.id_keluarga')
+            ->where('keluarga_penduduk.nomor_keluarga', $no_kk)
+            ->where('id_bansos', $jenis_bansos)
+            ->exists();
 
             // mengecek apabila no_kk tersebut sudah mengisi atau belum
             if ($status_pengisian) {
-                return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Anda telah mengisi form bansos');
+                return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Anda telah mengisi form pengajuan bansos ini');
             } else {
-                return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Data ditemukan', 'data_pengaju' => $penduduk->id_keluarga]);
+                return redirect()->route('user.bansos.pengajuan')->with(['success_verifikasi' => 'Silahkan mengisi survey kriteria', 'data_pengaju' => $penduduk->id_keluarga, 'jenis_bansos' => $request->jenis_bansos]);
             }
         } else {
-            return redirect()->route('user.bansos.pengajuan')->with('error_verifikasi', 'Data tidak anda ditemukan');
+            return redirect()->route('user.bansos.pengajuan')->withInput()->with('error_verifikasi', 'Data tidak anda ditemukan');
         }
     }
 
@@ -92,9 +135,6 @@ class UserBansosController extends Controller
             9 => 'penerangan',
             10 => 'transportasi',
         ];
-
-        // opsi dinamis, saran ditambahkan nama kode kriteria
-        // $kriteria = KriteriaBansosModel::pluck('nama_kriteria', 'id_kriteria');
 
         // mengambil jenis bansos
         $id_bansos = $request->jenis_bansos;
