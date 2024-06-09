@@ -47,8 +47,6 @@
 
         {{-- Search bar --}}
         <h2 class="h4 mb-4">Semua Pengumuman</h2>
-        @if (!session('error'))
-            @if(isset($allPengumuman))
                 <form class="mb-4" method="GET" action="{{ route('user.pengumuman') }}">
                     <div class="row">
                         <div class="bg-black opacity-0 lg:col-6"></div>
@@ -66,8 +64,6 @@
                         </div>
                     </div>
                 </form>
-            @endif
-        @endif
         {{-- end Search bar --}}
 
         {{-- Display error message if any --}}
@@ -106,7 +102,7 @@
                     @endforeach
                 </div>
             @else
-                <p class="text-xl text-center font-bold text-gray-600">Tidak ada Pengumuman yang Tersedia</p>
+                <p class="text-xl text-center font-bold text-gray-600">Pengumuman Tidak Tersedia</p>
             @endif
         @endif
         {{-- end Semua Pengumuman --}}

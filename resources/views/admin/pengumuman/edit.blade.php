@@ -117,7 +117,7 @@
                     cancelButtonText: 'Tidak',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Ya',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#38b2ac',
                     reverseButtons: true,
                     allowOutsideClick: false
                 }).then((result) => {

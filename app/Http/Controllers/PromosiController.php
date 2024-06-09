@@ -34,8 +34,9 @@ class PromosiController extends Controller
             $promosiQuery->where('kategori', $request->kategori);
         }
 
-        // Kecuali 'Menunggu' dan 'Tolak' status
-        $promosiQuery->whereNotIn('status_pengajuan', ['Menunggu', 'Tolak']);
+        // Filter status pengajuan dan countdown
+        $promosiQuery->where('status_pengajuan', 'Terima');
+        $promosiQuery->where('countdown', '>', now());
 
         // Ambil data promosi setelah filter
         $promosi = $promosiQuery->get();
@@ -52,6 +53,7 @@ class PromosiController extends Controller
             'kategori' => $request->kategori ?? 'Semua'
         ]);
     }
+
     public function daftar(Request $request)
     {
         $breadcrumb = (object) [
@@ -95,7 +97,7 @@ class PromosiController extends Controller
             'kategori' => $request->kategori ?? 'Semua'
         ]);
     }
-    
+
     public function list(Request $request)
     {
         $promosi = PromosiModel::select('id_umkm', 'nama_usaha', 'gambar', 'deskripsi', 'status_pengajuan', 'alamat', 'countdown', 'id_penduduk')
@@ -175,6 +177,7 @@ class PromosiController extends Controller
 
         return redirect('/promosi')->with('success', 'Data promosi berhasil disimpan');
     }
+
     public function show(string $id)
     {
         $promosi = PromosiModel::with('penduduk')->find($id);
@@ -197,6 +200,7 @@ class PromosiController extends Controller
 
         return view('admin.promosi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'nik' => $nik, 'promosi' => $promosi, 'activeMenu' => $activeMenu]);
     }
+
     public function edit(string $id)
     {
         $promosi = PromosiModel::find($id);
@@ -219,6 +223,7 @@ class PromosiController extends Controller
 
         return view('admin.promosi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'promosi' => $promosi, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
     }
+
     // menyimpan perubahan data barang
     public function update(Request $request, string $id)
     {
@@ -269,26 +274,18 @@ class PromosiController extends Controller
 
         return redirect('/promosi/' . $id . '/show')->with('success', 'Data promosi berhasil diubah');
     }
-    // acc promosi
-    // public function acc_promosi(Request $request,string $id)
-    // {
-    //     $request->validate([
-    //         'status_pengajuan' => 'required|string|in'
-    //     ])
-    //     PromosiModel::find($id)->update([
-    //         'status_pengajuan' => 'acc'
-    //     ]);
 
-    //     return redirect('/promosi/' . $id . '/show')->with('success', 'Promosi berhasil di acc');
-    // }
-    // // tolak promosi
-    // public function tolak_promosi(Request $request, string $id)
-    // {
-    //     PromosiModel::find($id)->update([
-    //         'status_pengajuan' => 'tolak'
-    //     ]);
-    //     return redirect('/promosi/' . $id . '/show')->with('success', 'Promosi berhasil di tolak');
-    // }
+    public function destroy(string $id)
+    {
+        $promosi = PromosiModel::find($id);
+        if ($promosi) {
+            $promosi->delete();
+            return redirect('/admin/promosi')->with('success', 'Promosi berhasil dihapus');
+        } else {
+            return redirect('/admin/promosi')->with('error', 'Promosi tidak ditemukan');
+        }
+    }
+
 
     public function updateStatus(Request $request, string $id)
     {
@@ -298,9 +295,15 @@ class PromosiController extends Controller
 
         $promosi = PromosiModel::find($id);
 
-        $promosi->update([
+        $updateData = [
             'status_pengajuan' => $request->status_pengajuan
-        ]);
+        ];
+
+        if ($request->status_pengajuan === 'Terima') {
+            $updateData['countdown'] = now()->addDays(14);
+        }
+
+        $promosi->update($updateData);
 
         $message = $request->status_pengajuan === 'Terima' ? 'Promosi berhasil diterima' : 'Promosi berhasil ditolak';
 

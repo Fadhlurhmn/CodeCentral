@@ -39,6 +39,8 @@ Route::group(['prefix' => 'promosi'], function () {
     Route::get('/promosi', [UserPromosiController::class, 'create'])->name('user.promosi.create');
     Route::post('/promosi', [UserPromosiController::class, 'store'])->name('user.promosi.store');
     Route::post('/promosiVerif', [UserPromosiController::class, 'verifyDataDiri'])->name('verifyDataDiriPromosi');
+    Route::get('/filter', [UserPromosiController::class, 'index'])->name('user.promosi.filter');
+    Route::post('/promosi/cekStatus', [UserPromosiController::class, 'cekStatusPengajuan'])->name('user.cekStatusPengajuan');
 });
 
 Route::group(['prefix' => 'bansos'], function () {
@@ -99,13 +101,13 @@ Route::middleware(['cek_login:1'])->group(function () {
             Route::get('/', [PromosiController::class, 'index']);
             Route::get('/daftar', [PromosiController::class, 'daftar']);
             Route::post('/list', [PromosiController::class, 'list']);
-            Route::get('/create', [PromosiController::class, 'create']);
-            Route::post('/', [PromosiController::class, 'store']);
             Route::get('/{id}/show', [PromosiController::class, 'show']);
-            Route::get('/{id}/edit', [PromosiController::class, 'edit']);
-            Route::post('/{id}', [PromosiController::class, 'update']);
-            Route::delete('/{id}', [PromosiController::class, 'destroy']);
+            Route::delete('/{id}/delete', [PromosiController::class, 'destroy']);
             Route::post('/{id}/show/update-status', [PromosiController::class, 'updateStatus']);
+            // Route::get('/create', [PromosiController::class, 'create']);
+            // Route::post('/', [PromosiController::class, 'store']);
+            // Route::get('/{id}/edit', [PromosiController::class, 'edit']);
+            // Route::post('/{id}', [PromosiController::class, 'update']);
         });
 
         Route::prefix('penduduk')->group(function () {
