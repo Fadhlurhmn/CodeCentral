@@ -16,20 +16,34 @@ class BansosSeeder extends Seeder
         $data_bansos = [
             [
                 'id_bansos' => 1,
+                'id_kategori_bansos' => 1,
                 'tanggal_pemberian' => now(),
-                'pengirim' => 'pemerintah pusat',
-                'bentuk_pemberian' => 'tunai',
                 'jumlah_penerima' => 2,
-                'nama' => 'BLT',
+                'nama' => 'BLT1',
                 'status' => 'open'
             ],
             [
                 'id_bansos' => 2,
+                'id_kategori_bansos' => 1,
                 'tanggal_pemberian' => now(),
-                'pengirim' => 'pemerintah kota',
-                'bentuk_pemberian' => 'sembako',
                 'jumlah_penerima' => 2,
-                'nama' => 'PKH',
+                'nama' => 'BLT2',
+                'status' => 'open'
+            ],
+            [
+                'id_bansos' => 3,
+                'id_kategori_bansos' => 2,
+                'tanggal_pemberian' => now(),
+                'jumlah_penerima' => 2,
+                'nama' => 'PKH1',
+                'status' => 'open'
+            ],
+            [
+                'id_bansos' => 4,
+                'id_kategori_bansos' => 2,
+                'tanggal_pemberian' => now(),
+                'jumlah_penerima' => 2,
+                'nama' => 'PKH2',
                 'status' => 'open'
             ],
         ];

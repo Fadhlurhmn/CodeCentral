@@ -51,21 +51,26 @@
                       </div>
                       <!-- Modal body -->
                       <div class="p-4 md:p-5">
-                          <form class="space-y-4" method="POST" action="{{ route('user.cekStatusPengajuan') }}">
+                          <form method="POST" action="{{ route('user.cekStatusPengajuan') }}">
                               @csrf
                               <div>
                                   <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
-                                  <input type="number" name="nik" id="nik" maxlength="16" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
+                                  <input type="number" name="nik" id="nik" maxlength="16" value="{{ old('nik') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
                               </div>
                               <div id="nikError" class="hidden col-span-4 text-red-500 text-xs mt-4">NIK harus diisi dengan 16 karakter</div>
 
-                              <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
+                              <button type="submit" class="mt-4 w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
                           </form>
                           @if(session('status_pengajuan'))
                               <div class="mt-4 text-center text-sm font-medium text-gray-900">
                                   {{ session('status_pengajuan') }}
                               </div>
                           @endif
+                          @error('nik')
+                            <div class="mt-4 text-center text-sm font-medium text-gray-900">
+                              {{ $message }}
+                            </div>
+                          @enderror
                       </div>
                   </div>
               </div>
@@ -80,9 +85,9 @@
 <section class="section pt-0">
   <div class="container">
     <!-- Categories -->
-    <div class="category-filter mb-10 mt-3 rounded-xl bg-[#EEEEEE] px-4">
+    <div class="category-filter mb-10 mt-3 rounded-xl bg-[#EEEEEE] px-4 ">
         <form method="GET" action="{{ route('user.promosi') }}">
-        <ul class="filter-list flex space-x-2">
+        <ul class="filter-list">
           <li>
             <button type="submit" name="kategori" value="Semua" class="filter-btn @if($kategori == 'Semua') filter-btn-active @endif btn btn-sm hover:filter-btn-active">Semua Kategori</button>
           </li>

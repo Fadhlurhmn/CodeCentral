@@ -53,14 +53,6 @@
                 2
             </span>
             <span>
-                <p class="font-medium leading-tight">Pilih Bantuan Sosial</p>
-            </span>
-        </li>
-        <li class="flex items-center text-gray-500 space-x-2.5" id="stepper-3">
-            <span class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0" id="number-3">
-                3
-            </span>
-            <span>
                 <p class="font-medium leading-tight">Survey Kriteria</p>
             </span>
         </li>
@@ -114,15 +106,31 @@
           @enderror
         </div>
 
+        <div class="form-group mb-5">
+          <label class="form-label mt-3" for="jenis_bansos">Jenis Bansos</label>
+          <select name="jenis_bansos" id="jenis_bansos" class="form-select" required>
+            @foreach ($jenis_bansos as $bansos)
+              <option value="{{ $bansos->id_bansos }}">{{ $bansos->nama }}</option>
+            @endforeach
+          </select>
+          @error('jenis_bansos')
+            <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
+          @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary block w-full" id="verifikasiButton">Verifikasi</button>
       </form>
       {{-- end verifikasi data diri --}}
 
       {{-- Survey form --}}
-      <form class="hidden px-0 lg:px-60" action="{{ route('submitSurvey') }}" method="POST" id="jenisBansos">
+      <form class="hidden px-0 lg:px-60" action="{{ route('submitSurvey') }}" method="POST" id="surveyKriteria">
         {{-- menyimpan id_keluarga untuk kebutuhan form  --}}
         @if (session('data_pengaju'))
             <input type="hidden" name="id_kk" value="{{ session('data_pengaju') }}">
+        @endif
+
+        @if (session('jenis_bansos'))
+            <input type="hidden" name="jenis_bansos" value="{{ session('jenis_bansos') }}">
         @endif
 
         @error('bansos')
@@ -133,25 +141,8 @@
 
         @csrf
 
-        <!-- Section 2: Jenis Bansos -->
-        <div class="form-section" id="section-2" style="display:none;">
-          <div class="form-group mb-5">
-            <label class="form-label mt-3" for="jenis_bansos">Jenis Bansos</label>
-            <select name="jenis_bansos" id="jenis_bansos" class="form-select" required>
-              @foreach ($jenis_bansos as $bansos)
-                <option value="{{ $bansos->id_bansos }}">{{ $bansos->nama }}</option>
-              @endforeach
-            </select>
-            @error('jenis_bansos')
-              <small class="text-red-500 text-sm ml-3">{{ $message }}</small>
-            @enderror
-          </div>
-
-          <button type="button" class="btn btn-primary w-full" onclick="nextSection(3)">Selanjutnya</button>
-        </div>
-
         <!-- Section 3: Survey Kriteria -->
-        <div class="form-section" id="section-3" style="display:none;">
+        <div class="form-section" id="section-2" style="display:none;">
           <div class="form-group mb-5">
             <div class="card shadow-sm mb-4 border-l-4 border-primary">
               <div class="card-title mb-0 pb-0">
@@ -415,9 +406,10 @@
           </div>
 
           <div class="row w-full justify-between">
-            <button type="button" class="ml-4 btn btn-outline-primary col-4" onclick="prevSection(2)">Sebelumnya</button>
+            <a href="{{ route('user.bansos.pengajuan') }}" class="ml-4 btn btn-outline-primary col-4">Kembali</a>
             <button type="submit" class="btn btn-primary col-4">Submit</button>
           </div>
+
         </div>
       </form>
       {{-- end Survey form --}}
@@ -432,7 +424,7 @@
 @if (session('success_verifikasi'))
   <script>
     document.getElementById('verifikasiForm').style.display = 'none';
-    document.getElementById('jenisBansos').style.display = 'block';
+    document.getElementById('surveyKriteria').style.display = 'block';
     document.getElementById('section-2').style.display = 'block';
 
     document.getElementById('stepper-1').classList.remove('text-primary');
@@ -459,38 +451,6 @@
             no_kkError.classList.add('hidden');
         }
     });
-
-  // logic buat tombol selanjutnya
-  function nextSection(section) {
-      document.querySelector('.form-section:not([style*="display: none"])').style.display = 'none';
-      document.getElementById(`section-${section}`).style.display = 'block';
-      
-      document.getElementById(`stepper-${section-1}`).classList.remove('text-primary');
-      document.getElementById(`stepper-${section-1}`).classList.add('text-gray-500');
-      document.getElementById(`stepper-${section}`).classList.remove('text-gray-500');
-      document.getElementById(`stepper-${section}`).classList.add('text-primary');
-      
-      document.getElementById(`number-${section-1}`).classList.remove('border-primary');
-      document.getElementById(`number-${section-1}`).classList.add('border-gray-500');
-      document.getElementById(`number-${section}`).classList.remove('border-gray-500');
-      document.getElementById(`number-${section}`).classList.add('border-primary');
-  }
-
-  // logic buat tombol sebelumnya
-  function prevSection(section) {
-      document.querySelector('.form-section:not([style*="display: none"])').style.display = 'none';
-      document.getElementById(`section-${section}`).style.display = 'block';
-      
-      document.getElementById(`stepper-${section+1}`).classList.remove('text-primary');
-      document.getElementById(`stepper-${section+1}`).classList.add('text-gray-500');
-      document.getElementById(`stepper-${section}`).classList.remove('text-gray-500');
-      document.getElementById(`stepper-${section}`).classList.add('text-primary');
-      
-      document.getElementById(`number-${section+1}`).classList.remove('border-primary');
-      document.getElementById(`number-${section+1}`).classList.add('border-gray-500');
-      document.getElementById(`number-${section}`).classList.remove('border-gray-500');
-      document.getElementById(`number-${section}`).classList.add('border-primary');
-  }
 </script>
 @endpush
 

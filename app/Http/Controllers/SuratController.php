@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class SuratController extends Controller
 {
@@ -54,6 +55,7 @@ class SuratController extends Controller
             ->rawColumns(['aksi'])
             ->make(true);
     }
+
     public function create()
     {
         $breadcrumb = (object) [
@@ -73,21 +75,18 @@ class SuratController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
-            'berkas' => 'required|file|mimes:docx',
+            'berkas' => 'required|file|mimes:pdf',
             'deskripsi' => 'required|string|max:255',
             'nama_surat' => 'required|string|max:255'
         ]);
 
-        // Dapatkan nama asli file
-        $namaFile = $request->nama_surat;
-        // Dapatkan ekstensi file
-        $extfile = $request->file('berkas')->getClientOriginalExtension();
-        // Gabungkan nama file dengan ekstensi
-        $namaFileFix = $namaFile . '.' . $extfile;
+        // Generate a hashed file name
+        $hashedFileName = Str::random(40) . '.' . $request->file('berkas')->getClientOriginalExtension();
 
         // Simpan file dengan nama yang diinginkan oleh pengguna
-        $berkasPath = $request->file('berkas')->storeAs('data_surat', $namaFileFix, 'public');
+        $berkasPath = $request->file('berkas')->storeAs('data_surat', $hashedFileName, 'public');
 
         // Buat entri baru di database
         $surat = SuratModel::create([
@@ -100,7 +99,6 @@ class SuratController extends Controller
         // Redirect ke halaman daftar surat dengan pesan sukses
         return redirect('admin/surat')->with('success', 'Data surat berhasil disimpan');
     }
-
 
     public function edit(string $id)
     {
@@ -123,10 +121,11 @@ class SuratController extends Controller
 
         return view('admin.surat.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'surat' => $surat]);
     }
+
     public function update(Request $request, $id)
     {
         $request->validate([
-            'berkas' => 'nullable|file|mimes:docx',
+            'berkas' => 'nullable|file|mimes:pdf',
             'deskripsi' => 'required|string|max:255',
             'nama_surat' => 'required|string|max:255'
         ]);
@@ -139,10 +138,8 @@ class SuratController extends Controller
 
         // Jika ada file baru diunggah, proses perubahan file
         if ($request->hasFile('berkas')) {
-            $extfile = $request->berkas->getClientOriginalExtension();
-            $namaFile = $request->nama_surat;
-            $namaFileFix = $namaFile . '.' . $extfile;
-            $berkasPath = $request->file('berkas')->storeAs('data_surat', $namaFileFix, 'public');
+            $hashedFileName = Str::random(40) . '.' . $request->file('berkas')->getClientOriginalExtension();
+            $berkasPath = $request->file('berkas')->storeAs('data_surat', $hashedFileName, 'public');
 
             // Hapus file lama jika ada
             if (!empty($surat->path_berkas)) {
@@ -171,5 +168,20 @@ class SuratController extends Controller
         } else {
             return response()->json(['error' => 'Surat tidak ditemukan.'], 404);
         }
+    }
+
+    public function preview_surat($id)
+    {
+        $surat = SuratModel::find($id);
+        if (!$surat) {
+            return redirect()->back()->with('error', 'Surat tidak ditemukan');
+        }
+
+        $path = storage_path('app/public/' . $surat->path_berkas);
+        if (!file_exists($path)) {
+            return redirect()->back()->with('error', 'File surat tidak ditemukan');
+        }
+
+        return response()->file($path);
     }
 }
