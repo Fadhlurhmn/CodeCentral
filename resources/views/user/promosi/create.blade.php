@@ -72,7 +72,7 @@
           <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-5" role="alert">
             <strong class="font-bold">Sukses!</strong>
             <span class="block sm:inline">{{ session('success') }}</span>
-        </div> 
+        </div>
         @endif
 
         @csrf
@@ -177,7 +177,7 @@
           <div class="form-group mb-5">
             <label class="form-label" for="jenis_usaha">Kategori Usaha<span class="text-red-500">*</span></label>
             <select name="jenis_usaha" id="jenis_usaha" class="form-select" required>
-              <option value="">Pilih jenis usaha</option>
+              <option value="">Pilih kategori usaha</option>
               <option value="Kuliner">Kuliner</option>
               <option value="Fashion">Fashion</option>
               <option value="retail">Retail</option>

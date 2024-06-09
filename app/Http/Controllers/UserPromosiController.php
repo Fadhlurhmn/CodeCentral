@@ -17,7 +17,8 @@ class UserPromosiController extends Controller
 
         $query = PromosiModel::query()
             ->where('status_pengajuan', 'Terima')
-            ->where('countdown', '>', Carbon::now());
+            ->where('countdown', '>', Carbon::now())
+            ->inRandomOrder();
 
         if ($kategori != 'Semua') {
             $query->where('kategori', $kategori);
@@ -31,6 +32,7 @@ class UserPromosiController extends Controller
 
         return view('user.promosi.index', compact('promosis', 'kategori', 'search'));
     }
+
 
     public function create()
     {

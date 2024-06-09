@@ -30,12 +30,10 @@
           {{$promosi->kategori}}
       </div>
 
-      {{-- Img Masih Statis --}}
         <div class="w-1/2 px-4 my-7 flex justify-start">
-          <img src="{{ url('data_usaha/'.$promosi->gambar) }}"
-               alt="Gambar Usaha"
-               class="w-full h-96 rounded-md object-cover">
-      </div>
+            <img src="{{ asset('promosi_thumbnail/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
+            class="w-full h-96 rounded-md object-cover">
+        </div>
       <dl class="my-3 text-sm w-1/2">
         <div class="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
             <dt class="font-medium text-base text-gray-900">NIK Pemilik usaha</dt>

@@ -63,7 +63,7 @@
     <div class="container">
       <div class="row justify-between text-center lg:text-start">
         <div class="lg:col-5">
-          <h2>UMKM Warga</h2>
+          <h2>Rekomendasi UMKM</h2>
         </div>
       </div>
       <div class="row mt-10">
@@ -83,17 +83,17 @@
                             <div class="tag">{{ $promosi->kategori }}</div>
                           </div>
                           <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
-                          <p>{{ $promosi->deskripsi }}</p>
+                          <p class="fixed-height mb-4">{{ Str::limit($promosi->deskripsi, 34) }}</p>
                         </div>
                         <div class="card-footer mt-2">
                           <div class="mb-2">
-                            <span class="inline-flex items-center text-[#666]">
+                            <span class="inline-flex items-center text-black">
                               <i class="fas fa-phone-alt text-md mr-2"></i>
                               <p class="text-xs">{{ $promosi->no_telp }}</p>
                             </span>
                           </div>
                           <div>
-                            <span class="inline-flex items-center text-[#666]">
+                            <span class="inline-flex items-center text-black">
                               <i class="fas fa-map-marker-alt text-md mr-2"></i>
                               <p class="text-xs">{{ $promosi->alamat }}</p>
                             </span>
@@ -107,7 +107,7 @@
               <div class="swiper-pagination promosi-carousel-pagination !bottom-0"></div>
             </div>
             @else
-            <p class="text-xl text-center font-bold text-gray-600">Tidak ada Promosi Terkini</p>
+            <p class="text-xl text-center font-bold text-gray-600">Tidak ada Promosi Tersedia</p>
             @endif
           </div>
         </div>
@@ -123,7 +123,7 @@
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow">
                     <!-- Modal header -->
-                    <div class="flex items-center justify-between p-4 lg:p-2 border-b rounded-t">
+                    <div class="flex items-center justify-between p-4 lg:p-4 border-b rounded-t">
                         <div class="flex items-center">
                             <small class="text-black bg-gray-200 rounded-full px-3 py-1">{{ $promosi->kategori }}</small>
                         </div>
@@ -135,17 +135,17 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div class="p-4 md:p-5 space-y-4">
+                    <div class="p-4 md:p-6 space-y-6">
                         <div class="row">
-                        <div class="col-6">
-                            <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
-                        </div>
-                        <div class="col-6">
-                            <h3>{{ $promosi->nama_usaha }}</h3>
-                            <p>{{ $promosi->deskripsi }}</p>
-                            <p><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
-                            <p><i class="fas fa-map-marker-alt text-md mr-2"></i> {{ $promosi->alamat }}</p>
-                        </div>
+                            <div class="col-6">
+                                <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                            </div>
+                            <div class="col-6">
+                                <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
+                                <p class="mb-3">{{ $promosi->deskripsi }}</p>
+                                <p class="text-black mb-2"><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
+                                <p class="text-black"><i class="fas fa-map-marker-alt text-md mr-2"></i> {{ $promosi->alamat }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

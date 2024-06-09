@@ -144,17 +144,18 @@
                 <div class="tag">{{ $promosi->kategori }}</div>
               </div>
               <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
-              <p>{{ $promosi->deskripsi }}</p>
+              <p>{{ Str::limit($promosi->deskripsi, 40) }}</p>
+
             </div>
             <div class="card-footer mt-2">
               <div class="mb-2">
-                <span class="inline-flex items-center text-[#666]">
+                <span class="inline-flex items-center text-black">
                   <i class="fas fa-phone-alt text-md mr-2"></i>
                   <p class="text-xs">{{ $promosi->no_telp }}</p>
                 </span>
               </div>
               <div>
-                <span class="inline-flex items-center text-[#666]">
+                <span class="inline-flex items-center text-black">
                   <i class="fas fa-map-marker-alt text-md mr-2"></i>
                   <p class="text-xs">{{ $promosi->alamat }}</p>
                 </span>
@@ -165,38 +166,38 @@
 
         <!-- Promosi Modal -->
         <div id="large-modal-{{ $promosi->id_promosi }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden bg-black/30 overflow-y-auto ease-in-out duration-300 md:inset-0 h-[calc(100%-1rem)] max-h-full">
-          <div class="relative w-full max-w-4xl max-h-full">
-              <!-- Modal content -->
-              <div class="relative bg-white rounded-lg shadow">
-                  <!-- Modal header -->
-                  <div class="flex items-center justify-between p-4 lg:p-2 border-b rounded-t">
-                      <div class="flex items-center">
-                          <small class="text-black bg-gray-200 rounded-full px-3 py-1">{{ $promosi->kategori }}</small>
-                      </div>
-                      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="large-modal-{{ $promosi->id_promosi }}">
-                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                          </svg>
-                          <span class="sr-only">Close modal</span>
-                      </button>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="p-4 md:p-5 space-y-4">
+            <div class="relative w-full max-w-4xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 lg:p-4 border-b rounded-t">
+                        <div class="flex items-center">
+                            <small class="text-black bg-gray-200 rounded-full px-3 py-1">{{ $promosi->kategori }}</small>
+                        </div>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="large-modal-{{ $promosi->id_promosi }}">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-6 md:p-8 space-y-6">
                       <div class="row">
-                      <div class="col-6">
-                          <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <div class="col-6 mb-4">
+                              <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          </div>
+                          <div class="col-6 mb-4">
+                              <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
+                              <p class="text-gray-600 mb-3">{{ $promosi->deskripsi }}</p>
+                              <p class="text-black mt-2"><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
+                              <p class="text-black mt-2"><i class="fas fa-map-marker-alt text-md mr-2"></i> {{ $promosi->alamat }}</p>
+                          </div>
                       </div>
-                      <div class="col-6">
-                          <h3>{{ $promosi->nama_usaha }}</h3>
-                          <p>{{ $promosi->deskripsi }}</p>
-                          <p><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
-                          <p><i class="fas fa-map-marker-alt text-md mr-2"></i> {{ $promosi->alamat }}</p>
-                      </div>
-                      </div>
-                  </div>
-              </div>
+                    </div>
+                </div>
+            </div>
           </div>
-        </div>
         @endforeach
       </div>
     @endif

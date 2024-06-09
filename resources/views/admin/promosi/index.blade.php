@@ -55,9 +55,8 @@
             @foreach ($promosi as $promosi)
                 <div class="rounded-lg shadow-md flex flex-col">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1611520189922-f7b1ba7d801e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Gambar Usaha"
-                            class="w-full h-48 object-cover rounded-t-lg">
+                            <img src="{{ asset('promosi_thumbnail/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
+                            class="w-full h-48 rounded-md object-cover">
                         <div class="mb-2 absolute inset-0 flex items-end justify-center">
                             <form action="{{ url('admin/promosi/'.$promosi->id_promosi.'/show') }}">
                                 <button type="submit" class="bg-teal-500/70 py-2 px-4 text-sm font-normal rounded-full text-white transition duration-300 ease-in-out hover:bg-teal-600">

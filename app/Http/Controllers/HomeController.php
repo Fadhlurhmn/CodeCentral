@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\PengumumanModel;
 use App\Models\jadwal_kebersihan;
 use App\Models\PromosiModel;
@@ -23,10 +24,12 @@ class HomeController extends Controller {
             return $item;
         });
 
-        // Ambil 9 pengumuman terbaru berdasarkan tanggal update yang berstatus 'Publikasi'
-        $promosiTerkini = PromosiModel::where('status_pengajuan', 'Terima')
-            ->orderBy('updated_at', 'desc')
-            ->take(6)
+        // Ambil 7 pengumuman acak berdasarkan tanggal update yang berstatus 'Terima'
+        $promosiTerkini = PromosiModel::query()
+            ->where('status_pengajuan', 'Terima')
+            ->where('countdown', '>', Carbon::now())
+            ->inRandomOrder()
+            ->take(9)
             ->get();
 
         $satpam = satpam::all(); // data satpam
