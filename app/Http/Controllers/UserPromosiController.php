@@ -102,4 +102,35 @@ class UserPromosiController extends Controller
             return redirect()->route('user.promosi.create')->with('error_verifikasi', 'Data tidak ditemukan');
         }
     }
+
+    public function cekStatusPengajuan(Request $request)
+    {
+        $request->validate([
+            'nik' => 'required|numeric|digits:16',
+        ]);
+
+        $nik = $request->nik;
+        $penduduk = PendudukModel::where('nik', $nik)->first();
+
+        if ($penduduk) {
+            $promosi = PromosiModel::where('id_penduduk', $penduduk->id_penduduk)->first();
+            if ($promosi) {
+                if ($promosi->status_pengajuan == 'Menunggu') {
+                    $message = 'Promosi sedang diproses';
+                } elseif ($promosi->status_pengajuan == 'Terima') {
+                    $message = 'Promosi sudah terpublikasi';
+                } elseif ($promosi->status_pengajuan == 'Tolak') {
+                    $message = 'Promosi ditolak';
+                } else {
+                    $message = 'Status promosi tidak diketahui';
+                }
+            } else {
+                $message = 'Tidak ada promosi yang diajukan oleh penduduk ini';
+            }
+        } else {
+            $message = 'Data penduduk tidak ditemukan.';
+        }
+
+        return redirect()->route('user.promosi')->with(['status_pengajuan' => $message, 'show_modal' => true]);
+    }
 }

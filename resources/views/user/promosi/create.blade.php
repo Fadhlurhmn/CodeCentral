@@ -171,14 +171,14 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="jenis_usaha">Jenis Usaha<span class="text-red-500">*</span></label>
+            <label class="form-label" for="jenis_usaha">Kategori Usaha<span class="text-red-500">*</span></label>
             <select name="jenis_usaha" id="jenis_usaha" class="form-select" required>
               <option value="">Pilih jenis usaha</option>
-              <option value="kuliner">Kuliner</option>
-              <option value="fashion">Fashion</option>
+              <option value="Kuliner">Kuliner</option>
+              <option value="Fashion">Fashion</option>
               <option value="retail">Retail</option>
-              <option value="jasa">Jasa</option>
-              <option value="lainnya">Lainnya</option>
+              <option value="Jasa">Jasa</option>
+              <option value="Lainnya">Lainnya</option>
             </select>
             @error('jenis_usaha')
                 <small class="text-red-500 text-sm ml-3">{{ $message }}</small>

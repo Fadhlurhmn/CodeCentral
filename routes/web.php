@@ -40,6 +40,7 @@ Route::group(['prefix' => 'promosi'], function () {
     Route::post('/promosi', [UserPromosiController::class, 'store'])->name('user.promosi.store');
     Route::post('/promosiVerif', [UserPromosiController::class, 'verifyDataDiri'])->name('verifyDataDiriPromosi');
     Route::get('/filter', [UserPromosiController::class, 'index'])->name('user.promosi.filter');
+    Route::post('/promosi/cekStatus', [UserPromosiController::class, 'cekStatusPengajuan'])->name('user.cekStatusPengajuan');
 });
 
 Route::group(['prefix' => 'bansos'], function () {
@@ -202,7 +203,7 @@ Route::middleware(['cek_login:1'])->group(function () {
 
             // cek jawaban kriteria masing-masing keluarga
             Route::get('/{id_bansos}/keluarga/{id_keluarga}', [BansosController::class, 'show_kriteria']);
-            
+
             // cek perhitungan
             Route::get('/{id}/tampil_hitung', [BansosController::class, 'tampil_hitung']);
         });

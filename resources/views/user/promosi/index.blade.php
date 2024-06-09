@@ -21,84 +21,91 @@
 
 <!-- Common hero -->
 <section class="page-hero pt-16 pb-14">
-  <div class="container">
-    <div class="page-hero-content mx-auto max-w-[768px] text-center">
-        <h1 class="mb-5 mt-8">
-            Promosi
-        </h1>
-        <p>
-            Temukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian masyarakat.
-        </p>
-        <a class="btn btn-primary mt-4" href="{{ route('user.promosi.create') }}">Promosikan Usaha Anda</a>
-        <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="btn btn-outline-primary mt-4" type="button">Periksa Status Pengajuan Promosi</button>
+    <div class="container">
+      <div class="page-hero-content mx-auto max-w-[768px] text-center">
+          <h1 class="mb-5 mt-8">
+              Promosi
+          </h1>
+          <p>
+              Temukan berbagai produk dan layanan unggulan dari pelaku UMKM di lingkungan kami. Dukung usaha lokal untuk memperkuat perekonomian masyarakat.
+          </p>
+          <a class="btn btn-primary mt-4" href="{{ route('user.promosi.create') }}">Promosikan Usaha Anda</a>
+          <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="btn btn-outline-primary mt-4" type="button">Periksa Status Pengajuan Promosi</button>
 
-        <!-- Main modal -->
-        <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden bg-black/30 fixed top-0 right-0 left-0 z-50 justify-center text-left items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative p-4 w-full max-w-md max-h-full">
-                <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow">
-                    <!-- Modal header -->
-                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                        <h4 class="text-xl font-semibold text-gray-900">
-                            Cek Status Pengajuan Promosi
-                        </h4>
-                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="p-4 md:p-5">
-                        <form class="space-y-4" method="GET" action="{{ route('user.promosi') }}">
-                            <div>
-                                <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
-                                <input type="number" name="nik" id="nik" maxlength="16" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
-                            </div>
-                            <div id="nikError" class="hidden col-span-4 text-red-500 text-xs mt-4">NIK harus diisi dengan 16 karakter</div>
+          <!-- Main modal -->
+          <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden bg-black/30 fixed top-0 right-0 left-0 z-50 justify-center text-left items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div class="relative p-4 w-full max-w-md max-h-full">
+                  <!-- Modal content -->
+                  <div class="relative bg-white rounded-lg shadow">
+                      <!-- Modal header -->
+                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                          <h4 class="text-xl font-semibold text-gray-900">
+                              Cek Status Pengajuan Promosi
+                          </h4>
+                          <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
+                              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                              </svg>
+                              <span class="sr-only">Close modal</span>
+                          </button>
+                      </div>
+                      <!-- Modal body -->
+                      <div class="p-4 md:p-5">
+                          <form class="space-y-4" method="POST" action="{{ route('user.cekStatusPengajuan') }}">
+                              @csrf
+                              <div>
+                                  <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Gunakan NIK untuk mengecek status</label>
+                                  <input type="number" name="nik" id="nik" maxlength="16" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary block w-full p-2.5" placeholder="Masukkan NIK" required />
+                              </div>
+                              <div id="nikError" class="hidden col-span-4 text-red-500 text-xs mt-4">NIK harus diisi dengan 16 karakter</div>
 
-                            <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                              <button type="submit" class="w-full text-white bg-primary hover:bg-teal-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cek Status</button>
+                          </form>
+                          @if(session('status_pengajuan'))
+                              <div class="mt-4 text-center text-sm font-medium text-gray-900">
+                                  {{ session('status_pengajuan') }}
+                              </div>
+                          @endif
+                      </div>
+                  </div>
+              </div>
+          </div>
 
+      </div>
     </div>
-  </div>
-</section>
-<!-- end Common hero -->
+  </section>
+  <!-- end Common hero -->
 
 <!-- Main -->
 <section class="section pt-0">
   <div class="container">
     <!-- Categories -->
     <div class="category-filter mb-10 mt-3 rounded-xl bg-[#EEEEEE] px-4">
-      <form method="GET" action="{{ route('user.promosi') }}">
+        <form method="GET" action="{{ route('user.promosi') }}">
         <ul class="filter-list flex space-x-2">
-          <li>
-            <button type="submit" name="kategori" value="Semua" class="filter-btn filter-btn-active btn btn-sm hover:filter-btn-active">Semua Kategori</button>
-          </li>
-          <li>
-            <button type="submit" name="kategori" value="Kuliner" class="filter-btn btn btn-sm hover:filter-btn-active">Kuliner</button>
-          </li>
-          <li>
-            <button type="submit" name="kategori" value="Fashion" class="filter-btn btn btn-sm hover:filter-btn-active">Fashion</button>
-          </li>
-          <li>
-            <button type="submit" name="kategori" value="Retail" class="filter-btn btn btn-sm hover:filter-btn-active">Retail</button>
-          </li>
-          <li>
-            <button type="submit" name="kategori" value="Jasa" class="filter-btn btn btn-sm hover:filter-btn-active">Jasa</button>
-          </li>
-          <li>
-            <button type="submit" name="kategori" value="Lainnya" class="filter-btn btn btn-sm hover:filter-btn-active">Lainnya</button>
-          </li>
+            <li>
+            <button type="submit" name="kategori" value="Semua" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Semua' ? 'filter-btn-active' : '' }}">Semua Kategori</button>
+            </li>
+            <li>
+            <button type="submit" name="kategori" value="Kuliner" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Kuliner' ? 'filter-btn-active' : '' }}">Kuliner</button>
+            </li>
+            <li>
+            <button type="submit" name="kategori" value="Fashion" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Fashion' ? 'filter-btn-active' : '' }}">Fashion</button>
+            </li>
+            <li>
+            <button type="submit" name="kategori" value="Retail" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Retail' ? 'filter-btn-active' : '' }}">Retail</button>
+            </li>
+            <li>
+            <button type="submit" name="kategori" value="Jasa" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Jasa' ? 'filter-btn-active' : '' }}">Jasa</button>
+            </li>
+            <li>
+            <button type="submit" name="kategori" value="Lainnya" class="filter-btn btn btn-sm hover:filter-btn-active {{ $kategori == 'Lainnya' ? 'filter-btn-active' : '' }}">Lainnya</button>
+            </li>
         </ul>
-      </form>
+        </form>
     </div>
     <!-- end Categories -->
+
 
     <!-- search bar -->
     <form class="mb-4" method="GET" action="{{ route('user.promosi') }}">
