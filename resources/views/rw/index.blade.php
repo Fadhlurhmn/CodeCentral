@@ -78,6 +78,29 @@
             <h2>Statistik Penerima Bansos</h2>
             <canvas id="bansosChart" style="height: 290px;"></canvas>
         </div>
+        
+        <!-- Tabel Pengaduan -->
+        <div class="mt-4">
+            <h2>Daftar Pengaduan</h2>
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
+                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data['pengaduan'] as $pengaduan)
+                        <tr>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->nama }}</td>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->tanggal_pengaduan }}</td>
+                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->deskripsi }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
       </div>
     </div>
 

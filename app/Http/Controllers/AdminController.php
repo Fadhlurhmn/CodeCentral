@@ -6,6 +6,7 @@ use App\Models\BansosModel;
 use App\Models\histori_penerimaan_bansos;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
+use App\Models\PengaduanModel;
 use App\Models\rangkuman_keluarga;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
@@ -115,6 +116,11 @@ class AdminController extends Controller
                 'kategori_bansos.nama_kategori'
             )
             ->get();
+        $pengaduan = PengaduanModel::select('penduduk.nama AS nama', 'pengaduan.tanggal_pengaduan AS tanggal_pengaduan')
+            ->selectRaw("REPLACE(pengaduan.deskripsi, '(2 sebagai penerima aduan)', '') AS deskripsi")
+            ->join('penduduk', 'penduduk.id_penduduk', '=', 'pengaduan.id_penduduk')
+            ->where('pengaduan.deskripsi', 'LIKE', '%(2 sebagai penerima aduan)%')
+            ->get();
 
         $data = [
             'jumlah_warga' => PendudukModel::count(),
@@ -124,7 +130,8 @@ class AdminController extends Controller
             'histori_bansos' => histori_penerimaan_bansos::all(),
             'bansos_acc' => histori_penerimaan_bansos::count(),
             'statistik_menerima_bansos' => $statistik_menerima_bansos,
-            'kategori_bansos' => $statistik_menerima_bansos->unique('nama_kategori')->pluck('nama_kategori')
+            'kategori_bansos' => $statistik_menerima_bansos->unique('nama_kategori')->pluck('nama_kategori'),
+            'pengaduan' => $pengaduan,
         ];
 
         // Prepare breadcrumb and active menu
