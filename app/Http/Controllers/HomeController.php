@@ -24,7 +24,7 @@ class HomeController extends Controller {
             return $item;
         });
 
-        // Ambil 7 pengumuman acak berdasarkan tanggal update yang berstatus 'Terima'
+        // Ambil 9 pengumuman acak berdasarkan tanggal update yang berstatus 'Terima'
         $promosiTerkini = PromosiModel::query()
             ->where('status_pengajuan', 'Terima')
             ->where('countdown', '>', Carbon::now())
@@ -36,19 +36,20 @@ class HomeController extends Controller {
 
         $jadwal_kebersihan = jadwal_kebersihan::all(); // data jadwal kebersihan
 
-        $jadwal_keamanan = rangkuman_jadwal_keamanan::all();
+        // Mendapatkan hari ini dalam timezone WIB
+        $hariIni = Carbon::now('Asia/Jakarta')->locale('id')->isoFormat('dddd');
 
-        $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        $jadwal_keamanan = rangkuman_jadwal_keamanan::whereRaw("LOWER(hari) = ?", strtolower($hariIni))->get();
+
         $shifts = ['Pagi', 'Siang - Sore', 'Malam'];
 
         $schedule = [];
-        foreach ($days as $day) {
-            foreach ($shifts as $shift) {
-                $schedule[$day][$shift] = $jadwal_keamanan->filter(function ($item) use ($day, $shift) {
-                    return strtolower($item->hari) == strtolower($day) && $item->waktu == $shift;
-                });
-            }
+        foreach ($shifts as $shift) {
+            $schedule[$hariIni][$shift] = $jadwal_keamanan->filter(function ($item) use ($shift) {
+                return strtolower($item->waktu) == strtolower($shift);
+            });
         }
-        return view('index', compact('pengumumanTerkini', 'promosiTerkini', 'schedule','days','shifts','jadwal_kebersihan','satpam'));
+
+        return view('index', compact('pengumumanTerkini', 'promosiTerkini', 'schedule', 'hariIni', 'shifts', 'jadwal_kebersihan', 'satpam'));
     }
 }

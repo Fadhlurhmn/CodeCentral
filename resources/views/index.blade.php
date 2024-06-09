@@ -176,23 +176,19 @@
                         <thead class="bg-teal-400 text-center">
                             <tr>
                                 <th class="p-3 text-sm font-normal border border-teal-300">Shift</th>
-                                @foreach ($days as $day)
-                                    <th class="p-3 text-sm font-normal border border-teal-300">{{ ucfirst($day) }}</th>
-                                @endforeach
+                                <th class="p-3 text-sm font-normal border border-teal-300">{{ ucfirst($hariIni) }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($shifts as $shift)
                                 <tr>
-                                    <td class="p-3 text-sm text-center bg-teal-300 border border-teal-300">{{ $shift }}</td>
-                                    @foreach ($days as $day)
-                                        <td class="p-3 text-sm text-center border border-teal-300">
-                                            @foreach ($schedule[$day][$shift] as $entry)
-                                                {{ $entry->nama }}<br>
-                                                <span class="text-xs text-gray-500">({{ $entry->nomor_telepon }})</span><br>
-                                            @endforeach
-                                        </td>
-                                    @endforeach
+                                    <td class="p-3 text-sm text-center border border-teal-300">{{ $shift }}</td>
+                                    <td class="p-3 text-sm text-center border border-teal-300">
+                                        @foreach ($schedule[$hariIni][$shift] as $entry)
+                                            {{ $entry->nama }}<br>
+                                            <span class="text-xs text-gray-500">({{ $entry->nomor_telepon }})</span><br>
+                                        @endforeach
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
