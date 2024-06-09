@@ -14,9 +14,6 @@
                     <option value="2">Rt. 2</option>
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
-                    <option value="5">Rt. 5</option>
-                    <option value="6">Rt. 6</option>
-                    <option value="7">Rt. 7</option>
                 </select>
             </div>
         </div>
