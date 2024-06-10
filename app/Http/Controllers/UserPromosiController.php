@@ -49,7 +49,7 @@ class UserPromosiController extends Controller
                 'jenis_usaha' => 'required',
                 'gambar' => 'required|image|max:2048',
                 'alamat' => 'required|max:100',
-                'no_telp' => 'required|numeric|max:20',
+                'no_telp' => 'required|numeric|digits_between:1,20',
             ]);
 
             // Menyimpan file gambar yang diupload

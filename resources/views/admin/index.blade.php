@@ -37,6 +37,26 @@
                 <h2 class="text-xl">Jumlah Bansos Acc</h2>
                 <p class="text-2xl" id="jumlahBansosAcc">{{ $data['bansos_acc'] }}</p>
             </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Akun Aktif</h2>
+                <p class="text-2xl" id="jumlahAkunAktif">{{ $data['jumlah_akun_aktif'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Akun Nonaktif</h2>
+                <p class="text-2xl" id="jumlahAkunNonAktif">{{ $data['jumlah_akun_tidak_aktif'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Pengumuman Terpublikasi</h2>
+                <p class="text-2xl" id="pengumumanTerpublikasi">{{ $data['jumlah_pengumuman_publikasi'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Pengumuman Draf</h2>
+                <p class="text-2xl" id="pengumumanDraf">{{ $data['jumlah_pengumuman_draf'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Surat</h2>
+                <p class="text-2xl" id="jumlahSurat">{{ $data['jumlah_surat'] }}</p>
+            </div>
         </div>
 
         <!-- Additional Charts -->

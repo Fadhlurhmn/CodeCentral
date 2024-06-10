@@ -7,7 +7,11 @@ use App\Models\histori_penerimaan_bansos;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
 use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use App\Models\PromosiModel;
 use App\Models\rangkuman_keluarga;
+use App\Models\SuratModel;
+use App\Models\UserModel;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +40,13 @@ class AdminController extends Controller
             'bansos_acc' => histori_penerimaan_bansos::count(),
             'statistik_menerima_bansos' => $statistik_menerima_bansos,
             'kategori_bansos' => $statistik_menerima_bansos->unique('nama_kategori')->pluck('nama_kategori'),
+            'jumlah_akun_aktif' => UserModel::where('status_akun', 'Aktif')->count('id_user'),
+            'jumlah_akun_tidak_aktif' => UserModel::where('status_akun', 'Nonaktif')->count('id_user'),
+            'jumlah_pengumuman_publikasi' => PengumumanModel::where('status_pengumuman', 'Publikasi')->count('id_pengumuman'),
+            'jumlah_pengumuman_draf' => PengumumanModel::where('status_pengumuman', 'Draf')->count('id_pengumuman'),
+            'jumlah_surat' => SuratModel::count(),
+            'jumlah_promosi' => PromosiModel::count(),
+            'promosi' => PromosiModel::all(),
         ];
 
         // Prepare breadcrumb and active menu
