@@ -25,7 +25,7 @@ class cek_login
         $user = Auth::user();
 
         // jika user memiliki level sesuai pada kolom pada lanjutkan request
-        if ($user->id_level == $roles) {
+        if ($user->level->kode_level == $roles) {
             return $next($request);
         }
 

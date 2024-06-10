@@ -87,7 +87,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
 
 // Middleware for authenticated routes
-Route::middleware(['cek_login:1'])->group(function () {
+Route::middleware(['cek_login:ADM'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
         Route::view('/bansos', 'admin.bansos.index');
@@ -258,7 +258,7 @@ Route::middleware(['cek_login:1'])->group(function () {
 });
 
 // route untuk rw
-Route::middleware(['cek_login:2'])->group(function () {
+Route::middleware(['cek_login:RW'])->group(function () {
     Route::prefix('rw')->group(function () {
         Route::get('/', [AdminController::class, 'index_rw']);
 
@@ -318,7 +318,7 @@ Route::middleware(['cek_login:2'])->group(function () {
 
 
 // route untuk rt
-Route::middleware(['cek_login:3'])->group(function () {
+Route::middleware(['cek_login:RT'])->group(function () {
     Route::prefix('rt')->group(function () {
         Route::get('/', [AdminController::class, 'index_rt']);
         // Route::view('/bansos', 'rt.bansos.index');

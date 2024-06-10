@@ -34,7 +34,12 @@
 
                 <!-- Input untuk Kode Jabatan -->
                 <label for="kode_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Kode Jabatan<span class="text-red-500">*</span></label>
-                <input type="text" name="kode_level" id="kode_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Kode Level" required>
+                <select name="kode_level" id="kode_level" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Kode Level" required>
+                    <option value="">Pilih Kode Jabatan</option>
+                    <option value="ADM">ADM (Admin)</option>
+                    <option value="RW">RW</option>
+                    <option value="RT">RT</option>
+                </select>
 
                 <!-- Input untuk Nama Jabatan -->
                 <label for="nama_level" class="block mb-2 text-sm font-bold text-gray-900 col-span-4">Nama Jabatan<span class="text-red-500">*</span></label>

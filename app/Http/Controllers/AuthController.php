@@ -58,13 +58,13 @@ class AuthController extends Controller
             }
 
             // cek level
-            if ($user->id_level == '1'){
+            if ($user->level->kode_level == 'ADM'){
                 return redirect()->intended('admin');
             }
-            else if ($user->id_level == '2') {
+            else if ($user->level->kode_level == 'RW') {
                 return redirect()->intended('rw');
             }
-            else if ($user->id_level == '3') {
+            else if ($user->level->kode_level == 'RT') {
                 return redirect()->intended('rt');
             }
             // jika belum ada role maka ke /

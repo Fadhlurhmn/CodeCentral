@@ -76,7 +76,7 @@ class JabatanController extends Controller
     {
         // Validasi input
         $request->validate([
-            'kode_level' => 'required|string|min:3|unique:level,kode_level',
+            'kode_level' => 'required|string|min:2',
             'nama_level' => 'required|string',
         ]);
 
