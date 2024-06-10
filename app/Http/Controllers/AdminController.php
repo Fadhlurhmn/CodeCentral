@@ -31,6 +31,12 @@ class AdminController extends Controller
                 'kategori_bansos.nama_kategori'
             )
             ->get();
+
+        // Fetching data for the new pie chart
+        $pengajuan_promosi = PromosiModel::select('kategori', 'status_pengajuan', DB::raw('count(*) as jumlah'))
+            ->groupBy('kategori', 'status_pengajuan')
+            ->get();
+
         $data = [
             'jumlah_warga' => PendudukModel::count(),
             'jumlah_keluarga' => KeluargaModel::count(),
@@ -47,6 +53,7 @@ class AdminController extends Controller
             'jumlah_surat' => SuratModel::count(),
             'jumlah_promosi' => PromosiModel::count(),
             'promosi' => PromosiModel::all(),
+            'pengajuan_promosi' => $pengajuan_promosi,
         ];
 
         // Prepare breadcrumb and active menu
@@ -65,6 +72,7 @@ class AdminController extends Controller
             'data' => $data
         ]);
     }
+
 
 
     public function index_rt()
