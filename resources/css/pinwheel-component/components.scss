@@ -648,6 +648,13 @@ select:invalid {
     }
 }
 
+.alert-info {
+  @apply bg-yellow-200 border-yellow-300 text-yellow-600;
+    a {
+      @apply text-yellow-700;
+    }
+}
+
 figure {
     @apply flex justify-center;
 }

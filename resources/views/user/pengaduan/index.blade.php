@@ -124,7 +124,7 @@
           <input type="hidden" name="pengirim" value="{{ session('pengirim') }}">
 
           <div class="form-group mb-5">
-            <label class="form-label" for="isi_pengaduan">Isi Pengaduan</label>
+            <label class="form-label" for="isi_pengaduan">Isi Pengaduan<span class="text-red-500">*</span></label>
             <textarea
                     class="w-full rounded-lg border-border text-dark placeholder:text-[#B0B0B0] focus:border-primary focus:ring-transparent"
                     id="isi_pengaduan"
@@ -147,7 +147,7 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="tanggal_pengaduan">Tanggal Kejadian</label>
+            <label class="form-label" for="tanggal_pengaduan">Tanggal Kejadian<span class="text-red-500">*</span></label>
             <input
                     class="form-control"
                     type="date"
@@ -161,7 +161,7 @@
           </div>
 
           <div class="form-group mb-5">
-            <label class="form-label" for="penerima_aduan">Sampaikan aduan ke:</label>
+            <label class="form-label" for="penerima_aduan">Sampaikan aduan ke:<span class="text-red-500">*</span></label>
             <select name="penerima_aduan" id="penerima_aduan" class="form-select" required>
               <option value="">Pilih penerima aduan</option>
               @foreach ($list_pengurus as $pengurus)
@@ -173,11 +173,10 @@
             @enderror
           </div>
 
-        <button
-          class="btn btn-primary block w-full"
-          type="submit">
-          Submit
-        </button>
+          <div class="flex justify-between">
+            <a href="{{ route('user.pengaduan') }}" class="text-inherit"><button type="button" class="btn btn-outline-primary block">Kembali</button></a>
+            <button type="submit" class="btn btn-primary block">Kirim</button>
+          </div>
       </form>
       {{-- end form Pengaduan --}}
     </div>

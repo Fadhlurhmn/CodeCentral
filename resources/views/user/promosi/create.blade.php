@@ -108,7 +108,10 @@
           @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary block w-full" id="verifikasiButton">Verifikasi</button>
+        <div class="flex justify-between">
+          <a href="{{ route('user.promosi') }}" class="text-inherit"><button type="button" class="btn btn-outline-primary block">Kembali</button></a>
+          <button type="submit" class="btn btn-primary block" id="verifikasiButton">Verifikasi</button>
+        </div>
       </form>
       {{-- end verifikasi data diri --}}
 
@@ -193,7 +196,7 @@
             <label class="form-label" for="no_telp">Nomor Telepon<span class="text-red-500">*</span></label>
             <input
               class="form-control"
-              type="text"
+              type="number"
               id="no_telp"
               name="no_telp"
               placeholder="Masukkan nomor telepon anda"
@@ -245,11 +248,10 @@
             @enderror
           </div>
 
-        <button
-          class="btn btn-primary block w-full"
-          type="submit">
-          Kirim
-        </button>
+        <div class="flex justify-between">
+          <a href="{{ route('user.promosi.create') }}" class="text-inherit"><button type="button" class="btn btn-outline-primary block">Kembali</button></a>
+          <button type="submit" class="btn btn-primary block">Kirim</button>
+        </div>
       </form>
       @endif
       {{-- end form promosi --}}
@@ -335,6 +337,29 @@
       }
   });
 
+  // Character counter untuk nomor telepon
+  const noTelpElement = document.querySelector("#no_telp");
+  const characterCounterNoTelp = document.querySelector("#character-counter-no-telp");
+  const typedCharactersNoTelp = document.querySelector("#typed-characters-no-telp");
+  const maximumCharactersNoTelp = 20;
+
+  noTelpElement.addEventListener("keyup", (event) => {
+      const typedCharacters = noTelpElement.value.length;
+
+      if (typedCharacters > maximumCharactersNoTelp) {
+          return false;
+      }
+
+      typedCharactersNoTelp.textContent = typedCharacters;
+      if (typedCharacters >= 15 && typedCharacters < 20) {
+          characterCounterNoTelp.classList = "text-right w-full text-yellow-400";
+      } else if (typedCharacters >= 20) {
+          characterCounterNoTelp.classList = "text-right w-full text-red-400";
+      } else {
+          characterCounterNoTelp.classList = "text-right w-full text-inherit";
+      }
+  });
+  
   // Character counter untuk alamat usaha
   const alamatElement = document.querySelector("#alamat");
   const characterCounterAlamat = document.querySelector("#character-counter-alamat");
