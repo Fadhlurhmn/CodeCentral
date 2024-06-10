@@ -17,12 +17,25 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // Fetch all necessary data
+        $statistik_menerima_bansos = BansosModel::where('status', 'closed')
+            ->join('kategori_bansos', 'kategori_bansos.id_kategori_bansos', '=', 'bansos.id_kategori_bansos')
+            ->select(
+                'bansos.id_kategori_bansos',
+                'bansos.id_bansos',
+                'bansos.jumlah_penerima',
+                'bansos.nama',
+                'kategori_bansos.nama_kategori'
+            )
+            ->get();
         $data = [
             'jumlah_warga' => PendudukModel::count(),
             'jumlah_keluarga' => KeluargaModel::count(),
             'warga' => PendudukModel::all(),
-            'keluarga' => rangkuman_keluarga::all()
+            'keluarga' => rangkuman_keluarga::all(),
+            'histori_bansos' => histori_penerimaan_bansos::all(),
+            'bansos_acc' => histori_penerimaan_bansos::count(),
+            'statistik_menerima_bansos' => $statistik_menerima_bansos,
+            'kategori_bansos' => $statistik_menerima_bansos->unique('nama_kategori')->pluck('nama_kategori'),
         ];
 
         // Prepare breadcrumb and active menu
