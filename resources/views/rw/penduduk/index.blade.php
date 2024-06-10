@@ -12,9 +12,6 @@
                     <option value="2">Rt. 2</option>
                     <option value="3">Rt. 3</option>
                     <option value="4">Rt. 4</option>
-                    <option value="5">Rt. 5</option>
-                    <option value="6">Rt. 6</option>
-                    <option value="7">Rt. 7</option>
                 </select>
             </div>
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">

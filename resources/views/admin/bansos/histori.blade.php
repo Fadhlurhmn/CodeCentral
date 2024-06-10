@@ -38,6 +38,7 @@
                                 <th class="p-3 text-sm tracking-normal text-left">Nama Bantuan</th>
                                 <th class="p-3 text-sm tracking-normal text-left">No Keluarga</th>
                                 <th class="p-3 text-sm tracking-normal text-left">Nama Kepala Keluarga</th>
+                                <th class="p-3 text-sm tracking-normal text-left">RT</th>
                                 <th class="p-3 text-sm tracking-normal text-left">Alamat</th>
                                 <th class="p-3 text-sm tracking-normal text-left">Tanggal</th>
                             </tr>
@@ -48,6 +49,7 @@
                                     <td class="p-3 text-sm tracking-normal">{{ $bansos->nama_bansos }}</td>
                                     <td class="p-3 text-sm tracking-normal">{{ $bansos->nomor_keluarga }}</td>
                                     <td class="p-3 text-sm tracking-normal">{{ $bansos->nama_kepala_keluarga }}</td>
+                                    <td class="p-3 text-sm tracking-normal">{{ $bansos->rt }}</td>
                                     <td class="p-3 text-sm tracking-normal">{{ $bansos->alamat }}</td>
                                     <td class="p-3 text-sm tracking-normal">{{ $bansos->tanggal_pemberian }}</td>
                                 </tr>

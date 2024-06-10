@@ -16,9 +16,9 @@ class PendudukSeeder extends Seeder
 
         DB::statement(
             "INSERT INTO `penduduk` (`id_penduduk`, `nama`, `nik`, `alamat_ktp`, `alamat_domisili`, `no_telp`, `tempat_lahir`, `tanggal_lahir`, `agama`, `pekerjaan`, `gol_darah`, `jenis_kelamin`, `status_data`, `rt`, `rw`, `status_penduduk`, `foto_ktp`, `created_at`, `updated_at`) VALUES
-            (1, 'Fadhlu', '3573051234567890', 'Graha Segovia Nomor 15', 'Jl. Semanggi Barat Nomor 10', '6234895478902', 'Tangerang', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'aktif', '4', '5', 'sementara', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
-            (2, 'Rakha', '3573051234567098', 'Jl. Tlogomas Nomor 14', 'Jl. Semanggi Barat Nomor 15', '6256789656964', 'Malang', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'aktif', '4', '5', 'tetap', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
-            (3, 'Wahyudi', '3573051234567111', 'Jl. Mt. Haryono Nomor 10', 'Jl. Semanggi Barat Nomor 20', '6232096798543', 'Pasuruan', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'aktif', '4', '5', 'tetap', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
+            (1, 'Fadhlu', '3573051234567890', 'Graha Segovia Nomor 15', 'Jl. Semanggi Barat Nomor 10', '6234895478902', 'Tangerang', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'Aktif', '4', '5', 'Sementara', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
+            (2, 'Rakha', '3573051234567098', 'Jl. Tlogomas Nomor 14', 'Jl. Semanggi Barat Nomor 15', '6256789656964', 'Malang', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'Aktif', '4', '5', 'Tetap', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
+            (3, 'Wahyudi', '3573051234567111', 'Jl. Mt. Haryono Nomor 10', 'Jl. Semanggi Barat Nomor 20', '6232096798543', 'Pasuruan', '2024-06-06', 'islam', 'mahasiswa', 'AB', 'pria', 'Aktif', '4', '5', 'Tetap', 'belum ada', '2024-06-06 07:19:28', '2024-06-06 07:19:28'),
             (4, 'Ahmad Firdaus', '3201011234567890', 'Jl. Lowokwaru No. 1, Malang', 'Jl. Lowokwaru No. 1, Malang', '6281234567890', 'Malang', '1985-01-10', 'Islam', 'Karyawan Swasta', 'O', 'pria', 'Aktif', '1', '4', 'Tetap', 'ktp_ahmad_firdaus.jpg', '2024-06-06 03:30:02', '2024-06-05 20:52:52'),
             (5, 'Budi Santoso', '3201011234567891', 'Jl. Lowokwaru No. 1, Malang', 'Jl. Lowokwaru No. 1, Malang', '6281234567891', 'Surabaya', '1956-02-12', 'Kristen', 'Pegawai Negeri', 'A', 'pria', 'Aktif', '1', '4', 'Tetap', 'ktp_budi_santoso.jpg', '2024-06-06 03:30:02', '2024-06-05 20:53:38'),
             (6, 'Citra Dewi', '3201011234567892', 'Jl. Lowokwaru No. 1, Malang', 'Jl. Lowokwaru No. 1, Malang', '6281234567892', 'Malang', '1961-03-15', 'Kristen', 'Ibu Rumah Tangga', 'B', 'wanita', 'Aktif', '1', '4', 'Tetap', 'ktp_citra_dewi.jpg', '2024-06-06 03:30:02', '2024-06-05 20:54:16'),
@@ -106,7 +106,7 @@ class PendudukSeeder extends Seeder
         //         'status_data' => 'aktif',
         //         'rt' => '4',
         //         'rw' => '5',
-        //         'status_penduduk' => 'sementara',
+        //         'status_penduduk' => 'Sementara',
         //         'foto_ktp' => 'belum ada',
         //         'jenis_kelamin' => 'pria',
         //         'created_at' => now(),
@@ -127,7 +127,7 @@ class PendudukSeeder extends Seeder
         //         'status_data' => 'aktif',
         //         'rt' => '4',
         //         'rw' => '5',
-        //         'status_penduduk' => 'tetap',
+        //         'status_penduduk' => 'Tetap',
         //         'foto_ktp' => 'belum ada',
         //         'jenis_kelamin' => 'pria',
         //         'created_at' => now(),

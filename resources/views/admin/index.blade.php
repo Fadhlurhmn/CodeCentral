@@ -6,48 +6,116 @@
   @include('layout.a_sidebar')
 
   <!-- start content -->
-  <div class="bg-white flex-1 p-6 md:mt-16"> 
+  <div class="bg-white flex-1 p-6 md:mt-16">
 
-    <!-- Filter for RT -->
-    <div class="mb-4">
-        <label for="rtFilter" class="block text-gray-700">Filter by RT:</label>
-        <select id="rtFilter" class="form-select mt-1 block w-full">
-            <option value="all">All RT</option>
-            @for ($i = 1; $i <= 4; $i++)
-                <option value="{{ $i }}">RT {{ $i }}</option>
-            @endfor
-        </select>
-    </div>
+    <!-- Main Content Wrapper -->
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Left Column -->
+      <div>
+        <!-- Filter for RT -->
+        <div class="mb-4">
+            <label for="rtFilter" class="block text-gray-700">Filter by RT:</label>
+            <select id="rtFilter" class="form-select mt-1 block w-full">
+                <option value="all">All RT</option>
+                @for ($i = 1; $i <= 4; $i++)
+                    <option value="{{ $i }}">RT {{ $i }}</option>
+                @endfor
+            </select>
+        </div>
 
-    <!-- Cards for jumlah warga and jumlah keluarga -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
-        <div class="p-4 bg-blue-500 text-white rounded shadow">
-            <h2 class="text-xl">Jumlah Warga</h2>
-            <p class="text-2xl" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
+        <!-- Cards for jumlah warga, jumlah keluarga, and jumlah bansos acc -->
+        <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="p-4 bg-blue-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Warga</h2>
+                <p class="text-2xl" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
+            </div>
+            <div class="p-4 bg-green-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Keluarga</h2>
+                <p class="text-2xl" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Bansos Acc</h2>
+                <p class="text-2xl" id="jumlahBansosAcc">{{ $data['bansos_acc'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Akun Aktif</h2>
+                <p class="text-2xl" id="jumlahAkunAktif">{{ $data['jumlah_akun_aktif'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Akun Nonaktif</h2>
+                <p class="text-2xl" id="jumlahAkunNonAktif">{{ $data['jumlah_akun_tidak_aktif'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Pengumuman Terpublikasi</h2>
+                <p class="text-2xl" id="pengumumanTerpublikasi">{{ $data['jumlah_pengumuman_publikasi'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Pengumuman Draf</h2>
+                <p class="text-2xl" id="pengumumanDraf">{{ $data['jumlah_pengumuman_draf'] }}</p>
+            </div>
+            <div class="p-4 bg-purple-500 text-white rounded shadow">
+                <h2 class="text-xl">Jumlah Surat</h2>
+                <p class="text-2xl" id="jumlahSurat">{{ $data['jumlah_surat'] }}</p>
+            </div>
         </div>
-        <div class="p-4 bg-green-500 text-white rounded shadow">
-            <h2 class="text-xl">Jumlah Keluarga</h2>
-            <p class="text-2xl" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
-        </div>
-    </div>
 
-    <div class="grid grid-cols-2 gap-20">
-        <div>
-            <h2>Statistik Golongan Darah Seluruh Warga</h2>
-            <canvas id="golDarahChart"></canvas>
+        <!-- Additional Charts -->
+        <div class="grid grid-cols-2 gap-20">
+            <div>
+                <h2>Statistik Golongan Darah Seluruh Warga</h2>
+                <canvas id="golDarahChart"></canvas>
+            </div>
+            <div>
+                <h2>Statistik Warga Tetap dan Sementara</h2>
+                <canvas id="wargaTetapSementaraChart"></canvas>
+            </div>
+            <div>
+                <h2>Statistik Warga Aktif dan Non-Aktif</h2>
+                <canvas id="wargaAktifNonAktifChart"></canvas>
+            </div>
+            <div>
+                <h2>Statistik Jenis Kelamin Seluruh Warga</h2>
+                <canvas id="jenisKelaminChart"></canvas>
+            </div>
         </div>
-        <div>
-            <h2>Statistik Warga Tetap dan Sementara</h2>
-            <canvas id="wargaTetapSementaraChart"></canvas>
+      </div>
+
+      <!-- Right Column -->
+      <div>
+        <!-- Filter for Kategori Bansos -->
+        <div class="mb-4">
+            <label for="kategoriBansosFilter" class="block text-gray-700">Filter by Kategori Bansos:</label>
+            <select id="kategoriBansosFilter" class="form-select mt-1 block w-full">
+                <option value="all">All Kategori Bansos</option>
+                @foreach ($data['kategori_bansos'] as $kategori)
+                    <option value="{{ $kategori }}">{{ $kategori }}</option>
+                @endforeach
+            </select>
         </div>
+
+        <!-- Statistik Penerima Bansos -->
         <div>
-            <h2>Statistik Warga Aktif dan Non-Aktif</h2>
-            <canvas id="wargaAktifNonAktifChart"></canvas>
+            <h2>Statistik Penerima Bansos</h2>
+            <canvas id="bansosChart" style="height: 290px;"></canvas>
         </div>
+
+        <!-- Filter for Status Pengajuan -->
+        <div class="mb-4">
+            <label for="statusPengajuanFilter" class="block text-gray-700">Filter by Status Pengajuan:</label>
+            <select id="statusPengajuanFilter" class="form-select mt-1 block w-full">
+                <option value="all">All Status</option>
+                <option value="Terima">Terima</option>
+                <option value="Tolak">Tolak</option>
+                <option value="Menunggu">Menunggu</option>
+            </select>
+        </div>
+
+        <!-- Statistik Pengajuan Promosi -->
         <div>
-            <h2>Statistik Jenis Kelamin Seluruh Warga</h2>
-            <canvas id="jenisKelaminChart"></canvas>
+            <h2>Statistik Pengajuan Promosi</h2>
+            <canvas id="pengajuanPromosiChart" style="height: 290px;"></canvas>
         </div>
+      </div>
     </div>
 
   </div>
@@ -63,50 +131,82 @@
     const allData = @json($data);
     const warga = allData.warga;
     const keluarga = allData.keluarga;
+    const historiBansos = allData.histori_bansos;
+    const statistikMenerimaBansos = allData.statistik_menerima_bansos;
+    const pengajuanPromosi = allData.pengajuan_promosi;
 
     const rtFilter = document.getElementById('rtFilter');
+    const kategoriBansosFilter = document.getElementById('kategoriBansosFilter');
+    const statusPengajuanFilter = document.getElementById('statusPengajuanFilter');
+    
     rtFilter.addEventListener('change', updateData);
+    kategoriBansosFilter.addEventListener('change', updateData);
+    statusPengajuanFilter.addEventListener('change', updateData);
 
     function updateData() {
-        const selectedRT = rtFilter.value;
-        const filteredWarga = selectedRT === 'all' ? warga : warga.filter(w => w.rt == selectedRT);
-        const filteredKeluarga = selectedRT === 'all' ? keluarga : keluarga.filter(k => k.rt == selectedRT);
+    const selectedRT = rtFilter.value;
+    const selectedKategori = kategoriBansosFilter.value;
+    const selectedStatus = statusPengajuanFilter.value;
+    
+    const filteredWarga = selectedRT === 'all' ? warga : warga.filter(w => w.rt == selectedRT);
+    const filteredKeluarga = selectedRT === 'all' ? keluarga : keluarga.filter(k => k.rt == selectedRT);
+    const filteredBansos = selectedRT === 'all' ? historiBansos : historiBansos.filter(b => b.rt == selectedRT);
 
-        document.getElementById('jumlahWarga').innerText = filteredWarga.length;
-        document.getElementById('jumlahKeluarga').innerText = filteredKeluarga.length;
+    document.getElementById('jumlahWarga').innerText = filteredWarga.length;
+    document.getElementById('jumlahKeluarga').innerText = filteredKeluarga.length;
+    document.getElementById('jumlahBansosAcc').innerText = filteredBansos.length;
 
-        const wargaPerRT = {};
-        const golDarah = {};
-        const keluargaPerRT = {};
-        const wargaTetapSementara = {};
-        const wargaAktifNonAktif = {};
-        const jenisKelamin = {};
+    const golDarah = {};
+    const wargaTetapSementara = {};
+    const wargaAktifNonAktif = {};
+    const jenisKelamin = {};
+    const bansosData = {};
 
-        filteredWarga.forEach(w => {
-            wargaPerRT[w.rt] = (wargaPerRT[w.rt] || 0) + 1;
-            golDarah[w.gol_darah] = (golDarah[w.gol_darah] || 0) + 1;
-            wargaTetapSementara[w.status_penduduk] = (wargaTetapSementara[w.status_penduduk] || 0) + 1;
-            wargaAktifNonAktif[w.status_data] = (wargaAktifNonAktif[w.status_data] || 0) + 1;
-            jenisKelamin[w.jenis_kelamin] = (jenisKelamin[w.jenis_kelamin] || 0) + 1;
-        });
+    filteredWarga.forEach(w => {
+        golDarah[w.gol_darah] = (golDarah[w.gol_darah] || 0) + 1;
+        wargaTetapSementara[w.status_penduduk] = (wargaTetapSementara[w.status_penduduk] || 0) + 1;
+        wargaAktifNonAktif[w.status_data] = (wargaAktifNonAktif[w.status_data] || 0) + 1;
+        jenisKelamin[w.jenis_kelamin] = (jenisKelamin[w.jenis_kelamin] || 0) + 1;
+    });
 
-        filteredKeluarga.forEach(k => {
-            keluargaPerRT[k.rt] = (keluargaPerRT[k.rt] || 0) + 1;
-        });
+    const filteredStatistikMenerimaBansos = selectedKategori === 'all' ? statistikMenerimaBansos : statistikMenerimaBansos.filter(b => b.nama_kategori == selectedKategori);
+    filteredStatistikMenerimaBansos.forEach(b => {
+        bansosData[b.nama] = (bansosData[b.nama] || 0) + b.jumlah_penerima;
+    });
 
-        updateChart(golDarahChart, Object.keys(golDarah), Object.values(golDarah));
-        updateChart(wargaTetapSementaraChart, Object.keys(wargaTetapSementara), Object.values(wargaTetapSementara));
-        updateChart(wargaAktifNonAktifChart, Object.keys(wargaAktifNonAktif), Object.values(wargaAktifNonAktif));
-        updateChart(jenisKelaminChart, Object.keys(jenisKelamin), Object.values(jenisKelamin));
+    const filteredPengajuanPromosi = selectedStatus === 'all' ? pengajuanPromosi : pengajuanPromosi.filter(p => p.status_pengajuan == selectedStatus);
+    const kategoriPromosi = {};
+
+    filteredPengajuanPromosi.forEach(p => {
+        kategoriPromosi[p.kategori] = (kategoriPromosi[p.kategori] || 0) + 1;
+    });
+
+    // Check for undefined categories and set to 'Lainnya' if any exist
+    if (kategoriPromosi['Lainnya'] === undefined) {
+        kategoriPromosi['Lainnya'] = 0;
     }
 
-    function updateChart(chart, labels, data) {
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = data;
-        chart.update();
-    }
+    updateChart(golDarahChart, Object.keys(golDarah), Object.values(golDarah));
+    updateChart(wargaTetapSementaraChart, Object.keys(wargaTetapSementara), Object.values(wargaTetapSementara));
+    updateChart(wargaAktifNonAktifChart, Object.keys(wargaAktifNonAktif), Object.values(wargaAktifNonAktif));
+    updateChart(jenisKelaminChart, Object.keys(jenisKelamin), Object.values(jenisKelamin));
+    updateLineChart(bansosChart, Object.keys(bansosData), Object.values(bansosData));
+    updateChart(pengajuanPromosiChart, Object.keys(kategoriPromosi), Object.values(kategoriPromosi));
+}
 
-    const config = (labels, data) => ({
+function updateChart(chart, labels, data) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+}
+
+function updateLineChart(chart, labels, data) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+}
+
+    const pieConfig = (labels, data) => ({
         type: 'pie',
         data: {
             labels: labels,
@@ -146,10 +246,45 @@
         }
     });
 
-    const golDarahChart = new Chart(document.getElementById('golDarahChart').getContext('2d'), config([], []));
-    const wargaTetapSementaraChart = new Chart(document.getElementById('wargaTetapSementaraChart').getContext('2d'), config([], []));
-    const wargaAktifNonAktifChart = new Chart(document.getElementById('wargaAktifNonAktifChart').getContext('2d'), config([], []));
-    const jenisKelaminChart = new Chart(document.getElementById('jenisKelaminChart').getContext('2d'), config([], []));
+    const lineConfig = (labels, data) => ({
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Jumlah Penerima',
+                data: data,
+                borderColor: '#FF6384',
+                backgroundColor: '#FF6384',
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: false, // Disable responsiveness
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Nama Bansos'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Penerima'
+                    }
+                }
+            }
+        }
+    });
+
+    const golDarahChart = new Chart(document.getElementById('golDarahChart').getContext('2d'), pieConfig([], []));
+    const wargaTetapSementaraChart = new Chart(document.getElementById('wargaTetapSementaraChart').getContext('2d'), pieConfig([], []));
+    const wargaAktifNonAktifChart = new Chart(document.getElementById('wargaAktifNonAktifChart').getContext('2d'), pieConfig([], []));
+    const jenisKelaminChart = new Chart(document.getElementById('jenisKelaminChart').getContext('2d'), pieConfig([], []));
+    const bansosChart = new Chart(document.getElementById('bansosChart').getContext('2d'), lineConfig([], []));
+    const pengajuanPromosiChart = new Chart(document.getElementById('pengajuanPromosiChart').getContext('2d'), pieConfig([], []));
 
     updateData(); // Initial data load
 </script>
