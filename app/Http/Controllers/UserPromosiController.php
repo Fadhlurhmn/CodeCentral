@@ -53,14 +53,11 @@ class UserPromosiController extends Controller
             ]);
 
             // Menyimpan file gambar yang diupload
-            $gambar = $request->file('gambar');
-            $nama_file = time() . "_" . $gambar->getClientOriginalName();
-            $tujuan_upload = 'promosi_thumbnail';
-            $gambar->move($tujuan_upload, $nama_file);
+            $gambar = $request->file('gambar')->store('promosi_thumbnail', 'public');
 
             PromosiModel::create([
                 'nama_usaha' => $request->nama_usaha,
-                'gambar' => $nama_file,
+                'gambar' => $gambar,
                 'deskripsi' => $request->deskripsi_usaha,
                 'kategori' => $request->jenis_usaha,
                 'status_pengajuan' => 'Menunggu',

@@ -31,7 +31,7 @@
       </div>
 
         <div class="w-1/2 px-4 my-7 flex justify-start">
-            <img src="{{ asset('promosi_thumbnail/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
+            <img src="{{ asset('storage/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
             class="w-full h-96 rounded-md object-cover">
         </div>
       <dl class="my-3 text-sm w-1/2">

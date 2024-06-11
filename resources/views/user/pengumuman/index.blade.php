@@ -21,7 +21,7 @@
                 @foreach ($topPengumuman as $pengumuman)
                     <div class="mb-8 md:col-6">
                         <div class="card">
-                            <img class="card-img" src="{{ asset('pengumuman_thumbnail/' . $pengumuman->thumbnail) }}" alt="" />
+                            <img class="card-img" src="{{ asset('storage/' . $pengumuman->thumbnail) }}" alt="" />
                             <div class="card-content">
                                 <h3 class="h4 card-title">
                                     <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
@@ -80,7 +80,7 @@
                     @foreach ($allPengumuman as $pengumuman)
                         <div class="mb-8 md:col-6 lg:col-4">
                             <div class="card">
-                                <img class="card-img" src="{{ asset('pengumuman_thumbnail/' . $pengumuman->thumbnail) }}" alt="" />
+                                <img class="card-img" src="{{ asset('storage/' . $pengumuman->thumbnail) }}" alt="" />
                                 <div class="card-content">
                                     <h3 class="h4 card-title">
                                         <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>

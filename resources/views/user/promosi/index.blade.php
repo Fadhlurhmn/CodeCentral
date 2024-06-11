@@ -101,7 +101,7 @@
         <div class="mb-8 md:col-6 lg:col-4">
           <div class="card">
             <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
-              <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+              <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
             </button>
             <div class="card-content">
               <div class="card-tags">
@@ -149,7 +149,7 @@
                     <div class="p-6 md:p-8 space-y-6">
                       <div class="row">
                           <div class="col-6 mb-4">
-                              <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                              <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                           </div>
                           <div class="col-6 mb-4">
                               <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>

@@ -74,7 +74,7 @@
                     <!-- Display current thumbnail -->
                     <div class="mt-3 mb-2 col-span-2">
                         <p class="block mt-2 text-xs font-bold text-gray-900 col-span-2">Thumbnail sebelumnya: </p>
-                        <img src="{{ asset('pengumuman_thumbnail/'. $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" class="img-thumbnail w-96" />
+                        <img src="{{ asset('storage/'. $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" class="img-thumbnail w-96" />
                     </div>
 
                     <!-- Submit and cancel buttons -->

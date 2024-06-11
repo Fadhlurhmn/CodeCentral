@@ -46,7 +46,7 @@
             @foreach ($promosi as $promosi)
                 <div class="rounded-lg shadow-md flex flex-col">
                     <div class="relative">
-                            <img src="{{ asset('promosi_thumbnail/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
+                            <img src="{{ asset('storage/'. $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}""
                             class="w-full h-48 rounded-md object-cover">
                         <div class="mb-2 absolute inset-0 flex items-end justify-center">
                             <form action="{{ url('admin/promosi/'.$promosi->id_promosi.'/show') }}">

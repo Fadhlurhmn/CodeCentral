@@ -119,17 +119,14 @@ class PengumumanController extends Controller
         ]);
 
         // Menyimpan file thumbnail yang diupload
-        $thumbnail = $request->file('thumbnail');
-        $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
-        $tujuan_upload = 'pengumuman_thumbnail';
-        $thumbnail->move($tujuan_upload, $nama_file);
+        $thumbnail = $request->file('thumbnail')->store('pengumuman_thumbnail', 'public');
 
         // Menyimpan data pengumuman ke database
         PengumumanModel::create([
             'id_user' => Auth::user()->id_user,
             'judul_pengumuman' => $request->judul_pengumuman,
             'deskripsi' => $request->deskripsi,
-            'thumbnail' => $nama_file,
+            'thumbnail' => $thumbnail,
             'status_pengumuman' => $request->status_pengumuman,
         ]);
 
@@ -217,16 +214,13 @@ class PengumumanController extends Controller
 
         // Jika ada file thumbnail yang diupload, simpan dan update data
         if ($request->hasFile('thumbnail')) {
-            $thumbnail = $request->file('thumbnail');
-            $nama_file = time() . "_" . $thumbnail->getClientOriginalName();
-            $tujuan_upload = 'pengumuman_thumbnail';
-            $thumbnail->move($tujuan_upload, $nama_file);
+            $thumbnail = $request->file('thumbnail')->store('pengumuman_thumbnail', 'public');
 
             $pengumuman->update([
                 'id_user' => Auth::user()->id_user,
                 'judul_pengumuman' => $request->judul_pengumuman,
                 'deskripsi' => $request->deskripsi,
-                'thumbnail' => $nama_file,
+                'thumbnail' => $thumbnail,
                 'status_pengumuman' => $request->status_pengumuman,
             ]);
         } else {
