@@ -162,14 +162,14 @@ Route::middleware(['cek_login:ADM'])->group(function () {
             Route::put('/{id}', [UserController::class, 'update']);
         });
 
-        Route::prefix('jabatan')->group(function () {
-            Route::get('/', [JabatanController::class, 'index']);
-            Route::post('/list', [JabatanController::class, 'list']);
-            Route::get('/create', [JabatanController::class, 'create']);
-            Route::post('/', [JabatanController::class, 'store']);
-            Route::get('/{id}/edit', [JabatanController::class, 'edit']);
-            Route::put('/{id}', [JabatanController::class, 'update']);
-        });
+        // Route::prefix('jabatan')->group(function () {
+        //     Route::get('/', [JabatanController::class, 'index']);
+        //     Route::post('/list', [JabatanController::class, 'list']);
+        //     Route::get('/create', [JabatanController::class, 'create']);
+        //     Route::post('/', [JabatanController::class, 'store']);
+        //     Route::get('/{id}/edit', [JabatanController::class, 'edit']);
+        //     Route::put('/{id}', [JabatanController::class, 'update']);
+        // });
 
         Route::group(['prefix' => 'pengumuman'], function () {
             Route::get('/', [PengumumanController::class, 'index']);          // menampilkan halaman awal pengumuman

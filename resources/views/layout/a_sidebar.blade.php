@@ -28,11 +28,11 @@
           Akun
       </a>
 
-      <a href="{{ url('/admin/jabatan') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
+      {{-- <a href="{{ url('/admin/jabatan') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
         {{ $activeMenu === 'jabatan' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
         <i class="fas fa-briefcase text-xs mr-2"></i>
         Jabatan
-     </a>
+     </a> --}}
 
       <a href="{{ url('/admin/bansos') }}" class="mb-1 p-2 capitalize font-medium text-sm text-gray-700 rounded-full transition ease-in-out duration-300
           {{ $activeMenu === 'bansos' ? 'bg-teal-500/60 text-teal-800 pointer-events-none' : 'hover:bg-teal-400/40 hover:text-teal-700' }}">
