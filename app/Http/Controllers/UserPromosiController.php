@@ -16,7 +16,8 @@ class UserPromosiController extends Controller
         $search = $request->get('search', '');
 
         $query = PromosiModel::query()
-            ->where('status_pengajuan', 'Terima')
+            ->where('status_pengajuan', 'Terima
+            ')
             ->where('countdown', '>', Carbon::now())
             ->inRandomOrder();
 
@@ -137,7 +138,7 @@ class UserPromosiController extends Controller
                 $message = 'Tidak ada promosi yang diajukan oleh penduduk ini';
             }
         } else {
-            $message = 'Data penduduk tidak ditemukan.';
+            $message = 'Data penduduk tidak ditemukan';
         }
 
         return redirect()->route('user.cekStatus')->with(['status_pengajuan' => $message]);
