@@ -405,9 +405,9 @@
             </div>
           </div>
 
-          <div class="row w-full justify-between">
-            <a href="{{ route('user.bansos.pengajuan') }}" class="ml-4 btn btn-outline-primary col-4">Kembali</a>
-            <button type="submit" class="btn btn-primary col-4">Submit</button>
+          <div class="flex justify-between">
+            <a href="{{ route('user.bansos.pengajuan') }}" class="text-inherit"><button type="button" class="btn btn-outline-primary block">Kembali</button></a>
+            <button type="submit" class="btn btn-primary block">Kirim</button>
           </div>
 
         </div>

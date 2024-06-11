@@ -11,7 +11,8 @@ class UserPengaduanController extends Controller
 {
     public function index()
     {
-        $data_pengurus = UserModel::where('id_level', '!=', 1)->get();
+        $data_pengurus = UserModel::join('level', 'user.id_level', '=', 'level.id_level')
+        ->where('kode_level', '!=', 'ADM')->get();
         return view('user.pengaduan.index', ['list_pengurus' => $data_pengurus]);
     }
 
@@ -52,6 +53,7 @@ class UserPengaduanController extends Controller
 
         $text = $request->isi_pengaduan;
         $tanggal = $request->tanggal_pengaduan;
+        $nama_pengirim = PendudukModel::where('id_penduduk', $request->pengirim)->value('nama');
 
         PengaduanModel::create([
             'id_penduduk' => $request->pengirim,
@@ -59,6 +61,6 @@ class UserPengaduanController extends Controller
             'deskripsi' => '('.$request->penerima_aduan.' sebagai penerima aduan) '.$text,
         ]);
 
-        return redirect('https://wa.me/'.$nomor_wa.'?text='.$text.'%0A%0A(Kejadian terjadi pada tanggal '.$tanggal.')');
+        return redirect('https://wa.me/'.$nomor_wa.'?text=Pengirim: '.$nama_pengirim.'%0A%0A(Kejadian terjadi pada tanggal '.$tanggal.')%0A%0A'.$text);
     }
 }

@@ -36,11 +36,12 @@ Route::get('/pengumuman/{id}', [UserPengumumanController::class, 'show'])->name(
 
 Route::group(['prefix' => 'promosi'], function () {
     Route::get('/', [UserPromosiController::class, 'index'])->name('user.promosi');
-    Route::get('/promosi', [UserPromosiController::class, 'create'])->name('user.promosi.create');
-    Route::post('/promosi', [UserPromosiController::class, 'store'])->name('user.promosi.store');
+    Route::get('/pengajuan', [UserPromosiController::class, 'create'])->name('user.promosi.create');
+    Route::post('/pengajuan', [UserPromosiController::class, 'store'])->name('user.promosi.store');
     Route::post('/promosiVerif', [UserPromosiController::class, 'verifyDataDiri'])->name('verifyDataDiriPromosi');
     Route::get('/filter', [UserPromosiController::class, 'index'])->name('user.promosi.filter');
-    Route::post('/promosi/cekStatus', [UserPromosiController::class, 'cekStatusPengajuan'])->name('user.cekStatusPengajuan');
+    Route::get('/cek-status', [UserPromosiController::class, 'cekStatus'])->name('user.cekStatus');
+    Route::post('/cek-status', [UserPromosiController::class, 'cekStatusPengajuan'])->name('user.cekStatusPengajuan');
 });
 
 Route::group(['prefix' => 'bansos'], function () {

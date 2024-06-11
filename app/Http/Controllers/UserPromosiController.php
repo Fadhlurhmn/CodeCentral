@@ -110,6 +110,11 @@ class UserPromosiController extends Controller
         }
     }
 
+    public function cekStatus()
+    {
+        return view('user.promosi.cek_status');
+    }
+
     public function cekStatusPengajuan(Request $request)
     {
         $request->validate([
@@ -138,6 +143,6 @@ class UserPromosiController extends Controller
             $message = 'Data penduduk tidak ditemukan.';
         }
 
-        return redirect()->route('user.promosi')->with(['status_pengajuan' => $message, 'show_modal' => true]);
+        return redirect()->route('user.cekStatus')->with(['status_pengajuan' => $message]);
     }
 }
