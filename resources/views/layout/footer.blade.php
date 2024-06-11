@@ -56,7 +56,6 @@
 {{-- Flowbite --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
-@vite('resources/plugins/swiper/swiper-bundle.js')
 <script src="../resources/plugins/shufflejs/shuffle.js"></script>
 
 @vite('resources/js/main.js')
