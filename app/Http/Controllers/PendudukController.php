@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\LevelModel;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,15 @@ class PendudukController extends Controller
         $page = (object)[
             'title' => 'Daftar penduduk '
         ];
-
+        $level = LevelModel::all();
         $activeMenu = 'penduduk';
 
-        return view('admin.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.penduduk', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'level' => $level,
+            'activeMenu' => $activeMenu
+        ]);
     }
     public function list(Request $request)
     {
@@ -57,19 +63,24 @@ class PendudukController extends Controller
                 ['name' => 'Tambah', 'url' => url('admin/penduduk/create')],
             ]
         ];
-
+        $level = LevelModel::all();
         $page = (object)[
             'title' => 'Form Tambah penduduk baru'
         ];
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.create', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu,
+            'level' => $level
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|string|digits:16',
+            'nik' => 'required|string|digits:16|unique:penduduk,nik',
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
@@ -89,13 +100,6 @@ class PendudukController extends Controller
 
         // menyimpan data foto ktp yang diupload ke variabel foto_ktp
         $foto_ktp = $request->file('foto_ktp')->store('data_ktp', 'public');
-
-        // $nama_file = time() . "_" . $request->foto_ktp->getClientOriginalName();
-
-        // isi dengan nama folder tempat kemana file diupload
-        // $path = $request->file('image')->store('foto_barang', 'public');
-        // $tujuan_upload = 'data_ktp';
-        // $foto_ktp->move($tujuan_upload, $nama_file);
 
         PendudukModel::create([
             'nik' => $request->nik,
@@ -144,11 +148,6 @@ class PendudukController extends Controller
     {
         $penduduk = PendudukModel::find($id);
 
-        // $breadcrumb = (object) [
-        //     'title' => 'Edit Penduduk',
-        //     'list' => ['Home', 'Penduduk', 'Edit']
-        // ];
-
         $breadcrumb = (object) [
             'title' => 'Edit Penduduk',
             'list' => [
@@ -162,9 +161,17 @@ class PendudukController extends Controller
             'title' => 'Ubah data penduduk'
         ];
 
+        $level = LevelModel::all();
+
         $activeMenu = 'penduduk'; // set menu yang sedang aktif
 
-        return view('admin.penduduk.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penduduk' => $penduduk, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.edit', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'penduduk' => $penduduk,
+            'level' => $level,
+            'activeMenu' => $activeMenu
+        ]);
     }
     // menyimpan perubahan data penduduk
     public function update(Request $request, string $id)
@@ -253,9 +260,15 @@ class PendudukController extends Controller
             'title' => 'Daftar penduduk '
         ];
 
+        $level = LevelModel::all();
+
         $activeMenu = 'penduduk';
 
-        return view('rw.penduduk.penduduk', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rw.penduduk.penduduk', [
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page,
+            'level' => $level, 
+            'activeMenu' => $activeMenu]);
     }
     public function list_rw(Request $request)
     {
@@ -393,7 +406,7 @@ class PendudukController extends Controller
     public function store_rt(Request $request)
     {
         $request->validate([
-            'nik' => 'required|string|digits:16',
+            'nik' => 'required|string|digits:16|unique:penduduk,nik',
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
             'alamat_ktp' => 'required|string',
@@ -414,12 +427,6 @@ class PendudukController extends Controller
         // menyimpan data foto ktp yang diupload ke variabel foto_ktp
         $foto_ktp = $request->file('foto_ktp')->store('data_ktp', 'public');
 
-        // $nama_file = time() . "_" . $request->foto_ktp->getClientOriginalName();
-
-        // isi dengan nama folder tempat kemana file diupload
-        // $path = $request->file('image')->store('foto_barang', 'public');
-        // $tujuan_upload = 'data_ktp';
-        // $foto_ktp->move($tujuan_upload, $nama_file);
 
         PendudukModel::create([
             'nik' => $request->nik,

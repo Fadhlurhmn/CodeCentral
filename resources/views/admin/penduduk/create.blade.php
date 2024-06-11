@@ -37,7 +37,7 @@
                 </h1>
                 @csrf
                 @if ($errors->any())
-                    <div class="col-span-4">
+                    <div id="errorMessage" class="col-span-4">
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                             <strong class="font-bold">Ada yang salah!</strong>
                             <ul class="list-disc list-inside">
@@ -45,6 +45,9 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                            <button id="closeButton" type="button" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
                         </div>
                     </div>
                 @endif
@@ -93,7 +96,16 @@
                 {{-- Rt & RW--}}
                 <input type="hidden" name="rw" value="1" />
                 <label for="rt" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">RT Domisili <span class="text-red-500">*</span></label>
-                <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" value="{{old('rt')}}" required />
+                <select name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
+                    <option value="" selected hidden>Pilih RT</option>
+                    @foreach ($level as $rt)
+                        @if (strpos($rt->nama_level, 'RT') !== false)
+                            <?php $rt_value = str_replace('RT ', '', $rt->nama_level); ?>
+                            <option value="{{ $rt_value }}">{{ $rt_value }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                {{-- <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Masukkan nomer Rt" value="{{old('rt')}}" required /> --}}
                 {{-- Agama --}}
                 <label for="agama" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Agama <span class="text-red-500">*</span></label>
                 <input type="text" name="agama" id="agama" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " placeholder="Agama Warga" value="{{old('agama')}}" required />
@@ -202,5 +214,9 @@
         const input = event.target;
         const fileName = input.files[0] ? input.files[0].name : '';
         document.getElementById('file-name').textContent = fileName;
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('errorMessage').style.display = 'none';
     });
 </script>

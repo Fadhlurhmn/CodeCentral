@@ -11,6 +11,12 @@
 <!-- end script -->
 @stack('js')
 <script>
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('successMessage').style.display = 'none';
+    });
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('errorMessage').style.display = 'none';
+    });
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 </script>
 </body>

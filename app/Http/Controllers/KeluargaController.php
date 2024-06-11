@@ -9,6 +9,7 @@ use App\Models\rangkuman_keluarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class KeluargaController extends Controller
 {
@@ -92,15 +93,6 @@ class KeluargaController extends Controller
         ]);
         $foto_kk = $request->file('foto_kk')->store('data_kk', 'public');
 
-        // // Menyimpan data foto KK yang diupload ke variabel foto_kk
-        // $foto_kk = $request->file('foto_kk');
-        // $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
-
-        // // Isi dengan nama folder tempat kemana file diupload
-        // $tujuan_upload = 'data_kk';
-        // $foto_kk->move($tujuan_upload, $nama_file);
-
-        // Simpan data keluarga dan ambil objek yang baru saja disimpan
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
@@ -124,10 +116,7 @@ class KeluargaController extends Controller
         $keluarga = $id; // ambil id keluarga
         // Menghapus data lama berdasarkan id_keluarga
         detail_keluarga_model::where('id_keluarga', $id)->delete();
-        // $breadcrumb = (object)[
-        //     'title' => 'Anggota Keluarga',
-        //     'list' => ['Home', 'Anggota Keluarga', 'Tambah']
-        // ];
+
         $breadcrumb = (object) [
             'title' => 'Anggota Keluarga',
             'list' => [
@@ -157,13 +146,23 @@ class KeluargaController extends Controller
     // method untuk simpan data detail anggota di keluarga
     public function storeAnggota(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_keluarga' => 'required|integer',
             'id_penduduk' => 'required|array',
             'id_penduduk.*' => 'required|exists:penduduk,id_penduduk',
             'peran_keluarga' => 'required|array',
             'peran_keluarga.*' => 'required|string',
         ]);
+
+        $validator->after(function ($validator) use ($request) {
+            if (count($request->id_penduduk) !== count(array_unique($request->id_penduduk))) {
+                $validator->errors()->add('id_penduduk', 'Each member must be unique.');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors('Tiap Warga Hanya Bisa Satu Peran')->withInput();
+        }
 
         // Menghapus data lama berdasarkan id_keluarga
         detail_keluarga_model::where('id_keluarga', $request->id_keluarga)->delete();
@@ -558,7 +557,7 @@ class KeluargaController extends Controller
     // method untuk simpan data detail anggota di keluarga
     public function storeAnggota_rt(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_keluarga' => 'required|integer',
             'id_penduduk' => 'required|array',
             'id_penduduk.*' => 'required|exists:penduduk,id_penduduk',
@@ -568,6 +567,15 @@ class KeluargaController extends Controller
 
         // Menghapus data lama berdasarkan id_keluarga
         // detail_keluarga_model::where('id_keluarga', $request->id_keluarga)->delete();
+        $validator->after(function ($validator) use ($request) {
+            if (count($request->id_penduduk) !== count(array_unique($request->id_penduduk))) {
+                $validator->errors()->add('id_penduduk', 'Each member must be unique.');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors('Tiap Warga Hanya Bisa Satu Peran')->withInput();
+        }
 
         // Loop through each submitted data to store the family members
         foreach ($request->id_penduduk as $key => $pendudukId) {

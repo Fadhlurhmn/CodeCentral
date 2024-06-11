@@ -1,15 +1,11 @@
-<div class="container h-full bg-white">
-    {{-- <h1 class="py-5 ml-5 text-3xl text-gray-900 font-bold">{{$breadcrumb->title}}</h1> --}}
-    
+<div class="container mx-auto h-full bg-white cursor-default">
+    {{-- Start Isi --}}
     <div class="p-5 text-sm font-normal rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         {{-- <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600"> {{$page->title}}</h1> --}}
         @include('layout.breadcrumb2')
         
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('rt/penduduk/create')}}">Tambah Data Warga</a>
-            {{-- <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">
-                <path fill="none" stroke="currentColor" stroke-width="2" d="M8 9l4 4 4-4"></path>
-            </svg> --}}
         </div>
         
         @if (session('success'))

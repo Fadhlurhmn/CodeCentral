@@ -71,7 +71,15 @@
                     <input type="text" name="alamat_domisili" id="alamat_domisili" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan Alamat Domisili " value="{{ $penduduk->alamat_domisili }}" required />
                     {{-- RT --}}
                     <label for="rt" class="block mb-2 text-xs font-bold text-gray-900 col-span-4">Rt</label>
-                    <input type="number" name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5" placeholder="Masukkan nomer Rt" value="{{ $penduduk->rt }}" required />
+                    <select name="rt" id="rt" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-4 p-2.5 " required>
+                        <option value="{{ $penduduk->rt }}" selected hidden>{{ $penduduk->rt }}</option>
+                        @foreach ($level as $rt)
+                            @if (strpos($rt->nama_level, 'RT') !== false)
+                                <?php $rt_value = str_replace('RT ', '', $rt->nama_level); ?>
+                                <option value="{{ $rt_value }}">{{ $rt_value }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                     {{-- RW hidden --}}
                     <input type="hidden" name="rw" value="{{ $penduduk->rw }}" required/>
                     {{-- tempat_lahir --}}
