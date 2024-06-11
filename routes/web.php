@@ -91,9 +91,6 @@ Route::post('proses_register', [AuthController::class, 'proses_register'])->name
 Route::middleware(['cek_login:ADM'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
-        Route::view('/bansos', 'admin.bansos.index');
-        Route::view('/pengumuman', 'admin.pengumuman.index');
-        Route::view('/keuangan', 'admin.keuangan.index');
         Route::get('/profil', [UserController::class, 'profil']);
         Route::post('/profil', [UserController::class, 'editProfil']);
 
@@ -262,6 +259,8 @@ Route::middleware(['cek_login:ADM'])->group(function () {
 Route::middleware(['cek_login:RW'])->group(function () {
     Route::prefix('rw')->group(function () {
         Route::get('/', [AdminController::class, 'index_rw']);
+        Route::get('/profil', [UserController::class, 'profil']);
+        Route::post('/profil', [UserController::class, 'editProfil']);
 
         Route::prefix('penduduk')->group(function () {
             Route::get('/', [PendudukController::class, 'index_rw']);
@@ -322,9 +321,8 @@ Route::middleware(['cek_login:RW'])->group(function () {
 Route::middleware(['cek_login:RT'])->group(function () {
     Route::prefix('rt')->group(function () {
         Route::get('/', [AdminController::class, 'index_rt']);
-        // Route::view('/bansos', 'rt.bansos.index');
-        Route::view('/pengumuman', 'rt.pengumuman.index');
-        Route::view('/keuangan', 'rt.keuangan.index');
+        Route::get('/profil', [UserController::class, 'profil']);
+        Route::post('/profil', [UserController::class, 'editProfil']);
 
         Route::prefix('penduduk')->group(function () {
             Route::get('/', [PendudukController::class, 'index_rt']);

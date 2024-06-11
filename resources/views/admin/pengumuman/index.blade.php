@@ -52,7 +52,7 @@
                 <div id="pengumuman-{{$pengumumans->id_pengumuman}}" class="rounded-lg shadow-md flex flex-row border-b-2 border-teal-500">
                     @if($pengumumans->thumbnail)
                         <div class="p-4">
-                            <img src="{{ asset('pengumuman_thumbnail/'. $pengumumans->thumbnail) }}" alt="{{ $pengumumans->judul_pengumuman }}" class="w-16 h-16 object-cover rounded-lg">
+                            <img src="{{ asset('storage/'. $pengumumans->thumbnail) }}" alt="{{ $pengumumans->judul_pengumuman }}" class="w-16 h-16 object-cover rounded-lg">
                         </div>
                     @endif
                     <div class="p-4 flex-1">

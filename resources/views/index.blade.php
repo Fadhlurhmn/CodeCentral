@@ -23,7 +23,7 @@
                         @foreach ($pengumumanTerkini as $pengumuman)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-img" width="235" height="304" src="{{ asset('pengumuman_thumbnail/' . $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" />
+                                    <img class="card-img" width="235" height="304" src="{{ asset('storage/' . $pengumuman->thumbnail) }}" alt="{{ $pengumuman->judul_pengumuman }}" />
                                     <div class="card-content">
                                         <h3 class="h4 card-title ease-in-out duration-300 hover:text-primary">
                                             <a href="{{ route('user.pengumuman.show', ['id' => $pengumuman->id_pengumuman]) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
@@ -76,7 +76,7 @@
                 <div class="swiper-slide">
                     <div class="card">
                         <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
-                          <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                         </button>
                         <div class="card-content">
                           <div class="card-tags">
@@ -138,7 +138,7 @@
                     <div class="p-4 md:p-6 space-y-6">
                         <div class="row">
                             <div class="col-6">
-                                <img class="card-img" width="335" height="210" src="{{ asset('promosi_thumbnail/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                                <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                             </div>
                             <div class="col-6">
                                 <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
