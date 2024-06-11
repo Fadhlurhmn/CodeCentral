@@ -86,6 +86,7 @@ class UserPromosiController extends Controller
 
         $penduduk = PendudukModel::where('nik', $nik)
             ->where('nama', $nama_penduduk)
+            ->where('status_data', 'Aktif')
             ->first();
 
         if ($penduduk) {

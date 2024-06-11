@@ -93,9 +93,10 @@
                   </div>
 
                   <div class="mb-4 text-sm">
-                      <label class="block text-gray-700 text-sm mb-2" for="berkas">Upload File word</label>
-                      <input type="file" id="berkas" name="berkas" accept=".pdf" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file..." required>
+                    <label class="block text-gray-700 text-sm mb-2" for="berkas">Upload File word</label>
+                    <input type="file" id="berkas" name="berkas" accept=".pdf" class="file:bg-teal-400 file:border-0 file:rounded-full shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Upload file...">
                   </div>
+                  
 
                   <input type="hidden" name="id_user" value="{{$id_user}}">
                   <div class="flex justify-start pt-2">
@@ -174,67 +175,75 @@
 
 <script>
   // Function to open the add surat modal
-  const openModal = () => {
-      const modal = document.getElementById('modal');
-      const modalTitle = modal.querySelector('.modal-content .modal-title');
-      modalTitle.textContent = "Tambah Surat";
-      modal.classList.remove('opacity-0');
-      modal.classList.add('opacity-100');
-      modal.classList.remove('pointer-events-none');
-      document.body.classList.add('modal-active');
-  }
+// Function to open the add surat modal
+const openModal = () => {
+    const modal = document.getElementById('modal');
+    const modalTitle = modal.querySelector('.modal-content .modal-title');
+    modalTitle.textContent = "Tambah Surat";
+    
+    // Set file input required for add action
+    document.getElementById('berkas').setAttribute('required', 'required');
+    
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+    modal.classList.remove('pointer-events-none');
+    document.body.classList.add('modal-active');
+}
 
-  // Function to open the edit surat modal
-  const openEditModal = (id) => {
-      const modal = document.getElementById('modal');
-      const form = document.getElementById('formSurat');
-      const surat = document.getElementById('suratList' + id);
+// Function to open the edit surat modal
+const openEditModal = (id) => {
+    const modal = document.getElementById('modal');
+    const form = document.getElementById('formSurat');
+    const surat = document.getElementById('suratList' + id);
 
-      // Mengubah judul modal menjadi "Edit Surat"
-      const modalTitle = modal.querySelector('.modal-content .modal-title');
-      modalTitle.textContent = "Edit Surat";
+    // Mengubah judul modal menjadi "Edit Surat"
+    const modalTitle = modal.querySelector('.modal-content .modal-title');
+    modalTitle.textContent = "Edit Surat";
 
-      document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
-      document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
+    document.getElementById('nama_surat').value = surat.querySelector('.nama_surat').innerText;
+    document.getElementById('deskripsi').value = surat.querySelector('.deskripsi').innerText;
 
-      // Set form action for editing
-      form.action = "{{url('admin/surat')}}" + '/' + id;
+    // Remove file input required for edit action
+    document.getElementById('berkas').removeAttribute('required');
 
-      modal.classList.remove('opacity-0');
-      modal.classList.add('opacity-100');
-      modal.classList.remove('pointer-events-none');
-      document.body.classList.add('modal-active');
-  }
+    // Set form action for editing
+    form.action = "{{url('admin/surat')}}" + '/' + id;
 
-  // Function to close the modal
-  const closeModal = () => {
-      const modal = document.getElementById('modal');
-      modal.classList.remove('opacity-100');
-      modal.classList.add('opacity-0');
-      modal.classList.add('pointer-events-none');
-      document.body.classList.remove('modal-active');
-  }
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+    modal.classList.remove('pointer-events-none');
+    document.body.classList.add('modal-active');
+}
 
-  // Event listener to open the add surat modal
-  document.getElementById('addSuratBtn').addEventListener('click', openModal);
+// Function to close the modal
+const closeModal = () => {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+    modal.classList.add('pointer-events-none');
+    document.body.classList.remove('modal-active');
+}
 
-  // Add event listeners to all edit buttons
-  document.querySelectorAll('.editSuratBtn').forEach(button => {
-      button.addEventListener('click', (e) => {
-          const id = e.currentTarget.getAttribute('data-id');
-          openEditModal(id);
-      });
-  });
+// Event listener to open the add surat modal
+document.getElementById('addSuratBtn').addEventListener('click', openModal);
 
-  // Event listener to close the modal when clicking on close buttons
-  document.querySelectorAll('.modal-close').forEach(el => {
-      el.addEventListener('click', closeModal);
-  });
+// Add event listeners to all edit buttons
+document.querySelectorAll('.editSuratBtn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const id = e.currentTarget.getAttribute('data-id');
+        openEditModal(id);
+    });
+});
 
-  // Event listener to close the modal when clicking outside the modal
-  document.getElementById('modal').addEventListener('click', e => {
-      if (e.target == e.currentTarget) closeModal();
-  });
+// Event listener to close the modal when clicking on close buttons
+document.querySelectorAll('.modal-close').forEach(el => {
+    el.addEventListener('click', closeModal);
+});
+
+// Event listener to close the modal when clicking outside the modal
+document.getElementById('modal').addEventListener('click', e => {
+    if (e.target == e.currentTarget) closeModal();
+});
 
   // Script Delete
   document.querySelectorAll('.delete-surat').forEach(btn => {
