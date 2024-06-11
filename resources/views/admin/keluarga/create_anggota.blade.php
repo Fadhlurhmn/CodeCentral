@@ -11,6 +11,19 @@
             <form id="form" action="{{ url('admin/keluarga/'.$keluarga.'/anggota') }}" method="POST">
                 @csrf
                 <div class="px-10 py-10 text-xs bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl">
+                    @if ($errors->any())
+                        <div id="errorMessage" class="col-span-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Oops! Ada kesalahan:</strong>
+                            <ul class="mt-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button id="closeButton" type="button" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </div>
+                    @endif
 
                     {{-- Hidden input for keluarga ID --}}
                     <input type="hidden" name="id_keluarga" value="{{ $keluarga }}">
@@ -46,16 +59,7 @@
                     </div>
                     @endif
                     @endfor
-
-                    {{-- <div id="family_members" class="col-span-full"></div>
-    
-                    <div class="flex justify-start group col-span-full mt-3">
-                        <button type="button" onclick="addFamilyMember()" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-36 sm:w-auto px-5 py-2.5 text-center mr-2">Tambah Anggota</button>
-                        <button type="button" onclick="removeFamilyMember()" class="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-36 sm:w-auto px-5 py-2.5 text-center mr-2">Kurangi Anggota</button>
-                    </div> --}}
-                    {{-- Button submit --}}
                     <div class="flex py-2 px-3 mt-5 justify-start group col-span-2">
-                        <a href="{{ url('admin/keluarga') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center mr-2">Batal</a>
                         <button type="submit" class="text-white bg-teal-700 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs w-32 sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                     </div>
                 </div>
@@ -130,4 +134,8 @@
             familyMembersDiv.removeChild(children[children.length - 1]);
         }
     }
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('errorMessage').style.display = 'none';
+    });
 </script>

@@ -38,7 +38,7 @@
                 @csrf
 
                 @if ($errors->any())
-                    <div class="col-span-4">
+                    <div id="errorMessage" class="col-span-4">
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                             <strong class="font-bold">Ada yang salah!</strong>
                             <ul class="list-disc list-inside">

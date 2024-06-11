@@ -1,6 +1,5 @@
-<div class="container h-full bg-white">
-    {{-- <h1 class="py-5 ml-5 text-3xl font-bold text-gray-900 ">{{$breadcrumb->title}}</h1> --}}
-    
+<div class="container mx-auto h-full bg-white cursor-default">
+    {{-- Start Isi --}}
     <div class="p-5 text-sm font-normal text-left rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
         @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">

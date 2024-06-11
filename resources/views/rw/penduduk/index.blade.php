@@ -1,4 +1,4 @@
-<div class="container h-full bg-white">
+<div class="container mx-auto bg-white cursor-default">
     <div class="p-5 text-sm font-normal rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500 cursor-default">
         {{-- <h1 class="pb-5 my-2 text-2xl font-extrabold text-gray-600"> {{$page->title}}</h1> --}}
         @include('layout.breadcrumb2')
@@ -8,10 +8,12 @@
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-semibold block appearance-none w-52 bg-transparent border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
-                    <option value="1">Rt. 1</option>
-                    <option value="2">Rt. 2</option>
-                    <option value="3">Rt. 3</option>
-                    <option value="4">Rt. 4</option>
+                    @foreach ($level as $rt)
+                        @if (strpos($rt->nama_level, 'RT') !== false)
+                            <?php $rt_value = str_replace('RT ', '', $rt->nama_level); ?>
+                            <option value="{{ $rt_value }}">{{ $rt_value }}</option>
+                        @endif
+                    @endforeach
                 </select>
             </div>
             <svg class="absolute pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700" width="20" height="20" viewBox="0 0 20 20">

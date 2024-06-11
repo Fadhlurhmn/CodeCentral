@@ -12,12 +12,21 @@
         <div class="w-full h-fit min-w-max p-5 ">
             
             <form id="form" action="{{ url('rt/keluarga/'.$keluarga.'/anggota') }}" method="POST">
-                {{-- <h1 class="px-5 pb-5 mb-5 font-semibold text-center text-lg rtl:text-right text-gray-900 border-b-2 col-span-full ">
-                    {{$page->title}}
-                </h1> --}}
                 @csrf
                 <div class="px-10 py-10 text-xs bg-white gap-x-20 gap-y-2 grid grid-cols-4 outline-none outline-4 outline-gray-700 rounded-xl">
-
+                    @if ($errors->any())
+                        <div id="errorMessage" class="col-span-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Oops! Ada kesalahan:</strong>
+                            <ul class="mt-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button id="closeButton" type="button" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </div>
+                    @endif
                     {{-- Hidden input for keluarga ID --}}
                     <input type="hidden" name="id_keluarga" value="{{ $keluarga }}">
                     <div class="flex justify-around col-span-full">
@@ -136,4 +145,8 @@
             familyMembersDiv.removeChild(children[children.length - 1]);
         }
     }
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('errorMessage').style.display = 'none';
+    });
 </script>
