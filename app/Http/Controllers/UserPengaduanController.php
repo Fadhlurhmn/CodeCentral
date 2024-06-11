@@ -12,7 +12,7 @@ class UserPengaduanController extends Controller
     public function index()
     {
         $data_pengurus = UserModel::join('level', 'user.id_level', '=', 'level.id_level')
-        ->where('kode_level', '!=', 'ADM')->get();
+            ->where('kode_level', '!=', 'ADM')->get();
         return view('user.pengaduan.index', ['list_pengurus' => $data_pengurus]);
     }
 
@@ -28,11 +28,12 @@ class UserPengaduanController extends Controller
 
         // mencari data penduduk di database
         $penduduk = PendudukModel::where('nik', $nik)
-        ->where('nama', $nama_penduduk)
-        ->first();
+            ->where('nama', $nama_penduduk)
+            ->where('status_data', 'Aktif')
+            ->first();
 
         // mengecek data penduduk ada atau tidak
-        if($penduduk){
+        if ($penduduk) {
             $id_penduduk = $penduduk->id_penduduk;
             return redirect()->route('user.pengaduan')->with(['success_verifikasi' => 'Data ditemukan', 'pengirim' => $id_penduduk]);
         } else {
@@ -58,9 +59,9 @@ class UserPengaduanController extends Controller
         PengaduanModel::create([
             'id_penduduk' => $request->pengirim,
             'tanggal_pengaduan' => $tanggal,
-            'deskripsi' => '('.$request->penerima_aduan.' sebagai penerima aduan) '.$text,
+            'deskripsi' => '(' . $request->penerima_aduan . ' sebagai penerima aduan) ' . $text,
         ]);
 
-        return redirect('https://wa.me/'.$nomor_wa.'?text=Pengirim: '.$nama_pengirim.'%0A%0A(Kejadian terjadi pada tanggal '.$tanggal.')%0A%0A'.$text);
+        return redirect('https://wa.me/' . $nomor_wa . '?text=Pengirim: ' . $nama_pengirim . '%0A%0A(Kejadian terjadi pada tanggal ' . $tanggal . ')%0A%0A' . $text);
     }
 }
