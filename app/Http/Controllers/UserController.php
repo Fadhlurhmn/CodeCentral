@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -108,7 +109,15 @@ class UserController extends Controller
     {
         // Validasi input dari request
         $request->validate([
-            'username' => 'required|string|min:3|unique:user,username',
+            'username' => [
+                        'required',
+                        'string',
+                        'min:3',
+                        Rule::unique('user')->where(function ($query) use ($request) {
+                            return $query->where('id_level', $request->id_level)
+                                        ->where('status_akun', 'Aktif');  // Only consider 'Aktif' accounts
+                        }),
+                    ],
             'id_penduduk' => 'required|integer|exists:penduduk,id_penduduk',
             'password' => 'required|min:5',
             'id_level' => 'required|integer|exists:level,id_level',
@@ -209,7 +218,15 @@ class UserController extends Controller
     {
         // Validasi input dari request
         $request->validate([
-            'username' => 'required|string|min:3|unique:user,username,' . $id . ',id_user',
+            'username' => [
+                        'required',
+                        'string',
+                        'min:3',
+                        Rule::unique('user')->ignore($id, 'id_user')->where(function ($query) use ($request) {
+                            return $query->where('id_level', $request->id_level)
+                                        ->where('status_akun', 'Aktif');  // Only consider 'Aktim' accounts
+                        }),
+                    ],
             'id_penduduk' => 'required|integer|unique:user,id_penduduk,' . $id . ',id_user',
             'password' => 'nullable|min:5',
             'id_level' => 'required|integer',
@@ -291,7 +308,7 @@ class UserController extends Controller
             return redirect()->back();
         }
 
-        
+
     }
 
     // Menyimpan perubahan data profil pengguna
