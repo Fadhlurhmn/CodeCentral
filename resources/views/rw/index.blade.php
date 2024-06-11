@@ -114,9 +114,9 @@
                         <!-- Tabel Pengaduan -->
                         <div class="col-span-1 mt-4">
                             <h1 class="text-2xl font-bold mb-3">Daftar Pengaduan</h1>
-                            <div class="p-1 border rounded">
+                            <div class="border rounded h-96 overflow-y-auto">
                                 <table class="min-w-full bg-white">
-                                    <thead>
+                                    <thead class="sticky top-0 bg-gray-200">
                                         <tr>
                                             <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
                                             <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
@@ -134,6 +134,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
                     </div>
 

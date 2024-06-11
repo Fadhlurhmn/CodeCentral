@@ -34,14 +34,14 @@
             <div class="col-span-1 space-y-3">
                 <h1 class="font-semibold text-xl mb-3">Data Warga</h1>
                 <!-- Cards for jumlah warga and jumlah keluarga -->
-                <div class="p-3 bg-gray-200/40 border border-gray-300 text-teal-700 rounded shadow-md flex items-center space-x-2">
+                <div class="p-3 py-2 bg-gray-200/40 border border-gray-300 text-teal-700 rounded shadow-md flex items-center space-x-2">
                     <i class="fas fa-users text-3xl mr-2"></i>
                     <div>
                         <h2 class="text-md">Jumlah Warga</h2>
                         <p class="text-lg" id="jumlahWarga">{{ $jumlah_warga }}</p>
                     </div>
                 </div>
-                <div class="p-3 bg-gray-200/40 border border-gray-300 text-teal-700 rounded shadow-md flex items-center space-x-2">
+                <div class="p-3 py-2 bg-gray-200/40 border border-gray-300 text-teal-700 rounded shadow-md flex items-center space-x-2">
                     <i class="fas fa-home text-3xl mr-2"></i>
                     <div>
                         <h2 class="text-md">Jumlah Keluarga</h2>
@@ -54,13 +54,13 @@
             <!-- Tabel Pengaduan -->
             <div class="col-span-2">
                 <h1 class="font-semibold text-xl mb-3">Daftar Pengaduan</h1>
-                <div class="p-1 border rounded">
+                <div class="border rounded h-40 overflow-y-auto">
                         <table class="min-w-full bg-white">
-                            <thead>
+                            <thead class="sticky top-0 bg-gray-200">
                                 <tr>
-                                    <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
-                                    <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
-                                    <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
+                                    <th class="py-2 px-4 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
+                                    <th class="py-2 px-4 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
+                                    <th class="py-2 px-4 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
                                 </tr>
                             </thead>
                             <tbody>
