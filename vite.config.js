@@ -9,8 +9,6 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/main.js',
                 'resources/css/main.scss',
-                'resources/plugins/swiper/swiper-bundle.css',
-                'resources/plugins/swiper/swiper-bundle.js',
             ],
             refresh: true,
         }),
