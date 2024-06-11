@@ -122,6 +122,8 @@ class KeluargaController extends Controller
     public function createAnggota($id)
     {
         $keluarga = $id; // ambil id keluarga
+        // Menghapus data lama berdasarkan id_keluarga
+        detail_keluarga_model::where('id_keluarga', $id)->delete();
         // $breadcrumb = (object)[
         //     'title' => 'Anggota Keluarga',
         //     'list' => ['Home', 'Anggota Keluarga', 'Tambah']
@@ -512,6 +514,8 @@ class KeluargaController extends Controller
     public function createAnggota_rt($id)
     {
         $keluarga = $id; // ambil id keluarga
+        // Menghapus data lama berdasarkan id_keluarga
+        detail_keluarga_model::where('id_keluarga', $id)->delete();
         $breadcrumb = (object) [
             'title' => 'Anggota Keluarga',
             'list' => [
@@ -563,7 +567,7 @@ class KeluargaController extends Controller
         ]);
 
         // Menghapus data lama berdasarkan id_keluarga
-        detail_keluarga_model::where('id_keluarga', $request->id_keluarga)->delete();
+        // detail_keluarga_model::where('id_keluarga', $request->id_keluarga)->delete();
 
         // Loop through each submitted data to store the family members
         foreach ($request->id_penduduk as $key => $pendudukId) {
