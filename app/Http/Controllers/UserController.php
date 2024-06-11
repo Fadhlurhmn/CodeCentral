@@ -260,14 +260,38 @@ class UserController extends Controller
         // Menentukan menu yang aktif
         $activeMenu = 'profil';
 
-        // Menampilkan view dengan data yang sudah disiapkan
-        return view('layout.a_edit_profil', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'user' => $user,
-            'penduduk' => $penduduk,
-            'activeMenu' => $activeMenu
-        ]);
+        if($user->level->kode_level == 'ADM'){
+            // Menampilkan view dengan data yang sudah disiapkan
+            return view('layout.a_edit_profil', [
+                'breadcrumb' => $breadcrumb,
+                'page' => $page,
+                'user' => $user,
+                'penduduk' => $penduduk,
+                'activeMenu' => $activeMenu
+            ]);
+        } elseif ($user->level->kode_level == 'RW') {
+            // Menampilkan view dengan data yang sudah disiapkan
+            return view('layout.rw_edit_profil', [
+                'breadcrumb' => $breadcrumb,
+                'page' => $page,
+                'user' => $user,
+                'penduduk' => $penduduk,
+                'activeMenu' => $activeMenu
+            ]);
+        } elseif ($user->level->kode_level == 'RT') {
+            // Menampilkan view dengan data yang sudah disiapkan
+            return view('layout.rt_edit_profil', [
+                'breadcrumb' => $breadcrumb,
+                'page' => $page,
+                'user' => $user,
+                'penduduk' => $penduduk,
+                'activeMenu' => $activeMenu
+            ]);
+        } else {
+            return redirect()->back();
+        }
+
+        
     }
 
     // Menyimpan perubahan data profil pengguna
