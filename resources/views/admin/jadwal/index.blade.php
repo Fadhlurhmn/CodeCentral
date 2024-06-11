@@ -18,7 +18,7 @@
   }
 </style>
 
-  <div class="container h-full bg-white cursor-default">
+  <div class="container mx-auto bg-white cursor-default">
     {{-- Start Isi --}}
     <div class="p-5 text-sm font-normal rtl:text-right text-gray-900 bg-white border-t-2 border-teal-500">
       @include('layout.breadcrumb2')
@@ -116,7 +116,7 @@
             <a class="p-2 font-normal text-center shadow-md hover:shadow-yellow-300 bg-teal-300 hover:bg-yellow-400 text-teal-700 hover:text-yellow-700 transition duration-300 ease-in-out rounded-lg" href="{{ url('admin/jadwal/keamanan/edit') }}">Ubah Jadwal Keamanan</a>
           </div>
 
-          <div class="h-auto p-2 mb-10">
+          <div class="h-auto p-2 mb-10 overflow-auto">
             <table id="table_keamanan" class="w-full min-w-max cursor-default border-collapse">
                 <thead class="bg-teal-400 text-center">
                     <tr>
