@@ -1,5 +1,5 @@
-// import Swiper from "./resources/plugins/swiper/swiper-bundle.js";
-// import Shuffle from "../plugins/shufflejs/shuffle";
+import Swiper from 'swiper';
+import 'swiper/css';
 
 (function () {
     "use strict";
