@@ -1,111 +1,151 @@
+<style>
+    /* For WebKit browsers (Chrome, Safari) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    
+    /* For Firefox */
+    .custom-scrollbar {
+        scrollbar-width: none;  /* Remove scrollbar space */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    
+    /* To make sure the custom-scrollbar class is applied properly */
+    .custom-scrollbar {
+        overflow-y: auto;
+    }
+</style>
 @include('layout.start')
 @include('layout.rw_navbar')
 
 <!-- start wrapper -->
-<div class="h-screen flex flex-row flex-wrap">
+<div class="h-screen w-full flex">
   @include('layout.rw_sidebar')
 
   <!-- start content -->
-  <div class="bg-white flex-1 p-6 md:mt-16">
+  <div class="flex flex-col flex-grow overflow-auto cursor-default">
+      <div class="container mx-auto p-6 bg-white border-t-2 border-teal-500 custom-scrollbar">
+          @include('layout.breadcrumb2')
+  
+          <!-- Main Content Wrapper -->
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Left Column -->
+            <div class="col-span-full">
+                <h1 class="font-semibold text-xl mb-3">Data Warga</h1>
+                <div class="grid grid-cols-4 gap-4 mb-4">
+                    <!-- Filter for RT -->
+                    <div class="bg-gray-50 border p-3 rounded shadow-md">
+                        <label for="rtFilter" class="block text-sm font-bold">Filter by RT:</label>
+                        <select id="rtFilter" class="bg-gray-50 p-2 pl-0 text-sm cursor-pointer">
+                            <option value="all">Semua RT</option>
+                            @for ($i = 1; $i <= 4; $i++)
+                                <option value="{{ $i }}">RT {{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    
+                    <!-- Cards for jumlah warga, jumlah keluarga, and jumlah bansos acc -->
+                    <div class="p-3 bg-gradient-to-tl from-teal-600 from-10% via-teal-500 to-teal-400 border border-teal-600 text-white rounded shadow-md">
+                        <h2 class="text-sm">Jumlah Warga</h2>
+                        <p class="text-md" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-tl from-teal-700 from-10% via-teal-500 to-teal-400 border border-teal-600 text-white rounded shadow-md">
+                        <h2 class="text-sm">Jumlah Keluarga</h2>
+                        <p class="text-md" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-tl from-teal-700 from-10% via-teal-500 to-teal-400 border border-teal-600 text-white rounded shadow-md">
+                        <h2 class="text-sm">Jumlah Penerima Bantuan Sosial</h2>
+                        <p class="text-md" id="jumlahBansosAcc">{{ $data['bansos_acc'] }}</p>
+                    </div>
+                </div>
 
-    <!-- Main Content Wrapper -->
-    <div class="grid grid-cols-2 gap-4">
-      <!-- Left Column -->
-      <div>
-        <!-- Filter for RT -->
-        <div class="mb-4">
-            <label for="rtFilter" class="block text-gray-700">Filter by RT:</label>
-            <select id="rtFilter" class="form-select mt-1 block w-full">
-                <option value="all">All RT</option>
-                @for ($i = 1; $i <= 4; $i++)
-                    <option value="{{ $i }}">RT {{ $i }}</option>
-                @endfor
-            </select>
-        </div>
 
-        <!-- Cards for jumlah warga, jumlah keluarga, and jumlah bansos acc -->
-        <div class="grid grid-cols-3 gap-4 mb-4">
-            <div class="p-4 bg-blue-500 text-white rounded shadow">
-                <h2 class="text-xl">Jumlah Warga</h2>
-                <p class="text-2xl" id="jumlahWarga">{{ $data['jumlah_warga'] }}</p>
             </div>
-            <div class="p-4 bg-green-500 text-white rounded shadow">
-                <h2 class="text-xl">Jumlah Keluarga</h2>
-                <p class="text-2xl" id="jumlahKeluarga">{{ $data['jumlah_keluarga'] }}</p>
-            </div>
-            <div class="p-4 bg-purple-500 text-white rounded shadow">
-                <h2 class="text-xl">Jumlah Bansos Acc</h2>
-                <p class="text-2xl" id="jumlahBansosAcc">{{ $data['bansos_acc'] }}</p>
-            </div>
-        </div>
 
-        <!-- Additional Charts -->
-        <div class="grid grid-cols-2 gap-20">
-            <div>
-                <h2>Statistik Golongan Darah Seluruh Warga</h2>
-                <canvas id="golDarahChart"></canvas>
+            <div class="col-span-full">
+                <!-- Additional Charts -->
+                <div class="grid grid-cols-4 gap-5 mb-4">
+                    <div class="p-2 bg-gray-50/60 border rounded-xl shadow-lg">
+                        <h1 class="mb-2 text-sm text-center">Statistik Golongan Darah Seluruh Warga</h1>
+                        <canvas class="w-40 mx-auto" id="golDarahChart"></canvas>
+                    </div>
+                    <div class="p-2 bg-gray-50/60 border rounded-xl shadow-lg">
+                        <h1 class="mb-2 text-sm text-center">Statistik Warga Tetap dan Sementara</h1>
+                        <canvas class="w-40 mx-auto" id="wargaTetapSementaraChart"></canvas>
+                    </div>
+                    <div class="p-2 bg-gray-50/60 border rounded-xl shadow-lg">
+                        <h1 class="mb-2 text-sm text-center">Statistik Warga Aktif dan Non-Aktif</h1>
+                        <canvas class="w-40 mx-auto" id="wargaAktifNonAktifChart"></canvas>
+                    </div>
+                    <div class="p-2 bg-gray-50/60 border rounded-xl shadow-lg">
+                        <h1 class="mb-2 text-sm text-center">Statistik Jenis Kelamin Seluruh Warga</h1>
+                        <canvas class="w-40 mx-auto" id="jenisKelaminChart"></canvas>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div>
-                <h2>Statistik Warga Tetap dan Sementara</h2>
-                <canvas id="wargaTetapSementaraChart"></canvas>
+    
+            <!-- Right Column -->
+            <div class="col-span-full">
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="col-span-1 flex flex-col justify-between">
+                        <h1 class="text-2xl font-bold mb-3">Bantuan Sosial</h1>
+                        <!-- Filter for Kategori Bansos -->
+                        <div class="mb-4 bg-gray-50/50 border w-72 p-3 rounded-lg shadow-md">
+                            <label for="kategoriBansosFilter" class="block text-gray-700">Filter by Kategori Bansos:</label>
+                            <select id="kategoriBansosFilter" class="form-select mt-1 block w-full">
+                                <option value="all">All Kategori Bansos</option>
+                                @foreach ($data['kategori_bansos'] as $kategori)
+                                    <option value="{{ $kategori }}">{{ $kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Statistik Penerima Bansos -->
+                        <div class="p-2 bg-gray-50/50 border rounded-xl shadow-md flex-grow">
+                            <h2 class="text-center">Statistik Penerima Bansos</h2>
+                            <canvas id="bansosChart" class="w-full"></canvas>
+                        </div>
+
+                    </div>
+
+                    <div class="col-span-1 flex flex-col justify-between">
+                        <!-- Tabel Pengaduan -->
+                        <div class="col-span-1 mt-4">
+                            <h1 class="text-2xl font-bold mb-3">Daftar Pengaduan</h1>
+                            <div class="p-1 border rounded">
+                                <table class="min-w-full bg-white">
+                                    <thead>
+                                        <tr>
+                                            <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
+                                            <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
+                                            <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data['pengaduan'] as $pengaduan)
+                                            <tr>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->nama }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->tanggal_pengaduan }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->deskripsi }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
             </div>
-            <div>
-                <h2>Statistik Warga Aktif dan Non-Aktif</h2>
-                <canvas id="wargaAktifNonAktifChart"></canvas>
-            </div>
-            <div>
-                <h2>Statistik Jenis Kelamin Seluruh Warga</h2>
-                <canvas id="jenisKelaminChart"></canvas>
-            </div>
-        </div>
+
+          </div>
+  
       </div>
-
-      <!-- Right Column -->
-      <div>
-        <!-- Filter for Kategori Bansos -->
-        <div class="mb-4">
-            <label for="kategoriBansosFilter" class="block text-gray-700">Filter by Kategori Bansos:</label>
-            <select id="kategoriBansosFilter" class="form-select mt-1 block w-full">
-                <option value="all">All Kategori Bansos</option>
-                @foreach ($data['kategori_bansos'] as $kategori)
-                    <option value="{{ $kategori }}">{{ $kategori }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Statistik Penerima Bansos -->
-        <div>
-            <h2>Statistik Penerima Bansos</h2>
-            <canvas id="bansosChart" style="height: 290px;"></canvas>
-        </div>
-        
-        <!-- Tabel Pengaduan -->
-        <div class="mt-4">
-            <h2>Daftar Pengaduan</h2>
-            <table class="min-w-full bg-white">
-                <thead>
-                    <tr>
-                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Nama</th>
-                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Tanggal Pengaduan</th>
-                        <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold uppercase text-sm text-left">Deskripsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data['pengaduan'] as $pengaduan)
-                        <tr>
-                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->nama }}</td>
-                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->tanggal_pengaduan }}</td>
-                            <td class="py-2 px-4 border-b border-gray-200">{{ $pengaduan->deskripsi }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-      </div>
-    </div>
-
   </div>
-  <!-- end content -->
+    <!-- end content -->
 
 </div>
 <!-- end wrapper -->
@@ -229,8 +269,8 @@
             datasets: [{
                 label: 'Jumlah Penerima',
                 data: data,
-                borderColor: '#FF6384',
-                backgroundColor: '#FF6384',
+                borderColor: '#5CC3CA',
+                backgroundColor: '#5CC3CA',
                 fill: false,
                 tension: 0.1
             }]
@@ -264,4 +304,33 @@
     updateData(); // Initial data load
 </script>
 
+{{-- Count Up --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to animate numbers
+        function animateValue(id, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                document.getElementById(id).innerText = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
 
+        // Data
+        const data = {
+            jumlahWarga: {{ $data['jumlah_warga'] }},
+            jumlahKeluarga: {{ $data['jumlah_keluarga'] }},
+            jumlahBansosAcc: {{ $data['bansos_acc'] }},
+        };
+
+        // Apply animation to each element
+        animateValue("jumlahWarga", 0, data.jumlahWarga, 1500);
+        animateValue("jumlahKeluarga", 0, data.jumlahKeluarga, 1500);
+        animateValue("jumlahBansosAcc", 0, data.jumlahBansosAcc, 1500);
+    });
+</script>
