@@ -32,7 +32,7 @@
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total Kartu Keluarga</p>
+                    <p>Jumlah Kartu Keluarga</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -54,7 +54,7 @@
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total Penduduk</p>
+                    <p>Jumlah Penduduk</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -77,7 +77,7 @@
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total RT</p>
+                    <p>Jumlah RT</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -100,20 +100,11 @@
                     <th class="p-3 text-sm font-normal">Rt</th>
                     <th class="p-3 text-sm font-normal">Status data</th>
                     <th class="p-3 text-sm font-normal">Status penduduk</th>
-                    <th class="p-3 text-sm font-normal">Aksi</th>
+                    <th class="p-3 text-sm font-normal">Detail</th>
                 </tr>
             </thead>
             <tbody class=" justify-between ">
                 <!-- Data akan dimasukkan di sini -->
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2">1</td>
-                    <td class="border border-gray-300 px-4 py-2">123456789</td>
-                    <td class="border border-gray-300 px-4 py-2">Lina</td>
-                    <td class="border border-gray-300 px-4 py-2">Jl. Remujung 12</td>
-                    <td class="border border-gray-300 px-4 py-2">01</td>
-                    <td class="border border-gray-300 px-4 py-2">Aktif</td>
-                    <td class="border border-gray-300 px-4 py-2">Tetap</td>
-                </tr>
             </tbody>
         </table>
     </div>

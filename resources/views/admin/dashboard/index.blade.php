@@ -32,7 +32,7 @@
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total Kartu Keluarga</p>
+                    <p>Jumlah Kartu Keluarga</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -47,14 +47,14 @@
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <i class="fas fa-user text-md mr-2"></i>
+                    <i class="fas fa-flag text-md mr-2"></i>
                 </div>
                 <!-- end top -->
 
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total Penduduk</p>
+                    <p>Jumlah RT</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -69,7 +69,7 @@
                 
                 <!-- top -->
                 <div class="flex flex-row justify-between items-center">
-                    <i class="fas fa-flag text-md mr-2"></i>
+                    <i class="fas fa-store text-md mr-2"></i>
         
                 </div>
                 <!-- end top -->
@@ -77,7 +77,7 @@
                 <!-- bottom -->
                 <div class="mt-8">
                     <h1 class="h5 num-4"></h1>
-                    <p>Total RT</p>
+                    <p>Jumlah UMKM</p>
                 </div>                
                 <!-- end bottom -->
     
@@ -87,59 +87,141 @@
     </div>
     </div>
 
+    <!-- Charts Admin Start -->
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 20px;
 
-  <!-- Charts -->
-  <div class="grid grid-cols-2 gap-6 xl:grid-cols-1">
-  <div class="row">
-    <div class="mt-5">
-    <div class="bg-white p-4 rounded-lg shadow-md">
-                    <h2 class="text-lg mb-2">Statistik Warga Tiap RT</h2>
-                    <div class="chart-container pie-chart-container">
-                        <canvas id="pieChart"></canvas>
-                    </div>
-                </div>
-            </div>
+        }
+        .grid-item {
+            background-color: white;
+            text-align: center;
+            padding: 25px;
+
+
+        }
+    </style>
+    <div class="grid-container">
+        <div class="grid-item ">
+            <h3>Statistik Warga Tiap RT</h3>
+            <canvas id="chart1"></canvas>
+        </div>
+        <div class="grid-item">
+            <h3>Statistik Keluarga Tiap RT</h3>
+            <canvas id="chart2"></canvas>
+        </div>
+        <div class="grid-item">
+            <h3>Statistik UMKM</h3>
+            <canvas id="chart3"></canvas>
         </div>
     </div>
 
-    <!-- Include Chart.js via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script>
+     // Register the plugin
+        Chart.register(ChartDataLabels);
+        const data1 = {
+            labels: ['1', '2', '3', '4'],
+            datasets: [{
+               data: [17, 16, 16, 18],
+               backgroundColor: ['#B5C18E', '#7ABA78', '#BACD92', '#ACE1AF'],
+               hoverOffset: 4
+           }]
+        };
 
-        // Pie Chart
-        const pieCtx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['RT 1', 'RT 2', 'RT 3', 'RT 4'],
-                datasets: [{
-                    label: 'Jumlah Warga',
-                    data: [17, 16,16,18,16],
-                    backgroundColor: [
-                        'rgba(46, 139, 87)',
-                        'rgba(27, 128, 1)',
-                        'rgba(107, 142, 35)',
-                        'rgba(60, 179, 113)',
-                        'rgba(144, 238, 144)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-        
-        
+        const data2 = {
+            labels: ['1', '2', '3', '4'],
+            datasets: [{
+                data: [160, 150, 150, 170],
+                backgroundColor: ['#81A263', '#365E32', '#A8CD9F', '#40A578'],
+                hoverOffset: 4
+            }]
+        };
+
+        const data3 = {
+            labels: ['Tolak', 'Pending', 'Acc'],
+            datasets: [{
+                data: [5, 54, 60],
+                backgroundColor: ['#40A578', '#ACE1AF', '#7ABA78'],
+                hoverOffset: 4
+            }]
+        };
+
+        const config1 = {
+           type: 'pie',
+           data: data1,
+           options: {
+               plugins: {
+                   datalabels: {
+                       formatter: (value) => {
+                           return value;
+                       },
+                       color: '#fff',
+                       font: {
+                           weight: 'bold'
+                       }
+                   }
+               }
+           }
+       };
+       const config2 = {
+           type: 'pie',
+           data: data2,
+           options: {
+               plugins: {
+                   datalabels: {
+                       formatter: (value) => {
+                           return value;
+                       },
+                       color: '#fff',
+                       font: {
+                           weight: 'bold'
+                       }
+                   }
+               }
+           }
+       };
+       const config3 = {
+           type: 'pie',
+           data: data3,
+           options: {
+               plugins: {
+                   datalabels: {
+                       formatter: (value) => {
+                           return value;
+                       },
+                       color: '#fff',
+                       font: {
+                           weight: 'bold'
+                       }
+                   }
+               }
+           }
+       };
+
+        var chart1 = new Chart(
+            document.getElementById('chart1'),
+            config1
+        );
+
+        var chart2 = new Chart(
+            document.getElementById('chart2'),
+            config2
+        );
+
+        var chart3 = new Chart(
+            document.getElementById('chart3'),
+            config3
+        );
     </script>
+   <!-- Charts Admin End -->
+
+   
+
+
 
     
     

@@ -231,7 +231,7 @@
             config3
         );
     </script>
-   <!-- Charts Penduduk End -->
+   <!-- Charts Bansoss End -->
 
 </div>
 </div>
