@@ -83,12 +83,15 @@
                 <label for="password" class="block mb-2 text-sm font-bold text-gray-900 col-span-2 lg:col-span-1">Password</label>
                 <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-2 lg:col-span-1 p-2.5" placeholder="Masukkan Password"/>
 
-                <!-- Input untuk Status Akun -->
-                <label for="status_akun" class="block mb-2 text-sm font-bold text-gray-900 col-span-2 lg:col-span-1">Status Akun<span class="text-red-500">*</span></label>
-                <select name="status_akun" id="status_akun" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-2 lg:col-span-1 p-2.5">
-                    <option value="Aktif" @if($user->status_akun == 'Aktif') selected @endif>Aktif</option>
-                    <option value="Nonaktif" @if($user->status_akun == 'Nonaktif') selected @endif>Nonaktif</option>
-                </select>
+                <!-- Hanya tampilkan input status_akun jika user yang sedang diupdate bukan admin yang sedang login -->
+                @if(Auth::id() != $user->id_user || $user->level->nama_level != 'Admin')
+                    <!-- Input untuk Status Akun -->
+                    <label for="status_akun" class="block mb-2 text-sm font-bold text-gray-900 col-span-2 lg:col-span-1">Status Akun<span class="text-red-500">*</span></label>
+                    <select name="status_akun" id="status_akun" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block col-span-2 lg:col-span-1 p-2.5">
+                        <option value="Aktif" @if($user->status_akun == 'Aktif') selected @endif>Aktif</option>
+                        <option value="Nonaktif" @if($user->status_akun == 'Nonaktif') selected @endif>Nonaktif</option>
+                    </select>
+                @endif
 
                 <!-- Tombol Batal dan Simpan -->
                 <div class="flex col-span-2 mt-4">

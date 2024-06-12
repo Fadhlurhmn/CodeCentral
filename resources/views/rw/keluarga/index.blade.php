@@ -8,10 +8,12 @@
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-semibold block appearance-none w-52 bg-transparent border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
-                    <option value="1">Rt. 1</option>
-                    <option value="2">Rt. 2</option>
-                    <option value="3">Rt. 3</option>
-                    <option value="4">Rt. 4</option>
+                    @foreach ($level as $rt)
+                        @if (strpos($rt->nama_level, 'RT') !== false)
+                            <?php $rt_value = str_replace('RT ', '', $rt->nama_level); ?>
+                            <option value="{{ $rt_value }}">{{ $rt_value }}</option>
+                        @endif
+                    @endforeach
                 </select>
             </div>
         </div>

@@ -7,7 +7,6 @@ use App\Models\UserModel;
 use App\Models\PendudukModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -74,7 +73,7 @@ class UserController extends Controller
     {
         // Mengambil semua data level dan penduduk dari database
         $level = LevelModel::all();
-        $penduduk = PendudukModel::all();
+        $penduduk = PendudukModel::where('status_data', 'Aktif')->get();
 
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
@@ -109,20 +108,23 @@ class UserController extends Controller
     {
         // Validasi input dari request
         $request->validate([
-            'username' => [
-                        'required',
-                        'string',
-                        'min:3',
-                        Rule::unique('user')->where(function ($query) use ($request) {
-                            return $query->where('id_level', $request->id_level)
-                                        ->where('status_akun', 'Aktif');  // Only consider 'Aktif' accounts
-                        }),
-                    ],
+            'username' => 'required|string|min:3|unique:user,username',
             'id_penduduk' => 'required|integer|exists:penduduk,id_penduduk',
             'password' => 'required|min:5',
             'id_level' => 'required|integer|exists:level,id_level',
             'status_akun' => 'nullable|string',
         ]);
+
+        // Cek apakah ada akun lain dengan jabatan yang sama dan status 'Aktif', kecuali untuk jabatan 'Admin'
+        $level = LevelModel::find($request->id_level);
+        if ($level->nama_level !== 'Admin') {
+            $existingUser = UserModel::where('id_level', $request->id_level)
+                                    ->where('status_akun', 'Aktif')
+                                    ->first();
+            if ($existingUser) {
+                return redirect()->back()->withErrors(['id_level' => 'Sudah ada akun dengan jabatan ini yang aktif']);
+            }
+        }
 
         // Membuat data user baru dengan data yang sudah divalidasi
         $user = UserModel::create([
@@ -182,7 +184,7 @@ class UserController extends Controller
         $user = UserModel::find($id);
         // Mengambil semua data level dan penduduk dari database
         $level = LevelModel::all();
-        $penduduk = PendudukModel::all();
+        $penduduk = PendudukModel::where('status_data', 'Aktif')->get();
 
         // Menyiapkan data breadcrumb untuk navigasi halaman
         $breadcrumb = (object) [
@@ -218,23 +220,34 @@ class UserController extends Controller
     {
         // Validasi input dari request
         $request->validate([
-            'username' => [
-                        'required',
-                        'string',
-                        'min:3',
-                        Rule::unique('user')->ignore($id, 'id_user')->where(function ($query) use ($request) {
-                            return $query->where('id_level', $request->id_level)
-                                        ->where('status_akun', 'Aktif');  // Only consider 'Aktim' accounts
-                        }),
-                    ],
+            'username' => 'required|string|min:3|unique:user,username,' . $id . ',id_user',
             'id_penduduk' => 'required|integer|unique:user,id_penduduk,' . $id . ',id_user',
             'password' => 'nullable|min:5',
-            'id_level' => 'required|integer',
+            'id_level' => 'required|integer|exists:level,id_level',
             'status_akun' => 'nullable|string',
         ]);
 
         // Mengambil data user berdasarkan ID yang diberikan
         $user = UserModel::find($id);
+
+        // Cek apakah user yang sedang diupdate adalah admin yang sedang login
+        if (Auth::id() == $id && $user->level->nama_level == 'Admin') {
+            // Mencegah perubahan status_akun jika admin mengedit akun sendiri
+            $request->merge(['status_akun' => $user->status_akun]);
+        }
+
+        // Cek apakah ada akun lain dengan jabatan yang sama dan status 'Aktif', kecuali untuk jabatan 'Admin'
+        $level = LevelModel::find($request->id_level);
+        if ($level->nama_level !== 'Admin') {
+            $existingUser = UserModel::where('id_level', $request->id_level)
+                                    ->where('status_akun', 'Aktif')
+                                    ->where('id_user', '!=', $id) // Kecualikan akun yang sedang diupdate
+                                    ->first();
+            if ($existingUser) {
+                return redirect()->back()->withErrors(['id_level' => 'Sudah ada akun dengan jabatan ini yang aktif']);
+            }
+        }
+
         $user->username = $request->username;
         $user->id_penduduk = $request->id_penduduk;
 
