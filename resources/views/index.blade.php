@@ -30,7 +30,7 @@
                                         <h3 class="h4 card-title truncate ease-in-out duration-300 hover:text-primary">
                                             <a href="{{ route('user.pengumuman.show', ['id' => $pengumuman->id_pengumuman]) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                         </h3>
-                                        <p class="truncate h-full">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
+                                        <p class="truncate h-full">{{ Str::limit(str_replace('&nbsp;', ' ', strip_tags($pengumuman->deskripsi, '<p>')), 100) }}</p>
                                         <div class="card-footer mt-6 flex space-x-4">
                                             <span class="inline-flex items-center text-xs text-[#666]">
                                                 <svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
