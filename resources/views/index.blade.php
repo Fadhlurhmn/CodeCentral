@@ -48,8 +48,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination pengumuman-carousel-pagination !bottom-0"></div>
                 </div>
@@ -80,14 +78,14 @@
                 <div class="swiper-slide">
                     <div class="card">
                         <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
-                          <img class="card-img hover:opacity-30" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <img class="card-img object-cover hover:opacity-30" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                         </button>
                         <div class="card-content">
                           <div class="card-tags">
                             <div class="tag">{{ $promosi->kategori }}</div>
                           </div>
-                          <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
-                          <p class="fixed-height mb-4">{{ Str::limit($promosi->deskripsi, 34) }}</p>
+                          <h3 class="h4 card-title truncate">{{ $promosi->nama_usaha }}</h3>
+                          <p class="fixed-height text-sm lg:text-base mb-4">{{ Str::limit($promosi->deskripsi, 34) }}</p>
                         </div>
                         <div class="card-footer mt-2">
                           <div class="mb-2">
@@ -142,7 +140,7 @@
                     <div class="p-4 md:p-6 space-y-6">
                         <div class="row">
                             <div class="col-12 lg:col-6 mb-4">
-                                <img class="card-img h-full" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                                <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                             </div>
                             <div class="col-12 lg:col-6 mb-4">
                                 <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
