@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="content text-justify">
-            {!! $pengumuman->deskripsi !!}
+            {!! str_replace('&nbsp;', '', $pengumuman->deskripsi) !!}
         </div>
       </div>
     </div>

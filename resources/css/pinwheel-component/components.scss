@@ -333,7 +333,7 @@ select:invalid {
   @apply relative h-full rounded-xl bg-white p-5 shadow-lg;
 
   &-img {
-    @apply object-cover w-full h-48;
+    @apply object-cover w-full h-28 lg:h-48;
   }
 
   &-tags {

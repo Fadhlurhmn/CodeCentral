@@ -26,7 +26,7 @@
                                 <h3 class="h4 card-title truncate">
                                     <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                 </h3>
-                                <p class="truncate">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
+                                <p class="truncate">{{ Str::limit(str_replace('&nbsp;', ' ', strip_tags($pengumuman->deskripsi, '<p>')), 100) }}</p>
                                 <div class="card-footer mt-6 flex space-x-4">
                                     <span class="inline-flex items-center text-xs text-[#666]">
                                         <i class="fas fa-calendar mr-1.5"></i>
@@ -87,7 +87,7 @@
                                     <h3 class="h4 card-title truncate">
                                         <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                     </h3>
-                                    <p class="truncate">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
+                                    <p class="truncate">{{ Str::limit(str_replace('&nbsp;', ' ', strip_tags($pengumuman->deskripsi, '<p>')), 100) }}</p>
                                     <div class="card-footer mt-6 flex space-x-4">
                                         <span class="inline-flex items-center text-xs text-[#666]">
                                             <i class="fas fa-calendar mr-1.5"></i>

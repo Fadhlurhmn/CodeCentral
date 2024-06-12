@@ -30,7 +30,7 @@
                                         <h3 class="h4 card-title truncate ease-in-out duration-300 hover:text-primary">
                                             <a href="{{ route('user.pengumuman.show', ['id' => $pengumuman->id_pengumuman]) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                         </h3>
-                                        <p class="truncate h-full">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
+                                        <p class="truncate h-full">{{ Str::limit(str_replace('&nbsp;', ' ', strip_tags($pengumuman->deskripsi, '<p>')), 100) }}</p>
                                         <div class="card-footer mt-6 flex space-x-4">
                                             <span class="inline-flex items-center text-xs text-[#666]">
                                                 <svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,8 +48,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination pengumuman-carousel-pagination !bottom-0"></div>
                 </div>
@@ -80,14 +78,14 @@
                 <div class="swiper-slide">
                     <div class="card">
                         <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
-                          <img class="card-img hover:opacity-30" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <img class="card-img object-cover hover:opacity-30" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                         </button>
                         <div class="card-content">
                           <div class="card-tags">
                             <div class="tag">{{ $promosi->kategori }}</div>
                           </div>
-                          <h3 class="h4 card-title">{{ $promosi->nama_usaha }}</h3>
-                          <p class="fixed-height mb-4">{{ Str::limit($promosi->deskripsi, 34) }}</p>
+                          <h3 class="h4 card-title truncate">{{ $promosi->nama_usaha }}</h3>
+                          <p class="fixed-height text-sm lg:text-base mb-4">{{ Str::limit($promosi->deskripsi, 34) }}</p>
                         </div>
                         <div class="card-footer mt-2">
                           <div class="mb-2">
@@ -142,7 +140,7 @@
                     <div class="p-4 md:p-6 space-y-6">
                         <div class="row">
                             <div class="col-12 lg:col-6 mb-4">
-                                <img class="card-img h-full" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                                <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                             </div>
                             <div class="col-12 lg:col-6 mb-4">
                                 <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
