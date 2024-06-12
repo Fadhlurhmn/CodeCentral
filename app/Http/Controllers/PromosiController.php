@@ -35,7 +35,8 @@ class PromosiController extends Controller
         }
 
         // Filter status pengajuan dan countdown
-        $promosiQuery->where('status_pengajuan', 'Terima');
+        $promosiQuery->where('status_pengajuan', 'Terima')
+        ->orWhere('status_pengajuan', 'Tolak');
         $promosiQuery->where('countdown', '>', now());
 
         // Ambil data promosi setelah filter

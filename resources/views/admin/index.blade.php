@@ -4,13 +4,13 @@
         width: 0px;  /* Remove scrollbar space */
         background: transparent;  /* Optional: just make scrollbar invisible */
     }
-    
+
     /* For Firefox */
     .custom-scrollbar {
         scrollbar-width: none;  /* Remove scrollbar space */
         -ms-overflow-style: none;  /* IE and Edge */
     }
-    
+
     /* To make sure the custom-scrollbar class is applied properly */
     .custom-scrollbar {
         overflow-y: auto;
@@ -68,10 +68,10 @@
                         </div>
                     </div>
                 </div>
-                
+
             <hr>
             </div>
-            
+
             <div class="col-span-full">
                 <h1 class="font-semibold text-2xl mb-3">Data Warga</h1>
                 <!-- Cards for jumlah warga, jumlah keluarga, and jumlah bansos acc -->
@@ -162,14 +162,14 @@
                                 @endforeach
                             </select>
                         </div>
-            
+
                         <!-- Statistik Penerima Bansos -->
                         <div class="p-2 bg-gray-50/50 border rounded-xl shadow-md flex-grow">
                             <h2 class="text-center">Statistik Penerima Bansos</h2>
                             <canvas id="bansosChart" class="w-full"></canvas>
                         </div>
                     </div>
-            
+
                     <div class="col-span-1 flex flex-col justify-between">
                         <h1 class="text-2xl font-bold mb-3">Pengajuan Promosi Usaha</h1>
                         <!-- Filter for Status Pengajuan -->
@@ -179,11 +179,11 @@
                             <select id="statusPengajuanFilter" class="text-sm p-2 cursor-pointer">
                                 <option value="all">Semua Status</option>
                                 <option value="Terima">Terima</option>
-                                {{-- <option value="Tolak">Tolak</option> --}}
+                                <option value="Tolak">Tolak</option>
                                 <option value="Menunggu">Menunggu</option>
                             </select>
                         </div>
-            
+
                         <!-- Statistik Pengajuan Promosi -->
                         <div class="p-2 bg-gray-50/50 border rounded-xl shadow-md flex-grow flex items-center justify-center">
                             <div class="w-full">
@@ -221,7 +221,7 @@
     const rtFilter = document.getElementById('rtFilter');
     const kategoriBansosFilter = document.getElementById('kategoriBansosFilter');
     const statusPengajuanFilter = document.getElementById('statusPengajuanFilter');
-    
+
     rtFilter.addEventListener('change', updateData);
     kategoriBansosFilter.addEventListener('change', updateData);
     statusPengajuanFilter.addEventListener('change', updateData);
@@ -230,7 +230,7 @@
     const selectedRT = rtFilter.value;
     const selectedKategori = kategoriBansosFilter.value;
     const selectedStatus = statusPengajuanFilter.value;
-    
+
     const filteredWarga = selectedRT === 'all' ? warga : warga.filter(w => w.rt == selectedRT);
     const filteredKeluarga = selectedRT === 'all' ? keluarga : keluarga.filter(k => k.rt == selectedRT);
     const filteredBansos = selectedRT === 'all' ? historiBansos : historiBansos.filter(b => b.rt == selectedRT);
