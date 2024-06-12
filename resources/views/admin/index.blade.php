@@ -179,7 +179,7 @@
                             <select id="statusPengajuanFilter" class="text-sm p-2 cursor-pointer">
                                 <option value="all">Semua Status</option>
                                 <option value="Terima">Terima</option>
-                                {{-- <option value="Tolak">Tolak</option> --}}
+                                <option value="Tolak">Tolak</option>
                                 <option value="Menunggu">Menunggu</option>
                             </select>
                         </div>
