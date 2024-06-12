@@ -45,7 +45,14 @@ import 'swiper/css';
         el: ".pengumuman-carousel-pagination",
         clickable: true,
       },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
       breakpoints: {
+        100:{
+          slidesPerView: 1.5,
+        },
         768: {
           slidesPerView: 2.5,
         },
@@ -63,6 +70,9 @@ import 'swiper/css';
         clickable: true,
       },
       breakpoints: {
+        100:{
+          slidesPerView: 1.5,
+        },
         768: {
           slidesPerView: 2.5,
         },

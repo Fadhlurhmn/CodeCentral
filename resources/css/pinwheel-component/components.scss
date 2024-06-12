@@ -333,7 +333,7 @@ select:invalid {
   @apply relative h-full rounded-xl bg-white p-5 shadow-lg;
 
   &-img {
-    @apply w-full;
+    @apply object-cover w-full h-48;
   }
 
   &-tags {
@@ -341,11 +341,11 @@ select:invalid {
   }
 
   &-content {
-    @apply pt-6;
+    @apply pt-2 lg:pt-6;
   }
 
   &-title {
-    @apply mb-4 text-[19px];
+    @apply mb-2 lg:mb-4 text-[19px];
   }
 
   &-footer {

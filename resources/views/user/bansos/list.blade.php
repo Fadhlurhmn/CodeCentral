@@ -25,10 +25,11 @@
 <!-- List Kategori Bansos -->
 <section class="section pt-0">
   <div class="container">
+    <h2 class="h4 mb-4">Jenis Bansos</h2>
     {{-- Menampilkan semua list_kategori --}}
     <div class="row mt-10 integration-tab-items">
       @forelse($list_kategori as $item)
-        <div class="mb-8 md:col-4 lg:col-3 integration-tab-item" data-groups='["social"]'>
+        <div class="mb-8 col-6 lg:col-4 integration-tab-item" data-groups='["social"]'>
             <div class="rounded-xl bg-white px-10 pt-11 pb-8 shadow-lg">
                 <div class="integration-card-head flex items-center space-x-4">
                     <div>
@@ -37,7 +38,8 @@
                         </a>
                     </div>
                 </div>
-                <p>Pengirim:<br> {{ $item->pengirim }}</p>
+                <p>Pengirim: {{ $item->pengirim }}</p>
+                <p>Bentuk Bantuan: {{ $item->bentuk_pemberian }}</p>
             </div>
         </div>
       @empty

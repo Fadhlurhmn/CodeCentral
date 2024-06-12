@@ -51,9 +51,10 @@
             </div>
               
             @foreach ($histori as $index => $penerimaanGroup)
-                <div id="table-bansos-{{ $loop->iteration }}" class="{{ $loop->first ? '' : 'hidden' }}">
-                    <h2 class="h4 mb-4 px-0 lg:px-60">Daftar Penerima Bansos {{ $index }}</h2>
-                    <div class="relative overflow-x-auto px-0 lg:px-60">
+                <div id="table-bansos-{{ $loop->iteration }}" class="{{ $loop->first ? '' : 'hidden' }} px-0 lg:px-60">
+                    <h2 class="h4 mb-2">Daftar Penerima Bansos {{ $index }}</h2>
+                    <p class="mb-4">Tanggal Pembagian Bansos: {{ $penerimaanGroup->first()->tanggal_pemberian }}</p>
+                    <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead class="text-xs text-white bg-primary uppercase">
                                 <tr>

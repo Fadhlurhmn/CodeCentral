@@ -35,294 +35,89 @@
 
 <section class="section pt-0">
   <div class="container">
-    {{-- Categories --}}
-    <div class="category-filter mb-10 mt-3 rounded-xl bg-[#EEEEEE] px-4">
-        <ul class="filter-list">
-          <li>
-            <button type="button" onclick="show('rw')" id="item-rw" class="filter-btn btn filter-btn-active btn-sm hover:filter-btn-active">RW</button>
-          </li>
-          <li>
-            <button type="button" onclick="show('rt1')" id="item-rt1" class="filter-btn btn btn-sm hover:filter-btn-active">RT 1</button>
-          </li>
-          <li>
-            <button type="button" onclick="show('rt2')" id="item-rt2" class="filter-btn btn btn-sm hover:filter-btn-active">RT 2</button>
-          </li>
-          <li>
-            <button type="button" onclick="show('rt3')" id="item-rt3" class="filter-btn btn btn-sm hover:filter-btn-active">RT 3</button>
-          </li>
-          <li>
-            <button type="button" onclick="show('rt4')" id="item-rt4" class="filter-btn btn btn-sm hover:filter-btn-active">RT 4</button>
-          </li>
-        </ul>
-      </div>
-      {{-- end Categories --}}
 
-    <div class="col-12 md:order-1">
-        <div class="section-struktur grid grid-cols-4 gap-4" id="rw">
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">KETUA RW</span>
-                            <p>Subiyanto</p>
-                        </div>
+    <div class="flex flex-col">
+        <div class="flex mb-4 justify-center">
+            <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mb-2 lg:py-4 lg:px-4">
+                <div class="text-base w-full text-center">
+                    <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
+                        <img src="{{ asset('img/rw.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                    </div>
+                    
+                    <div class="text-md text-black font-semibold truncate lg:text-xl">
+                        Ketua RW
+                    </div>
+
+                    <div class="text-base lg:text-lg">
+                        Subiyanto
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">WAKIL KETUA RW</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">SEKERTARIS RW</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">BENDAHARA RW</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div> 
         </div>
+        <div class="flex flex-wrap flex-row justify-center">
+            <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
+                <div class="text-base w-full text-center">
+                    <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
+                        <img src="{{ asset('img/rt1.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                    </div>
+                    
+                    <div class="text-md text-black font-semibold truncate lg:text-xl">
+                        Ketua RT 1
+                    </div>
 
-        {{-- RT 1 --}}
-        <div class="section-struktur hidden grid grid-cols-4 gap-4" id="rt1">
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">KETUA RT 1</span>
-                            <p>Hariyanto</p>
-                        </div>
+                    <div class="text-base lg:text-lg">
+                        Andi Abdillah
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">WAKIL KETUA RT 1</span>
-                            <p>Indarwati</p>
-                        </div>
+            </div> 
+            <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
+                <div class="text-base w-full text-center">
+                    <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
+                        <img src="{{ asset('img/rt2.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                    </div>
+                    
+                    <div class="text-md text-black font-semibold truncate lg:text-xl">
+                        Ketua RT 2
+                    </div>
+
+                    <div class="text-base lg:text-lg">
+                        Hary Suswanto
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">SEKERTARIS RT 1</span>
-                            <p>Kosong</p>
-                        </div>
+            </div> 
+            <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
+                <div class="text-base w-full text-center">
+                    <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
+                        <img src="{{ asset('img/rt3.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                    </div>
+                    
+                    <div class="text-md text-black font-semibold truncate lg:text-xl">
+                        Ketua RT 3
+                    </div>
+
+                    <div class="text-base lg:text-lg">
+                        Amelia Iradany
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">BENDAHARA RT 1</span>
-                            <p>Kosong</p>
-                        </div>
+            </div> 
+            <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
+                <div class="text-base w-full text-center">
+                    <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
+                        <img src="{{ asset('img/rt4.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                    </div>
+                    
+                    <div class="text-md text-black font-semibold truncate lg:text-xl">
+                        Ketua RT 4
+                    </div>
+
+                    <div class="text-base lg:text-lg">
+                        Hakun Elmunsyah
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
-
-        {{-- RT 2 --}}
-        <div class="section-struktur hidden grid grid-cols-4 gap-4" id="rt2">
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">KETUA RT 2</span>
-                            <p>Chandrawati</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">WAKIL KETUA RT 2</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">SEKERTARIS RT 2</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">BENDAHARA RT 1</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- RT 3 --}}
-        <div class="section-struktur hidden grid grid-cols-4 gap-4" id="rt3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">KETUA RT 3</span>
-                            <p>Bu Wahyudi</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">WAKIL KETUA RT 3</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">SEKERTARIS RT 3</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">BENDAHARA RT 3</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- RT 4 --}}
-        <div class="section-struktur hidden grid grid-cols-4 gap-4" id="rt4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">KETUA RT 4</span>
-                            <p>Amelia</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">WAKIL KETUA RT 4</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">SEKERTARIS RT 4</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center">
-                        <img src="{{ asset('img/user1.jpg') }}" class="flex-col max-h-20 max-w-20 rounded-full aspect-square mr-4" alt="Foto Pengurus">
-                        <div class="flex-col ">
-                            <span class="text-xs my-auto">BENDAHARA RT 4</span>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
   </div>
 </section>
 
-@push('js')
-    <script>
-        function show(sectionId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section-struktur');
-            const items = document.querySelectorAll('.filter-btn');
-            sections.forEach(
-                div => { div.classList.add('hidden');}
-            );
-            items.forEach(
-                button => {button.classList.remove('filter-btn-active');}
-            );
-
-            // Show the selected section
-            const selectedSection = document.getElementById(sectionId);
-            const selectedItem = document.getElementById(`item-${sectionId}`);
-            if (selectedSection) {
-                selectedSection.classList.remove('hidden');
-                selectedItem.classList.add('filter-btn-active');
-            }
-        }
-    </script>
-@endpush
 @include('layout.footer')
 

@@ -98,7 +98,7 @@
     <!-- Semua promosi -->
     <div class="row">
         @foreach ($promosis as $promosi)
-        <div class="mb-8 md:col-6 lg:col-4">
+        <div class="mb-8 col-6 lg:col-4">
           <div class="card">
             <button data-modal-target="large-modal-{{ $promosi->id_promosi }}" data-modal-toggle="large-modal-{{ $promosi->id_promosi }}" class="" type="button">
               <img class="card-img hover:opacity-30" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
@@ -148,10 +148,10 @@
                     <!-- Modal body -->
                     <div class="p-6 md:p-8 space-y-6">
                       <div class="row">
-                          <div class="col-6 mb-4">
-                              <img class="card-img" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
+                          <div class="col-12 mb-4">
+                              <img class="card-img h-full" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                           </div>
-                          <div class="col-6 mb-4">
+                          <div class="col-12 mb-4">
                               <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
                               <p class="text-gray-600 mb-3">{{ $promosi->deskripsi }}</p>
                               <p class="text-black mt-2"><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
