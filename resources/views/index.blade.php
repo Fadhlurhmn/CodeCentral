@@ -141,10 +141,10 @@
                     <!-- Modal body -->
                     <div class="p-4 md:p-6 space-y-6">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 lg:col-6 mb-4">
                                 <img class="card-img h-full" width="335" height="210" src="{{ asset('storage/' . $promosi->gambar) }}" alt="{{ $promosi->nama_usaha }}" />
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 lg:col-6 mb-4">
                                 <h3 class="mb-3">{{ $promosi->nama_usaha }}</h3>
                                 <p class="mb-3">{{ $promosi->deskripsi }}</p>
                                 <p class="text-black mb-2"><i class="fas fa-phone-alt text-md mr-2"></i> {{ $promosi->no_telp }}</p>
