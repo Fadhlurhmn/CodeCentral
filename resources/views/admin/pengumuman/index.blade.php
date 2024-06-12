@@ -15,10 +15,10 @@
 
         <div class="container p-5 bg-white text-xs flex flex-col items-start">
             <div class="flex justify-between w-full mb-4">
-                <a class="p-2 text-sm font-normal text-center shadow-md bg-teal-300 hover:bg-teal-500 text-teal-700 hover:text-gray-700 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/pengumuman/create')}}">Tambah Pengumuman</a>
+                <a class="p-2 text-xs font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/pengumuman/create')}}">Tambah Pengumuman</a>
 
                 {{-- Search form --}}
-                <form action="{{ url()->current() }}" method="GET" class="text-sm font-medium flex items-center relative">
+                <form action="{{ url()->current() }}" method="GET" class="text-xs font-medium flex items-center relative">
                     <div class="relative flex items-center w-full">
                         <input type="text" name="query" id="searchInput" value="{{ request('query') }}" placeholder="Cari pengumuman" class="search-input px-4 py-2 border border-gray-300 rounded-md w-full">
                         <span id="clearSearch" class="clear-search absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600 text-2xl">&times;</span>
