@@ -4,19 +4,18 @@
         @include('layout.breadcrumb2')
         <div class="mb-5 text-xs flex justify-between">
             <a class="p-2 mr-5 font-normal text-center shadow-md bg-teal-300 hover:bg-teal-400 text-teal-700 hover:text-teal-800 hover:shadow-teal-500 transition duration-300 ease-in-out rounded-lg" href="{{url('admin/keluarga/create')}}">Tambah Data Keluarga</a>
-            {{-- <div class="flex">
+            <div class="flex">
                 <p class="py-1 mr-2">Filter Rt : </p>
                 <select name="rt" id="rt" class="pl-2 py-1 font-semibold block appearance-none w-52 bg-transparent border-2 border-teal-400 text-gray-900 hover:shadow-md hover:shadow-teal-500 transition duration-300 ease-in-out focus:outline-teal-400 rounded-lg cursor-pointer">
                     <option value="all" selected>Semua RT</option>
-                    <option value="1">Rt. 1</option>
-                    <option value="2">Rt. 2</option>
-                    <option value="3">Rt. 3</option>
-                    <option value="4">Rt. 4</option>
-                    <option value="5">Rt. 5</option>
-                    <option value="6">Rt. 6</option>
-                    <option value="7">Rt. 7</option>
+                    @foreach ($level as $rt)
+                        @if (strpos($rt->nama_level, 'RT') !== false)
+                            <?php $rt_value = str_replace('RT ', '', $rt->nama_level); ?>
+                            <option value="{{ $rt_value }}">{{ $rt_value }}</option>
+                        @endif
+                    @endforeach
                 </select>
-            </div> --}}
+            </div>
         </div>
         @if (session('success'))
         <div id="successMessage" class="col-span-4">
@@ -35,10 +34,11 @@
                     <tr>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">No KK</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Orang Kerja</th>
-                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Tanggungan</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Kepala Keluarga</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Alamat</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">RT</th>
+                        <th class="p-3 text-sm font-normal justify-between tracking-normal">Jumlah Anggota Keluarga</th>
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Kendaraan</th>
-                        {{-- <th class="p-3 text-sm font-normal justify-between tracking-normal">Rt</th> --}}
                         <th class="p-3 text-sm font-normal justify-between tracking-normal">Aksi</th>
                     </tr>
                 </thead>
@@ -56,6 +56,9 @@
                 "url": "{{ url('admin/keluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
+                "data": function(d) {
+                    d.rt = $('#rt').val();
+                }
             },
             columns: [{
                     data: "DT_RowIndex",
@@ -70,15 +73,28 @@
                     searchable: true
                 },
                 {
-                    data: "jumlah_orang_kerja",
+                    data: "nama_kepala_keluarga",
+                    className: "text-xs border",
+                    orderable: false,
+                    searchable: true
+                },
+                {
+                    data: "alamat",
                     className: "text-xs border",
                     orderable: true,
                     searchable: false
                 },
                 {
-                    data: "jumlah_tanggungan",
+                    data: "rt",
                     className: "text-xs border",
                     orderable: true,
+                    searchable: false,
+                },
+                {
+                    data: "jumlah_anggota_dalam_KK",
+                    className: "text-xs border",
+                    orderable: true,
+                    searchable: false
                 },
                 {
                     data: "jumlah_kendaraan",
@@ -86,12 +102,6 @@
                     orderable: true,
                     searchable: false
                 },
-                // {
-                //     data: "rt",
-                //     className: "text-xs border",
-                //     orderable: true,
-                //     searchable: false
-                // },
                 {
                     data: "aksi",
                     className: "flex justify-evenly text-xs border",
@@ -108,6 +118,9 @@
         //             table.ajax.url("{{ url('admin/keluarga/list') }}?rt=" + selectedRt).load();
         //         }
         // });
+        $('#rt').on('change', function() {
+            table.ajax.reload();
+        });
     });
 
     document.getElementById('closeButton').addEventListener('click', function() {

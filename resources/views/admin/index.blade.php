@@ -295,7 +295,18 @@ function updateLineChart(chart, labels, data) {
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                backgroundColor: [
+                '#36A2EB', // Blue
+                '#FF6384', // Pink
+                '#FFCE56', // Yellow
+                '#4BC0C0', // Teal
+                '#9966FF', // Purple
+                '#FF9F40', // Orange
+                '#49A9A2', // Darker Teal
+                '#3AAFB9', // Light Blue-Teal
+                '#34D1BF', // Bright Teal
+                '#2E8B7E'  // Deep Sea Green
+                ],
                 borderColor: '#fff',
                 borderWidth: 1
             }]

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\detail_keluarga_model;
 use App\Models\KeluargaModel;
 use App\Models\PendudukModel;
+use App\Models\LevelModel;
 use App\Models\rangkuman_keluarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,20 +24,36 @@ class KeluargaController extends Controller
             ]
         ];
 
+        $level = LevelModel::all();
+
         $page = (object)[
             'title' => 'Daftar Keluarga Keluarga Penduduk yang terdaftar'
         ];
 
         $activeMenu = 'keluarga';
 
-        return view('admin.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.keluarga.keluarga', [
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page,
+            'level' => $level, 
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function list(Request $request)
     {
         $keluarga = KeluargaModel::select('id_keluarga', 'nomor_keluarga', 'jumlah_kendaraan', 'jumlah_tanggungan', 'jumlah_orang_kerja');
+        if ($request->has('rt')) {
+            $keluarga->where('rt', $request->rt);
+        }
 
-        return DataTables::of($keluarga)
+        $query = rangkuman_keluarga::query();
+
+        if ($request->has('rt') && $request->rt !== 'all') {
+            $query->where('rt', $request->rt);
+        }
+
+        return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('aksi', function ($keluarga) {
                 $btn = '<a href="' . url('admin/keluarga/' . $keluarga->id_keluarga . '/show') . '" class="btn btn-primary ml-1 flex-col "><i class="fas fa-info-circle"></i></a> ';
@@ -82,22 +99,30 @@ class KeluargaController extends Controller
     // store untuk tabel keluarga
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
-            // 'rt' => 'required|integer',
-            // 'rw' => 'required|integer',
             'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'jumlah_tanggungan' => 'required|integer',
             'jumlah_orang_kerja' => 'required|integer',
         ]);
+
+        $validator->after(function ($validator) use ($request) {
+            if (KeluargaModel::where('nomor_keluarga', $request->nomor_keluarga)->exists()) {
+                $validator->errors()->add('nomor_keluarga', 'Nomor Keluarga Tersebut Telah Ada!');
+            }
+        });
+    
+        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $foto_kk = $request->file('foto_kk')->store('data_kk', 'public');
 
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,
             'jumlah_kendaraan' => $request->jumlah_kendaraan,
-            // 'rt' => $request->rt,
-            // 'rw' => $request->rw,
             'jumlah_tanggungan' => $request->jumlah_tanggungan,
             'jumlah_orang_kerja' => $request->jumlah_orang_kerja,
             'foto_kk' => $foto_kk,
@@ -322,13 +347,20 @@ class KeluargaController extends Controller
             ]
         ];
 
+        $level = LevelModel::all();
+
         $page = (object)[
             'title' => 'Daftar Keluarga Keluarga Penduduk yang terdaftar'
         ];
 
         $activeMenu = 'keluarga';
 
-        return view('rw.keluarga.keluarga', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('rw.keluarga.keluarga', [
+            'breadcrumb' => $breadcrumb, 
+            'level' => $level,
+            'page' => $page, 
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function list_rw(Request $request)
@@ -476,7 +508,7 @@ class KeluargaController extends Controller
     // store untuk tabel keluarga
     public function store_rt(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nomor_keluarga' => 'required|integer|digits:16',
             'jumlah_kendaraan' => 'required|integer',
             'foto_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -485,14 +517,16 @@ class KeluargaController extends Controller
         ]);
         $foto_kk = $request->file('foto_kk')->store('data_kk', 'public');
 
-        // // Menyimpan data foto KK yang diupload ke variabel foto_kk
-        // $foto_kk = $request->file('foto_kk');
-        // $nama_file = time() . "_" . $foto_kk->getClientOriginalName();
-
-        // // Isi dengan nama folder tempat kemana file diupload
-        // $tujuan_upload = 'data_kk';
-        // $foto_kk->move($tujuan_upload, $nama_file);
-
+        $validator->after(function ($validator) use ($request) {
+            if (KeluargaModel::where('nomor_keluarga', $request->nomor_keluarga)->exists()) {
+                $validator->errors()->add('nomor_keluarga', 'Nomor Keluarga Tersebut Telah Ada!');
+            }
+        });
+    
+        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         // Simpan data keluarga dan ambil objek yang baru saja disimpan
         KeluargaModel::create([
             'nomor_keluarga' => $request->nomor_keluarga,

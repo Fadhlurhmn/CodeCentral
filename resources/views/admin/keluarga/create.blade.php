@@ -14,16 +14,17 @@
                 </h1>
                 @csrf
                 @if ($errors->any())
-                    <div class="col-span-4">
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                            <strong class="font-bold">Ada yang salah!</strong>
-                            <ul class="list-disc list-inside">
+                        <div id="errorMessage" class="col-span-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Oops! Ada kesalahan:</strong>
+                            <ul class="mt-1">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                            <button id="closeButton" type="button" class="absolute top-0 right-0 px-4 py-3 focus:outline-none">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
                         </div>
-                    </div>
                 @endif
                 {{-- Nomor Keluarga --}}
                 <div class="grid grid-cols-4 gap-x-20 gap-y-2 mb-5">
@@ -123,6 +124,10 @@
             const input = event.target;
             const fileName = input.files[0] ? input.files[0].name : '';
             document.getElementById('file-name').textContent = fileName;
+        });
+
+        document.getElementById('closeButton').addEventListener('click', function() {
+            document.getElementById('errorMessage').style.display = 'none';
         });
     });
 </script>
