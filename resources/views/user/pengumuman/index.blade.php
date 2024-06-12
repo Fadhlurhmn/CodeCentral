@@ -22,8 +22,8 @@
                     <div class="mb-8 col-6">
                         <div class="card">
                             <img class="card-img" src="{{ asset('storage/' . $pengumuman->thumbnail) }}" alt="" />
-                            <div class="card-content">
-                                <h3 class="h4 card-title">
+                            <div class="card-content overflow-hidden">
+                                <h3 class="h4 card-title truncate">
                                     <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                 </h3>
                                 <p class="truncate">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>
@@ -84,7 +84,7 @@
                                     <img class="card-img hover:opacity-30" src="{{ asset('storage/' . $pengumuman->thumbnail) }}" alt="" />
                                 </a>
                                 <div class="card-content">
-                                    <h3 class="h4 card-title">
+                                    <h3 class="h4 card-title truncate">
                                         <a href="{{ route('user.pengumuman.show', $pengumuman->id_pengumuman) }}" class="text-black hover:text-primary hover:ease-in-out hover:duration-300">{{ $pengumuman->judul_pengumuman }}</a>
                                     </h3>
                                     <p class="truncate">{{ Str::limit(strip_tags($pengumuman->deskripsi, '<p>'), 100) }}</p>

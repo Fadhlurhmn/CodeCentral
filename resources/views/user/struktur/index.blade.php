@@ -58,7 +58,7 @@
             <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
                 <div class="text-base w-full text-center">
                     <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
-                        <img src="{{ asset('img/rt1.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                        <img src="{{ asset('img/rt1.jpeg') }}" alt="" class="object-cover w-full h-full rounded-full">
                     </div>
                     
                     <div class="text-md text-black font-semibold truncate lg:text-xl">
@@ -103,7 +103,7 @@
             <div class="relative py-2 px-2 border-gray-200 shadow-md rounded-lg mx-5 mb-2 lg:py-4 lg:px-4">
                 <div class="text-base w-full text-center">
                     <div class="aspect-square mx-auto w-28 mb-2 border-b border-gray-200 lg:w-32">
-                        <img src="{{ asset('img/rt4.jpg') }}" alt="" class="object-cover w-full h-full rounded-full">
+                        <img src="{{ asset('img/rt4.jpeg') }}" alt="" class="object-cover w-full h-full rounded-full">
                     </div>
                     
                     <div class="text-md text-black font-semibold truncate lg:text-xl">
